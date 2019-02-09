@@ -2,6 +2,22 @@
 # -*- coding=utf-8 -*-
 
 def heapify(data, p):
+    """Build a max heap
+
+    In a max heap, the parent node is always greater than or equal to its child nodes.
+    If p denotes the index of a parent node, then 2*p + 1 denotes the left child node and
+    2*p + 2 denotes the right child node.
+
+    A node with largest value among parent and child nodes will be a new parent node, 
+    and building a max heap is repeated to a subtree of a child node swapped by previous parent node.
+
+    Args:
+        data (list): an input list
+        p (integer): a parent node index
+
+    Returns:
+        list: returns a max heap represented by one dimentional array
+    """
     left_idx = 2 * p + 1
     right_idx = 2 * p + 2
     largest = p
