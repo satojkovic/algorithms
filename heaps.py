@@ -16,7 +16,7 @@ def heapify(data, p):
         p (integer): a parent node index
 
     Returns:
-        list: returns a max heap represented by one dimentional array
+        list: returns a max heap represented as one dimensional array
     """
     left_idx = 2 * p + 1
     right_idx = 2 * p + 2
