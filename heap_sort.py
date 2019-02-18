@@ -21,7 +21,7 @@ def heap_sort(data):
         return None
 
     last_idx = len(data) - 1
-    last_pidx = last_idx // 2 if last_idx % 2 != 0 else last_idx // 2 - 1
+    last_pidx = (len(data) // 2) - 1
     for p in range(last_pidx, -1, -1):
         data = heaps.heapify(data, p, last_idx)
 
