@@ -19,7 +19,7 @@ def _binary_search(data, target, left, right):
     """binary search algorithm
 
     First, compare the target value with the element located at middle of the left and right bounds.
-    If the target value is greater than the value at middle, increate the left bound, else decrease
+    If the target value is greater than the value at middle, increase the left bound, else decrease
     the right bound.
     Repeat this process recursively until left bound is greater than right bound.
     If the target value equal the value at middle, we return the index of middle.
