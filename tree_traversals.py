@@ -10,6 +10,10 @@ class TreeNode:
 def inorder(root):
     """Inorder traversal
     
+    1. Traverse the left subtree
+    2. Visit the root node
+    3. Traverse the right subtree
+
     Args:
         root (TreeNode): root node of a tree
     """
