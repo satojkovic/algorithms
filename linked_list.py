@@ -16,3 +16,10 @@ class LinkedList:
 
     def __init__(self):
         self.head = None
+
+    def is_empty(self):
+        # check whether head is None
+        if not self.head:
+            return True
+        else:
+            return False

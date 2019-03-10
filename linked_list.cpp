@@ -17,6 +17,15 @@ class LinkedList {
         LinkedList() {
             head = nullptr;
         }
+
+        bool isEmpty() {
+            // check whether head is nullptr
+            if (head == nullptr) {
+                return true;
+            } else {
+                return false;
+            }
+        }
 };
 
 int main(int argc, char* argv[]) {
