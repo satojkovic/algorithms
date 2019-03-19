@@ -38,6 +38,16 @@ class LinkedList:
     def add(self, elem):
         self.add_last(elem)
 
+    def add_first(self, elem):
+        node = ListElement(elem)
+        if self.is_empty():
+            self.head = node
+            self.tail = node
+        else:
+            node.next_elem = self.head
+            self.head = node
+        self.size += 1
+
     def add_last(self, elem):
         # Add a node to the tail of the linked list, O(1)
         if self.is_empty():
@@ -64,4 +74,7 @@ class LinkedList:
 if __name__ == "__main__":
     l = LinkedList()
     [l.add(i) for i in range(10)]
+    l.print_list()
+    l.clear()
+    [l.add_first(i) for i in range(10)]
     l.print_list()
