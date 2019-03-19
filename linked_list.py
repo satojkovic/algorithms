@@ -27,13 +27,9 @@ class LinkedList:
             return False
 
     def clear(self):
-        # clear the linked list, O(n)
-        trav = self.head
-        while not trav:
-            next_elem = trav.next_elem
-            trav.next_elem = None
-            trav.data = None
-            trav = next_elem
+        # clear the linked list
+        self.head = None
+        self.tail = None
 
     def add(self, elem):
         self.add_last(elem)
