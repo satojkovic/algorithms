@@ -55,6 +55,18 @@ class LinkedList:
             self.tail = self.tail.next_elem
         self.size += 1
 
+    def peek_first(self):
+        # check the value of the first node if it exists, O(1)
+        if self.is_empty():
+            return None
+        return self.head.data
+
+    def peek_last(self):
+        # check the value of the last node if it exists, O(1)
+        if self.is_empty():
+            return None
+        return self.tail.data
+
     def print_list(self):
         if self.is_empty():
             print('List is empty.')
@@ -71,6 +83,10 @@ if __name__ == "__main__":
     l = LinkedList()
     [l.add(i) for i in range(10)]
     l.print_list()
+    print(l.peek_first())
+    print(l.peek_last())
     l.clear()
     [l.add_first(i) for i in range(10)]
     l.print_list()
+    print(l.peek_first())
+    print(l.peek_last())
