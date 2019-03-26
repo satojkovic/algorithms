@@ -17,6 +17,9 @@ class LinkedList {
     private:
         ListElement* head;
         ListElement* tail;
+
+        static const int ERR_EMPTY = 0;
+        static const int SUCCESS = 1;
     public:
         LinkedList() {
             head = nullptr;
@@ -56,6 +59,20 @@ class LinkedList {
             std::cout << "null " << std::endl;
             return;
         }
+
+        int peekFirst() {
+            if (isEmpty()) {
+                return ERR_EMPTY;
+            }
+            return head->data;
+        }
+
+        int peekLast() {
+            if (isEmpty()) {
+                return ERR_EMPTY;
+            }
+            return tail->data;
+        }
 };
 
 int main(int argc, char* argv[]) {
@@ -64,4 +81,6 @@ int main(int argc, char* argv[]) {
         l.insertAtTail(i);
     }
     l.printList();
+    printf("peekFirst: %d\n", l.peekFirst());
+    printf("peekLast: %d\n", l.peekLast());
 }
