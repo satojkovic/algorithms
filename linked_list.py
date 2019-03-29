@@ -9,6 +9,10 @@ class ListElement:
         self.data = data
         self.next_elem = None
 
+    def __eq__(self, other):
+        if isinstance(other, ListElement):
+            return self.data == other.data
+        return False
 
 class LinkedList:
     """Linked List
@@ -67,6 +71,33 @@ class LinkedList:
             return None
         return self.tail.data
 
+    def remove_first(self):
+        if self.is_empty():
+            return None
+        # Extract the data at the head and move the head pointer forwards one node
+        data = self.head.data
+        self.head = self.head.next_elem
+        self.size -= 1
+
+        # if the list is empty, set the tail to None
+        if self.is_empty():
+            self.tail = None
+
+        # Return the data that was at the head we just removed
+        return data
+
+    def remove_last(self):
+        if self.is_empty():
+            return None
+
+        p = self.head
+        while p.next_elem != self.tail:
+            p = p.next_elem
+        data = self.tail.data
+        p.next_elem = self.tail.next_elem
+        self.tail = p
+        return data
+
     def print_list(self):
         if self.is_empty():
             print('List is empty.')
@@ -83,10 +114,14 @@ if __name__ == "__main__":
     l = LinkedList()
     [l.add(i) for i in range(10)]
     l.print_list()
-    print(l.peek_first())
-    print(l.peek_last())
+    print('peek first:', l.peek_first())
+    print('peek last:', l.peek_last())
     l.clear()
     [l.add_first(i) for i in range(10)]
     l.print_list()
-    print(l.peek_first())
-    print(l.peek_last())
+    print('peek first:', l.peek_first())
+    print('peek last:', l.peek_last())
+    print('remove first:', l.remove_first())
+    l.print_list()
+    print('remove last:', l.remove_last())
+    l.print_list()
