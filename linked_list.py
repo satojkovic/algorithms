@@ -98,6 +98,26 @@ class LinkedList:
         self.tail = p
         return data
 
+    # Remove a particular node in the linked list, O(n)
+    def remove(self, node):
+        if self.is_empty():
+            return False
+        # if the node to remove is somewhere either at the head or the tail
+        # handle those independently
+        if node == self.head:
+            return self.remove_first()
+        if node == self.tail:
+            return self.remove_last()
+
+        # search for a target node
+        p = self.head
+        while p.next_elem != None:
+            if p.next_elem == node:
+                p.next_elem = p.next_elem.next_elem
+                return True
+            p = p.next_elem
+        return False
+
     def print_list(self):
         if self.is_empty():
             print('List is empty.')
@@ -124,4 +144,10 @@ if __name__ == "__main__":
     print('remove first:', l.remove_first())
     l.print_list()
     print('remove last:', l.remove_last())
+    l.print_list()
+    target = ListElement(4)
+    print('remove middle {}: {}'.format(target.data, l.remove(target)))
+    l.print_list()
+    target = ListElement(20)
+    print('remove middle {}: {}'.format(target.data, l.remove(target)))
     l.print_list()
