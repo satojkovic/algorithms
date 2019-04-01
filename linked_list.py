@@ -118,6 +118,16 @@ class LinkedList:
             p = p.next_elem
         return False
 
+    def search(self, node):
+        if self.is_empty():
+            return None
+        p = self.head
+        while p:
+            if p == node:
+                return True
+            p = p.next_elem
+        return False
+
     def print_list(self):
         if self.is_empty():
             print('List is empty.')
@@ -151,3 +161,11 @@ if __name__ == "__main__":
     target = ListElement(20)
     print('remove middle {}: {}'.format(target.data, l.remove(target)))
     l.print_list()
+    target = ListElement(7)
+    print('search {}: {}'.format(target.data, l.search(target)))
+    target = ListElement(8)
+    print('search {}: {}'.format(target.data, l.search(target)))
+    target = ListElement(1)
+    print('search {}: {}'.format(target.data, l.search(target)))
+    target = ListElement(10)
+    print('search {}: {}'.format(target.data, l.search(target)))
