@@ -17,6 +17,7 @@ class LinkedList {
     private:
         ListElement* head;
         ListElement* tail;
+        int size;
 
         static const int ERR_EMPTY = 0;
         static const int SUCCESS = 1;
@@ -24,6 +25,7 @@ class LinkedList {
         LinkedList() {
             head = nullptr;
             tail = nullptr;
+            size = 0;
         }
 
         bool isEmpty() {
@@ -35,6 +37,17 @@ class LinkedList {
             }
         }
 
+        void insertAtHead(int value) {
+            if (isEmpty()) {
+                head = tail = new ListElement(value);
+            } else {
+                ListElement *node = new ListElement(value);
+                node->next_elem = head;
+                head = node;
+            }
+            size++;
+        }
+
         void insertAtTail(int value) {
             if (isEmpty()) {
                 head = tail = new ListElement(value);
@@ -42,6 +55,7 @@ class LinkedList {
                 tail->next_elem = new ListElement(value);
                 tail = tail->next_elem;
             }
+            size++;
         }
 
         void printList() {
@@ -51,7 +65,7 @@ class LinkedList {
             }
 
             ListElement* temp = head;
-            std::cout << "List: ";
+            std::cout << "List(size=" << size << "): ";
             while (temp != nullptr) {
                 std::cout << temp->data << "->";
                 temp = temp->next_elem;
@@ -83,4 +97,7 @@ int main(int argc, char* argv[]) {
     l.printList();
     printf("peekFirst: %d\n", l.peekFirst());
     printf("peekLast: %d\n", l.peekLast());
+
+    l.insertAtHead(100);
+    l.printList();
 }
