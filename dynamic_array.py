@@ -32,31 +32,29 @@ class Array:
         self.arr[self.length] = elem
         self.length += 1
 
-    def remove_at(self, rm_index):
-        if rm_index >= self.length and rm_index < 0:
+    def remove(self, target):
+        if self.is_empty():
             return None
-        # return value
-        ret = self.arr[rm_index]
+        # loop through each list element, O(n)
         j = 0
-        new_arr = [0] * (self.length - 1)
+        new_arr = [0] * (self.capacity - 1)
         for i in range(self.length):
-            if i == rm_index:
-                j -= 1
-            else:
+            if self.arr[i] != target:
                 new_arr[j] = self.arr[i]
                 j += 1
         self.arr = new_arr
         self.length -= 1
-        self.capacity = self.length
-        return ret
+        self.capacity -= 1
+        return True
 
-    def remove(self, elem):
-        for i, d in enumerate(self.arr):
-            if d == elem:
-                self.remove_at(i)
-                return True
-        return False
-
+    def print_list(self):
+        if self.is_empty():
+            print('List is empty')
+            return
+        print('Real elements:', end=' ')
+        for i in range(self.length):
+            print(self.arr[i], end=' ')
+        print()
 
 if __name__ == "__main__":
     myarr = Array()
@@ -66,13 +64,16 @@ if __name__ == "__main__":
     print('add {} elements'.format(num_elems))
     [myarr.add(i) for i in range(num_elems)]
     print('(size, capacity): {} {}'.format(myarr.length, myarr.capacity))
+    myarr.print_list()
 
     target = 5
     print('remove {}'.format(target))
     myarr.remove(target)
     print('(size, capacity): {} {}'.format(myarr.length, myarr.capacity))
+    myarr.print_list()
 
     target = 3
     print('remove {}'.format(target))
     myarr.remove(target)
     print('(size, capacity): {} {}'.format(myarr.length, myarr.capacity))
+    myarr.print_list()
