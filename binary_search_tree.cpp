@@ -75,6 +75,37 @@ class BinarySearchTree {
             return node;
         }
 
+        bool addNode_i(int elem) {
+            if (contains(elem)) {
+                return false;
+            }
+
+            if (getRoot() == nullptr) {
+                root = new TreeNode(elem);
+                return true;
+            }
+
+            // Starting from the root
+            TreeNode* node = root;
+            TreeNode* parent;
+            while (node) {
+                parent = node;
+                if (elem < node->data) {
+                    node = node->left;
+                } else {
+                    node = node->right;
+                }
+            }
+            // When the current node becomes nullptr, it inserts the value to its parent.
+            if (elem < parent->data) {
+                parent->left = new TreeNode(elem);
+            } else {
+                parent->right = new TreeNode(elem);
+            }
+
+            return true;
+        }
+
         void inOrderPrint(TreeNode* node) {
             if (node != nullptr) {
                 inOrderPrint(node->left);
@@ -87,14 +118,23 @@ class BinarySearchTree {
 int main() {
     BinarySearchTree bst(3);
     std::cout << "root value : " << bst.getRoot()->data << std::endl;
-
     bst.addNode(2);
     bst.addNode(5);
     bst.addNode(-1);
     bst.addNode(0);
     bst.addNode(10);
     bst.addNode(0);
-
     bst.inOrderPrint(bst.getRoot());
+
+    BinarySearchTree bst2(3);
+    std::cout << "root value : " << bst2.getRoot()->data << std::endl;
+    bst2.addNode(2);
+    bst2.addNode(5);
+    bst2.addNode(-1);
+    bst2.addNode(0);
+    bst2.addNode(10);
+    bst2.addNode(0);
+    bst2.inOrderPrint(bst2.getRoot());
+
     return 0;
 }
