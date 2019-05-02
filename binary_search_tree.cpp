@@ -82,6 +82,7 @@ class BinarySearchTree {
 
             if (getRoot() == nullptr) {
                 root = new TreeNode(elem);
+                num_nodes++;
                 return true;
             }
 
@@ -103,6 +104,7 @@ class BinarySearchTree {
                 parent->right = new TreeNode(elem);
             }
 
+            num_nodes++;
             return true;
         }
 
