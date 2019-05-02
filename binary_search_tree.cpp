@@ -63,14 +63,14 @@ class BinarySearchTree {
         }
 
         TreeNode* addNode_r(TreeNode* node, int elem) {
+            // base case
+            // create new node and return it to the previous leaf(null) node.
             if (node == nullptr) {
                 node = new TreeNode(elem);
+            } else if (elem < node->data) {
+                node->left = addNode_r(node->left, elem);
             } else {
-                if (elem < node->data) {
-                    node->left = addNode_r(node->left, elem);
-                } else {
-                    node->right = addNode_r(node->right, elem);
-                }
+                node->right = addNode_r(node->right, elem);
             }
             return node;
         }
