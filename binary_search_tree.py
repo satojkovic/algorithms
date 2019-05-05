@@ -99,7 +99,7 @@ class BinarySearchTree:
                 # Go into the right subtree and remove the leftmost
                 # node we found and swapped data with.
                 # This prevents us from having two nodes in our tree with the same value
-                node.right = remove(node.right, tmp.data)
+                node.right = self.remove_r(node.right, tmp.data)
 
         return node
 
