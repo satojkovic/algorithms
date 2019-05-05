@@ -39,6 +39,20 @@ class BinarySearchTree:
                 node.right = self.add_r(node.right, elem)
         return node
 
+    # Return the node if the element exists in the tree
+    def search(self, elem):
+        return self.search_r(self.root, elem)
+
+    def search_r(self, node, elem):
+        if node is None:
+            return None
+        elif elem == node.data:
+            return node
+        elif elem < node.data:
+            return self.search_r(node.left, elem)
+        else:
+            return self.search_r(node.right, elem)
+
     # Returns True if the element exists in the tree
     def contains(self, elem):
         return self.contains_r(self.root, elem)
@@ -142,3 +156,15 @@ if __name__ == "__main__":
     bst.inorder_print()
     print('levelorder_print : ', end='')
     bst.levelorder_print()
+
+    target = 10
+    if bst.search(target):
+        print('Search {} -> Found'.format(target))
+    else:
+        print('Search {} -> Not found'.format(target))
+
+    target = -100
+    if bst.search(target):
+        print('Search {} -> Found'.format(target))
+    else:
+        print('Search {} -> Not found'.format(target))
