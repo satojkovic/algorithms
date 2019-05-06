@@ -33,6 +33,32 @@ class BinarySearchTree {
             return root;
         }
 
+        TreeNode* search(int elem) {
+            TreeNode* current_node = root;
+            while (current_node && current_node->data != elem) {
+                if (elem < current_node->data) {
+                    current_node = current_node->left;
+                } else {
+                    current_node = current_node->right;
+                }
+            }
+            // after the loop, we'll have either the searched value
+            // or nullptr in case the value was not found
+            return current_node;
+        }
+
+        TreeNode* search(TreeNode* node, int elem) {
+            if (node == nullptr) {
+                return nullptr;
+            } else if (node->data == elem) {
+                return node;
+            } else if (elem < node->data) {
+                return search(node->left, elem);
+            } else {
+                return search(node->right, elem);
+            }
+        }
+
         bool contains(int elem) {
             return contains_r(root, elem);
         }
@@ -137,6 +163,19 @@ int main() {
     bst2.addNode(10);
     bst2.addNode(0);
     bst2.inOrderPrint(bst2.getRoot());
+
+    int target = 10;
+    if (bst.search(target)) {
+        printf("Recursive search %d -> Found\n", target);
+    } else {
+        printf("Recursive search %d -> Not found\n", target);
+    }
+
+    if (bst.search(bst.getRoot(), target)) {
+        printf("Iterative search %d -> Found\n", target);
+    } else {
+        printf("Iterative search %d -> Not found\n", target);
+    }
 
     return 0;
 }
