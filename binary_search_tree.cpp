@@ -33,6 +33,109 @@ class BinarySearchTree {
             return root;
         }
 
+        bool remove_leaf(TreeNode* parent, TreeNode* node) {
+            // Delete the leaf node by making the leaf node's parent's left or right child is nullptr
+            if (root->data == node->data) {
+                delete root;
+                root = nullptr;
+                return true;
+            } else if (node->data < parent->data) {
+                delete parent->left;
+                parent->left = nullptr;
+                return true;
+            } else {
+                delete parent->right;
+                parent->right = nullptr;
+                return true;
+            }
+        }
+
+        bool remove_node_with_left_only(TreeNode* parent, TreeNode* node) {
+            // Delete the node by making the left child of that node the node's parent's right or left child
+            if (root->data == node->data) {
+                delete root;
+                root = node->left;
+                return true;
+            } else if (node->data < parent->data) {
+                delete parent->left;
+                parent->left = node->left;
+                return true;
+            } else {
+                delete parent->right;
+                parent->right = node->left;
+                return true;
+            }
+        }
+
+        bool remove_node_with_right_only(TreeNode* parent, TreeNode* node) {
+            // Similar to the above left only case
+            if (root->data == node->data) {
+                delete root;
+                root = node->right;
+                return true;
+            } else if (node->data < parent->data) {
+                delete parent->left;
+                parent->left = node->right;
+                return true;
+            } else {
+                delete parent->right;
+                parent->right = node->right;
+                return true;
+            }
+        }
+
+        bool remove_node_with_two_children(TreeNode* parent, TreeNode* node) {
+            // Find the smallest value node in the right subtree of the current node
+            TreeNode* least_node = findLeastNode(node);
+            int data = least_node->data;
+            // Swap the current value with the samllest value
+            bool is_deleted = remove(root, data);
+            node->data = data;
+            return is_deleted;
+        }
+
+        TreeNode* findLeastNode(TreeNode* node) {
+            TreeNode* current = node;
+            while (current->left != nullptr) {
+                current = current->left;
+            }
+            return current;
+        }
+
+        bool remove(TreeNode* node, int elem) {
+            if (root == nullptr) {
+                return false;
+            }
+
+            // Search the elem
+            TreeNode* parent;
+            while (node != nullptr && node->data != elem) {
+                parent = node;
+                if (elem < node->data) {
+                    node = node->left;
+                } else {
+                    node = node->right;
+                }
+            }
+
+            if (node == nullptr) {
+                // Return false when the elem is not found
+                return false;
+            } else if (node->left == nullptr and node->right == nullptr) {
+                // Deleting a leaf node
+                return remove_leaf(parent, node);
+            } else if (node->right == nullptr) {
+                // Deleting a node with a left child only
+                return remove_node_with_left_only(parent, node);
+            } else if (node->left == nullptr) {
+                // Deleting a node with a right child only
+                return remove_node_with_right_only(parent, node);
+            } else {
+                // Deleting a node with two children
+                return remove_node_with_two_children(parent, node);
+            }
+        }
+
         TreeNode* search(int elem) {
             TreeNode* current_node = root;
             while (current_node && current_node->data != elem) {
@@ -175,6 +278,22 @@ int main() {
         printf("Iterative search %d -> Found\n", target);
     } else {
         printf("Iterative search %d -> Not found\n", target);
+    }
+
+    int delete_target = 5;
+    if (bst.remove(bst.getRoot(), delete_target)) {
+        printf("Delete %d\n", delete_target);
+        bst.inOrderPrint(bst.getRoot());
+    } else {
+        printf("Not found %d\n", delete_target);
+    }
+
+    delete_target = -1;
+    if (bst.remove(bst.getRoot(), delete_target)) {
+        printf("Delete %d\n", delete_target);
+        bst.inOrderPrint(bst.getRoot());
+    } else {
+        printf("Not found %d\n", delete_target);
     }
 
     return 0;
