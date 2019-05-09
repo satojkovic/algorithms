@@ -255,29 +255,33 @@ class BinarySearchTree {
 };
 
 int main() {
-    BinarySearchTree bst(3);
+    BinarySearchTree bst(6);
     std::cout << "root value : " << bst.getRoot()->data << std::endl;
-    bst.addNode(2);
+    bst.addNode(4);
+    bst.addNode(9);
     bst.addNode(5);
-    bst.addNode(-1);
-    bst.addNode(0);
-    bst.addNode(10);
-    bst.addNode(0);
+    bst.addNode(2);
+    bst.addNode(8);
+    bst.addNode(12);
+    std::cout << "inorder print" << std::endl;
     bst.inOrderPrint(bst.getRoot());
+    std::cout << "preorder print" << std::endl;
     bst.preOrderPrint(bst.getRoot());
 
-    BinarySearchTree bst2(3);
+    BinarySearchTree bst2(6);
     std::cout << "root value : " << bst2.getRoot()->data << std::endl;
-    bst2.addNode(2);
+    bst2.addNode(4);
+    bst2.addNode(9);
     bst2.addNode(5);
-    bst2.addNode(-1);
-    bst2.addNode(0);
-    bst2.addNode(10);
-    bst2.addNode(0);
+    bst2.addNode(2);
+    bst2.addNode(8);
+    bst2.addNode(12);
+    std::cout << "inorder print" << std::endl;
     bst2.inOrderPrint(bst2.getRoot());
+    std::cout << "preorder print" << std::endl;
     bst2.preOrderPrint(bst2.getRoot());
 
-    int target = 10;
+    int target = 12;
     if (bst.search(target)) {
         printf("Recursive search %d -> Found\n", target);
     } else {
