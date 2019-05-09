@@ -244,6 +244,14 @@ class BinarySearchTree {
                 inOrderPrint(node->right);
             }
         }
+
+        void preOrderPrint(TreeNode* node) {
+            if (node != nullptr) {
+                std::cout << node->data << std::endl;
+                preOrderPrint(node->left);
+                preOrderPrint(node->right);
+            }
+        }
 };
 
 int main() {
@@ -256,6 +264,7 @@ int main() {
     bst.addNode(10);
     bst.addNode(0);
     bst.inOrderPrint(bst.getRoot());
+    bst.preOrderPrint(bst.getRoot());
 
     BinarySearchTree bst2(3);
     std::cout << "root value : " << bst2.getRoot()->data << std::endl;
@@ -266,6 +275,7 @@ int main() {
     bst2.addNode(10);
     bst2.addNode(0);
     bst2.inOrderPrint(bst2.getRoot());
+    bst2.preOrderPrint(bst2.getRoot());
 
     int target = 10;
     if (bst.search(target)) {
