@@ -7,6 +7,7 @@ class HashEntry {
 
     HashEntry* next;
 
+    HashEntry() {};
     HashEntry(std::string key, int value) {
         this->key = key;
         this->value = value;
@@ -14,8 +15,29 @@ class HashEntry {
     }
 };
 
+class HashTable {
+    public:
+    HashEntry* bucket;
+    int slots;
+    int size;
+
+    HashTable() {
+        bucket = new HashEntry();
+        slots = 10;
+        size = 0;
+    }
+
+    int getSize() {
+        return size;
+    }
+
+    bool isEmpty() {
+        return getSize() == 0;
+    }
+};
+
 int main() {
-    HashEntry he("TEST", 100);
-    std::cout << he.key << " => " << he.value << std::endl;
+    HashTable ht;
+    std::cout << "HashTable is initilized => " << ht.isEmpty() << std::endl;
     return 0;
 }
