@@ -34,6 +34,17 @@ class HashTable {
     bool isEmpty() {
         return getSize() == 0;
     }
+
+    int getIndex(std::string key) {
+        int Key = 0;
+        for (int i = 0; i < key.length(); i++) {
+            Key = 37 * Key + key[i];
+        }
+        if (Key < 0) {
+            Key *= -1;
+        }
+        return Key % slots;
+    }
 };
 
 int main() {
