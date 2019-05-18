@@ -69,9 +69,39 @@ class HashTable {
         }
     }
 
+    void resize() {
+        slots *= 2;
+        HashEntry** to_bucket = new HashEntry*[slots];
+        for (int i = 0; i < slots; i++) {
+            to_bucket[i] = nullptr;
+        }
+
+        for (int i = 0; i < slots/2; i++) {
+            if (bucket[i] != nullptr) {
+                HashEntry* from_elem = bucket[i];
+                while (from_elem != nullptr) {
+                    int hash_index = getIndex(from_elem->key);
+                    if (to_bucket[hash_index] == nullptr) {
+                        to_bucket[hash_index] = new HashEntry(from_elem->key, from_elem->value);
+                    } else {
+                        // Find next free space
+                        HashEntry* to_elem = to_bucket[hash_index];
+                        while (to_elem->next != nullptr) {
+                            to_elem = to_elem->next;
+                        }
+                        to_elem->next = new HashEntry(from_elem->key, from_elem->value);
+                    }
+                    // Next element in the bucket[i]
+                    from_elem = from_elem->next;
+                }
+            }
+        }
+        bucket = to_bucket;
+    }
+
     void display() {
         HashEntry* temp;
-        std::cout << "HashTable size : " << size << std::endl;
+        std::cout << "HT slots: " << slots << " , size: " << size << std::endl;
         for (int i = 0; i < slots; i++) {
             if (bucket[i] != nullptr) {
                 std::cout << "HashTable index : " << i << " ";
@@ -87,14 +117,23 @@ class HashTable {
 };
 
 int main() {
-    HashTable ht(3);
+    HashTable ht(4);
     ht.insert("London",2);
     ht.insert("London",10);
     ht.insert("New York",15);
     ht.insert("Tokyo",7);
     ht.insert("Bangkok",2);
+    ht.display();
+
+    std::cout << "Resize HT" << std::endl;
+    ht.resize();   // increase slots to 8
     ht.insert("Beijing",6);
     ht.insert("Islamabad",9);
+    ht.insert("New Delhi",17);
+    ht.insert("Moscow",12);
+    ht.insert("Amsterdam",5);
+    ht.insert("Paris",13);
     ht.display();
+
     return 0;
 }
