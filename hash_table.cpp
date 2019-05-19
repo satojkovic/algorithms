@@ -99,6 +99,30 @@ class HashTable {
         bucket = to_bucket;
     }
 
+    int search(std::string key) {
+        int hash_index = getIndex(key);
+        if (bucket[hash_index] == nullptr) {
+            std::cout << "Not found: " << key << std::endl;
+            return -1;
+        }
+
+        if (bucket[hash_index]->key == key) {
+            return bucket[hash_index]->value;
+        } else {
+            // Find the value in the list
+            HashEntry* elem = bucket[hash_index]->next;
+            while (elem != nullptr) {
+                if (elem->key == key) {
+                    return elem->value;
+                }
+                elem = elem->next;
+            }
+        }
+
+        std::cout << "Not found: " << key << std::endl;
+        return -1;
+    }
+
     void display() {
         HashEntry* temp;
         std::cout << "HT slots: " << slots << " , size: " << size << std::endl;
@@ -134,6 +158,10 @@ int main() {
     ht.insert("Amsterdam",5);
     ht.insert("Paris",13);
     ht.display();
+
+    std::cout << "London => " << ht.search("London") << std::endl;
+    std::cout << "Moscow => " << ht.search("Moscow") << std::endl;
+    std::cout << "Islamabad => " << ht.search("Islamabad") << std::endl;
 
     return 0;
 }
