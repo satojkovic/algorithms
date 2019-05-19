@@ -109,8 +109,8 @@ class HashTable {
         if (bucket[hash_index]->key == key) {
             return bucket[hash_index]->value;
         } else {
-            // Find the value in the list
-            HashEntry* elem = bucket[hash_index]->next;
+            // Find the value in the linked list
+            HashEntry* elem = bucket[hash_index];
             while (elem != nullptr) {
                 if (elem->key == key) {
                     return elem->value;
@@ -121,6 +121,43 @@ class HashTable {
 
         std::cout << "Not found: " << key << std::endl;
         return -1;
+    }
+
+    void deleteKey(std::string key) {
+        int hash_index = getIndex(key);
+        if (bucket[hash_index] == nullptr) {
+            std::cout << "Not found: " << key << std::endl;
+            return;
+        }
+
+        // Delete the key in the linked list
+        if (bucket[hash_index]->key == key) {
+            if (bucket[hash_index]->next != nullptr) {
+                bucket[hash_index] = bucket[hash_index]->next;
+            } else {
+                bucket[hash_index] = nullptr;
+            }
+            size--;
+            return;
+        } else {
+            HashEntry* prev = bucket[hash_index];
+            HashEntry* curr = bucket[hash_index];
+            while (curr != nullptr) {
+                if (curr->key == key) {
+                    if (curr->next != nullptr) {
+                        prev->next = curr->next;
+                        curr = curr->next;
+                    } else {
+                        prev->next = nullptr;
+                    }
+                    size--;
+                    return;
+                }
+                prev = curr;
+                curr = curr->next;
+            }
+            std::cout << "Not found: " << key << std::endl;
+        }
     }
 
     void display() {
@@ -162,6 +199,11 @@ int main() {
     std::cout << "London => " << ht.search("London") << std::endl;
     std::cout << "Moscow => " << ht.search("Moscow") << std::endl;
     std::cout << "Islamabad => " << ht.search("Islamabad") << std::endl;
+
+    ht.deleteKey("London");
+    ht.deleteKey("Moscow");
+    ht.deleteKey("Islamabad");
+    ht.display();
 
     return 0;
 }
