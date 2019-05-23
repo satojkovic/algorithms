@@ -65,8 +65,10 @@ class LinkedList {
             if (isEmpty()) {
                 return ERR_EMPTY;
             }
-            removed = head->data;
-            head = head->next_elem;
+            ListElement* node = head;
+            removed = node->data;
+            head = node->next_elem;
+            delete node;
             size--;
 
             if (isEmpty()) {
