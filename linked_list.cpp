@@ -77,6 +77,17 @@ class LinkedList {
             return SUCCESS;
         }
 
+        bool deleteAtHead(void) {
+            if (isEmpty()) {
+                return false;
+            }
+            ListElement* current = head;
+            head = current->next_elem;
+            delete current;
+            size--;
+            return true;
+        }
+
         int removeAtTail(int& removed) {
             if (isEmpty()) {
                 return ERR_EMPTY;
