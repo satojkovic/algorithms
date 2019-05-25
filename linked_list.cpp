@@ -117,16 +117,19 @@ class LinkedList {
                 return removeAtTail(removed);
             }
 
-            ListElement* ptr = head;
-            while (ptr->next_elem != nullptr) {
-                if (target == ptr->next_elem->data) {
-                    ListElement* tmp = ptr->next_elem;
-                    ptr->next_elem = ptr->next_elem->next_elem;
+            ListElement* trav1 = head;
+            ListElement* trav2 = head->next_elem;
+            while (trav2 != nullptr) {
+                if (trav2->data == target) {
+                    ListElement* tmp = trav2;
+                    trav2 = trav2->next_elem;
+                    trav1->next_elem = trav2;
                     delete(tmp);
                     size--;
                     return SUCCESS;
                 }
-                ptr = ptr->next_elem;
+                trav1 = trav1->next_elem;
+                trav2 = trav2->next_elem;
             }
             return ERR_NOT_FOUND;
         }
