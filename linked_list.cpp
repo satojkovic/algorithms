@@ -21,13 +21,11 @@ class LinkedList {
 
     private:
         ListElement* head;
-        ListElement* tail;
         int size;
 
     public:
         LinkedList() {
             head = nullptr;
-            tail = nullptr;
             size = 0;
         }
 
@@ -42,7 +40,7 @@ class LinkedList {
 
         void insertAtHead(int value) {
             if (isEmpty()) {
-                head = tail = new ListElement(value);
+                head = new ListElement(value);
             } else {
                 ListElement *node = new ListElement(value);
                 node->next_elem = head;
@@ -53,10 +51,13 @@ class LinkedList {
 
         void insertAtTail(int value) {
             if (isEmpty()) {
-                head = tail = new ListElement(value);
+                head = new ListElement(value);
             } else {
-                tail->next_elem = new ListElement(value);
-                tail = tail->next_elem;
+                ListElement* node = head;
+                while (node->next_elem != nullptr) {
+                    node = node->next_elem;
+                }
+                node->next_elem = new ListElement(value);
             }
             size++;
         }
@@ -70,10 +71,6 @@ class LinkedList {
             head = node->next_elem;
             delete node;
             size--;
-
-            if (isEmpty()) {
-                tail = nullptr;
-            }
             return SUCCESS;
         }
 
@@ -81,9 +78,9 @@ class LinkedList {
             if (isEmpty()) {
                 return false;
             }
-            ListElement* current = head;
-            head = current->next_elem;
-            delete current;
+            ListElement* node = head;
+            head = node->next_elem;
+            delete node;
             size--;
             return true;
         }
@@ -92,14 +89,21 @@ class LinkedList {
             if (isEmpty()) {
                 return ERR_EMPTY;
             }
-            ListElement* ptr = head;
-            while (ptr->next_elem->data != tail->data) {
-                ptr = ptr->next_elem;
+
+            ListElement* trav1 = head;
+            ListElement* trav2 = head->next_elem;
+            if (trav2 == nullptr) {
+                return removeAtHead(removed);
             }
-            removed = tail->data;
-            ptr->next_elem = tail->next_elem;
-            delete(tail);
-            tail = ptr;
+
+            while (trav2->next_elem != nullptr) {
+                trav1 = trav1->next_elem;
+                trav2 = trav2->next_elem;
+            }
+
+            removed = trav2->data;
+            trav1->next_elem = trav2->next_elem;
+            delete(trav2);
             size--;
             return SUCCESS;
         }
@@ -112,9 +116,6 @@ class LinkedList {
             int removed;
             if (target == head->data) {
                 return removeAtHead(removed);
-            }
-            if (target == tail->data) {
-                return removeAtTail(removed);
             }
 
             ListElement* trav1 = head;
@@ -146,7 +147,11 @@ class LinkedList {
             if (isEmpty()) {
                 return ERR_EMPTY;
             }
-            value = tail->data;
+            ListElement* node = head;
+            while (node->next_elem != nullptr) {
+                node = node->next_elem;
+            }
+            value = node->data;
             return SUCCESS;
         }
 
