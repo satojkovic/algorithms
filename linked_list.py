@@ -46,7 +46,7 @@ class LinkedList:
         self.size += 1
 
     def add_last(self, elem):
-        # Add a node to the tail of the linked list, O(1)
+        # Add a node to the tail of the linked list, O(n)
         if self.is_empty():
             node = ListElement(elem)
             self.head = node
