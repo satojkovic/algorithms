@@ -20,7 +20,6 @@ class LinkedList:
 
     def __init__(self):
         self.head = None
-        self.tail = None
         self.size = 0
 
     def is_empty(self):
@@ -33,7 +32,6 @@ class LinkedList:
     def clear(self):
         # clear the linked list
         self.head = None
-        self.tail = None
 
     def add(self, elem):
         self.add_last(elem)
@@ -42,7 +40,6 @@ class LinkedList:
         node = ListElement(elem)
         if self.is_empty():
             self.head = node
-            self.tail = node
         else:
             node.next_elem = self.head
             self.head = node
@@ -53,10 +50,11 @@ class LinkedList:
         if self.is_empty():
             node = ListElement(elem)
             self.head = node
-            self.tail = node
         else:
-            self.tail.next_elem = ListElement(elem)
-            self.tail = self.tail.next_elem
+            node = self.head
+            while node.next_elem:
+                node = node.next_elem
+            node.next_elem = ListElement(elem)
         self.size += 1
 
     def peek_first(self):
@@ -66,10 +64,12 @@ class LinkedList:
         return self.head.data
 
     def peek_last(self):
-        # check the value of the last node if it exists, O(1)
         if self.is_empty():
             return None
-        return self.tail.data
+        node = self.head
+        while node.next_elem:
+            node = node.next_elem
+        return node.data
 
     def remove_first(self):
         if self.is_empty():
@@ -79,10 +79,6 @@ class LinkedList:
         self.head = self.head.next_elem
         self.size -= 1
 
-        # if the list is empty, set the tail to None
-        if self.is_empty():
-            self.tail = None
-
         # Return the data that was at the head we just removed
         return data
 
@@ -90,12 +86,18 @@ class LinkedList:
         if self.is_empty():
             return None
 
-        p = self.head
-        while p.next_elem != self.tail:
-            p = p.next_elem
-        data = self.tail.data
-        p.next_elem = self.tail.next_elem
-        self.tail = p
+        trav1 = self.head
+        trav2 = self.head.next_elem
+        if not trav2:
+            return self.remove_first()
+
+        while trav2.next_elem:
+            trav1 = trav1.next_elem
+            trav2 = trav2.next_elem
+        data = trav2.data
+        trav1.next_elem = trav2.next_elem
+        self.size -= 1
+
         return data
 
     # Remove a particular node in the linked list, O(n)
@@ -106,16 +108,17 @@ class LinkedList:
         # handle those independently
         if node == self.head:
             return self.remove_first()
-        if node == self.tail:
-            return self.remove_last()
 
         # search for a target node
-        p = self.head
-        while p.next_elem != None:
-            if p.next_elem == node:
-                p.next_elem = p.next_elem.next_elem
+        trav1 = self.head
+        trav2 = self.head.next_elem
+        while trav2:
+            if trav2 == node:
+                trav1.next_elem = trav2.next_elem
+                self.size -= 1
                 return True
-            p = p.next_elem
+            trav1 = trav1.next_elem
+            trav2 = trav2.next_elem
         return False
 
     def search(self, node):
