@@ -48,6 +48,19 @@ class DoublyLinkedList {
             size++;
         }
 
+        void insertAtHead(int value) {
+            if (isEmpty()) {
+                head = new DoublyListElement(value);
+            } else {
+                DoublyListElement* node = new DoublyListElement(value);
+                node->prevElement = nullptr;
+                node->nextElement = head;
+                head->prevElement = node;
+                head = node;
+            }
+            size++;
+        }
+
         void printList() {
             if (isEmpty()) {
                 std::cout << "List is empty." << std::endl;
@@ -78,5 +91,10 @@ int main() {
     for (int i = 0; i < 10; i++) {
         dl.insertAtTail(i);
     }
+    dl.printList();
+
+    int insert_value = 100;
+    printf("insertAtHead: %d\n", insert_value);
+    dl.insertAtHead(insert_value);
     dl.printList();
 }
