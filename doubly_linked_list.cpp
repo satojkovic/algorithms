@@ -8,6 +8,7 @@ class DoublyListElement {
         DoublyListElement() {
             nextElement = nullptr;
             prevElement = nullptr;
+            data = 0;
         }
         DoublyListElement(int value) {
             nextElement = nullptr;
@@ -30,16 +31,19 @@ class DoublyLinkedList {
             return head == nullptr;
         }
 
-        // Same implementation of LinkedList class(Singly)
+        // O(n)
         void insertAtTail(int value) {
             if (isEmpty()) {
                 head = new DoublyListElement(value);
             } else {
-                DoublyListElement* node = head;
-                while (node->nextElement != nullptr) {
-                    node = node->nextElement;
+                DoublyListElement* trav = head;
+                while (trav->nextElement != nullptr) {
+                    trav = trav->nextElement;
                 }
-                node->nextElement = new DoublyListElement(value);
+                DoublyListElement* node = new DoublyListElement(value);
+                node->nextElement = trav->nextElement;
+                node->prevElement = trav;
+                trav->nextElement = node;
             }
             size++;
         }
@@ -49,14 +53,22 @@ class DoublyLinkedList {
                 std::cout << "List is empty." << std::endl;
                 return;
             }
-            
+
             DoublyListElement* node = head;
-            std::cout << "List(size=" << size << "): ";
-            while (node != nullptr) {
+            std::cout << "List(size=" << size << ")" << std::endl;
+            std::cout << "  fwd: ";
+            while (node->nextElement != nullptr) {
                 std::cout << node->data << "->";
                 node = node->nextElement;
             }
-            std::cout << "null" << std::endl;
+            std::cout << node->data << "->null" << std::endl;
+
+            std::cout << "  bwd: null->";
+            while (node->prevElement != nullptr) {
+                std::cout << node->data << "->";
+                node = node->prevElement;
+            }
+            std::cout << node->data << std::endl;
             return;
         }
 };
