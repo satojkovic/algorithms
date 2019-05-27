@@ -20,6 +20,8 @@ class DoublyListElement {
 class DoublyLinkedList {
     private:
         DoublyListElement* head;
+        // Having a tail pointer, insertAtTail and delteAtTail are just as fast as insertAtHead and deleteAtHead.
+        //DoublyListElement* tail;
         int size;
     public:
         DoublyLinkedList() {
