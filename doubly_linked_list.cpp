@@ -61,6 +61,55 @@ class DoublyLinkedList {
             size++;
         }
 
+        bool deleteAtHead() {
+            if (isEmpty()) {
+                return false;
+            }
+            head = head->nextElement;
+            head->prevElement = nullptr;
+            size--;
+            return true;
+        }
+
+        bool deleteAtTail() {
+            if (isEmpty()) {
+                return false;
+            }
+            DoublyListElement* node = head;
+            while (node->nextElement != nullptr) {
+                node = node->nextElement;
+            }
+            node->prevElement->nextElement = nullptr;
+            delete node;
+            size--;
+            return true;
+        }
+
+        bool deleteNode(int value) {
+            if (isEmpty()) {
+                return false;
+            }
+
+            if (head->data == value) {
+                return deleteAtHead();
+            }
+
+            DoublyListElement* node = head;
+            while (node != nullptr) {
+                if (node->data == value) {
+                    node->prevElement->nextElement = node->nextElement;
+                    if (node->nextElement != nullptr) {
+                        node->nextElement->prevElement = node->prevElement;
+                    }
+                    size--;
+                    delete node;
+                    return true;
+                }
+                node = node->nextElement;
+            }
+            return false;
+        }
+
         void printList() {
             if (isEmpty()) {
                 std::cout << "List is empty." << std::endl;
@@ -97,4 +146,42 @@ int main() {
     printf("insertAtHead: %d\n", insert_value);
     dl.insertAtHead(insert_value);
     dl.printList();
+
+    if (dl.deleteAtHead()) {
+        printf("deleteAtHead\n");
+        dl.printList();
+    } else {
+        printf("List is empty");
+    }
+
+    if (dl.deleteAtTail()) {
+        printf("deleteAtTail\n");
+        dl.printList();
+    } else {
+        printf("List is empty");
+    }
+
+    int target = 5;
+    if (dl.deleteNode(target)) {
+        printf("deleteNode: %d\n", target);
+        dl.printList();
+    } else {
+        printf("Not found: %d\n", target);
+    }
+
+    target = 8;
+    if (dl.deleteNode(target)) {
+        printf("deleteNode: %d\n", target);
+        dl.printList();
+    } else {
+        printf("Not found: %d\n", target);
+    }
+
+    target = 100;
+    if (dl.deleteNode(target)) {
+        printf("deleteNode: %d\n", target);
+        dl.printList();
+    } else {
+        printf("deleteNode: target %d not found\n", target);
+    }
 }
