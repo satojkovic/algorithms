@@ -171,9 +171,8 @@ class LinkedList {
                 return false;
             }
 
-            ListElement* prev = head;
-            ListElement* current = head->next_elem;
-            prev->next_elem = nullptr;
+            ListElement* prev = nullptr;
+            ListElement* current = head;
             while (current != nullptr) {
                 ListElement* next = current->next_elem;
                 current->next_elem = prev;
