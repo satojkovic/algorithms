@@ -155,6 +155,17 @@ class LinkedList {
             return SUCCESS;
         }
 
+        int length() {
+            // return size;
+            int length = 0;
+            ListElement* node = head;
+            while (node != nullptr) {
+                length++;
+                node = node->next_elem;
+            }
+            return length;
+        }
+
         void printList() {
             if (isEmpty()) {
                 std::cout << "List is empty." << std::endl;

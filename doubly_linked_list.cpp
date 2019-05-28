@@ -112,6 +112,17 @@ class DoublyLinkedList {
             return false;
         }
 
+        int length() {
+            // return size;
+            int length = 0;
+            DoublyListElement* node = head;
+            while (node != nullptr) {
+                length++;
+                node = node->nextElement;
+            }
+            return length;
+        }
+
         void printList() {
             if (isEmpty()) {
                 std::cout << "List is empty." << std::endl;
