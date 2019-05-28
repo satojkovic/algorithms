@@ -166,6 +166,24 @@ class LinkedList {
             return length;
         }
 
+        bool reverseList() {
+            if (isEmpty()) {
+                return false;
+            }
+
+            ListElement* prev = head;
+            ListElement* current = head->next_elem;
+            prev->next_elem = nullptr;
+            while (current != nullptr) {
+                ListElement* next = current->next_elem;
+                current->next_elem = prev;
+                prev = current;
+                current = next;
+            }
+            head = prev;
+            return true;
+        }
+
         void printList() {
             if (isEmpty()) {
                 std::cout << "List is empty." << std::endl;
@@ -246,5 +264,10 @@ int main(int argc, char* argv[]) {
         printf("List is empty");
     } else if (ret == LinkedList::ERR_NOT_FOUND) {
         printf("Not found(remove): %d\n", target);
+    }
+
+    if (l.reverseList()) {
+        printf("reversed:\n");
+        l.printList();
     }
 }
