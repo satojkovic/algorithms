@@ -131,6 +131,20 @@ class LinkedList:
             p = p.next_elem
         return False
 
+    def reverse_list(self):
+        if self.is_empty():
+            return None
+        self.head = self._reverse_list(self.head)
+        return self.head is None
+
+    def _reverse_list(self, head):
+        if head.next_elem is None:
+            return head
+        node = self._reverse_list(head.next_elem)
+        head.next_elem.next_elem = head
+        head.next_elem = None
+        return node
+
     def print_list(self):
         if self.is_empty():
             print('List is empty.')
@@ -172,3 +186,6 @@ if __name__ == "__main__":
     print('search {}: {}'.format(target.data, l.search(target)))
     target = ListElement(10)
     print('search {}: {}'.format(target.data, l.search(target)))
+    print('reversed:')
+    l.reverse_list()
+    l.print_list()
