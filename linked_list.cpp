@@ -199,6 +199,36 @@ class LinkedList {
             return node;
         }
 
+        bool makeLoop() {
+            if (isEmpty()) {
+                return false;
+            }
+            ListElement* node = head;
+            while (node->next_elem != nullptr) {
+                node = node->next_elem;
+            }
+            node->next_elem = head;
+            return true;
+        }
+
+        bool detectLoop() {
+            if (isEmpty()) {
+                return false;
+            }
+
+            ListElement* slow = head;
+            ListElement* fast = head;
+            // We iterate the list once, hence the runtime of this algorithm is O(n)
+            while (slow && fast && fast->next_elem) {
+                slow = slow->next_elem;
+                fast = fast->next_elem->next_elem;
+                if (fast == slow) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         void printList() {
             if (isEmpty()) {
                 std::cout << "List is empty." << std::endl;
@@ -289,5 +319,10 @@ int main(int argc, char* argv[]) {
     if (l.reverseList_r()) {
         printf("reversed:\n");
         l.printList();
+    }
+
+    if (l.makeLoop()) {
+        printf("makeLoop\n");
+        printf("detectLoop: %s\n", l.detectLoop() ? "true" : "false");
     }
 }
