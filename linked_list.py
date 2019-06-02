@@ -145,6 +145,20 @@ class LinkedList:
         head.next_elem = None
         return node
 
+    def find_middle(self):
+        if self.is_empty():
+            return 0
+
+        if not self.head.next_elem:
+            return self.head.data
+
+        fast = self.head
+        slow = self.head
+        while fast.next_elem and fast.next_elem.next_elem:
+            fast = fast.next_elem.next_elem
+            slow = slow.next_elem
+        return slow.data
+
     def print_list(self):
         if self.is_empty():
             print('List is empty.')
@@ -189,3 +203,5 @@ if __name__ == "__main__":
     print('reversed:')
     l.reverse_list()
     l.print_list()
+
+    print('find_middle:', l.find_middle())
