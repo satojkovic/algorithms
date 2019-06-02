@@ -229,6 +229,27 @@ class LinkedList {
             return false;
         }
 
+        int findMiddle(int& mid_data) {
+            if (isEmpty()) {
+                mid_data = -1;
+                return ERR_EMPTY;
+            }
+
+            if (head->next_elem == nullptr) {
+                mid_data = head->data;
+                return SUCCESS;
+            }
+
+            ListElement* fast = head;
+            ListElement* slow = head;
+            while (fast->next_elem != nullptr && fast->next_elem->next_elem != nullptr) {
+                fast = fast->next_elem->next_elem;
+                slow = slow->next_elem;
+            }
+            mid_data = slow->data;
+            return SUCCESS;
+        }
+
         void printList() {
             if (isEmpty()) {
                 std::cout << "List is empty." << std::endl;
@@ -289,6 +310,11 @@ int main(int argc, char* argv[]) {
         printf("List is empty");
     }
 
+    int mid_data = 0;
+    if (l.findMiddle(mid_data) == LinkedList::SUCCESS) {
+        printf("Middle data: %d\n", mid_data);
+    }
+
     int target = 5;
     ret = l.remove(target);
     if (ret == LinkedList::SUCCESS) {
@@ -318,6 +344,11 @@ int main(int argc, char* argv[]) {
 
     if (l.reverseList_r()) {
         printf("reversed:\n");
+        l.printList();
+    }
+
+    if (l.findMiddle(mid_data) == LinkedList::SUCCESS) {
+        printf("Middle data: %d\n", mid_data);
         l.printList();
     }
 
