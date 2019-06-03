@@ -159,6 +159,32 @@ class LinkedList:
             slow = slow.next_elem
         return slow.data
 
+    def remove_dups(self):
+        if self.is_empty():
+            return None
+
+        uniqs = set()
+        dups = set()
+        head = self._remove_dups(self.head, uniqs, dups)
+        self.head = head.next_elem if head.data in dups else head
+        print('uniqs:', uniqs)
+        print('dups:', dups)
+        return True
+
+    def _remove_dups(self, head, uniqs, dups):
+        if not head:
+            return head
+
+        if head.data in uniqs:
+            dups.add(head.data)
+        uniqs.add(head.data)
+        node = self._remove_dups(head.next_elem, uniqs, dups)
+        if node and node.data in dups:
+            head.next_elem = node.next_elem
+        else:
+            head.next_elem = node
+        return head
+
     def print_list(self):
         if self.is_empty():
             print('List is empty.')
@@ -205,3 +231,11 @@ if __name__ == "__main__":
     l.print_list()
 
     print('find_middle:', l.find_middle())
+
+    print('remove dups:')
+    l.add_first(0)
+    l.add_first(0)
+    l.add_last(5)
+    l.print_list()
+    l.remove_dups()
+    l.print_list()
