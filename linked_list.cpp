@@ -1,4 +1,5 @@
 #include <iostream>
+#include <unordered_set>
 
 class ListElement {
     public:
@@ -250,6 +251,41 @@ class LinkedList {
             return SUCCESS;
         }
 
+        int removeDups() {
+            if (isEmpty()) {
+                return ERR_EMPTY;
+            }
+            std::unordered_set<int> uniqs;
+            std::unordered_set<int> dups;
+            ListElement* tmp = removeDups(head, uniqs, dups);
+            if (dups.find(tmp->data) != dups.end()) {
+                head = tmp->next_elem;
+                size--;
+            } else {
+                head = tmp;
+            }
+            return SUCCESS;
+        }
+
+        ListElement* removeDups(ListElement* head, std::unordered_set<int>& uniqs, std::unordered_set<int>& dups) {
+            if (head == nullptr) {
+                return head;
+            }
+
+            if (uniqs.find(head->data) != uniqs.end()) {
+                dups.insert(head->data);
+            }
+            uniqs.insert(head->data);
+            ListElement* tmp = removeDups(head->next_elem, uniqs, dups);
+            if (tmp != nullptr && dups.find(tmp->data) != dups.end()) {
+                head->next_elem = tmp->next_elem;
+                size--;
+            } else {
+                head->next_elem = tmp;
+            }
+            return head;
+        }
+
         void printList() {
             if (isEmpty()) {
                 std::cout << "List is empty." << std::endl;
@@ -349,6 +385,14 @@ int main(int argc, char* argv[]) {
 
     if (l.findMiddle(mid_data) == LinkedList::SUCCESS) {
         printf("Middle data: %d\n", mid_data);
+        l.printList();
+    }
+
+    l.insertAtHead(0);
+    l.insertAtTail(4);
+    l.printList();
+    if (l.removeDups() == LinkedList::SUCCESS) {
+        printf("removeDups:\n");
         l.printList();
     }
 
