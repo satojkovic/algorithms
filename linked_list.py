@@ -159,6 +159,28 @@ class LinkedList:
             slow = slow.next_elem
         return slow.data
 
+    def make_loop(self):
+        if self.is_empty():
+            return False
+        node = self.head
+        while node.next_elem:
+            node = node.next_elem
+        node.next_elem = self.head
+        return True
+
+    def detect_loop(self):
+        if self.is_empty():
+            return False
+
+        slow = self.head
+        fast = self.head
+        while slow and fast and fast.next_elem:
+            slow = slow.next_elem
+            fast = fast.next_elem.next_elem
+            if slow == fast:
+                return True
+        return False
+
     def remove_dups(self):
         if self.is_empty():
             return None
@@ -239,3 +261,7 @@ if __name__ == "__main__":
     l.print_list()
     l.remove_dups()
     l.print_list()
+
+    if l.make_loop():
+        print('make_loop')
+        print('detect_loop:', 'true' if l.detect_loop() else 'false')
