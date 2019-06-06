@@ -286,6 +286,27 @@ class LinkedList {
             return head;
         }
 
+        int deleteDups() {
+            if (isEmpty()) {
+                return ERR_EMPTY;
+            }
+
+            ListElement* node = head;
+            ListElement* prev = nullptr;
+            std::unordered_set<int> dups;
+            while (node != nullptr) {
+                if (dups.find(node->data) != dups.end()) {
+                    prev->next_elem = node->next_elem;
+                    size--;
+                } else {
+                    dups.insert(node->data);
+                    prev = node;
+                }
+                node = node->next_elem;
+            }
+            return SUCCESS;
+        }
+
         void printList() {
             if (isEmpty()) {
                 std::cout << "List is empty." << std::endl;
@@ -393,6 +414,14 @@ int main(int argc, char* argv[]) {
     l.printList();
     if (l.removeDups() == LinkedList::SUCCESS) {
         printf("removeDups:\n");
+        l.printList();
+    }
+
+    l.insertAtHead(2);
+    l.insertAtHead(3);
+    l.printList();
+    if (l.deleteDups() == LinkedList::SUCCESS) {
+        printf("deleteDups:\n");
         l.printList();
     }
 
