@@ -14,6 +14,26 @@ class ListElement:
             return self.data == other.data
         return False
 
+
+def find_intersection(ll1, ll2):
+    if not ll1 or not ll2:
+        return False
+
+    elems1 = []
+    head1 = ll1
+    while head1:
+        elems1.append(head1)
+        head1 = head1.next_elem
+
+    head2 = ll2
+    while head2:
+        if head2 in elems1:
+            return head2
+        head2 = head2.next_elem
+
+    return False
+
+
 class LinkedList:
     """Linked List
     """
@@ -265,3 +285,30 @@ if __name__ == "__main__":
     if l.make_loop():
         print('make_loop')
         print('detect_loop:', 'true' if l.detect_loop() else 'false')
+
+    elem_a = ListElement(10)
+    elem_b = ListElement(2)
+    elem_c = ListElement(5)
+    elem_d = ListElement(22)
+    elem_x = ListElement(9)
+    elem_y = ListElement(1)
+    elem_z = ListElement(4)
+
+    elem_a.next_elem = elem_b
+    elem_b.next_elem = elem_c
+    elem_c.next_elem = elem_d
+    elem_x.next_elem = elem_c
+
+    intersection = find_intersection(elem_a, elem_x)
+    if intersection:
+        print('intersection:', intersection.data)
+    else:
+        print('no intersection')
+
+    elem_x.next_elem = elem_y
+    elem_y.next_elem = elem_z
+    intersection = find_intersection(elem_a, elem_x)
+    if intersection:
+        print('intersection:', intersection.data)
+    else:
+        print('no intersection')
