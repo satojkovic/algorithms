@@ -9,20 +9,15 @@ class ListElement:
         self.data = data
         self.next_elem = None
 
-    def __eq__(self, other):
-        if isinstance(other, ListElement):
-            return self.data == other.data
-        return False
-
 
 def find_intersection(ll1, ll2):
     if not ll1 or not ll2:
         return False
 
-    elems1 = []
+    elems1 = set()
     head1 = ll1
     while head1:
-        elems1.append(head1)
+        elems1.add(head1)
         head1 = head1.next_elem
 
     head2 = ll2
@@ -126,14 +121,14 @@ class LinkedList:
             return False
         # if the node to remove is somewhere either at the head or the tail
         # handle those independently
-        if node == self.head:
+        if node.data == self.head.data:
             return self.remove_first()
 
         # search for a target node
         trav1 = self.head
         trav2 = self.head.next_elem
         while trav2:
-            if trav2 == node:
+            if trav2.data == node.data:
                 trav1.next_elem = trav2.next_elem
                 self.size -= 1
                 return True
@@ -146,7 +141,7 @@ class LinkedList:
             return None
         p = self.head
         while p:
-            if p == node:
+            if p.data == node.data:
                 return True
             p = p.next_elem
         return False
