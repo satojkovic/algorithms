@@ -222,6 +222,26 @@ class LinkedList:
             head.next_elem = node
         return head
 
+    def find_nth_from_end(self, n):
+        if self.is_empty():
+            return None
+
+        trav1 = self.head
+        length = 0
+        while trav1:
+            length += 1
+            trav1 = trav1.next_elem
+
+        steps = length - n
+        if steps < 0 or steps > length:
+            return None
+        trav2 = self.head
+        for i in range(steps):
+            trav2 = trav2.next_elem
+
+        return trav2
+
+
     def print_list(self):
         if self.is_empty():
             print('List is empty.')
@@ -275,6 +295,11 @@ if __name__ == "__main__":
     l.add_last(5)
     l.print_list()
     l.remove_dups()
+    l.print_list()
+
+    n = 3
+    node = l.find_nth_from_end(n)
+    print('find {}th node from the end => {}'.format(n, node.data))
     l.print_list()
 
     if l.make_loop():
