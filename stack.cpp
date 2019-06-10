@@ -2,85 +2,84 @@
 
 using namespace std;
 
-class Stack
-{
-    private:
-        int* arr;
-        int capacity;
-        int numElements;
-        int top;
-
+class StackElem {
     public:
-        Stack(int size);
-        bool isEmpty();
-        int peek();
-        int getSize();
-        bool push(int value);
-        int pop();
+        int data;
+        StackElem* next_elem;
+
+        StackElem() {
+            next_elem = nullptr;
+        }
+
+        StackElem(int data) {
+            data = data;
+            next_elem = nullptr;
+        }
 };
 
-Stack::Stack(int size) {
-    capacity = size;
-    arr = new int[size];
-    numElements = 0;
-}
+class Stack
+{
+    static const int SUCCESS = 0;
+    static const int ERR_EMPTY = 1;
 
-bool Stack::isEmpty() {
-    if (numElements == 0) {
-        return true;
-    } else {
-        return false;
-    }
-}
+    private:
+        StackElem* top;
 
-int Stack::peek() {
-    if (numElements == 0) {
-        std::cout << "Stack is empty." << endl;
-        exit(EXIT_FAILURE);
-    } else {
-        return top;
-    }
-}
+    public:
+        Stack() {top = nullptr;}
+        bool isEmpty() {
+            return top == nullptr;
+        }
 
-int Stack::getSize() {
-    return numElements;
-}
+        int pop() {
+            if (isEmpty()) {
+                return ERR_EMPTY;
+            }
+            int ret = top->data;
+            top = top->next_elem;
+            return ret;
+        }
 
-bool Stack::push(int value) {
-    if (numElements < capacity) {
-        arr[numElements] = value;
-        numElements++;
-        top = value;
-        return true;
-    } else {
-        std::cout << "Stack is full" << endl;
-        return false;
-    }
-}
+        void push(int data) {
+            StackElem* elem = new StackElem();
+            elem->data = data;
+            elem->next_elem = top;
+            top = elem;
+        }
 
-int Stack::pop() {
-    if(numElements == 0) {
-        std::cout << "Stack is empty" << endl;
-        exit(EXIT_FAILURE);
-    } else {
-        numElements--;
-        top = arr[numElements - 1];
-        return arr[numElements];
-    }
-}
+        int peek() {
+            if (isEmpty()) {
+                return ERR_EMPTY;
+            }
+            return top->data;
+        }
 
+        void printStack() {
+            if (isEmpty()) {
+                printf("Stack is empty.\n");
+                return;
+            }
+
+            printf("Current Stack:\n");
+            StackElem* elem = top;
+            while (elem != nullptr) {
+                printf("%d\n", elem->data);
+                elem = elem->next_elem;
+            }
+        }
+};
 
 int main() {
-    Stack s(10);
-    s.push(5);
-    s.push(10);
-    s.push(15);
-    std::cout << "getSize() : " << s.getSize() << endl;
-    std::cout << "top : " << s.peek() << endl;
-    std::cout << "pop : " << s.pop() << endl;
-    std::cout << "pop : " << s.pop() << endl;
-    std::cout << "pop : " << s.pop() << endl;
-    std::cout << "getSize() : " << s.getSize() << endl;
+    Stack* s = new Stack();
+    s->printStack();
+
+    printf("push(3)\n");
+    s->push(3);
+    printf("push(1)\n");
+    s->push(1);
+    printf("push(100)\n");
+    s->push(100);
+    s->printStack();
 
     return 0;
 }
