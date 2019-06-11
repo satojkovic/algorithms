@@ -11,8 +11,8 @@ class StackElem {
             next_elem = nullptr;
         }
 
-        StackElem(int data) {
-            data = data;
+        StackElem(int value) {
+            data = value;
             next_elem = nullptr;
         }
 };
@@ -41,8 +41,7 @@ class Stack
         }
 
         void push(int data) {
-            StackElem* elem = new StackElem();
-            elem->data = data;
+            StackElem* elem = new StackElem(data);
             elem->next_elem = top;
             top = elem;
         }
