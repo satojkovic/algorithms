@@ -35,8 +35,10 @@ class Stack
             if (isEmpty()) {
                 return ERR_EMPTY;
             }
-            int ret = top->data;
+            StackElem* tmp = top;
+            int ret = tmp->data;
             top = top->next_elem;
+            delete tmp;
             return ret;
         }
 
@@ -78,6 +80,11 @@ int main() {
     s->push(1);
     printf("push(100)\n");
     s->push(100);
+    s->printStack();
+
+    printf("pop(): %d\n", s->pop());
+    printf("pop(): %d\n", s->pop());
+    printf("pop(): %d\n", s->pop());
     s->printStack();
 
     return 0;
