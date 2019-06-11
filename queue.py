@@ -24,6 +24,16 @@ class Queue:
         self.tail.next_elem = elem
         self.tail = elem
 
+    def deque(self):
+        if self.is_empty():
+            return None
+
+        ret = self.head.data
+        self.head = self.head.next_elem
+        if not self.head:
+            self.tail = self.head
+        return ret
+
     def print_queue(self):
         if self.is_empty():
             print('Queue is empty.')
@@ -44,4 +54,10 @@ if __name__ == "__main__":
     q.enque(1)
     print('enque(6)')
     q.enque(6)
+    q.print_queue()
+
+    print('deque():', q.deque())
+    print('deque():', q.deque())
+    print('deque():', q.deque())
+    print('deque():', q.deque())
     q.print_queue()
