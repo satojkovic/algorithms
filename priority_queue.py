@@ -6,7 +6,7 @@ class PQueue:
         self.heap = data
         self.size = len(self.heap)
 
-        if self.size != 1:
+        if self.size != 0 and self.size != 1:
             last_idx = self.size - 1
             last_pidx = (last_idx - 2) // 2 if last_idx % 2 == 0 else (last_idx - 1) // 2
             for p in range(last_pidx, -1, -1):
