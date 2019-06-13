@@ -12,6 +12,9 @@ class PQueue:
             for p in range(last_pidx, -1, -1):
                 self.heap = self.heapify(self.heap, p, last_idx)
 
+    def is_empty(self):
+        return self.size == 0
+
     def heapify(self, data, p, last_idx):
         """Build a min heap
 
@@ -56,7 +59,24 @@ class PQueue:
                 self.heap = self.heapify(self.heap, last_pidx, last_idx)
                 last_pidx = (last_pidx - 2) // 2 if last_pidx % 2 == 0 else (last_pidx - 1) // 2
 
+    def print_pqueue(self):
+        if self.is_empty():
+            print('PQueue is empty.')
+            return
+
+        print('Current PQueue:')
+        depth = 0
+        next_line = 2 ** depth
+        for i in range(self.size):
+            print(self.heap[i], end=' ')
+            if (i + 1) == next_line:
+                print()
+                depth += 1
+                next_line += 2 ** depth
+        print()
+
 if __name__ == "__main__":
     pq = PQueue([5, 6, 8, 7, 12, 14, 19, 13, 12, 11])
     pq.add(1)
     print(pq.heap)
+    pq.print_pqueue()
