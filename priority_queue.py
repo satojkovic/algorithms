@@ -72,6 +72,8 @@ class PQueue:
         for p in range(last_pidx, -1, -1):
             self.heap = self.heapify(self.heap, p, last_idx)
 
+        return ret
+
     def print_pqueue(self):
         if self.is_empty():
             print('PQueue is empty.')
@@ -90,9 +92,12 @@ class PQueue:
 
 if __name__ == "__main__":
     pq = PQueue([5, 6, 8, 7, 12, 14, 19, 13, 12, 11])
-    pq.add(1)
     print(pq.heap)
+    pq.add(1)
+    print('add()')
     pq.print_pqueue()
 
-    pq.poll()
+    print('poll()')
+    ret = pq.poll()
+    print('return value:', ret)
     pq.print_pqueue()
