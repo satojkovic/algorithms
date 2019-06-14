@@ -77,7 +77,7 @@ class PQueue:
             print('PQueue is empty.')
             return
 
-        print('Current PQueue:')
+        print('Current PQueue: size =', self.size)
         depth = 0
         next_line = 2 ** depth
         for i in range(self.size):
