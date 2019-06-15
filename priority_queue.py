@@ -74,6 +74,36 @@ class PQueue:
 
         return ret
 
+    def search(self, data):
+        return self.heap.index(data) if data in self.heap else None
+
+    def remove(self, data):
+        if self.is_empty():
+            return None
+
+        target_idx = self.search(data)
+        if not target_idx:
+            return None
+
+        self.heap[target_idx], self.heap[-1] = self.heap[-1], self.heap[target_idx]
+        ret = self.heap.pop()
+        self.size -= 1
+
+        # keep heap invariant
+        last_idx = self.size - 1
+        if 2 * target_idx + 1 > last_idx:
+            # bubble up
+            target_pidx = (target_idx - 2) // 2 if target_idx % 2 == 0 else (target_idx - 1) // 2
+            while target_pidx >= 0:
+                self.heap = self.heapify(self.heap, target_pidx, target_idx)
+                target_pidx = (target_pidx - 2) // 2 if target_pidx % 2 == 0 else (target_pidx - 1) // 2
+        else:
+            # bubble down
+            target_pidx = target_idx
+            self.heap = self.heapify(self.heap, target_pidx, last_idx)
+
+        return ret
+
     def print_pqueue(self):
         if self.is_empty():
             print('PQueue is empty.')
@@ -91,7 +121,7 @@ class PQueue:
         print()
 
 if __name__ == "__main__":
-    pq = PQueue([5, 6, 8, 7, 12, 14, 19, 13, 12, 11])
+    pq = PQueue([5, 6, 8, 7, 15, 14, 19, 13, 12, 11])
     print(pq.heap)
     pq.add(1)
     print('add()')
@@ -99,5 +129,11 @@ if __name__ == "__main__":
 
     print('poll()')
     ret = pq.poll()
+    print('return value:', ret)
+    pq.print_pqueue()
+
+    target = 6
+    print('remove({})'.format(target))
+    ret = pq.remove(target)
     print('return value:', ret)
     pq.print_pqueue()
