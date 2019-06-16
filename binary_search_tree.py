@@ -22,72 +22,71 @@ class BinarySearchTree:
     def add(self, elem):
         if self.contains(elem):
             return False
-        else:
-            self.root = self.add_r(self.root, elem)
-            self.num_nodes += 1
-            return True
+        self.root = self._add(self.root, elem)
+        self.num_nodes += 1
+        return True
 
     # Recursively add a value in the binary tree
-    def add_r(self, node, elem):
+    def _add(self, node, elem):
         # Base case: we found a leaf node
         if node is None:
             node = TreeNode(elem)
         else:
             if elem < node.data:
-                node.left = self.add_r(node.left, elem)
+                node.left = self._add(node.left, elem)
             else:
-                node.right = self.add_r(node.right, elem)
+                node.right = self._add(node.right, elem)
         return node
 
     # Return the node if the element exists in the tree
     def search(self, elem):
-        return self.search_r(self.root, elem)
+        return self._search(self.root, elem)
 
-    def search_r(self, node, elem):
+    def _search(self, node, elem):
         if node is None:
             return None
         elif elem == node.data:
             return node
         elif elem < node.data:
-            return self.search_r(node.left, elem)
+            return self._search(node.left, elem)
         else:
-            return self.search_r(node.right, elem)
+            return self._search(node.right, elem)
 
     # Returns True if the element exists in the tree
     def contains(self, elem):
-        return self.contains_r(self.root, elem)
+        return self._contains(self.root, elem)
 
-    def contains_r(self, node, elem):
+    def _contains(self, node, elem):
         if node is None:
             return False
         
         if elem < node.data:
-            return self.contains_r(node.left, elem)
+            return self._contains(node.left, elem)
         elif elem > node.data:
-            return self.contains_r(node.right, elem)
+            return self._contains(node.right, elem)
         else:
             return True
 
     def remove(self, elem):
         if self.contains(elem):
-            self.root = self.remove_r(self.root, elem)
+            self.root = self._remove(self.root, elem)
             self.num_nodes -= 1
             return True
         else:
             return False
 
-    def remove_r(self, node, elem):
+    def _remove(self, node, elem):
         if node is None:
             return None
 
         # Dig into left subtree, the value we're looking for is
         # samller than the current value
         if node.data > elem:
-            node.left = self.remove_r(node.left, elem)
+            node.left = self._remove(node.left, elem)
         # Dig into right subtree, the value we're looking for is
         # larger than the current value
         elif node.data < elem:
-            node.right = self.remove_r(node.right, elem)
+            node.right = self._remove(node.right, elem)
         # Found the node we wish to remove
         else:
             # In this situation just swap the node we wish to remove
@@ -113,7 +112,7 @@ class BinarySearchTree:
                 # Go into the right subtree and remove the leftmost
                 # node we found and swapped data with.
                 # This prevents us from having two nodes in our tree with the same value
-                node.right = self.remove_r(node.right, tmp.data)
+                node.right = self._remove(node.right, tmp.data)
 
         return node
 
@@ -124,14 +123,14 @@ class BinarySearchTree:
         return cur
 
     def inorder_print(self):
-        self.inorder_print_r(self.root)
+        self._inorder_print(self.root)
         print('')
 
-    def inorder_print_r(self, node):
+    def _inorder_print(self, node):
         if node:
-            self.inorder_print_r(node.left)
+            self._inorder_print(node.left)
             print(node.data, end=' ')
-            self.inorder_print_r(node.right)
+            self._inorder_print(node.right)
 
     def levelorder_print(self):
         q = [self.root]
@@ -152,9 +151,9 @@ if __name__ == "__main__":
     bst.add(0)
     bst.add(10)
     bst.add(0)
-    print('inorder_print : ', end= '')
+    print('inorder_print:')
     bst.inorder_print()
-    print('levelorder_print : ', end='')
+    print('levelorder_print:')
     bst.levelorder_print()
 
     target = 10
