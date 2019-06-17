@@ -19,6 +19,17 @@ def add(root, elem):
         root.right = node
     return root
 
+def search(root, elem):
+    if not root:
+        return None
+
+    if root.data == elem:
+        return root
+    elif elem < root.data:
+        return search(root.left, elem)
+    elif elem > root.data:
+        return search(root.right, elem)
+
 def inorder_print(root):
     if root:
         inorder_print(root.left)
@@ -204,3 +215,10 @@ if __name__ == "__main__":
     root = add(root, 10)
     inorder_print(root)
     print()
+
+    target = -1
+    node = search(root, target)
+    if node:
+        print('Found: {}'.format(node.data))
+    else:
+        print('Not found(search {})'.format(target))
