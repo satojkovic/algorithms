@@ -7,6 +7,23 @@ class TreeNode:
         self.left = left
         self.right = right
 
+def add(root, elem):
+    if not root:
+        return TreeNode(elem)
+
+    if elem < root.data:
+        node = add(root.left, elem)
+        root.left = node
+    elif elem > root.data:
+        node = add(root.right, elem)
+        root.right = node
+    return root
+
+def inorder_print(root):
+    if root:
+        inorder_print(root.left)
+        print(root.data, end=' ')
+        inorder_print(root.right)
 
 class BinarySearchTree:
     def __init__(self):
@@ -167,3 +184,23 @@ if __name__ == "__main__":
         print('Search {} -> Found'.format(target))
     else:
         print('Search {} -> Not found'.format(target))
+
+    root = None
+    root = add(root, 3)
+    inorder_print(root)
+    print()
+    root = add(root, 2)
+    inorder_print(root)
+    print()
+    root = add(root, 5)
+    inorder_print(root)
+    print()
+    root = add(root, -1)
+    inorder_print(root)
+    print()
+    root = add(root, 0)
+    inorder_print(root)
+    print()
+    root = add(root, 10)
+    inorder_print(root)
+    print()
