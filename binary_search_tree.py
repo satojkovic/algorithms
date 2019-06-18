@@ -30,6 +30,32 @@ def search(root, elem):
     elif elem > root.data:
         return search(root.right, elem)
 
+def remove(root, elem):
+    if not root:
+        return None
+
+    if elem < root.data:
+        root.left = remove(root.left, elem)
+    elif root.data < elem:
+        root.right = remove(root.right, elem)
+    else:
+        if root.left is None:
+            return root.right
+        elif root.right is None:
+            return root.left
+        else:
+            # Find the rightmost node in the left subtree
+            tmp = dig_right(root.left)
+            root.data = tmp.data
+            root.left = remove(root.left, tmp.data)
+    return root
+
+def dig_right(node):
+    cur = node
+    while cur.right:
+        cur = cur.right
+    return cur
+
 def inorder_print(root):
     if root:
         inorder_print(root.left)
@@ -203,24 +229,41 @@ if __name__ == "__main__":
         bst.levelorder_print()
     else:
         print('remove failed.')
+    print('remove(20):')
+    if bst.remove(20):
+        bst.levelorder_print()
+    else:
+        print('remove failed.')
 
     root = None
-    root = add(root, 3)
+    root = add(root, 10)
     inorder_print(root)
     print()
-    root = add(root, 2)
+    root = add(root, 4)
     inorder_print(root)
     print()
     root = add(root, 5)
     inorder_print(root)
     print()
-    root = add(root, -1)
+    root = add(root, 1)
     inorder_print(root)
     print()
-    root = add(root, 0)
+    root = add(root, 6)
     inorder_print(root)
     print()
-    root = add(root, 10)
+    root = add(root, 20)
+    inorder_print(root)
+    print()
+    root = add(root, 15)
+    inorder_print(root)
+    print()
+    root = add(root, 33)
+    inorder_print(root)
+    print()
+    root = add(root, 49)
+    inorder_print(root)
+    print()
+    root = add(root, 30)
     inorder_print(root)
     print()
 
@@ -230,3 +273,10 @@ if __name__ == "__main__":
         print('Found: {}'.format(node.data))
     else:
         print('Not found(search {})'.format(target))
+
+    root = remove(root, 20)
+    if root:
+        inorder_print(root)
+        print()
+    else:
+        print('remove failed.')
