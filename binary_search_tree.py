@@ -136,7 +136,7 @@ class BinarySearchTree:
                 tmp = self.dig_left(node.right)
 
                 # swap the data
-                node.data = tmp
+                node.data = tmp.data
 
                 # Go into the right subtree and remove the leftmost
                 # node we found and swapped data with.
