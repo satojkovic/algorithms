@@ -119,6 +119,7 @@ class BinarySearchTree:
         else:
             # In this situation just swap the node we wish to remove
             # with its right child
+            # if right child is also None, return None(i.e. remove leaf node)
             if node.left is None:
                 return node.right
             # In this situation just swap the node we wish to remove
