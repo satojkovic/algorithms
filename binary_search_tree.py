@@ -173,13 +173,14 @@ class BinarySearchTree:
 if __name__ == "__main__":
     bst = BinarySearchTree()
     print('is_empty :', bst.is_empty())
-    bst.add(3)
-    bst.add(2)
-    bst.add(5)
-    bst.add(-1)
-    bst.add(0)
     bst.add(10)
-    bst.add(0)
+    bst.add(4)
+    bst.add(1)
+    bst.add(5)
+    bst.add(6)
+    bst.add(20)
+    bst.add(15)
+    bst.add(33)
     print('inorder_print:')
     bst.inorder_print()
     print('levelorder_print:')
@@ -196,6 +197,12 @@ if __name__ == "__main__":
         print('Search {} -> Found'.format(target))
     else:
         print('Search {} -> Not found'.format(target))
+
+    print('remove(1):')
+    if bst.remove(1):
+        bst.levelorder_print()
+    else:
+        print('remove failed.')
 
     root = None
     root = add(root, 3)
