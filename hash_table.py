@@ -16,3 +16,6 @@ class HashTable:
 
     def is_empty(self):
         return self.size == 0
+
+    def _get_index(self, key):
+        return (hash(key) & 0x7fffffff) % self.capacity
