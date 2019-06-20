@@ -19,3 +19,17 @@ class HashTable:
 
     def _get_index(self, key):
         return (hash(key) & 0x7fffffff) % self.capacity
+
+    def bucket_seek(self, bucket_index, key):
+        if key is None:
+            return None
+
+        bucket = self.table[bucket_index]
+        if not bucket:
+            return None
+        head = bucket
+        while head:
+            if head.key == key:
+                return head
+            head = head.next
+        return None
