@@ -24,6 +24,15 @@ class HashTable:
         bucket_index = self._get_index(key)
         return self._insert_entry(bucket_index, key, value)
 
+    def remove(self, key):
+        if key is None:
+            return False
+        bucket_index = self._get_index(key)
+        value = self._remove_entry(bucket_index, key)
+        if value:
+            self.size -= 1
+        return value
+
     def print_table(self):
         print('(capacity, size, threshold) = ({}, {}, {}):'.format(self.capacity, self.size, self.threshold))
         for i, bucket in enumerate(self.table):
@@ -97,6 +106,24 @@ class HashTable:
             head = head.next
         return None
 
+    def _remove_entry(self, bucket_index, key):
+        if not self.table[bucket_index]:
+            return None
+
+        head = self.table[bucket_index]
+        if head.key == key:
+            return self._remove_first(bucket_index, key)
+
+        target = head.next
+        while target:
+            if target.key == key:
+                value = target.value
+                head.next = target.next
+                return value
+            target = target.next
+            head = head.next
+        return None
+
     def _remove_first(self, bucket_index, key):
         if not self.table[bucket_index]:
             return None
@@ -104,20 +131,6 @@ class HashTable:
         head = self.table[bucket_index]
         value = head.value
         self.table[bucket_index] = head.next
-        return value
-
-    def _remove_last(self, bucket_index, key):
-        if not self.table[bucket_index]:
-            return None
-        trav1 = self.table[bucket_index]
-        trav2 = trav1.next
-        if not trav2:
-            return self._remove_first(bucket_index, key)
-        while trav2.next:
-            trav1 = trav1.next
-            trav2 = trav2.next
-        value = trav2.value
-        trav1.next = trav2.next
         return value
 
 if __name__ == "__main__":
@@ -133,3 +146,16 @@ if __name__ == "__main__":
     print('Insert:')
     ht.insert('ken', 11)
     ht.print_table()
+
+    print('remove:')
+    ht.remove('ken')
+    ht.print_table()
+    print('remove:')
+    ht.remove('william')
+    ht.print_table()
+    print('remove:')
+    ht.remove('bob')
+    ht.print_table()
+    print('remove:')
+    if not ht.remove('arnold'):
+        print('Not found: arnold')
