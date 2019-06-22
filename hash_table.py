@@ -106,6 +106,20 @@ class HashTable:
         self.table[bucket_index] = head.next
         return value
 
+    def _remove_last(self, bucket_index, key):
+        if not self.table[bucket_index]:
+            return None
+        trav1 = self.table[bucket_index]
+        trav2 = trav1.next
+        if not trav2:
+            return self._remove_first(bucket_index, key)
+        while trav2.next:
+            trav1 = trav1.next
+            trav2 = trav2.next
+        value = trav2.value
+        trav1.next = trav2.next
+        return value
+
 if __name__ == "__main__":
     ht = HashTable()
     print('Init:')
