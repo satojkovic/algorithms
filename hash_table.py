@@ -98,8 +98,7 @@ class HashTable:
         return None
 
     def _remove_first(self, bucket_index, key):
-        exist_entry = self._bucket_seek(bucket_index, key)
-        if not exist_entry:
+        if not self.table[bucket_index]:
             return None
 
         head = self.table[bucket_index]
