@@ -97,6 +97,16 @@ class HashTable:
             head = head.next
         return None
 
+    def _remove_first(self, bucket_index, key):
+        exist_entry = self._bucket_seek(bucket_index, key)
+        if not exist_entry:
+            return None
+
+        head = self.table[bucket_index]
+        value = head.value
+        self.table[bucket_index] = head.next
+        return value
+
 if __name__ == "__main__":
     ht = HashTable()
     print('Init:')
