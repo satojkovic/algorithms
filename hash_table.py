@@ -133,6 +133,22 @@ class HashTable:
         self.table[bucket_index] = head.next
         return value
 
+class HashTableQuadProbing:
+    def __init__(self, capacity=8, load_factor=0.45):
+        self.capacity = capacity
+        self.load_factor = load_factor
+        self.size = 0
+        self.key_table = self.capacity * [None]
+        self.val_table = self.capacity * [None]
+        self.threshold = int(self.capacity * self.load_factor)
+
+    def _quad_probing(self, x):
+        return (x**2 + x) >> 1
+
+    def _get_index(self, key):
+        return (hash(key) & 0x7fffffff) % self.capacity
+
+
 if __name__ == "__main__":
     ht = HashTable()
     print('Init:')
@@ -159,3 +175,5 @@ if __name__ == "__main__":
     print('remove:')
     if not ht.remove('arnold'):
         print('Not found: arnold')
+
+    ht_qp = HashTableQuadProbing()
