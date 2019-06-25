@@ -12,7 +12,7 @@ class HashTable:
         self.capacity = capacity
         self.load_factor = load_factor
         self.size = 0
-        self.table = self.capacity * [None]
+        self.table = [None for _ in range(self.capacity)]
         self.threshold = int(self.capacity * self.load_factor)
 
     def is_empty(self):
