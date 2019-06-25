@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # -*- coding=utf-8 -*-
 
+class TombStone:
+    pass
+
 class HashEntry:
     def __init__(self, key, value):
         self.key = key
@@ -138,16 +141,69 @@ class HashTableQuadProbing:
         self.capacity = capacity
         self.load_factor = load_factor
         self.size = 0
-        self.key_table = self.capacity * [None]
-        self.val_table = self.capacity * [None]
+        self.key_table = [None for _ in range(self.capacity)]
+        self.value_table = [None for _ in range(self.capacity)]
         self.threshold = int(self.capacity * self.load_factor)
+        self.used_buckets = 0
+        self.key_count = 0
+        self.tombstone = TombStone()
+
+    def insert(self, key, value):
+        if key is None:
+            return None
+        if self.used_buckets >= self.threshold:
+            self._resize_table()
+
+        # Searching for an empty bucket
+        x = 1
+        key_hash = hash(key)
+        index = self._get_index(key_hash)
+        seen_tombstone = -1
+        while True:
+            # The current bucket was previously deleted
+            if self.key_table[index] == self.tombstone:
+                if seen_tombstone == -1:
+                    seen_tombstone = index
+            elif self.key_table[index] is not None:
+                if self.key_table[index] == key:
+                    old_value = self.value_table[index]
+                    if seen_tombstone == -1:
+                        self.value_table[index] = value
+                    else:
+                        self.key_table[index] = self.tombstone
+                        self.value_table[index] = None
+                        self.key_table[seen_tombstone] = key
+                        self.value_table[seen_tombstone] = value
+                    return old_value
+            else:
+                # No previously encountered deleted buckets
+                if seen_tombstone == -1:
+                    self.used_buckets += 1
+                    self.key_count += 1
+                    self.key_table[index] = key
+                    self.value_table[index] = value
+                else:
+                    self.key_count += 1
+                    self.key_table[seen_tombstone] = key
+                    self.value_table[seen_tombstone] = value
+                return None
+
+            # Quadratic Probing
+            index = self._get_index(key_hash + self._quad_probing(x))
+            x += 1
+
+    def print_table(self):
+        for i, (key, value) in enumerate(zip(self.key_table, self.value_table)):
+            print('[bucket {}] {} => {}'.format(i, key, value))
 
     def _quad_probing(self, x):
         return (x**2 + x) >> 1
 
     def _get_index(self, key):
-        return (hash(key) & 0x7fffffff) % self.capacity
+        return (key & 0x7fffffff) % self.capacity
 
+    def _resize_table(self):
+        pass
 
 if __name__ == "__main__":
     ht = HashTable()
@@ -176,4 +232,16 @@ if __name__ == "__main__":
     if not ht.remove('arnold'):
         print('Not found: arnold')
 
+    print()
     ht_qp = HashTableQuadProbing()
+    print('Init:')
+    ht_qp.print_table()
+    print('insert:')
+    ht_qp.insert('william', 21)
+    ht_qp.print_table()
+    print('Insert:')
+    ht_qp.insert('bob', 40)
+    ht_qp.print_table()
+    print('Insert:')
+    ht_qp.insert('ken', 11)
+    ht_qp.print_table()
