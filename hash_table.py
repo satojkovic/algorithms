@@ -192,6 +192,32 @@ class HashTableQuadProbing:
             index = self._get_index(key_hash + self._quad_probing(x))
             x += 1
 
+    def remove(self, key):
+        if key is None:
+            return None
+
+        x = 1
+        key_hash = hash(key)
+        index = self._get_index(key_hash)
+        while True:
+            # Ignore deleted buckets
+            if self.key_table[index] == self.tombstone:
+                index = self._get_index(key_hash + self._quad_probing(x))
+                x += 1
+                continue
+
+            # Key was not found in hash table
+            if self.key_table[index] == None:
+                return None
+
+            # Target was found
+            if self.key_table[index] == key:
+                self.key_count -= 1
+                old_value = self.value_table[index]
+                self.key_table[index] = self.tombstone
+                self.value_table[index] = None
+                return old_value
+
     def print_table(self):
         for i, (key, value) in enumerate(zip(self.key_table, self.value_table)):
             print('[bucket {}] {} => {}'.format(i, key, value))
@@ -245,3 +271,15 @@ if __name__ == "__main__":
     print('Insert:')
     ht_qp.insert('ken', 11)
     ht_qp.print_table()
+    print('remove:')
+    ht_qp.remove('william')
+    ht_qp.print_table()
+    print('remove:')
+    ht_qp.remove('ken')
+    ht_qp.print_table()
+    print('remove:')
+    ht_qp.remove('bob')
+    ht_qp.print_table()
+    print('remove:')
+    if not ht_qp.remove('bob'):
+        print('Not found <bob>.')
