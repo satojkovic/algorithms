@@ -46,6 +46,13 @@ class HashTable:
                 head = head.next
             print()
 
+    def get(self, key):
+        if key is None:
+            return None
+        bucket_index = self._get_index(key)
+        entry = self._bucket_seek(bucket_index, key)
+        return entry.value if entry else None
+
     def _get_index(self, key):
         return (hash(key) & 0x7fffffff) % self.capacity
 
@@ -287,6 +294,9 @@ if __name__ == "__main__":
     print('Insert:')
     ht.insert('ken', 11)
     ht.print_table()
+    print('Get:')
+    value = ht.get('william')
+    print('william =>', value)
 
     print('remove:')
     ht.remove('ken')
