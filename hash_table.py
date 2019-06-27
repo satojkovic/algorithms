@@ -218,6 +218,35 @@ class HashTableQuadProbing:
                 self.value_table[index] = None
                 return old_value
 
+    def get(self, key):
+        if key is None:
+            return None
+
+        x = 1
+        key_hash = hash(key)
+        index = self._get_index(key_hash)
+        seen_tombstone = -1
+        while True:
+            if self.key_table[index] == self.tombstone:
+                seen_tombstone = index
+            elif self.key_table[index] != None:
+                if seen_tombstone != -1:
+                    # lazy deletion/relocation
+                    self.key_table[seen_tombstone] = self.key_table[index]
+                    self.value_table[seen_tombstone] = self.value_table[index]
+
+                    self.key_table[index] = self.tombstone
+                    self.value_table[index] = None
+                    return self.value_table[seen_tombstone]
+                else:
+                    return self.value_table[index]
+            else:
+                # Not found
+                return None
+
+            index = self._get_index(key_hash + self._quad_probing(x))
+            x += 1
+
     def print_table(self):
         for i, (key, value) in enumerate(zip(self.key_table, self.value_table)):
             print('[bucket {}] {} => {}'.format(i, key, value))
@@ -301,3 +330,7 @@ if __name__ == "__main__":
         print('Not found')
     else:
         ht_qp.print_table()
+    print('get:')
+    print('jones =>', ht_qp.get('jones'))
+    print('get:')
+    print('tom =>', ht_qp.get('tom'))
