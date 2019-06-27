@@ -229,7 +229,21 @@ class HashTableQuadProbing:
         return (key & 0x7fffffff) % self.capacity
 
     def _resize_table(self):
-        pass
+        self.capacity *= 2
+        self.threshold = int(self.capacity * self.load_factor)
+        self.key_count = 0
+        self.used_buckets = 0
+
+        old_key_table = self.key_table
+        self.key_table = [None for _ in range(self.capacity)]
+        old_value_table = self.value_table
+        self.value_table = [None for _ in range(self.capacity)]
+
+        for i, key in enumerate(old_key_table):
+            if old_key_table[i] != None and old_key_table[i] != self.tombstone:
+                self.insert(key, old_value_table[i])
+            old_key_table[i] = None
+            old_value_table[i] = None
 
 if __name__ == "__main__":
     ht = HashTable()
@@ -270,6 +284,8 @@ if __name__ == "__main__":
     ht_qp.print_table()
     print('Insert:')
     ht_qp.insert('ken', 11)
+    print('Insert:')
+    ht_qp.insert('jones', 90)
     ht_qp.print_table()
     print('remove:')
     ht_qp.remove('william')
@@ -282,4 +298,6 @@ if __name__ == "__main__":
     ht_qp.print_table()
     print('remove:')
     if not ht_qp.remove('bob'):
-        print('Not found <bob>.')
+        print('Not found')
+    else:
+        ht_qp.print_table()
