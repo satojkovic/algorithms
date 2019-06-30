@@ -36,5 +36,11 @@ class TestLinkedList(unittest.TestCase):
         eq_(self.l.search(linked_list.ListElement(-1)), False)
         eq_(self.l.search(linked_list.ListElement('a')), False)
 
+    def test_remove_first(self):
+        self.l.add(100)
+        self.l.add(10)
+        eq_(self.l.remove_first(), 100)
+        eq_(self.l.remove_first(), 10)
+
 if __name__ == "__main__":
     unittest.main()
