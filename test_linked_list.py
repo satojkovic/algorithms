@@ -29,5 +29,12 @@ class TestLinkedList(unittest.TestCase):
         self.l.add_last(4)
         eq_(self.l.peek_last(), 4)
 
+    def test_search(self):
+        eq_(self.l.search(linked_list.ListElement(10)), None)
+        self.l.add(10)
+        eq_(self.l.search(linked_list.ListElement(10)), True)
+        eq_(self.l.search(linked_list.ListElement(-1)), False)
+        eq_(self.l.search(linked_list.ListElement('a')), False)
+
 if __name__ == "__main__":
     unittest.main()
