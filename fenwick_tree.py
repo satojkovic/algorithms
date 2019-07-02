@@ -15,5 +15,12 @@ class FenwickTree:
             if j < len(self.tree):
                 self.tree[j] += self.tree[i]
 
+    def add(self, i, k):
+        if i == 0:
+            return False
+        while i < len(self.tree):
+            self.tree[i] += k
+            i += self._lsb(i)
+
     def _lsb(self, i):
         return i & -i
