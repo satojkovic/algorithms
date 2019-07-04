@@ -42,5 +42,26 @@ class TestLinkedList(unittest.TestCase):
         eq_(self.l.remove_first(), 100)
         eq_(self.l.remove_first(), 10)
 
+    def test_find_middle(self):
+        self.l.add(1)
+        self.l.add(2)
+        self.l.add(3)
+        self.l.add(4)
+        self.l.add(5)
+        # odd case
+        eq_(self.l.find_middle(), 3)
+
+        # even case: 1->2->3->4
+        self.l.remove_last()
+        eq_(self.l.find_middle(), 2)
+
+        # 1
+        [self.l.remove_last() for _ in range(3)]
+        eq_(self.l.find_middle(), 1)
+
+        # empty
+        self.l.remove_first()
+        eq_(self.l.find_middle(), None)
+
 if __name__ == "__main__":
     unittest.main()

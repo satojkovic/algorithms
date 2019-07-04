@@ -162,7 +162,7 @@ class LinkedList:
 
     def find_middle(self):
         if self.is_empty():
-            return 0
+            return None
 
         if not self.head.next_elem:
             return self.head.data
