@@ -233,7 +233,7 @@ class LinkedList:
             trav1 = trav1.next_elem
 
         steps = length - n
-        if steps < 0 or steps > length:
+        if steps < 0 or steps >= length:
             return None
         trav2 = self.head
         for i in range(steps):
