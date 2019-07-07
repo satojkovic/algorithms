@@ -53,12 +53,8 @@ class AVLTree:
         return self._balance(node)
 
     def _update(self, node):
-        lh = -1
-        rh = -1
-        if node.left:
-            lh = node.left.height
-        if node.right:
-            rh = node.right.height
+        lh = node.left.height if node.left else -1
+        rh = node.right.height if node.right else -1
         # Assign 0 when there are no child nodes
         node.height = 1 + max(lh, rh)
 
