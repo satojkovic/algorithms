@@ -18,5 +18,13 @@ class TestBinaryTrie(unittest.TestCase):
         eq_(self.btrie.root.one.zero.zero.zero, None)
         eq_(self.btrie.root.one.zero.zero.one, None)
 
+    def test_prefix_search(self):
+        self.btrie.insert(0)
+        self.btrie.insert(4)
+        eq_(self.btrie.prefix_search(0), True)
+        eq_(self.btrie.prefix_search(4), True)
+        eq_(self.btrie.prefix_search(5), False)
+
+
 if __name__ == "__main__":
     unittest.main()
