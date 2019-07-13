@@ -20,7 +20,7 @@ class AVLTree:
         return self.root.height
 
     def insert(self, value):
-        if not value:
+        if value is None:
             return False
         if not self._contains(self.root, value):
             self.root = self._insert(self.root, value)
