@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 # -*- coding=utf-8 -*-
 
-class BinaryTrieNode:
+class RadixTreeNode:
     def __init__(self):
         self.zero = None
         self.one = None
 
-class BinaryTrie:
+class RadixTree:
     def __init__(self, length=3):
-        self.root = BinaryTrieNode()
+        self.root = RadixTreeNode()
         self.length = length
 
     def insert(self, num):
@@ -17,11 +17,11 @@ class BinaryTrie:
             cur_bit = (num >> i) & 1
             if cur_bit:
                 if not node.one:
-                    node.one = BinaryTrieNode()
+                    node.one = RadixTreeNode()
                 node = node.one
             else:
                 if not node.zero:
-                    node.zero = BinaryTrieNode()
+                    node.zero = RadixTreeNode()
                 node = node.zero
 
     def prefix_search(self, num):
