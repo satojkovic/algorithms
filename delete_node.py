@@ -13,3 +13,7 @@ def delete_node(node):
             else:
                 trav1.next_elem = None
             trav2 = trav2.next_elem
+
+def delete_node2(node):
+    node.data = node.next_elem.data
+    node.next_elem = node.next_elem.next_elem
