@@ -14,3 +14,12 @@ def major_elem1(nums):
     for k, v in elems.items():
         if v > len(nums) // 2:
             return k
+
+# Time complexity: O(nlog(n))
+#  sorting the array costs O(nlog(n))
+# Space complexity: O(n)
+#  sorted returns the new list
+#  if we use in-place sort the space complexity is O(1)
+def major_elem2(nums):
+    nums = sorted(nums)
+    return nums[len(nums) // 2]
