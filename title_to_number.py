@@ -1,3 +1,6 @@
+# Time complexity: O(n)
+#  iterate over a string
+# Space complexity: O(1)
 def title_to_number1(s):
     s = s.upper()
     number = 0
