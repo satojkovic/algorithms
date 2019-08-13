@@ -7,8 +7,8 @@ Algorithms implemented in Python.
 * A linked list is a data structure that represents a sequence of nodes.
 * Time Complexity
 
-|                 | Singly linked list | Doubly linked list | Array |
-| --------------- | ------------------ | ------------------ | ----- |
+| operations      | Singly linked list | Doubly linked list | Array |
+| :-------------: | :----------------: | :----------------: | ----- |
 | Search          | O(n)               | O(n)               | O(1)  |
 | Add(at head)    | O(1)               | O(1)               | O(n)  |
 | Remove(at head) | O(1)               | O(1)               | O(n)  |
@@ -20,7 +20,7 @@ Algorithms implemented in Python.
 * Time complexity
 
 | operations | time complexity |
-| ---------- | --------------- |
+| :--------: | :-------------: |
 | pushing    | O(1)            |
 | popping    | O(1)            |
 | peeking    | O(1)            |
