@@ -51,5 +51,13 @@ class TestMergeTwoSortedList(unittest.TestCase):
             head = head.next
         eq_(ret, [1, 2, 4, 5, 123])
 
+    def test_merge_two_sorted_list2(self):
+        head = merge_two_sorted_list2(self.l1, self.l2)
+        ret = []
+        while head:
+            ret.append(head.val)
+            head = head.next
+        eq_(ret, [1, 1, 2, 3, 4, 4, 5])
+
 if __name__ == "__main__":
     unittest.main()
