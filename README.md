@@ -25,3 +25,20 @@ Algorithms implemented in Python.
 | popping    | O(1)            |
 | peeking    | O(1)            |
 | searching  | O(n)            |
+
+## Queue
+
+* A queue is just a linear data structure.
+* There are two primary operations, which are enqueuing and dequeuing.
+* Enqueuing(adds) and dequeuing(removes) are constant time operations. There is also another constant time operation, peeking. Peeking means that we are looking at the value at the front of the queue without removing it.
+* But checking if the element is contained within a queue is linear time because we would potentially need to scan through all of the elements.
+* Removing the element from the queue also requires linear time.
+* Time complexity
+
+| operations | time complexity |
+| :--------: | :-------------: |
+| enqueuing  | O(1)            |
+| dequeuing  | O(1)            |
+| peeking    | O(1)            |
+| searching  | O(n)            |
+| removing   | O(n)            |
