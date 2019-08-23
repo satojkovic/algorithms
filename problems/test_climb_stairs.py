@@ -26,5 +26,13 @@ class TestClimbStairs(unittest.TestCase):
         eq_(climb_stairs3(1), 1)
         eq_(climb_stairs3(30), 1346269)
 
+    def test_climb_stairs4(self):
+        eq_(climb_stairs4(3), 3)
+        eq_(climb_stairs4(0), 1)
+        eq_(climb_stairs4(5), 8)
+        eq_(climb_stairs4(-1), 0)
+        eq_(climb_stairs4(1), 1)
+        eq_(climb_stairs4(30), 1346269)
+
 if __name__ == "__main__":
     unittest.main()

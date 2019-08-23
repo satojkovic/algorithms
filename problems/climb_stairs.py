@@ -58,3 +58,21 @@ def climb_stairs3(n):
     for i in range(2, n + 1, 1):
         memo[i] = memo[i-1] + memo[i-2]
     return memo[n]
+
+# Time complexity: O(n)
+#
+# Space complexity: O(1)
+#  You don't need to have an memo array in Algorithm3.
+def climb_stairs4(n):
+    if n < 0:
+        return 0
+    if n == 0 or n == 1:
+        return 1
+
+    a = 1
+    b = 1
+    for _ in range(2, n + 1, 1):
+        c = a + b
+        a = b
+        b = c
+    return b
