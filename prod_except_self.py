@@ -1,3 +1,9 @@
+# Time complexity: O(n)
+#  There are three loops, each loop scan entire array once.
+#  Lookup an array by index is O(1)
+#
+# Space complexity: O(n)
+#  Left and right array store n elements.
 def prod_except_self1(nums):
     L = len(nums) * [1]
     R = len(nums) * [1]
