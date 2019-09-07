@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding=utf-8 -*-
 
-def heapify(data, p, last_idx):
+def heapify(data, p):
     """Build a max heap
 
     In a max heap, the parent node is always greater than or equal to its child nodes.
@@ -22,23 +22,22 @@ def heapify(data, p, last_idx):
     right_idx = 2 * p + 2
     largest = p
 
-    if left_idx <= last_idx and data[largest] < data[left_idx]:
+    if left_idx < len(data) and data[largest] < data[left_idx]:
         largest = left_idx
-    if right_idx <= last_idx and data[largest] < data[right_idx]:
+    if right_idx < len(data) and data[largest] < data[right_idx]:
         largest = right_idx
 
     if largest != p:
         data[largest], data[p] = data[p], data[largest]
-        data = heapify(data, largest, last_idx)
+        data = heapify(data, largest)
     
     return data
 
 
 def do_heapify(data):
-    last_idx = len(data) - 1
-    last_pidx = (last_idx - 2) // 2 if last_idx % 2 == 0 else (last_idx - 1) // 2
-    for p in range(last_pidx, -1, -1):
-        data = heapify(data, p, last_idx)
+    last_pidx = len(data) // 2 - 1 if len(data) % 2 == 0 else len(data) // 2
+    for p in reversed(range(0, last_pidx)):
+        data = heapify(data, p)
     return data 
 
 
