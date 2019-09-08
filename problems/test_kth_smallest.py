@@ -1,5 +1,5 @@
 import unittest
-from kth_smallest import TreeNode, kth_smallest1, kth_smallest2
+from kth_smallest import TreeNode, kth_smallest1, kth_smallest2, kth_smallest3
 from nose.tools import eq_
 
 class TestKthSmallest(unittest.TestCase):
@@ -16,6 +16,10 @@ class TestKthSmallest(unittest.TestCase):
     def test_kth_smallest2(self):
         eq_(kth_smallest2(self.root1, 1), 1)
         eq_(kth_smallest2(self.root1, 4), 4)
+
+    def test_kth_smallest3(self):
+        eq_(kth_smallest3(self.root1, 1), 1)
+        eq_(kth_smallest3(self.root1, 4), 4)
 
 if __name__ == "__main__":
     unittest.main()

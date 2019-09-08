@@ -19,6 +19,13 @@ def kth_smallest2(root, k):
         min_heap = heapify(min_heap, 0)
     return ret
 
+def kth_smallest3(root, k):
+    import heapq
+    tree_nodes = []
+    traverse(root, tree_nodes)
+    heapq.heapify(tree_nodes)
+    return heapq.nsmallest(k, tree_nodes)[-1]
+
 def traverse(root, tree_nodes):
     if root is None:
         return
