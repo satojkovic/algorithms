@@ -13,5 +13,10 @@ class TestFindDups(unittest.TestCase):
         eq_(find_dups2([1, 2, 3, 4]), False)
         eq_(find_dups2([1]), False)
 
+    def test_find_dups3(self):
+        eq_(find_dups3([1, 3, 4, 2, 2]), 2)
+        eq_(find_dups3([1, 1]), 1)
+        eq_(find_dups3([3, 2, 1, 3]), 3)
+
 if __name__ == "__main__":
     unittest.main()

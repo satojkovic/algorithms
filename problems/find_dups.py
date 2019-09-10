@@ -23,3 +23,26 @@ def find_dups2(nums):
         if nums[i] == nums[i + 1]:
             return True
     return False
+
+# Time complexity: O(nlogn)
+#  Using binary search about 1 to n numbers.
+#  if the number of elements equal or less than mid value, the search space will be [mid+1, n], otherwise [1, mid]
+#  Repeat this process until search space is only one.
+#  binary search costs O(log(n)) and traverse entire list is O(n), therefore time complexity is O(nlog(n))
+#
+# Space complexity: O(1)
+#  no extra space is needed.
+def find_dups3(nums):
+    low = 1
+    high = len(nums) - 1
+    while low < high:
+        mid = (low + high) // 2
+        count = 0
+        for num in nums:
+            if num <= mid:
+                count += 1
+        if count <= mid:
+            low = mid + 1
+        else:
+            high = mid
+    return low
