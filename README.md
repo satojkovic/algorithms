@@ -42,3 +42,24 @@ Algorithms implemented in Python.
 | peeking    | O(1)            |
 | searching  | O(n)            |
 | removing   | O(n)            |
+
+## Binary Heaps
+
+* A heap is a tree-based data structure which satisfies the heap property.
+* In min-heap, each node is smaller than its children, and the root, therefore, is the minimum element in the tree.
+* Conversely in max-heap, each node is greater than its children, and the root is the maximum element in the tree.
+* Build a heap
+  * To build a heap, we apply 'heapify' to all nodes except the leaf nodes, so as to maintain the heap property.
+  * 'heapify' is the process that swap a node with its left or right child if a node and its children don't satify with the heap priority. If the heap priority is satisfied, do nothing.
+  * In min-heap, if the left(right) child is smallest, then the left(right) child is swapped with its parent.
+  * In max-heap, if the left(right) child is largest, then the left(right) child is swapped with its parent.
+  * Time complexity
+    * 'heapify': O(h) at worst case, where h is the height of the tree.
+    * Therefore, building heap takes O($2^0$ * h + $2^1$ * (h-1) + $\dotsb$ + $2^{h-1}$ * 1) = O($2^h$) time, which is the sum of the 'heapify' for all internal node.
+    * We need to know the height of the tree h.
+      * $2^0 + 2^1 + \dotsb + 2^{h-1} + 2^h = n$
+      * $1 + 2 * (2^h - 1) = n$
+      * $2^{h+1} = n+1$
+      * $h+1 = log(n+1)$
+      * $h = log(n+1) - 1$
+    * Therefore, time complexity is O(n) at worst case, 'heapify' takes O(log(n)) time.
