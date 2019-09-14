@@ -55,11 +55,11 @@ Algorithms implemented in Python.
   * In max-heap, if the left(right) child is largest, then the left(right) child is swapped with its parent.
   * Time complexity
     * 'heapify': O(h) at worst case, where h is the height of the tree.
-    * Therefore, building heap takes O($2^0$ * h + $2^1$ * (h-1) + $\dotsb$ + $2^{h-1}$ * 1) = O($2^h$) time, which is the sum of the 'heapify' for all internal node.
+    * Therefore, building heap takes O(2<sup>0</sup> * h + 2<sup>1</sup> * (h-1) + ... + 2<sup>h-1</sup> * 1) = O(2<sup>h</sup>) time, which is the sum of the 'heapify' for all internal node.
     * We need to know the height of the tree h.
-      * $2^0 + 2^1 + \dotsb + 2^{h-1} + 2^h = n$
-      * $1 + 2 * (2^h - 1) = n$
-      * $2^{h+1} = n+1$
-      * $h+1 = log(n+1)$
-      * $h = log(n+1) - 1$
+      * 2<sup>0</sup> + 2<sup>1</sup> + ... + 2<sup>h-1</sup> + 2<sup>h</sup> = n
+      * 1 + 2 * (2<sup>h</sup> - 1) = n
+      * 2<sup>h+1</sup> = n + 1
+      * h + 1 = log(n + 1)
+      * h = log(n + 1) - 1
     * Therefore, time complexity is O(n) at worst case, 'heapify' takes O(log(n)) time.
