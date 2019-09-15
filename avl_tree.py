@@ -7,7 +7,9 @@ class AVLTreeNode:
         self.left = None
         self.right = None
         self.height = 0
-        self.bf = 0 # balanced factor = height(node.right) - height(node.left)
+        # balanced factor = height(node.right) - height(node.left)
+        # height(x) is calculated as the number of edges between x and furthest leaf
+        self.bf = 0
 
 class AVLTree:
     def __init__(self):
@@ -22,10 +24,14 @@ class AVLTree:
     def insert(self, value):
         if value is None:
             return False
+
+        # Only insert unique values
         if not self._contains(self.root, value):
             self.root = self._insert(self.root, value)
             self.node_count += 1
             return True
+
+        # Value already exists in the tree
         return False
 
     def _contains(self, node, value):
@@ -62,17 +68,44 @@ class AVLTree:
         node.bf = rh - lh
 
     def _balance(self, node):
-        # left heavy subtree
+        # Left heavy subtree
         if node.bf == -2:
             if node.left.bf <= 0:
+                #     3
+                #    /
+                #   2
+                #  /
+                # 1
+                # We need right rotation
                 return self._left_left_case(node)
             else:
+                #   3
+                #  /
+                # 1
+                #  \
+                #   2
+                # We need left and right rotation(after left rotation, equal to the left_left_case)
                 return self._left_right_case(node)
+        # Right heavy subtree
         elif node.bf == 2:
             if node.right.bf <= 0:
+                # 1
+                #  \
+                #   3
+                #  /
+                # 2
+                # We need right and left rotation(after right rotation, equal to the right_right_case)
                 return self._right_left_case(node)
             else:
+                # 1
+                #  \
+                #   2
+                #    \
+                #     3
+                # We need left rotation
                 return self._right_right_case(node)
+        # Node has balance factor of -1 or 0 or 1
+        # Therefore we don't need to balance
         return node
 
     def _left_left_case(self, node):
