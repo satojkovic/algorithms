@@ -1,3 +1,6 @@
+# Time complexity: O(n)
+#
+# Space complexity: O(n)
 class TreeNode:
     def __init__(self, x):
         self.val = x
