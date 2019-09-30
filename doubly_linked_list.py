@@ -29,3 +29,12 @@ class DoublyLinkedList:
         if self.head:
             self.head.prev_elem = x
         self.head = x
+
+    # Need to search the node x before deleting
+    def delete(self, x):
+        if x.prev_elem:
+            x.prev_elem.next_elem = x.next_elem
+        else:
+            self.head = x.next_elem
+        if x.next_elem:
+            x.next_elem.prev_elem = x.prev_elem
