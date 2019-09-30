@@ -16,9 +16,10 @@ class TestDoublyLinkedList(unittest.TestCase):
         eq_(self.dl_.is_empty(), True)
 
     def test_insert(self):
-        eq_(self.dl.head.data, 30)
-        eq_(self.dl.head.next_elem.data, 20)
-        eq_(self.dl.head.next_elem.next_elem.data, 10)
+        eq_(self.dl.insert(DoublyListElement(100)), True)
+        eq_(self.dl.head.data, 100)
+        eq_(self.dl.insert(None), False)
+        eq_(self.dl.head.data, 100)
 
     def test_search(self):
         x = self.dl.search(30)
@@ -33,21 +34,30 @@ class TestDoublyLinkedList(unittest.TestCase):
         eq_(x.prev_elem.data, 20)
         eq_(x.next_elem, None)
 
+        x = self.dl_.search(100)
+        eq_(x, None)
+
     def test_delete(self):
         x = self.dl.search(20)
-        self.dl.delete(x)
+        ret = self.dl.delete(x)
+        eq_(ret, True)
         eq_(self.dl.head.data, 30)
         eq_(self.dl.head.next_elem.data, 10)
         eq_(self.dl.head.next_elem.next_elem, None)
 
         x = self.dl.search(10)
-        self.dl.delete(x)
+        ret = self.dl.delete(x)
+        eq_(ret, True)
         eq_(self.dl.head.data, 30)
         eq_(self.dl.head.next_elem, None)
 
         x = self.dl.search(30)
-        self.dl.delete(x)
+        ret = self.dl.delete(x)
+        eq_(ret, True)
         eq_(self.dl.head, None)
+
+        x = self.dl_.search(100)
+        eq_(self.dl_.delete(x), False)
 
 if __name__ == "__main__":
     unittest.main()
