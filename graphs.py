@@ -16,3 +16,12 @@ def bfs(root):
             print(node.data)
             node.visited = True
             q = q + [node.adjs]
+
+def dfs(root):
+    s = [root]
+    while s:
+        node = s.pop(0)
+        if not node.visited:
+            print(node.data)
+            node.visited = True
+            s = [node.adjs] + s
