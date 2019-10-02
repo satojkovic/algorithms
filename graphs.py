@@ -25,3 +25,11 @@ def dfs(root):
             print(node.data)
             node.visited = True
             s = [node.adjs] + s
+
+def dfs_r(root):
+    print(root.data)
+    root.visited = True
+    for adj in root.adjs:
+        if adj.visited:
+            continue
+        dfs_r(adj)
