@@ -34,9 +34,16 @@ def dfs(root, path=[]):
     return path
 
 def dfs_r(root):
-    print(root.data)
-    root.visited = True
-    for adj in root.adjs:
-        if adj.visited:
-            continue
-        dfs_r(adj)
+    def helper(root, path):
+        if root.visited:
+            return path
+        root.visited = True
+        path.append(root.data)
+        for adj in root.adjs:
+            path = helper(adj, path)
+        return path
+
+    path = []
+    path = helper(root, path)
+    return path
+
