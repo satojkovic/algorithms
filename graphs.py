@@ -8,14 +8,17 @@ class GraphNode:
         self.adjs = []
 
 
-def bfs(root):
+def bfs(root, path=[]):
+    root.visited = True
     q = [root]
     while q:
         node = q.pop(0)
-        if not node.visited:
-            print(node.data)
-            node.visited = True
-            q = q + [node.adjs]
+        path.append(node.data)
+        for adj in node.adjs:
+            if not adj.visited:
+                adj.visited = True
+                q = q + [adj]
+    return path
 
 def dfs(root):
     s = [root]
