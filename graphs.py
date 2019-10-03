@@ -20,14 +20,18 @@ def bfs(root, path=[]):
                 q = q + [adj]
     return path
 
-def dfs(root):
+def dfs(root, path=[]):
+    root.visited = True
     s = [root]
     while s:
         node = s.pop(0)
-        if not node.visited:
-            print(node.data)
-            node.visited = True
-            s = [node.adjs] + s
+        path.append(node.data)
+        # Last node of the adjacency list is the first node of next while loop
+        for adj in node.adjs:
+            if not adj.visited:
+                adj.visited = True
+                s = [adj] + s
+    return path
 
 def dfs_r(root):
     print(root.data)
