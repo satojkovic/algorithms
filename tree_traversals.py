@@ -23,6 +23,18 @@ def inorder(root):
         print(root.data, end=' ')
         inorder(root.right)
 
+def inorder_retlist(root):
+    def helper(root, path):
+        if root is None:
+            return path
+        path = helper(root.left, path)
+        path.append(root.data)
+        path = helper(root.right, path)
+        return path
+
+    path = []
+    path = helper(root, path)
+    return path
 
 def preorder(root):
     """Preorder traversal
