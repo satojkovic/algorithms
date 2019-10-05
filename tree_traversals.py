@@ -60,6 +60,13 @@ def preorder(root):
         preorder(root.left)
         preorder(root.right)
 
+def preorder_relist(root):
+    if root is None:
+        return []
+    left = preorder_relist(root.left)
+    right = preorder_relist(root.right)
+    return [root.data] + left + right
+
 def postorder(root):
     """Postorder traversal
     
@@ -76,6 +83,12 @@ def postorder(root):
         postorder(root.right)
         print(root.data, end=' ')
 
+def postorder_retlist(root):
+    if root is None:
+        return []
+    left = postorder_retlist(root.left)
+    right = postorder_retlist(root.right)
+    return left + right + [root.data]
 
 if __name__ == "__main__":
     root = TreeNode(1)
