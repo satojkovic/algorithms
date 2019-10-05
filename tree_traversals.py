@@ -36,6 +36,14 @@ def inorder_retlist(root):
     path = helper(root, path)
     return path
 
+def inorder_retlist2(root):
+    if root is None:
+        return []
+
+    left = inorder_retlist2(root.left)
+    right = inorder_retlist2(root.right)
+    return left + [root.data] + right
+
 def preorder(root):
     """Preorder traversal
 

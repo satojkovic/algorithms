@@ -14,5 +14,8 @@ class TestTreeTraversals(unittest.TestCase):
     def test_inorder_retlist(self):
         eq_(inorder_retlist(self.root), [2, 4, 6, 8, 10, 20])
 
+    def test_inorder_retlist2(self):
+        eq_(inorder_retlist2(self.root), [2, 4, 6, 8, 10, 20])
+
 if __name__ == "__main__":
     unittest.main()
