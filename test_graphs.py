@@ -29,5 +29,8 @@ class TestGraphs(unittest.TestCase):
     def test_dfs_r(self):
         eq_(dfs_r(self.nodes[0]), [0, 1, 3, 2, 4, 5])
 
+    def test_dfs_r2(self):
+        eq_(dfs_r2(self.nodes[0]), [0, 1, 3, 2, 4, 5])
+
 if __name__ == "__main__":
     unittest.main()
