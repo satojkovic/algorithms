@@ -20,14 +20,14 @@ def add(root, elem):
     return root
 
 def search(root, elem):
-    if not root:
-        return None
+    if root is None or elem is None:
+        return False
 
     if root.data == elem:
-        return root
+        return True
     elif elem < root.data:
         return search(root.left, elem)
-    elif elem > root.data:
+    else:
         return search(root.right, elem)
 
 def remove(root, elem):
