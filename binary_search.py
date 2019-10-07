@@ -1,6 +1,17 @@
 #!/usr/bin/env python
 # -*- coding=utf-8 -*-
 
+def binary_search_r(data, target, left, right):
+    if left > right:
+        return False
+    mid = (left + right) // 2
+    if data[mid] == target:
+        return True
+    elif data[mid] > target:
+        return binary_search_r(data, target, left, mid - 1)
+    else:
+        return binary_search_r(data, target, mid + 1, right)
+
 def binary_search(data, target):
     """binary search
 
