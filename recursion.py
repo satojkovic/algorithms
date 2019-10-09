@@ -7,4 +7,4 @@ def reverse_str(s):
     if len(s) == 0:
         return s
     rstr = reverse_str(s[1:])
-    return rstr + s[0]
+    return ''.join([rstr, s[0]])
