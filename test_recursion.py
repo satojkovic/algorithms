@@ -1,6 +1,7 @@
 import unittest
 from recursion import *
 from nose.tools import eq_
+from linked_list import ListElement
 
 class TestRecursion(unittest.TestCase):
     def test_fib(self):
@@ -36,6 +37,19 @@ class TestRecursion(unittest.TestCase):
         s = ['A', 'B']
         reverse_str3(s, 0, len(s) - 1)
         eq_(s, ['B', 'A'])
+
+    def test_swap_node_pairs(self):
+        head = ListElement(1)
+        head.next_elem = ListElement(2)
+        head.next_elem.next_elem = ListElement(3)
+        head.next_elem.next_elem.next_elem = ListElement(4)
+
+        swap_head = swap_node_pairs(head)
+        eq_(swap_head.data, 2)
+        eq_(swap_head.next_elem.data, 1)
+        eq_(swap_head.next_elem.next_elem.data, 4)
+        eq_(swap_head.next_elem.next_elem.next_elem.data, 3)
+        eq_(swap_head.next_elem.next_elem.next_elem.next_elem, None)
 
 if __name__ == "__main__":
     unittest.main()

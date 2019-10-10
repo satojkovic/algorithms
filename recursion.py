@@ -20,3 +20,12 @@ def reverse_str3(s, head, tail):
         return
     s[head], s[tail] = s[tail], s[head]
     return reverse_str3(s, head + 1, tail - 1)
+
+def swap_node_pairs(head):
+    if head is None or head.next_elem is None:
+        return head
+    swap_head = swap_node_pairs(head.next_elem.next_elem)
+    pair = head.next_elem
+    head.next_elem = swap_head
+    pair.next_elem = head
+    return pair
