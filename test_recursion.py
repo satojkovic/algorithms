@@ -9,6 +9,12 @@ class TestRecursion(unittest.TestCase):
         eq_(fib(1), 1)
         eq_(fib(10), 55)
 
+    def tets_fib_memo(self):
+        eq_(fib_memo(0), 0)
+        eq_(fib_memo(1), 1)
+        eq_(fib_memo(2), 1)
+        eq_(fib_memo(10), 55)
+
     def test_reverse_str(self):
         eq_(reverse_str('abcde'), 'edcba')
         eq_(reverse_str('A'), 'A')

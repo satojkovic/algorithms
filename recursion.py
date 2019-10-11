@@ -3,6 +3,19 @@ def fib(n):
         return n
     return fib(n-1) + fib(n-2)
 
+def fib_memo(n):
+    def fib_m(n, memo):
+        if n == 0 or n == 1:
+            return n
+
+        if memo[n] == 0:
+            memo[n] = fib_m(n - 1) + fib_m(n - 2)
+        return memo[n]
+
+    # memoization of (n + 1) values (from 0 to n)
+    memo = (n + 1) * [0]
+    return fib_m(n, memo)
+
 def reverse_str(s):
     if len(s) == 0:
         return s
