@@ -7,6 +7,7 @@ class TestRecursion(unittest.TestCase):
     def test_fib(self):
         eq_(fib(0), 0)
         eq_(fib(1), 1)
+        eq_(fib(2), 1)
         eq_(fib(10), 55)
 
     def tets_fib_memo(self):
