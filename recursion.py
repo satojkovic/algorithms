@@ -42,3 +42,17 @@ def swap_node_pairs(head):
     head.next_elem = swap_head
     pair.next_elem = head
     return pair
+
+def climb_stairs(n):
+    def cs_memo(n, memo):
+        if n < 0:
+            return 0
+        elif n == 0:
+            return 1
+
+        if memo[n] == 0:
+            memo[n] = cs_memo(n - 1, memo) + cs_memo(n - 2, memo)
+        return memo[n]
+
+    memo = (n + 1) * [0]
+    return cs_memo(n, memo)

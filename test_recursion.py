@@ -58,5 +58,12 @@ class TestRecursion(unittest.TestCase):
         eq_(swap_head.next_elem.next_elem.next_elem.data, 3)
         eq_(swap_head.next_elem.next_elem.next_elem.next_elem, None)
 
+    def test_climb_stairs(self):
+        eq_(climb_stairs(2), 2)
+        eq_(climb_stairs(3), 3)
+        eq_(climb_stairs(0), 1)
+        eq_(climb_stairs(1), 1)
+        eq_(climb_stairs(5), 8)
+
 if __name__ == "__main__":
     unittest.main()

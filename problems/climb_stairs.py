@@ -25,18 +25,17 @@ def climb_stairs1(n):
 # Algorithm:
 #  Algorithm1 with memoization
 def climb_stairs2(n):
-    memo = [0] * (n+1)
-    def climb_stairs_memo(n):
+    def cs_memo(n):
         if n < 0:
             return 0
         if n == 0:
             return 1
-        if memo[n]:
-            return memo[n]
-        
-        memo[n] = climb_stairs_memo(n-1) + climb_stairs_memo(n-2)
+
+        if memo[n] == 0:
+            memo[n] = cs_memo(n-1) + cs_memo(n-2)
         return memo[n]
-    return climb_stairs_memo(n)
+    memo = [0] * (n+1)
+    return cs_memo(n)
 
 # Time complexity: O(n)
 #  Single for-loop up to n
