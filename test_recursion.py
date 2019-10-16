@@ -65,5 +65,11 @@ class TestRecursion(unittest.TestCase):
         eq_(climb_stairs(1), 1)
         eq_(climb_stairs(5), 8)
 
+    def test_pascal_triangle(self):
+        eq_(pascal_triangle(5), [[1], [1, 1], [1, 2, 1], [1, 3, 3, 1], [1, 4, 6, 4, 1]])
+        eq_(pascal_triangle(0), [])
+        eq_(pascal_triangle(1), [[1]])
+        eq_(pascal_triangle(2), [[1], [1, 1]])
+
 if __name__ == "__main__":
     unittest.main()

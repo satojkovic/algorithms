@@ -56,3 +56,17 @@ def climb_stairs(n):
 
     memo = (n + 1) * [0]
     return cs_memo(n, memo)
+
+def pascal_triangle(n):
+    if n == 0:
+        return []
+    elif n == 1:
+        return [n * [1]]
+    prev_rows = pascal_triangle(n - 1)
+    cur_row = n * [1]
+    for i in range(n):
+        if i == 0 or i == n - 1:
+            continue
+        cur_row[i] = prev_rows[n - 2][i - 1] + prev_rows[n - 2][i]
+    prev_rows.append(cur_row)
+    return prev_rows
