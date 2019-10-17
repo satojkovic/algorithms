@@ -71,5 +71,28 @@ class TestRecursion(unittest.TestCase):
         eq_(pascal_triangle(1), [[1]])
         eq_(pascal_triangle(2), [[1], [1, 1]])
 
+    def test_pascal_triangle2(self):
+        eq_(pascal_triangle2(4), [1, 4, 6, 4, 1])
+        eq_(pascal_triangle2(0), [1])
+        eq_(pascal_triangle2(1), [1, 1])
+        eq_(pascal_triangle2(2), [1, 2, 1])
+
+    def test_pascal_triangle3(self):
+        eq_(pascal_triangle3(4), [1, 4, 6, 4, 1])
+        eq_(pascal_triangle3(0), [1])
+        eq_(pascal_triangle3(1), [1, 1])
+        eq_(pascal_triangle3(2), [1, 2, 1])
+
+    def test_reverse_list(self):
+        head = ListElement(1)
+        head.next_elem = ListElement(2)
+        head.next_elem.next_elem = ListElement(3)
+
+        rhead = reverse_list(head)
+        eq_(rhead.data, 3)
+        eq_(rhead.next_elem.data, 2)
+        eq_(rhead.next_elem.next_elem.data, 1)
+        eq_(rhead.next_elem.next_elem.next_elem, None)
+
 if __name__ == "__main__":
     unittest.main()

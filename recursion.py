@@ -70,3 +70,34 @@ def pascal_triangle(n):
         cur_row[i] = prev_rows[n - 2][i - 1] + prev_rows[n - 2][i]
     prev_rows.append(cur_row)
     return prev_rows
+
+def pascal_triangle2(n):
+    if n == 0:
+        return [1]
+    elif n == 1:
+        return (n+1) * [1]
+    prev_row = pascal_triangle2(n - 1)
+    cur_row = (n+1) * [1]
+    for i in range(n+1):
+        if i == 0 or i == n:
+            continue
+        cur_row[i] = prev_row[i - 1] + prev_row[i]
+    return cur_row
+
+def pascal_triangle3(n):
+    if n == 0:
+        return [1]
+    elif n == 1:
+        return (n+1) * [1]
+    prev_row = pascal_triangle2(n - 1)
+    for i in reversed(range(1, n)):
+        prev_row[i] = prev_row[i - 1] + prev_row[i]
+    return prev_row + [1]
+
+def reverse_list(head):
+    if not head or head.next_elem is None:
+        return head
+    node = reverse_list(head.next_elem)
+    head.next_elem.next_elem = head
+    head.next_elem = None
+    return node
