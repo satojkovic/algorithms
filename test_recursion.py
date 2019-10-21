@@ -2,6 +2,7 @@ import unittest
 from recursion import *
 from nose.tools import eq_
 from linked_list import ListElement
+from tree_traversals import TreeNode
 
 class TestRecursion(unittest.TestCase):
     def test_fib(self):
@@ -93,6 +94,14 @@ class TestRecursion(unittest.TestCase):
         eq_(rhead.next_elem.data, 2)
         eq_(rhead.next_elem.next_elem.data, 1)
         eq_(rhead.next_elem.next_elem.next_elem, None)
+
+    def test_max_depth(self):
+        root = TreeNode(3)
+        root.left = TreeNode(9)
+        root.right = TreeNode(20)
+        root.right.left = TreeNode(15)
+        root.right.right = TreeNode(7)
+        eq_(max_depth(root), 2)
 
 if __name__ == "__main__":
     unittest.main()

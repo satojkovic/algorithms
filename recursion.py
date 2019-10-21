@@ -101,3 +101,10 @@ def reverse_list(head):
     head.next_elem.next_elem = head
     head.next_elem = None
     return node
+
+def max_depth(root):
+    def helper(root, depth):
+        if root is None:
+            return depth - 1
+        return max(helper(root.left, depth + 1), helper(root.right, depth + 1))
+    return helper(root, 0)
