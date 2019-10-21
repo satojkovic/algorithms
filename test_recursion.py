@@ -103,5 +103,13 @@ class TestRecursion(unittest.TestCase):
         root.right.right = TreeNode(7)
         eq_(max_depth(root), 2)
 
+        root = TreeNode(10)
+        eq_(max_depth(root), 0)
+
+        root = TreeNode(4)
+        root.left = TreeNode(1)
+        root.right = TreeNode(86)
+        eq_(max_depth(root), 1)
+
 if __name__ == "__main__":
     unittest.main()
