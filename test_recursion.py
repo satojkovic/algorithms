@@ -118,5 +118,26 @@ class TestRecursion(unittest.TestCase):
         eq_(pow(0, 0), 1)
         eq_(pow(-4, 3), -64)
 
+    def test_pow2(self):
+        eq_(pow2(2, 10), 1024)
+        eq_(pow2(2, -2), 0.25)
+        eq_(pow2(3, 0), 1)
+        eq_(pow2(0, 0), 1)
+        eq_(pow2(-4, 3), -64)
+
+    def test_pow3(self):
+        eq_(pow3(2, 10), 1024)
+        eq_(pow3(2, -2), 0.25)
+        eq_(pow3(3, 0), 1)
+        eq_(pow3(0, 0), 1)
+        eq_(pow3(-4, 3), -64)
+
+    def test_pow4(self):
+        eq_(pow4(2, 10), 1024)
+        eq_(pow4(2, -2), 0.25)
+        eq_(pow4(3, 0), 1)
+        eq_(pow4(0, 0), 1)
+        eq_(pow4(-4, 3), -64)
+
 if __name__ == "__main__":
     unittest.main()

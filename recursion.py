@@ -113,3 +113,49 @@ def pow(x, n):
     if n == 0:
         return 1
     return x * pow(x, n - 1) if n > 0 else (1/x) * pow(x, n + 1)
+
+def pow2(x, n):
+    if n == 0:
+        return 1
+    elif n == 1:
+        return x
+
+    if n > 0:
+        return pow2(x, n // 2) * pow2(x, n - n // 2)
+    else:
+        n = abs(n)
+        return pow2(1 / x, n // 2) * pow2(1 / x, n - n // 2)
+
+def pow3(x, n):
+    def helper(x, n, memo):
+        if n == 0:
+            return 1
+        elif n == 1:
+            return x
+
+        if memo[abs(n)] < 0:
+            if n > 0:
+                memo[n] = helper(x, n // 2, memo) * helper(x, n - n // 2, memo)
+            else:
+                n = abs(n)
+                memo[n] = helper(1 / x, n // 2, memo) * helper(1 / x, n - n // 2, memo)
+        return memo[n]
+    memo = (abs(n) + 1) * [-1]
+    return helper(x, n, memo)
+
+def pow4(x, n):
+    def helper(x, n, memo):
+        if n == 0:
+            return 1
+        elif n == 1:
+            return x
+
+        if memo.get(abs(n)) is None:
+            if n > 0:
+                memo[n] = helper(x, n // 2, memo) * helper(x, n - n // 2, memo)
+            else:
+                n = abs(n)
+                memo[n] = helper(1 / x, n // 2, memo) * helper(1 / x, n - n // 2, memo)
+        return memo[n]
+    memo = {}
+    return helper(x, n, memo)
