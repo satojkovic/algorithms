@@ -108,3 +108,8 @@ def max_depth(root):
             return depth - 1
         return max(helper(root.left, depth + 1), helper(root.right, depth + 1))
     return helper(root, 0)
+
+def pow(x, n):
+    if n == 0:
+        return 1
+    return x * pow(x, n - 1) if n > 0 else (1/x) * pow(x, n + 1)

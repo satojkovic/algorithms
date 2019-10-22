@@ -111,5 +111,12 @@ class TestRecursion(unittest.TestCase):
         root.right = TreeNode(86)
         eq_(max_depth(root), 1)
 
+    def test_pow(self):
+        eq_(pow(2, 10), 1024)
+        eq_(pow(2, -2), 0.25)
+        eq_(pow(3, 0), 1)
+        eq_(pow(0, 0), 1)
+        eq_(pow(-4, 3), -64)
+
 if __name__ == "__main__":
     unittest.main()
