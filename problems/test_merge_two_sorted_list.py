@@ -59,5 +59,41 @@ class TestMergeTwoSortedList(unittest.TestCase):
             head = head.next
         eq_(ret, [1, 1, 2, 3, 4, 4, 5])
 
+    def test_merge_two_sorted_list3(self):
+        head = merge_two_sorted_list3(self.l1, self.l2)
+        ret = []
+        while head:
+            ret.append(head.val)
+            head = head.next
+        eq_(ret, [1, 1, 2, 3, 4, 4, 5])
+
+        head = merge_two_sorted_list3(self.l1, None)
+        ret = []
+        while head:
+            ret.append(head.val)
+            head = head.next
+        eq_(ret, [1, 2, 4, 5])
+
+        head = merge_two_sorted_list3(None, self.l2)
+        ret = []
+        while head:
+            ret.append(head.val)
+            head = head.next
+        eq_(ret, [1, 3, 4])
+
+        head = merge_two_sorted_list3(None, None)
+        ret = []
+        while head:
+            ret.append(head.val)
+            head = head.next
+        eq_(ret, [])
+
+        head = merge_two_sorted_list3(self.l1, self.l2_2)
+        ret = []
+        while head:
+            ret.append(head.val)
+            head = head.next
+        eq_(ret, [1, 2, 4, 5, 123])
+
 if __name__ == "__main__":
     unittest.main()
