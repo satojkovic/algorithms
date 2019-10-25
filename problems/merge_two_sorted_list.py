@@ -30,12 +30,27 @@ def merge_list(head, l1, l2):
             head.next = merge_list(head.next, l1, l2.next)
     return head
 
+def merge_two_sorted_list2_0(l1, l2):
+    if l1 is None:
+        return l2
+    elif l2 is None:
+        return l1
+
+    if l1.val <= l2.val:
+        head = ListNode(l1.val)
+        head.next = merge_two_sorted_list2_0(l1.next, l2)
+    else:
+        head = ListNode(l2.val)
+        head.next = merge_two_sorted_list2_0(l1, l2.next)
+    return head
+
 def merge_two_sorted_list2(l1, l2):
     if l1 is None:
         return l2
     elif l2 is None:
         return l1
-    elif l1.val <= l2.val:
+
+    if l1.val <= l2.val:
         l1.next = merge_two_sorted_list2(l1.next, l2)
         return l1
     else:
