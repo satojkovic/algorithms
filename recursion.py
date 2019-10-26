@@ -159,3 +159,14 @@ def pow4(x, n):
         return memo[n]
     memo = {}
     return helper(x, n, memo)
+
+def kth_symbol(N, K):
+    def n_row(N):
+        if N == 1:
+            return 0
+        row = n_row(N - 1)
+        bits = format(row, 'b').zfill(2 ** (N - 2))
+        i_bits = ''.join(['1' if x == '0' else '0' for x in bits])
+        return int(bits + i_bits, 2)
+    row = n_row(N)
+    return 1 if (row & (1 << (2 ** (N - 1) - K))) else 0
