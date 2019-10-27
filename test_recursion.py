@@ -145,5 +145,11 @@ class TestRecursion(unittest.TestCase):
         eq_(kth_symbol(2, 2), 1)
         eq_(kth_symbol(4, 5), 1)
 
+    def test_kth_symbol2(self):
+        eq_(kth_symbol2(1, 1), 0)
+        eq_(kth_symbol2(2, 1), 0)
+        eq_(kth_symbol2(2, 2), 1)
+        eq_(kth_symbol2(4, 5), 1)
+
 if __name__ == "__main__":
     unittest.main()

@@ -170,3 +170,12 @@ def kth_symbol(N, K):
         return int(bits + i_bits, 2)
     row = n_row(N)
     return 1 if (row & (1 << (2 ** (N - 1) - K))) else 0
+
+def kth_symbol2(N, K):
+    if N == 1:
+        return 0
+    symbol = kth_symbol2(N - 1, (K - 1) % (2 ** (N -2)) + 1)
+    if K > (2 ** N - 2):
+        return 0 if symbol == 1 else 1
+    else:
+        return 0 if symbol == 1 else 1
