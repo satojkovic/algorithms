@@ -13,3 +13,10 @@ def insert(root, s):
     child = insert(root.children[s[0]], s[1:])
     root.children[s[0]] = child
     return root
+
+def search(root, s):
+    if len(s) == 0:
+        return True
+    if not s[0] in root.children:
+        return False
+    return search(root.children[s[0]], s[1:])

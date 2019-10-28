@@ -21,5 +21,20 @@ class TestTrie(unittest.TestCase):
         eq_(new_root.children['a'].data, 'a')
         eq_(new_root.children['a'].children['s'].data, 'as')
 
+    def test_search(self):
+        root = TrieNode('')
+        root.children['a'] = TrieNode('a')
+        root.children['a'].children['m'] = TrieNode('am')
+        root.children['b'] = TrieNode('b')
+        root.children['b'].children['e'] = TrieNode('be')
+        root.children['b'].children['a'] = TrieNode('ba')
+        root.children['s'] = TrieNode('s')
+        root.children['s'].children['o'] = TrieNode('so')
+
+        eq_(search(root, 'so'), True)
+        eq_(search(root, 'bc'), False)
+        eq_(search(root, ''), True)
+        eq_(search(root, 'bed'), False)
+
 if __name__ == "__main__":
     unittest.main()
