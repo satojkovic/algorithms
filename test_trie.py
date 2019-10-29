@@ -3,38 +3,18 @@ from trie import *
 from nose.tools import eq_
 
 class TestTrie(unittest.TestCase):
-    def test_insert(self):
+    def test_insert_search(self):
         root = TrieNode('')
-        root.children['a'] = TrieNode('a')
-        root.children['a'].children['m'] = TrieNode('am')
-        root.children['b'] = TrieNode('b')
-        root.children['b'].children['e'] = TrieNode('be')
-        root.children['b'].children['a'] = TrieNode('ba')
-        root.children['s'] = TrieNode('s')
-        root.children['s'].children['o'] = TrieNode('so')
+        root = insert(root, 'a' * 3)
+        eq_(root.children['a'].children['a'].children['a'].word_finished, True)
+        eq_(root.children['a'].children['a'].word_finished, False)
+        root = insert(root, 'a' * 2)
+        eq_(root.children['a'].children['a'].word_finished, True)
 
-        new_root = insert(root, 'bed')
-        eq_(new_root.children['b'].children['e'].children['d'].data, 'bed')
-
-        root = TrieNode('')
-        new_root = insert(root, 'as')
-        eq_(new_root.children['a'].data, 'a')
-        eq_(new_root.children['a'].children['s'].data, 'as')
-
-    def test_search(self):
-        root = TrieNode('')
-        root.children['a'] = TrieNode('a')
-        root.children['a'].children['m'] = TrieNode('am')
-        root.children['b'] = TrieNode('b')
-        root.children['b'].children['e'] = TrieNode('be')
-        root.children['b'].children['a'] = TrieNode('ba')
-        root.children['s'] = TrieNode('s')
-        root.children['s'].children['o'] = TrieNode('so')
-
-        eq_(search(root, 'so'), True)
-        eq_(search(root, 'bc'), False)
-        eq_(search(root, ''), True)
-        eq_(search(root, 'bed'), False)
+        eq_(search(root, 'a' * 3), True)
+        eq_(search(root, 'a' * 4), False)
+        eq_(search(root, 'a' * 2), True)
+        eq_(search(root, 'a'), False)
 
 if __name__ == "__main__":
     unittest.main()
