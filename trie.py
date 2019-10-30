@@ -23,3 +23,10 @@ def search(root, s):
     if not s[0] in root.children:
         return False
     return search(root.children[s[0]], s[1:])
+
+def starts_with(root, s):
+    if len(s) == 0:
+        return True
+    if not s[0] in root.children:
+        return False
+    return starts_with(root.children[s[0]], s[1:])

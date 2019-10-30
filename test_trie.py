@@ -16,5 +16,10 @@ class TestTrie(unittest.TestCase):
         eq_(search(root, 'a' * 2), True)
         eq_(search(root, 'a'), False)
 
+        eq_(starts_with(root, 'a' * 3), True)
+        eq_(starts_with(root, 'a' * 4), False)
+        eq_(starts_with(root, 'a' * 2), True)
+        eq_(starts_with(root, 'a'), True)
+
 if __name__ == "__main__":
     unittest.main()
