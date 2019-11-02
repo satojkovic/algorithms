@@ -151,5 +151,11 @@ class TestRecursion(unittest.TestCase):
         eq_(kth_symbol2(2, 2), 1)
         eq_(kth_symbol2(4, 5), 1)
 
+    def test_perm(self):
+        eq_(perm(3), [[3, 2, 1], [2, 3, 1], [2, 1, 3], [3, 1, 2], [1, 3, 2], [1, 2, 3]])
+        eq_(perm(0), [])
+        eq_(perm(1), [[1]])
+        eq_(perm(2), [[2, 1], [1, 2]])
+
 if __name__ == "__main__":
     unittest.main()

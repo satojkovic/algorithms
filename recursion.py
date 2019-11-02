@@ -179,3 +179,14 @@ def kth_symbol2(N, K):
         return 0 if symbol == 1 else 1
     else:
         return 0 if symbol == 1 else 1
+
+def perm(n):
+    if n == 0:
+        return []
+    elif n == 1:
+        return [[1]]
+    res = []
+    for p in perm(n - 1):
+        for i in range(n):
+            res.append(p[:i] + [n] + p[i:])
+    return res
