@@ -8,15 +8,13 @@ class TreeNode:
         self.right = right
 
 def add(root, elem):
-    if not root:
+    if root is None:
         return TreeNode(elem)
 
     if elem < root.data:
-        node = add(root.left, elem)
-        root.left = node
-    elif elem > root.data:
-        node = add(root.right, elem)
-        root.right = node
+        root.left = add(root.left, elem)
+    else:
+        root.right = add(root.right, elem)
     return root
 
 def search(root, elem):

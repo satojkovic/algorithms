@@ -21,5 +21,20 @@ class TestBinarySearchTree(unittest.TestCase):
         eq_(search(self.root, 1230), False)
         eq_(search(self.root, None), False)
 
+    def test_add(self):
+        root = add(None, 8)
+        root = add(root, 4)
+        root = add(root, 2)
+        root = add(root, 6)
+        root = add(root, 10)
+        root = add(root, 20)
+
+        eq_(root.data, 8)
+        eq_(root.left.data, 4)
+        eq_(root.left.left.data, 2)
+        eq_(root.left.right.data, 6)
+        eq_(root.right.data, 10)
+        eq_(root.right.right.data, 20)
+
 if __name__ == "__main__":
     unittest.main()
