@@ -12,41 +12,40 @@ def merge(left, right):
         [list]: a merged list
     """
 
-    sorted_data = []
+    merged = []
     left_idx = 0
     right_idx = 0
 
-    # find the next largest value between left and right,
-    # and adding that to sorted_data
+    # Find the next largest value between left and right
+    # and adding that to the result list
     while left_idx < len(left) and right_idx < len(right):
-        if left[left_idx] < right[right_idx]:
-            sorted_data.append(left[left_idx])
+        # Use '<=' so as to be stable in the order
+        if left[left_idx] <= right[right_idx]:
+            merged.append(left[left_idx])
             left_idx += 1
         else:
-            sorted_data.append(right[right_idx])
+            merged.append(right[right_idx])
             right_idx += 1
     
-    # append remaining elements to sorted_data
-    if left_idx != len(left):
-        sorted_data.extend(left[left_idx:])
-    if right_idx != len(right):
-        sorted_data.extend(right[right_idx:])
-
-    return sorted_data
+    # Append remaining elements to the result list
+    merged.extend(left[left_idx:])
+    merged.extend(right[right_idx:])
+    return merged
 
 
 def merge_sort(data):
-    # base case
-    if len(data) < 2:
+    # base case or data is empty
+    if len(data) <= 1:
         return data
 
-    # [split phase]
-    # continue to split until reaching the base case
+    # [divide]
+    # Split the data until reaching the base case
     mid_idx = len(data) // 2
     left = merge_sort(data[:mid_idx])
     right = merge_sort(data[mid_idx:])
 
-    # [merge phase]
+    # [conquer]
+    # Sort and merge
     merged = merge(left, right)
     return merged
 
