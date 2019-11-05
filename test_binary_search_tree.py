@@ -11,6 +11,19 @@ class TestBinarySearchTree(unittest.TestCase):
         self.root.right = TreeNode(10)
         self.root.right.right = TreeNode(20)
 
+        self.root2 = TreeNode(8)
+        self.root2.left = TreeNode(4)
+        self.root2.left.left = TreeNode(2)
+        self.root2.left.right = TreeNode(9)
+        self.root2.right = TreeNode(10)
+        self.root2.right.right = TreeNode(20)
+
+        self.root3 = TreeNode(3)
+        self.root3.right = TreeNode(30)
+        self.root3.right.left = TreeNode(10)
+        self.root3.right.left.right = TreeNode(15)
+        self.root3.right.left.right.right = TreeNode(45)
+
     def test_search(self):
         eq_(search(self.root, 6), True)
         eq_(search(self.root, 8), True)
@@ -35,6 +48,11 @@ class TestBinarySearchTree(unittest.TestCase):
         eq_(root.left.right.data, 6)
         eq_(root.right.data, 10)
         eq_(root.right.right.data, 20)
+
+    def test_validate_bst(self):
+        eq_(validate_bst(self.root), True)
+        eq_(validate_bst(self.root2), False)
+        eq_(validate_bst(self.root3), False)
 
 if __name__ == "__main__":
     unittest.main()
