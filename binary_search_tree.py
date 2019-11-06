@@ -30,6 +30,19 @@ def validate(root, left, right):
             return False
     return True
 
+def validate_bst2(root):
+    return validate2(root, None, None)
+
+def validate2(root, min_val, max_val):
+    if root is None:
+        return True
+    # Replace max_val '<=' root.data with '<' if you need to accept duplicate values in the left subtree.
+    if (min_val is not None and min_val >= root.data) or (max_val is not None and max_val <= root.data):
+        return False
+    if not validate2(root.left, min_val, root.data) or not validate2(root.right, root.data, max_val):
+        return False
+    return True
+
 def add(root, elem):
     if root is None:
         return TreeNode(elem)
