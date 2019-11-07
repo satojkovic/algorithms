@@ -72,5 +72,18 @@ class TestBinarySearchTree(unittest.TestCase):
         root.right = TreeNode(-1)
         eq_(validate_bst2(root), False)
 
+    def test_unique_bst(self):
+        trees = unique_bst(3)
+        eq_(len(trees), 5)
+
+        trees = unique_bst(1)
+        eq_(len(trees), 1)
+
+        trees = unique_bst(0)
+        eq_(len(trees), 0)
+
+        trees = unique_bst(-1)
+        eq_(len(trees), 0)
+
 if __name__ == "__main__":
     unittest.main()
