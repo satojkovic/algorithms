@@ -15,23 +15,27 @@ def quick_sort(data):
         data (list): an input list
 
     Returns:
-        list: a sorted list
+        list: a new sorted list
     """
-    if len(data) < 2:
+    if len(data) == 0 or len(data) == 1:
         return data
-
-    pivot_idx = len(data) // 2
-    pivot_val = data[pivot_idx]
-    left, right = [], []
-    for i in range(len(data)):
-        if data[i] < pivot_val:
-            left.append(data[i])
-        elif data[i] > pivot_val:
-            right.append(data[i])
-
+    left, right, pivot_val = split(data)
+    # Sort each sublist recursively
     left = quick_sort(left)
     right = quick_sort(right)
     return left + [pivot_val] + right
+
+def split(data):
+    left, right = [], []
+    pivot_idx = len(data) // 2
+    pivot_val = data[pivot_idx]
+    for i in range(len(data)):
+        if i != pivot_idx:
+            if data[i] < pivot_val:
+                left.append(data[i])
+            else:
+                right.append(data[i])
+    return left, right, pivot_val
 
 
 def quick_sort_in_place(data):
