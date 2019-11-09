@@ -1,6 +1,15 @@
 #!/usr/bin/env python
 # -*- coding=utf-8 -*-
 
+def search_2d_mat(mat, target):
+    return binary_search_2d_mat(mat, target)
+
+def binary_search_2d_mat(mat, target):
+    ret = False
+    for m in range(len(mat)):
+        ret = True if binary_search_r(mat[m], target, 0, len(mat[m]) - 1) else ret
+    return ret
+
 def binary_search_r(data, target, left, right):
     if left > right:
         return False

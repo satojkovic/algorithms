@@ -21,5 +21,16 @@ class TestBinarySearch(unittest.TestCase):
         eq_(binary_search_r(self.data3, 1, 0, len(self.data3) - 1), True)
         eq_(binary_search_r(self.data3, 2, 0, len(self.data3) - 1), False)
 
+    def test_search_2d_mat(self):
+        mat = [
+            [1,   4,  7, 11, 15],
+            [2,   5,  8, 12, 19],
+            [3,   6,  9, 16, 22],
+            [10, 13, 14, 17, 24],
+            [18, 21, 23, 26, 30]
+        ]
+        eq_(search_2d_mat(mat, 5), True)
+        eq_(search_2d_mat(mat, 20), False)
+
 if __name__ == "__main__":
     unittest.main()
