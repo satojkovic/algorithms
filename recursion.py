@@ -190,3 +190,29 @@ def perm(n):
         for i in range(n):
             res.append(p[:i] + [n] + p[i:])
     return res
+
+def search_2d_mat(mat, target):
+    M, N = len(mat), len(mat[0])
+    return search(mat, target, 0, 0, M - 1, N - 1)
+
+def search(mat, target, top, left, bottom, right):
+    if top * len(mat[0]) + left > bottom * len(mat[0]) + right:
+        return False
+    mid_row = (top + bottom) // 2
+    mid_col = (left + right) // 2
+    if mat[mid_row][mid_col] == target:
+        return True
+    # Check top-left sub matrix recursively
+    if search(mat, target, top, left, mid_row, mid_col):
+        return True
+    # Check top-right sub matrix recursively
+    if search(mat, target, top, mid_col, mid_row, right):
+        return True
+    # Check bottom-left sub matrix recursively
+    if search(mat, target, mid_row, left, bottom, mid_col):
+        return True
+    # Check bottom-right sub matrix recursively
+    if search(mat, target, mid_row, mid_col, bottom, right):
+        return True
+    # All conditions are False, then return False
+    return False
