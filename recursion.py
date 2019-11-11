@@ -192,27 +192,25 @@ def perm(n):
     return res
 
 def search_2d_mat(mat, target):
+    if len(mat) == 0 or len(mat[0]) == 0:
+        return False
     M, N = len(mat), len(mat[0])
     return search(mat, target, 0, 0, M - 1, N - 1)
 
 def search(mat, target, top, left, bottom, right):
-    if top * len(mat[0]) + left > bottom * len(mat[0]) + right:
+    # Area size is zero
+    if top > bottom or left > right:
         return False
-    mid_row = (top + bottom) // 2
-    mid_col = (left + right) // 2
-    if mat[mid_row][mid_col] == target:
-        return True
-    # Check top-left sub matrix recursively
-    if search(mat, target, top, left, mid_row, mid_col):
-        return True
-    # Check top-right sub matrix recursively
-    if search(mat, target, top, mid_col, mid_row, right):
-        return True
-    # Check bottom-left sub matrix recursively
-    if search(mat, target, mid_row, left, bottom, mid_col):
-        return True
-    # Check bottom-right sub matrix recursively
-    if search(mat, target, mid_row, mid_col, bottom, right):
-        return True
-    # All conditions are False, then return False
-    return False
+    # Target doesn't exist in this area
+    elif mat[top][left] > target or mat[bottom][right] < target:
+        return False
+
+    # Search row such that mat[row - 1][mid_col] < target mat[row][mid_col]
+    # because target should exist somewhere in the bottom-left area or top-right area
+    mid_col = left + (right - left) // 2
+    row = top
+    while row <= bottom and mat[row][mid_col] <= target:
+        if mat[row][mid_col] == target:
+            return True
+        row += 1
+    return search(mat, target, row, left, bottom, mid_col - 1) or search(mat, target, top, mid_col + 1, row - 1, right)
