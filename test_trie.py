@@ -21,5 +21,18 @@ class TestTrie(unittest.TestCase):
         eq_(starts_with(root, 'a' * 2), True)
         eq_(starts_with(root, 'a'), True)
 
+    def test_prefix_search(self):
+        root = TrieNode('')
+        root = insert(root, 'apple')
+        root = insert(root, 'app')
+        root = insert(root, 'acdc')
+
+        res = prefix_search(root, 'ap')
+        eq_(res, ['app', 'apple'])
+        res = prefix_search(root, 'x')
+        eq_(res, [])
+        res = prefix_search(root, 'acdc')
+        eq_(res, ['acdc'])
+
 if __name__ == "__main__":
     unittest.main()

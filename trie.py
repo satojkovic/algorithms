@@ -30,3 +30,24 @@ def starts_with(root, s):
     if not s[0] in root.children:
         return False
     return starts_with(root.children[s[0]], s[1:])
+
+def search_head(root, s):
+    if len(s) == 0:
+        return root
+    if not s[0] in root.children:
+        return None
+    return search_head(root.children[s[0]], s[1:])
+
+def prefix_search(root, prefix):
+    head = search_head(root, prefix)
+    return prefix_search_cand(head) if head else []
+
+def prefix_search_cand(head):
+    if len(head.children.keys()) == 0:
+        return [head.data] if head.word_finished else []
+    res = []
+    if head.word_finished:
+        res.append(head.data)
+    for c in head.children.keys():
+        res += prefix_search_cand(head.children[c])
+    return res
