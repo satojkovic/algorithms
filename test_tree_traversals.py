@@ -29,5 +29,18 @@ class TestTreeTraversals(unittest.TestCase):
         eq_(postorder_retlist(self.root), [2, 6, 4, 20, 10, 8])
         eq_(postorder_retlist(self.root2), [])
 
+    def test_levelorder(self):
+        eq_(levelorder(self.root), [[8], [4, 10], [2, 6, 20]])
+
+        root = TreeNode(1)
+        root.left = TreeNode(2)
+        root.left.left = TreeNode(3)
+        root.left.left.left = TreeNode(4)
+        root.left.left.left.left = TreeNode(5)
+        eq_(levelorder(root), [[1], [2], [3], [4], [5]])
+
+        root = None
+        eq_(levelorder(root), [])
+
 if __name__ == "__main__":
     unittest.main()

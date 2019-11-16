@@ -90,6 +90,24 @@ def postorder_retlist(root):
     right = postorder_retlist(root.right)
     return left + right + [root.data]
 
+def levelorder(root):
+    # Each node has the depth value.
+    if root is None:
+        return []
+    q = [(root, 0)]
+    res = [[]]
+    while q:
+        node, level = q.pop(0)
+        if len(res) == (level + 1):
+            res[level].append(node.data)
+        else:
+            res.append([node.data])
+        if node.left:
+            q = q + [(node.left, level + 1)]
+        if node.right:
+            q = q + [(node.right, level + 1)]
+    return res
+
 if __name__ == "__main__":
     root = TreeNode(1)
     root.left = TreeNode(2)
