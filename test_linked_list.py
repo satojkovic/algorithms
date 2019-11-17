@@ -11,10 +11,21 @@ class TestLinkedList(unittest.TestCase):
         self.l.add(1)
         ok_(not self.l.is_empty())
 
+    def test_clear(self):
+        self.l.add(1)
+        self.l.clear()
+        eq_(self.l.head, None)
+
     def test_size(self):
         eq_(self.l.size, 0)
         self.l.add(1)
         eq_(self.l.size, 1)
+
+    def test_add(self):
+        self.l.add(1)
+        eq_(self.l.head.data, 1)
+        self.l.add(2)
+        eq_(self.l.head.next_elem.data, 2)
 
     def test_add_first(self):
         self.l.add_first(1)
@@ -29,18 +40,36 @@ class TestLinkedList(unittest.TestCase):
         self.l.add_last(4)
         eq_(self.l.peek_last(), 4)
 
+    def test_remove_first(self):
+        self.l.add(100)
+        self.l.add(10)
+        eq_(self.l.remove_first(), 100)
+        eq_(self.l.remove_first(), 10)
+        eq_(self.l.remove_first(), None)
+
+    def test_remove_last(self):
+        self.l.add(1)
+        self.l.add(2)
+        self.l.add(3)
+        eq_(self.l.remove_last(), 3)
+        eq_(self.l.remove_last(), 2)
+        eq_(self.l.remove_last(), 1)
+        eq_(self.l.remove_last(), None)
+
+    def test_remove(self):
+        self.l.add(1)
+        self.l.add(2)
+        self.l.add(3)
+        eq_(self.l.remove(self.l.head.next_elem), True)
+        eq_(self.l.head.data, 1)
+        eq_(self.l.head.next_elem.data, 3)
+
     def test_search(self):
         eq_(self.l.search(linked_list.ListElement(10)), None)
         self.l.add(10)
         eq_(self.l.search(linked_list.ListElement(10)), True)
         eq_(self.l.search(linked_list.ListElement(-1)), False)
         eq_(self.l.search(linked_list.ListElement('a')), False)
-
-    def test_remove_first(self):
-        self.l.add(100)
-        self.l.add(10)
-        eq_(self.l.remove_first(), 100)
-        eq_(self.l.remove_first(), 10)
 
     def test_find_middle(self):
         self.l.add(1)
