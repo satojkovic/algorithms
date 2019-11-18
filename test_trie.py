@@ -4,34 +4,34 @@ from nose.tools import eq_
 
 class TestTrie(unittest.TestCase):
     def test_insert_search(self):
-        root = TrieNode('')
-        root = insert(root, 'a' * 3)
-        eq_(root.children['a'].children['a'].children['a'].word_finished, True)
-        eq_(root.children['a'].children['a'].word_finished, False)
-        root = insert(root, 'a' * 2)
-        eq_(root.children['a'].children['a'].word_finished, True)
+        trie = Trie()
+        trie.insert('a' * 3)
+        eq_(trie.root.children['a'].children['a'].children['a'].word_finished, True)
+        eq_(trie.root.children['a'].children['a'].word_finished, False)
+        trie.insert('a' * 2)
+        eq_(trie.root.children['a'].children['a'].word_finished, True)
 
-        eq_(search(root, 'a' * 3), True)
-        eq_(search(root, 'a' * 4), False)
-        eq_(search(root, 'a' * 2), True)
-        eq_(search(root, 'a'), False)
+        eq_(trie.search('a' * 3), True)
+        eq_(trie.search('a' * 4), False)
+        eq_(trie.search('a' * 2), True)
+        eq_(trie.search('a'), False)
 
-        eq_(starts_with(root, 'a' * 3), True)
-        eq_(starts_with(root, 'a' * 4), False)
-        eq_(starts_with(root, 'a' * 2), True)
-        eq_(starts_with(root, 'a'), True)
+        eq_(trie.starts_with('a' * 3), True)
+        eq_(trie.starts_with('a' * 4), False)
+        eq_(trie.starts_with('a' * 2), True)
+        eq_(trie.starts_with('a'), True)
 
     def test_prefix_search(self):
-        root = TrieNode('')
-        root = insert(root, 'apple')
-        root = insert(root, 'app')
-        root = insert(root, 'acdc')
+        trie = Trie()
+        trie.insert('apple')
+        trie.insert('app')
+        trie.insert('acdc')
 
-        res = prefix_search(root, 'ap')
+        res = trie.prefix_search('ap')
         eq_(res, ['app', 'apple'])
-        res = prefix_search(root, 'x')
+        res = trie.prefix_search('x')
         eq_(res, [])
-        res = prefix_search(root, 'acdc')
+        res = trie.prefix_search('acdc')
         eq_(res, ['acdc'])
 
 if __name__ == "__main__":
