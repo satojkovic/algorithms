@@ -47,17 +47,17 @@ class Trie:
             return False
         return self._starts_with(root.children[s[0]], s[1:])
 
-    def _search_root(self, root, s):
+    def _search_head(self, root, s):
         if len(s) == 0:
             return root
         if not s[0] in root.children:
             return None
-        return self._search_root(root.children[s[0]], s[1:])
+        return self._search_head(root.children[s[0]], s[1:])
 
     def prefix_search(self, prefix):
         root = self.root
-        root = self._search_root(root, prefix)
-        return self._prefix_search(root) if root else []
+        head = self._search_head(root, prefix)
+        return self._prefix_search(head) if head else []
 
     def _prefix_search(self, root):
         if len(root.children.keys()) == 0:
