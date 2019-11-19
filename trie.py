@@ -69,13 +69,13 @@ class Trie:
             res += self._prefix_search(root.children[c])
         return res
 
-    def search_root(self, word):
+    def replace_with_prefix(self, word):
         head = self.root
-        return self._search_root(head, word)
+        return self._replace_with_prefix(head, word)
 
-    def _search_root(self, head, word):
+    def _replace_with_prefix(self, head, word):
         if len(word) == 0 or head.word_finished:
             return head.data
         if not word[0] in head.children:
             return None
-        return self._search_root(head.children[word[0]], word[1:])
+        return self._replace_with_prefix(head.children[word[0]], word[1:])
