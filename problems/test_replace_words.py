@@ -8,5 +8,12 @@ class TetsReplaceWords(unittest.TestCase):
         sentence = 'the cattle was rattled by the battery'
         eq_(replace_words(dict, sentence), 'the cat was rat by the bat')
 
+        dict = []
+        eq_(replace_words(dict, sentence), sentence)
+
+        dict = ['cat', 'bat', 'rat']
+        sentence = ''
+        eq_(replace_words(dict, sentence), sentence)
+
 if __name__ == "__main__":
     unittest.main()
