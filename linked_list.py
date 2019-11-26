@@ -49,22 +49,20 @@ class LinkedList:
         self.head = None
 
     def add(self, elem):
+        # Add always append the new node at the tail
         self.add_last(elem)
 
     def add_first(self, elem):
+        # Add a node to the head of the linked list, O(1)
         node = ListElement(elem)
-        if self.is_empty():
-            self.head = node
-        else:
-            node.next_elem = self.head
-            self.head = node
+        node.next_elem = node
+        self.head = node
         self.size += 1
 
     def add_last(self, elem):
         # Add a node to the tail of the linked list, O(n)
         if self.is_empty():
-            node = ListElement(elem)
-            self.head = node
+            self.head = ListElement(elem)
         else:
             node = self.head
             while node.next_elem:
@@ -73,12 +71,11 @@ class LinkedList:
         self.size += 1
 
     def peek_first(self):
-        # check the value of the first node if it exists, O(1)
-        if self.is_empty():
-            return None
-        return self.head.data
+        # Check the value of the first node if it exists, O(1)
+        return self.head.data if not self.is_empty() else None
 
     def peek_last(self):
+        # Check the value of the last node if it exits, O(n)
         if self.is_empty():
             return None
         node = self.head
