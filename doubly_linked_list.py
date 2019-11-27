@@ -23,17 +23,25 @@ class DoublyLinkedList:
             x = x.next_elem
         return x
 
-    # O(1)
-    def insert(self, x):
-        if x is None:
-            return False
-
-        x.next_elem = self.head
+    def add_at_head(self, val):
+        # Add a node to the head of the linked list, O(1)
+        node = DoublyListElement(val)
+        node.next_elem = self.head
         if self.head:
-            self.head.prev_elem = x
-        self.head = x
+            self.head.prev_elem = node
+        self.head = node
 
-        return True
+    def add_at_tail(self, val):
+        # Add a node to the tail of the linked list, O(n)
+        if self.is_empty():
+            self.add_at_head(val)
+        else:
+            curr = self.head
+            while curr.next_elem:
+                curr = curr.next_elem
+            node = DoublyListElement(val)
+            curr.next_elem = node
+            node.prev_elem = curr
 
     # Need to search the node x before deleting
     def delete(self, x):
