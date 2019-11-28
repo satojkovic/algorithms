@@ -29,5 +29,28 @@ class TestDoublyLinkedList(unittest.TestCase):
         eq_(dl.head.next_elem.next_elem.prev_elem.data, 20)
         eq_(dl.head.next_elem.next_elem.data, 30)
 
+    def test_add_delete_get(self):
+        dl = DoublyLinkedList()
+        dl.add_at_index(0, 1)
+        eq_(dl.get(0), 1)
+        eq_(dl.get(1), -1)
+        dl.add_at_index(1, 10)
+        eq_(dl.get(1), 10)
+        dl.add_at_index(1, 100)
+        eq_(dl.get(0), 1)
+        eq_(dl.get(1), 100)
+        eq_(dl.get(2), 10)
+
+        dl.delete_at_index(1)
+        eq_(dl.get(0), 1)
+        eq_(dl.get(1), 10)
+        dl.delete_at_index(0)
+        eq_(dl.get(0), 10)
+        dl.add_at_index(0, 20)
+        dl.delete_at_index(1)
+        eq_(dl.get(0), 20)
+        dl.delete_at_index(0)
+        eq_(dl.get(0), -1)
+
 if __name__ == "__main__":
     unittest.main()
