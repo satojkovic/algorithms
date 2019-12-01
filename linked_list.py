@@ -39,10 +39,7 @@ class LinkedList:
 
     def is_empty(self):
         # check whether head is None
-        if not self.head:
-            return True
-        else:
-            return False
+        return True if not self.head else False
 
     def clear(self):
         # clear the linked list
