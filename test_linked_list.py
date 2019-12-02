@@ -1,10 +1,10 @@
-import linked_list
 import unittest
+from linked_list import *
 from nose.tools import ok_, eq_
 
 class TestLinkedList(unittest.TestCase):
     def setUp(self):
-        self.l = linked_list.LinkedList()
+        self.l = LinkedList()
 
     def test_empty(self):
         ok_(self.l.is_empty())
@@ -65,11 +65,11 @@ class TestLinkedList(unittest.TestCase):
         eq_(self.l.head.next_elem.data, 3)
 
     def test_search(self):
-        eq_(self.l.search(linked_list.ListElement(10)), None)
+        eq_(self.l.search(ListElement(10)), None)
         self.l.add(10)
-        eq_(self.l.search(linked_list.ListElement(10)), True)
-        eq_(self.l.search(linked_list.ListElement(-1)), False)
-        eq_(self.l.search(linked_list.ListElement('a')), False)
+        eq_(self.l.search(ListElement(10)), True)
+        eq_(self.l.search(ListElement(-1)), False)
+        eq_(self.l.search(ListElement('a')), False)
 
     def test_find_middle(self):
         self.l.add(1)
@@ -109,6 +109,21 @@ class TestLinkedList(unittest.TestCase):
         eq_(self.l.find_nth_from_end(0), None)
         eq_(self.l.find_nth_from_end(6), None)
         eq_(self.l.find_nth_from_end(-1), None)
+
+    def test_detect_loop(self):
+        ll = LinkedList()
+        node1 = ListElement(3)
+        node2 = ListElement(1)
+        node3 = ListElement(10)
+        ll.head = node1
+        node1.next_elem = node2
+        node2.next_elem = node3
+        node3.next_elem = node2
+        eq_(ll.detect_loop(), True)
+
+        ll.clear()
+        ll.head = ListElement(100)
+        eq_(ll.detect_loop(), False)
 
 if __name__ == "__main__":
     unittest.main()

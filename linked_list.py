@@ -178,14 +178,12 @@ class LinkedList:
         return True
 
     def detect_loop(self):
-        if self.is_empty():
-            return False
-
         slow = self.head
         fast = self.head
         while slow and fast and fast.next_elem:
             slow = slow.next_elem
             fast = fast.next_elem.next_elem
+            # Compare with object id
             if slow == fast:
                 return True
         return False
@@ -247,82 +245,3 @@ class LinkedList:
             print(temp.data, end='->')
             temp = temp.next_elem
         print('None')
-
-if __name__ == "__main__":
-    l = LinkedList()
-    [l.add(i) for i in range(10)]
-    l.print_list()
-    print('peek first:', l.peek_first())
-    print('peek last:', l.peek_last())
-    l.clear()
-    [l.add_first(i) for i in range(10)]
-    l.print_list()
-    print('peek first:', l.peek_first())
-    print('peek last:', l.peek_last())
-    print('remove first:', l.remove_first())
-    l.print_list()
-    print('remove last:', l.remove_last())
-    l.print_list()
-    target = ListElement(4)
-    print('remove middle {}: {}'.format(target.data, l.remove(target)))
-    l.print_list()
-    target = ListElement(20)
-    print('remove middle {}: {}'.format(target.data, l.remove(target)))
-    l.print_list()
-    target = ListElement(7)
-    print('search {}: {}'.format(target.data, l.search(target)))
-    target = ListElement(8)
-    print('search {}: {}'.format(target.data, l.search(target)))
-    target = ListElement(1)
-    print('search {}: {}'.format(target.data, l.search(target)))
-    target = ListElement(10)
-    print('search {}: {}'.format(target.data, l.search(target)))
-    print('reversed:')
-    l.reverse_list()
-    l.print_list()
-
-    print('find_middle:', l.find_middle())
-
-    print('remove dups:')
-    l.add_first(0)
-    l.add_first(0)
-    l.add_last(5)
-    l.print_list()
-    l.remove_dups()
-    l.print_list()
-
-    n = 3
-    node = l.find_nth_from_end(n)
-    print('find {}th node from the end => {}'.format(n, node.data))
-    l.print_list()
-
-    if l.make_loop():
-        print('make_loop')
-        print('detect_loop:', 'true' if l.detect_loop() else 'false')
-
-    elem_a = ListElement(10)
-    elem_b = ListElement(2)
-    elem_c = ListElement(5)
-    elem_d = ListElement(22)
-    elem_x = ListElement(9)
-    elem_y = ListElement(1)
-    elem_z = ListElement(4)
-
-    elem_a.next_elem = elem_b
-    elem_b.next_elem = elem_c
-    elem_c.next_elem = elem_d
-    elem_x.next_elem = elem_c
-
-    intersection = find_intersection(elem_a, elem_x)
-    if intersection:
-        print('intersection:', intersection.data)
-    else:
-        print('no intersection')
-
-    elem_x.next_elem = elem_y
-    elem_y.next_elem = elem_z
-    intersection = find_intersection(elem_a, elem_x)
-    if intersection:
-        print('intersection:', intersection.data)
-    else:
-        print('no intersection')
