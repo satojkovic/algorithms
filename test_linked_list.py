@@ -125,5 +125,20 @@ class TestLinkedList(unittest.TestCase):
         ll.head = ListElement(100)
         eq_(ll.detect_loop(), False)
 
+    def test_detect_loop_start(self):
+        ll = LinkedList()
+        node1 = ListElement(3)
+        node2 = ListElement(1)
+        node3 = ListElement(10)
+        ll.head = node1
+        node1.next_elem = node2
+        node2.next_elem = node3
+        node3.next_elem = node2
+        eq_(ll.detect_loop_start(), node2)
+
+        ll.clear()
+        ll.head = ListElement(100)
+        eq_(ll.detect_loop_start(), None)
+
 if __name__ == "__main__":
     unittest.main()

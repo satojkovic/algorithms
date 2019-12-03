@@ -188,6 +188,17 @@ class LinkedList:
                 return True
         return False
 
+    def detect_loop_start(self):
+        visited = set()
+        curr = self.head
+        while curr is not None:
+            if not curr in visited:
+                visited.add(curr)
+                curr = curr.next_elem
+            else:
+                return curr
+        return None
+
     def remove_dups(self):
         if self.is_empty():
             return None
