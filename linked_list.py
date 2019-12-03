@@ -168,15 +168,6 @@ class LinkedList:
             slow = slow.next_elem
         return slow.data
 
-    def make_loop(self):
-        if self.is_empty():
-            return False
-        node = self.head
-        while node.next_elem:
-            node = node.next_elem
-        node.next_elem = self.head
-        return True
-
     def detect_loop(self):
         slow = self.head
         fast = self.head
