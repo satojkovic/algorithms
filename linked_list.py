@@ -52,7 +52,7 @@ class LinkedList:
     def add_first(self, elem):
         # Add a node to the head of the linked list, O(1)
         node = ListElement(elem)
-        node.next_elem = node
+        node.next_elem = self.head
         self.head = node
         self.size += 1
 

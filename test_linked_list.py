@@ -33,6 +33,7 @@ class TestLinkedList(unittest.TestCase):
 
         self.l.add_first(2)
         eq_(self.l.peek_first(), 2)
+        eq_(self.l.head.next_elem.data, 1)
 
     def test_add_last(self):
         self.l.add_last(3)
