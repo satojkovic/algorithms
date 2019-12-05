@@ -12,21 +12,18 @@ class ListElement:
 
 def find_intersection(ll1, ll2):
     if not ll1 or not ll2:
-        return False
-
+        return None
     elems1 = set()
     head1 = ll1
     while head1:
         elems1.add(head1)
         head1 = head1.next_elem
-
     head2 = ll2
     while head2:
         if head2 in elems1:
             return head2
         head2 = head2.next_elem
-
-    return False
+    return None
 
 def get_intersection_node(head_a, head_b):
     if head_a is None or head_b is None:
