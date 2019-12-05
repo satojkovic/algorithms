@@ -28,6 +28,15 @@ def find_intersection(ll1, ll2):
 
     return False
 
+def get_intersection_node(head_a, head_b):
+    if head_a is None or head_b is None:
+        return None
+    ha = head_a
+    hb = head_b
+    while ha is not hb:
+        ha = head_b if ha is None else ha.next_elem
+        hb = head_a if hb is None else hb.next_elem
+    return ha
 
 class LinkedList:
     """Linked List

@@ -141,5 +141,27 @@ class TestLinkedList(unittest.TestCase):
         ll.head = ListElement(100)
         eq_(ll.detect_loop_start(), None)
 
+    def test_get_intersection_node(self):
+        l1 = LinkedList()
+        l2 = LinkedList()
+        node1 = ListElement(3)
+        node2 = ListElement(1)
+        node3 = ListElement(10)
+        node4 = ListElement(9)
+        l1.head = node1
+        node1.next_elem = node2
+        node2.next_elem = node3
+        node3.next_elem = node4
+        l2.head = node3
+        eq_(get_intersection_node(l1.head, l2.head), node3)
+
+        l3 = LinkedList()
+        l3.head = ListElement(4)
+        eq_(get_intersection_node(l1.head, l3.head), None)
+
+        l4 = LinkedList()
+        eq_(get_intersection_node(l1.head, l4.head), None)
+
+
 if __name__ == "__main__":
     unittest.main()
