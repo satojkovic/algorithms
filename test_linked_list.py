@@ -93,23 +93,17 @@ class TestLinkedList(unittest.TestCase):
         self.l.remove_first()
         eq_(self.l.find_middle(), None)
 
-    def test_find_nth_from_end(self):
-        # 0->1->2->3->4
-        [self.l.add(i) for i in range(5)]
-        ret = self.l.find_nth_from_end(1)
-        eq_(ret.data, 4)
-        ret = self.l.find_nth_from_end(2)
-        eq_(ret.data, 3)
-        ret = self.l.find_nth_from_end(3)
-        eq_(ret.data, 2)
-        ret = self.l.find_nth_from_end(4)
-        eq_(ret.data, 1)
-        ret = self.l.find_nth_from_end(5)
-        eq_(ret.data, 0)
-
-        eq_(self.l.find_nth_from_end(0), None)
-        eq_(self.l.find_nth_from_end(6), None)
-        eq_(self.l.find_nth_from_end(-1), None)
+    def test_remove_nth_from_end(self):
+        ll = LinkedList()
+        ll.add(1)
+        ll.add(2)
+        ll.add(3)
+        ll.head = remove_nth_from_end(ll.head, 2)
+        eq_(ll.head.data, 1)
+        eq_(ll.head.next_elem.data, 3)
+        ll.head = remove_nth_from_end(ll.head, 1)
+        eq_(ll.head.data, 1)
+        eq_(ll.head.next_elem, None)
 
     def test_detect_loop(self):
         ll = LinkedList()

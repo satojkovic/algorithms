@@ -9,22 +9,6 @@ class ListElement:
         self.data = data
         self.next_elem = None
 
-
-def find_intersection(ll1, ll2):
-    if not ll1 or not ll2:
-        return None
-    elems1 = set()
-    head1 = ll1
-    while head1:
-        elems1.add(head1)
-        head1 = head1.next_elem
-    head2 = ll2
-    while head2:
-        if head2 in elems1:
-            return head2
-        head2 = head2.next_elem
-    return None
-
 def get_intersection_node(head_a, head_b):
     if head_a is None or head_b is None:
         return None
@@ -34,6 +18,56 @@ def get_intersection_node(head_a, head_b):
         ha = head_b if ha is None else ha.next_elem
         hb = head_a if hb is None else hb.next_elem
     return ha
+
+def get_intersection_node2(head_a, head_b):
+    if not head_a or not head_b:
+        return None
+    nodes = set()
+    ha = head_a
+    while ha:
+        nodes.add(ha)
+        ha = ha.next_elem
+    hb = head_b
+    while hb:
+        if hb in nodes:
+            return hb
+        hb = hb.next_elem
+    return None
+
+def remove_nth_from_end(head, n):
+    if head is None:
+        return None
+    slow = head
+    fast = head
+    # forward the fast pointer by n+1 times
+    while n >= 0 and fast:
+        fast = fast.next_elem
+        n -= 1
+    # forward the fast pointer until the tail and move the slow pointer at the same time.
+    while fast:
+        fast = fast.next_elem
+        slow = slow.next_elem
+    # when the fast pointer reach to the tail, remove target is the next node of slow pointer.
+    # however when the length of this linked list is n, remove target is head node.
+    if n == 0:
+        head = slow.next_elem
+    else:
+        slow.next_elem = slow.next_elem.next_elem
+    return head
+
+
+def remove_nth_from_end2(head, n):
+    def helper(head, n, i):
+        if head is None:
+            return head, i
+        node, l = helper(head.next_elem, n, i + 1)
+        if (l - n) != i:
+            head.next_elem = node
+            return head, l
+        else:
+            return node, l
+    head, l = helper(head, n, 0)
+    return head
 
 class LinkedList:
     """Linked List
@@ -221,26 +255,6 @@ class LinkedList:
         else:
             head.next_elem = node
         return head
-
-    def find_nth_from_end(self, n):
-        if self.is_empty():
-            return None
-
-        trav1 = self.head
-        length = 0
-        while trav1:
-            length += 1
-            trav1 = trav1.next_elem
-
-        steps = length - n
-        if steps < 0 or steps >= length:
-            return None
-        trav2 = self.head
-        for i in range(steps):
-            trav2 = trav2.next_elem
-
-        return trav2
-
 
     def print_list(self):
         if self.is_empty():
