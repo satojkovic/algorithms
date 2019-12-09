@@ -1,4 +1,5 @@
 import unittest
+from linked_list import LinkedList
 from linked_list import *
 from nose.tools import ok_, eq_
 
@@ -156,6 +157,24 @@ class TestLinkedList(unittest.TestCase):
         l4 = LinkedList()
         eq_(get_intersection_node(l1.head, l4.head), None)
 
+    def test_reverse_list(self):
+        ll = LinkedList()
+        [ll.add(i) for i in range(1, 4)]
+        ll.reverse_list()
+        eq_(ll.head.data, 3)
+        eq_(ll.head.next_elem.data, 2)
+        eq_(ll.head.next_elem.next_elem.data, 1)
+        eq_(ll.head.next_elem.next_elem.next_elem, None)
+
+        ll = LinkedList()
+        ll.add(1)
+        ll.reverse_list()
+        eq_(ll.head.data, 1)
+        eq_(ll.head.next_elem, None)
+
+        ll = LinkedList()
+        ll.reverse_list()
+        eq_(ll.head, None)
 
 if __name__ == "__main__":
     unittest.main()
