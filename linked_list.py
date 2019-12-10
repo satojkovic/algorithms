@@ -55,7 +55,6 @@ def remove_nth_from_end(head, n):
         slow.next_elem = slow.next_elem.next_elem
     return head
 
-
 def remove_nth_from_end2(head, n):
     def helper(head, n, i):
         if head is None:
@@ -68,6 +67,17 @@ def remove_nth_from_end2(head, n):
             return node, l
     head, l = helper(head, n, 0)
     return head
+
+def reverse_list(head):
+    if head is None:
+        return head
+    cur_head = head
+    while head.next_elem:
+        p = head.next_elem
+        head.next_elem = p.next_elem
+        p.next_elem = cur_head
+        cur_head = p
+    return cur_head
 
 class LinkedList:
     """Linked List
