@@ -79,6 +79,12 @@ def reverse_list(head):
         cur_head = p
     return cur_head
 
+def remove_target_node(head, target):
+    if head is None:
+        return head
+    head.next_elem = remove_target_node(head.next_elem, target)
+    return head if head.data != target else head.next_elem
+
 class LinkedList:
     """Linked List
     """

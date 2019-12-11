@@ -176,5 +176,27 @@ class TestLinkedList(unittest.TestCase):
         ll.reverse_list()
         eq_(ll.head, None)
 
+    def test_remove_target_node(self):
+        ll = LinkedList()
+        ll.add(1)
+        ll.add(2)
+        ll.add(3)
+        ll.head = remove_target_node(ll.head, 2)
+        eq_(ll.head.data, 1)
+        eq_(ll.head.next_elem.data, 3)
+        eq_(ll.head.next_elem.next_elem, None)
+
+        ll = LinkedList()
+        ll.add(3)
+        ll.add(3)
+        ll.head = remove_target_node(ll.head, 3)
+        eq_(ll.head, None)
+
+        ll = LinkedList()
+        ll.add(1)
+        ll.head = remove_target_node(ll.head, 10)
+        eq_(ll.head.data, 1)
+        eq_(ll.head.next_elem, None)
+
 if __name__ == "__main__":
     unittest.main()
