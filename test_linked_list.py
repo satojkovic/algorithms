@@ -198,5 +198,35 @@ class TestLinkedList(unittest.TestCase):
         eq_(ll.head.data, 1)
         eq_(ll.head.next_elem, None)
 
+    def test_odd_even_order(self):
+        ll = LinkedList()
+        ll.add(1)
+        ll.add(2)
+        ll.add(3)
+        ll.head = odd_even_order(ll.head)
+        eq_(ll.head.data, 1)
+        eq_(ll.head.next_elem.data, 3)
+        eq_(ll.head.next_elem.next_elem.data, 2)
+        eq_(ll.head.next_elem.next_elem.next_elem, None)
+
+        ll = LinkedList()
+        ll.add(1)
+        ll.head = odd_even_order(ll.head)
+        eq_(ll.head.data, 1)
+        eq_(ll.head.next_elem, None)
+
+        ll = LinkedList()
+        ll.add(1)
+        ll.add(2)
+        ll.add(3)
+        ll.add(4)
+        ll.head = odd_even_order(ll.head)
+        eq_(ll.head.data, 1)
+        eq_(ll.head.next_elem.data, 3)
+        eq_(ll.head.next_elem.next_elem.data, 2)
+        eq_(ll.head.next_elem.next_elem.next_elem.data, 4)
+        eq_(ll.head.next_elem.next_elem.next_elem.next_elem, None)
+
+
 if __name__ == "__main__":
     unittest.main()

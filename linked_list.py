@@ -85,6 +85,19 @@ def remove_target_node(head, target):
     head.next_elem = remove_target_node(head.next_elem, target)
     return head if head.data != target else head.next_elem
 
+def odd_even_order(head):
+    if head is None:
+        return head
+    odd, even = head, head.next_elem
+    odd_h, even_h = odd, even
+    while odd.next_elem and odd.next_elem.next_elem:
+        odd.next_elem = even.next_elem
+        even.next_elem = odd.next_elem.next_elem
+        odd = odd.next_elem
+        even = even.next_elem
+    odd.next_elem = even_h
+    return odd_h
+
 class LinkedList:
     """Linked List
     """
