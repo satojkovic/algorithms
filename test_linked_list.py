@@ -227,6 +227,40 @@ class TestLinkedList(unittest.TestCase):
         eq_(ll.head.next_elem.next_elem.next_elem.data, 4)
         eq_(ll.head.next_elem.next_elem.next_elem.next_elem, None)
 
+    def test_is_palindrome(self):
+        ll = LinkedList()
+        ll.add(1)
+        ll.add(2)
+        ll.add(3)
+        ll.add(2)
+        ll.add(1)
+        eq_(is_palindrome(ll.head), True)
+        eq_(is_palindrome2(ll.head), True)
+
+        ll = LinkedList()
+        ll.add(1)
+        ll.add(2)
+        ll.add(2)
+        ll.add(1)
+        eq_(is_palindrome(ll.head), True)
+        eq_(is_palindrome2(ll.head), True)
+
+        ll = LinkedList()
+        ll.add(1)
+        eq_(is_palindrome(ll.head), True)
+        eq_(is_palindrome2(ll.head), True)
+
+        ll = LinkedList()
+        ll.add(1)
+        ll.add(2)
+        ll.add(3)
+        eq_(is_palindrome(ll.head), False)
+        eq_(is_palindrome2(ll.head), False)
+
+        ll = LinkedList()
+        eq_(is_palindrome(ll.head), True)
+        eq_(is_palindrome2(ll.head), True)
+
 
 if __name__ == "__main__":
     unittest.main()
