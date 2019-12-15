@@ -7,7 +7,7 @@ class GraphNode:
         self.visited = False
         self.adjs = []
 
-    def add_neighbor(self, adj):
+    def add_adjacent(self, adj):
         self.adjs.append(adj)
 
 class Graph:
@@ -20,7 +20,7 @@ class Graph:
         if not dst in self.nodes:
             self.nodes[dst] = GraphNode(dst)
 
-        self.nodes[src].add_neighbor(self.nodes[dst])
+        self.nodes[src].add_adjacent(self.nodes[dst])
 
 
 def bfs(root, path=[]):
