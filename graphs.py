@@ -7,6 +7,21 @@ class GraphNode:
         self.visited = False
         self.adjs = []
 
+    def add_neighbor(self, adj):
+        self.adjs.append(adj)
+
+class Graph:
+    def __init__(self):
+        self.nodes = {}
+
+    def add_edge(self, src, dst):
+        if not src in self.nodes:
+            self.nodes[src] = GraphNode(src)
+        if not dst in self.nodes:
+            self.nodes[dst] = GraphNode(dst)
+
+        self.nodes[src].add_neighbor(self.nodes[dst])
+
 
 def bfs(root, path=[]):
     root.visited = True
