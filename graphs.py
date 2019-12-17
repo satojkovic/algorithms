@@ -1,14 +1,13 @@
 #!/usr/bin/env python
 # -*- coding=utf-8 -*-
 
+from collections import deque
+
 class GraphNode:
     def __init__(self, data):
         self.data = data
         self.visited = False
-        self.adjs = []
-
-    def add_adjacent(self, adj):
-        self.adjs.append(adj)
+        self.adjs = deque()
 
 class Graph:
     def __init__(self):
@@ -20,32 +19,34 @@ class Graph:
         if not dst in self.nodes:
             self.nodes[dst] = GraphNode(dst)
 
-        self.nodes[src].add_adjacent(self.nodes[dst])
+        self.nodes[src].adjs.append(self.nodes[dst])
 
 
 def bfs(root, path=[]):
     root.visited = True
-    q = [root]
+    q = deque()
+    q.append(root)
     while q:
-        node = q.pop(0)
+        node = q.popleft()
         path.append(node.data)
         for adj in node.adjs:
             if not adj.visited:
                 adj.visited = True
-                q = q + [adj]
+                q.append(adj)
     return path
 
 def dfs(root, path=[]):
     root.visited = True
-    s = [root]
+    s = deque()
+    s.append(root)
     while s:
-        node = s.pop(0)
+        node = s.popleft()
         path.append(node.data)
         # Last node of the adjacency list is the first node of next while loop
         for adj in node.adjs:
             if not adj.visited:
                 adj.visited = True
-                s = [adj] + s
+                s.appendleft(adj)
     return path
 
 def dfs_r(root):
