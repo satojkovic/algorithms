@@ -24,8 +24,7 @@ class Graph:
 
 def bfs(root, path=[]):
     root.visited = True
-    q = deque()
-    q.append(root)
+    q = deque([root])
     while q:
         node = q.popleft()
         path.append(node.data)
@@ -37,8 +36,7 @@ def bfs(root, path=[]):
 
 def dfs(root, path=[]):
     root.visited = True
-    s = deque()
-    s.append(root)
+    s = deque([root])
     while s:
         node = s.popleft()
         path.append(node.data)
