@@ -20,8 +20,29 @@ class TestGraphs(unittest.TestCase):
         self.graph.add_edge(3, 2)
         self.graph.add_edge(3, 4)
 
+        # "A": ["B", "C"],
+        # "B": ["A", "D", "E"],
+        # "C": ["A", "F"],
+        # "D": ["B"],
+        # "E": ["B", "F"],
+        # "F": ["C", "E"],
+        self.graph2 = Graph()
+        self.graph2.add_edge('A', 'B')
+        self.graph2.add_edge('A', 'C')
+        self.graph2.add_edge('B', 'A')
+        self.graph2.add_edge('B', 'D')
+        self.graph2.add_edge('B', 'E')
+        self.graph2.add_edge('C', 'A')
+        self.graph2.add_edge('C', 'F')
+        self.graph2.add_edge('D', 'B')
+        self.graph2.add_edge('E', 'B')
+        self.graph2.add_edge('E', 'F')
+        self.graph2.add_edge('F', 'C')
+        self.graph2.add_edge('F', 'E')
+
     def test_bfs(self):
-        eq_(bfs(self.graph.nodes[0]), [0, 1, 4, 5, 3, 2])
+        eq_(bfs(self.graph.nodes[0], path=[]), [0, 1, 4, 5, 3, 2])
+        eq_(bfs(self.graph2.nodes['A'], path=[]), ['A', 'B', 'C', 'D', 'E', 'F'])
 
     def test_dfs(self):
         eq_(dfs(self.graph.nodes[0]), [0, 5, 4, 1, 3, 2])
