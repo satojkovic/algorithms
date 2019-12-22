@@ -8,11 +8,11 @@ class GraphNode:
         self.data = data
         self.visited = False
         self.adjs = deque()
-        self.n_vertices = 0
 
 class Graph:
     def __init__(self):
         self.nodes = {}
+        self.n_vertices = 0
 
     def add_edge(self, src, dst):
         if not src in self.nodes:
