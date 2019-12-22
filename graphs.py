@@ -8,6 +8,7 @@ class GraphNode:
         self.data = data
         self.visited = False
         self.adjs = deque()
+        self.n_vertices = 0
 
 class Graph:
     def __init__(self):
@@ -16,8 +17,10 @@ class Graph:
     def add_edge(self, src, dst):
         if not src in self.nodes:
             self.nodes[src] = GraphNode(src)
+            self.n_vertices += 1
         if not dst in self.nodes:
             self.nodes[dst] = GraphNode(dst)
+            self.n_vertices += 1
 
         self.nodes[src].adjs.append(self.nodes[dst])
 
@@ -70,4 +73,3 @@ def dfs_r2(root):
         adj_path = dfs_r2(adj)
         path += adj_path
     return path
-
