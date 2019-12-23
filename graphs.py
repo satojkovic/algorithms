@@ -24,6 +24,27 @@ class Graph:
 
         self.nodes[src].adjs.append(self.nodes[dst])
 
+    # To detect cycle, find back edge by DFS
+    def detect_cycle(self):
+        trav_nodes = self.n_vertices * [False]
+        for node_i in range(self.n_vertices):
+            if not self.nodes[node_i].visited and self._detect_cycle(node_i, trav_nodes):
+                return True
+        return False
+
+    def _detect_cycle(self, node_i, trav_nodes):
+        # Mark current node as visited
+        self.nodes[node_i].visited = True
+        trav_nodes[node_i] = True
+
+        for adj in self.nodes[node_i].adjs:
+            if not adj.visited and self._detect_cycle(adj.data, trav_nodes):
+                return True
+            elif trav_nodes[adj.data]:
+                return True
+
+        trav_nodes[node_i] = False
+        return False
 
 def bfs(root, path=[]):
     root.visited = True
