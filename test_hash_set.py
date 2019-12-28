@@ -7,10 +7,9 @@ class TestHashSet(unittest.TestCase):
         hs = HashSet(3)
         hs.add(1)
         hs.add(2)
-        hs.add(3)
-        eq_(hs.data[1], 1)
-        eq_(hs.data[2], 2)
-        eq_(hs.data[0], 3)
+        eq_(hs.contains(1), True)
+        eq_(hs.contains(2), True)
+        eq_(hs.contains(3), False)
 
 if __name__ == "__main__":
     unittest.main()
