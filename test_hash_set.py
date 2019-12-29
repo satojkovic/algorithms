@@ -20,5 +20,16 @@ class TestHashSet(unittest.TestCase):
         eq_(hs.contains(30), True)
         eq_(hs.size, 5)
 
+    def test_remove(self):
+        hs = HashSet(3)
+        hs.add(1)
+        hs.add(2)
+        eq_(hs.size, 2)
+        eq_(hs.contains(1), True)
+        eq_(hs.contains(3), False)
+        eq_(hs.remove(1), True)
+        eq_(hs.contains(2), True)
+        eq_(hs.size, 1)
+
 if __name__ == "__main__":
     unittest.main()
