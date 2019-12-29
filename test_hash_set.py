@@ -10,6 +10,15 @@ class TestHashSet(unittest.TestCase):
         eq_(hs.contains(1), True)
         eq_(hs.contains(2), True)
         eq_(hs.contains(3), False)
+        eq_(hs.size, 2)
+
+        hs.add(10)
+        hs.add(20)
+        hs.add(30)
+        eq_(hs.contains(10), True)
+        eq_(hs.contains(20), True)
+        eq_(hs.contains(30), True)
+        eq_(hs.size, 5)
 
 if __name__ == "__main__":
     unittest.main()
