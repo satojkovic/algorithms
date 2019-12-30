@@ -11,87 +11,74 @@ class HashEntry:
         self.next = None
 
 class HashTable:
-    def __init__(self, capacity=3, load_factor=0.75):
+    def __init__(self, capacity=1000, load_factor=0.75):
         self.capacity = capacity
         self.load_factor = load_factor
         self.size = 0
-        self.table = [None for _ in range(self.capacity)]
+        self.bucket = self.capacity * [None]
         self.threshold = int(self.capacity * self.load_factor)
 
     def is_empty(self):
         return self.size == 0
 
-    def insert(self, key, value):
-        if key is None:
-            return False
-        bucket_index = self._get_index(key)
-        return self._insert_entry(bucket_index, key, value)
-
     def remove(self, key):
-        if key is None:
+        h = self._hash(key)
+        pos = self._bucket_seek(h, key)
+        if pos < 0:
             return False
-        bucket_index = self._get_index(key)
-        value = self._remove_entry(bucket_index, key)
-        if value:
-            self.size -= 1
-        return value
-
-    def print_table(self):
-        print('(capacity, size, threshold) = ({}, {}, {}):'.format(self.capacity, self.size, self.threshold))
-        for i, bucket in enumerate(self.table):
-            print('[bucket {}]'.format(i), end=' ')
-            head = bucket
-            while head:
-                print('{} => {}'.format(head.key, head.value), end=' ')
+        elif pos == 0:
+            head = self.bucket[h]
+            self.bucket[h] = head.next
+        else:
+            head = self.bucket[h]
+            while pos > 1:
                 head = head.next
-            print()
+                pos -= 1
+            head.next = head.next.next
+        self.size -= 1
+        return True
 
     def get(self, key):
-        if key is None:
-            return None
-        bucket_index = self._get_index(key)
-        entry = self._bucket_seek(bucket_index, key)
-        return entry.value if entry else None
-
-    def _get_index(self, key):
-        return (hash(key) & 0x7fffffff) % self.capacity
-
-    def _add_last(self, bucket_index, key, value):
-        bucket = self.table[bucket_index]
-        if not bucket:
-            self.table[bucket_index] = HashEntry(key, value)
-            self.size += 1
-            return
-
-        head = bucket
-        while head.next:
-            head = head.next
-        head.next = HashEntry(key, value)
-        self.size += 1
-
-    def _insert_entry(self, bucket_index, key, value):
-        # exist_entry is None if same value doesn't exist in the bucket
-        exist_entry = self._bucket_seek(bucket_index, key)
-        if not exist_entry:
-            # Append HashEntry
-            self._add_last(bucket_index, key, value)
-            if self.size > self.threshold:
-                self._resize_table()
+        h = self._hash(key)
+        pos = self._bucket_seek(h, key)
+        if pos < 0:
+            return -1
         else:
-            # Update value
-            exist_entry.value = value
-        return
+            head = self.bucket[h]
+            while pos > 0:
+                head = head.next
+                pos -= 1
+            return head.value
+
+    def put(self, key, value):
+        h = self._hash(key)
+        pos = self._bucket_seek(h, key)
+        if pos < 0:
+            node = HashEntry(key, value)
+            node.next = self.bucket[h]
+            self.bucket[h] = node
+            self.size += 1
+        else:
+            # Update the existing value
+            head = self.bucket[h]
+            while pos > 0:
+                head = head.next
+                pos -= 1
+            head.value = value
+
+    def _hash(self, key):
+        return (hash(key) & 0x7fffffff) % self.capacity
 
     def _resize_table(self):
         self.capacity *= 2
         self.threshold = int(self.capacity * self.load_factor)
         new_table = self.capacity * [None]
 
-        for bucket in self.table:
+        for bucket in self.bucket:
             if bucket:
                 head = bucket
                 while head:
-                    bucket_index = self._get_index(head.key)
+                    bucket_index = self._hash(head.key)
                     if new_table[bucket_index]:
                         new_table_head = new_table[bucket_index]
                         while new_table_head.next:
@@ -100,48 +87,27 @@ class HashTable:
                     else:
                         new_table[bucket_index] = HashEntry(head.key, head.value)
                     head = head.next
-        self.table = new_table
+        self.bucket = new_table
 
-    def _bucket_seek(self, bucket_index, key):
-        if key is None:
-            return None
-
-        bucket = self.table[bucket_index]
-        if not bucket:
-            return None
-        head = bucket
+    def _bucket_seek(self, h, key):
+        head = self.bucket[h]
+        pos = 0
         while head:
             if head.key == key:
-                return head
+                return pos
             head = head.next
-        return None
+            pos += 1
+        return -1
 
-    def _remove_entry(self, bucket_index, key):
-        if not self.table[bucket_index]:
-            return None
-
-        head = self.table[bucket_index]
-        if head.key == key:
-            return self._remove_first(bucket_index, key)
-
-        target = head.next
-        while target:
-            if target.key == key:
-                value = target.value
-                head.next = target.next
-                return value
-            target = target.next
-            head = head.next
-        return None
-
-    def _remove_first(self, bucket_index, key):
-        if not self.table[bucket_index]:
-            return None
-
-        head = self.table[bucket_index]
-        value = head.value
-        self.table[bucket_index] = head.next
-        return value
+    def print_table(self):
+        print('(capacity, size, threshold) = ({}, {}, {}):'.format(self.capacity, self.size, self.threshold))
+        for i, bucket in enumerate(self.bucket):
+            print('[bucket {}]'.format(i), end=' ')
+            head = bucket
+            while head:
+                print('{} => {}'.format(head.key, head.value), end=' ')
+                head = head.next
+            print()
 
 class HashTableQuadProbing:
     def __init__(self, capacity=8, load_factor=0.45):
@@ -155,7 +121,7 @@ class HashTableQuadProbing:
         self.key_count = 0
         self.tombstone = TombStone()
 
-    def insert(self, key, value):
+    def add(self, key, value):
         if key is None:
             return None
         if self.used_buckets >= self.threshold:
@@ -164,7 +130,7 @@ class HashTableQuadProbing:
         # Searching for an empty bucket
         x = 1
         key_hash = hash(key)
-        index = self._get_index(key_hash)
+        index = self._hash(key_hash)
         seen_tombstone = -1
         while True:
             # The current bucket was previously deleted
@@ -196,7 +162,7 @@ class HashTableQuadProbing:
                 return None
 
             # Quadratic Probing
-            index = self._get_index(key_hash + self._quad_probing(x))
+            index = self._hash(key_hash + self._quad_probing(x))
             x += 1
 
     def remove(self, key):
@@ -205,11 +171,11 @@ class HashTableQuadProbing:
 
         x = 1
         key_hash = hash(key)
-        index = self._get_index(key_hash)
+        index = self._hash(key_hash)
         while True:
             # Ignore deleted buckets
             if self.key_table[index] == self.tombstone:
-                index = self._get_index(key_hash + self._quad_probing(x))
+                index = self._hash(key_hash + self._quad_probing(x))
                 x += 1
                 continue
 
@@ -231,7 +197,7 @@ class HashTableQuadProbing:
 
         x = 1
         key_hash = hash(key)
-        index = self._get_index(key_hash)
+        index = self._hash(key_hash)
         seen_tombstone = -1
         while True:
             if self.key_table[index] == self.tombstone:
@@ -251,7 +217,7 @@ class HashTableQuadProbing:
                 # Not found
                 return None
 
-            index = self._get_index(key_hash + self._quad_probing(x))
+            index = self._hash(key_hash + self._quad_probing(x))
             x += 1
 
     def print_table(self):
@@ -261,7 +227,7 @@ class HashTableQuadProbing:
     def _quad_probing(self, x):
         return (x**2 + x) >> 1
 
-    def _get_index(self, key):
+    def _hash(self, key):
         return (key & 0x7fffffff) % self.capacity
 
     def _resize_table(self):
@@ -277,70 +243,6 @@ class HashTableQuadProbing:
 
         for i, key in enumerate(old_key_table):
             if old_key_table[i] != None and old_key_table[i] != self.tombstone:
-                self.insert(key, old_value_table[i])
+                self.add(key, old_value_table[i])
             old_key_table[i] = None
             old_value_table[i] = None
-
-if __name__ == "__main__":
-    ht = HashTable()
-    print('Init:')
-    ht.print_table()
-    print('Insert:')
-    ht.insert('william', 21)
-    ht.print_table()
-    print('Insert:')
-    ht.insert('bob', 40)
-    ht.print_table()
-    print('Insert:')
-    ht.insert('ken', 11)
-    ht.print_table()
-    print('Get:')
-    value = ht.get('william')
-    print('william =>', value)
-
-    print('remove:')
-    ht.remove('ken')
-    ht.print_table()
-    print('remove:')
-    ht.remove('william')
-    ht.print_table()
-    print('remove:')
-    ht.remove('bob')
-    ht.print_table()
-    print('remove:')
-    if not ht.remove('arnold'):
-        print('Not found: arnold')
-
-    print()
-    ht_qp = HashTableQuadProbing()
-    print('Init:')
-    ht_qp.print_table()
-    print('insert:')
-    ht_qp.insert('william', 21)
-    ht_qp.print_table()
-    print('Insert:')
-    ht_qp.insert('bob', 40)
-    ht_qp.print_table()
-    print('Insert:')
-    ht_qp.insert('ken', 11)
-    print('Insert:')
-    ht_qp.insert('jones', 90)
-    ht_qp.print_table()
-    print('remove:')
-    ht_qp.remove('william')
-    ht_qp.print_table()
-    print('remove:')
-    ht_qp.remove('ken')
-    ht_qp.print_table()
-    print('remove:')
-    ht_qp.remove('bob')
-    ht_qp.print_table()
-    print('remove:')
-    if not ht_qp.remove('bob'):
-        print('Not found')
-    else:
-        ht_qp.print_table()
-    print('get:')
-    print('jones =>', ht_qp.get('jones'))
-    print('get:')
-    print('tom =>', ht_qp.get('tom'))

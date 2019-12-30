@@ -1,36 +1,39 @@
-import hash_table
+from hash_table import *
 import unittest
 from nose.tools import ok_, eq_
 
 class TestHashTable(unittest.TestCase):
-    def setUp(self):
-        self.ht = hash_table.HashTable()
+    def test_put_get(self):
+        ht = HashTable()
+        ht.put(1, 1)
+        ht.put(2, 2)
+        ht.put(10, 10)
+        ht.put(20, 20)
+        ht.put(1000, 1000)
+        eq_(ht.size, 5)
+        eq_(ht.get(1), 1)
+        eq_(ht.get(3), -1)
+        eq_(ht.get(10), 10)
+        eq_(ht.get(20), 20)
+        eq_(ht.get(1000), 1000)
+        eq_(ht.get(10000), -1)
+        eq_(ht.get('a'), -1)
 
-    def test_empty(self):
-        eq_(self.ht.is_empty(), True)
-        self.ht.insert('test', 1)
-        eq_(self.ht.is_empty(), False)
+    def test_remove(self):
+        ht = HashTable()
+        ht.put(1, 1)
+        ht.put(2, 2)
+        eq_(ht.size, 2)
+        ht.put(2, 1)
+        eq_(ht.size, 2)
+        eq_(ht.remove(2), True)
+        eq_(ht.size, 1)
+        eq_(ht.get(2), -1)
+        eq_(ht.remove(1), True)
+        eq_(ht.size, 0)
+        eq_(ht.get(1), -1)
+        eq_(ht.remove(1), False)
 
-    def test_insert(self):
-        self.ht.insert('test', 1)
-        eq_(self.ht.get('test'), 1)
-
-        self.ht.insert('hash', 10)
-        eq_(self.ht.get('hash'), 10)
-
-        self.ht.insert('test', 100)
-        eq_(self.ht.get('test'), 100)
-
-    def test_resize(self):
-        eq_(self.ht.capacity, 3)
-        for i in range(3):
-            key = str(i)
-            self.ht.insert('test' + key, i)
-        eq_(self.ht.capacity, 6)
-        for i in range(3):
-            key = str(i + 3)
-            self.ht.insert('test' + key, i)
-        eq_(self.ht.capacity, 12)
 
 if __name__ == "__main__":
     unittest.main()
