@@ -29,3 +29,16 @@ def is_happy_number2(n):
             return False
         seen.add(n)
     return True
+
+def is_happy_number3(n):
+    seen = set()
+    return _is_happy_number3(n, seen)
+
+def _is_happy_number3(n, seen):
+    n = sum([int(c) ** 2 for c in str(n)])
+    if n == 1:
+        return True
+    if n in seen:
+        return False
+    seen.add(n)
+    return _is_happy_number3(n, seen)

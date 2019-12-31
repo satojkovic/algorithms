@@ -12,5 +12,9 @@ class TestIsHappyNumber(unittest.TestCase):
         eq_(is_happy_number2(19), True)
         eq_(is_happy_number2(0), False)
 
+    def test_is_happy_number3(self):
+        eq_(is_happy_number3(19), True)
+        eq_(is_happy_number3(0), False)
+
 if __name__ == "__main__":
     unittest.main()
