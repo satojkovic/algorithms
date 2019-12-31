@@ -66,28 +66,31 @@ class HashTable:
                 pos -= 1
             head.value = value
 
+        if self.size > self.threshold:
+            self._resize_table()
+
     def _hash(self, key):
         return (hash(key) & 0x7fffffff) % self.capacity
 
     def _resize_table(self):
         self.capacity *= 2
         self.threshold = int(self.capacity * self.load_factor)
-        new_table = self.capacity * [None]
+        new_bucket = self.capacity * [None]
 
         for bucket in self.bucket:
-            if bucket:
-                head = bucket
-                while head:
-                    bucket_index = self._hash(head.key)
-                    if new_table[bucket_index]:
-                        new_table_head = new_table[bucket_index]
-                        while new_table_head.next:
-                            new_table_head = new_table_head.next
-                        new_table_head.next = HashEntry(head.key, head.value)
-                    else:
-                        new_table[bucket_index] = HashEntry(head.key, head.value)
-                    head = head.next
-        self.bucket = new_table
+            if bucket is None:
+                continue
+            head = bucket
+            while head:
+                h = self._hash(head.key)
+                if new_bucket[h]:
+                    node = HashEntry(head.key, head.value)
+                    node.next = new_bucket[h]
+                    new_bucket[h] = node
+                else:
+                    new_bucket[h] = HashEntry(head.key, head.value)
+                head = head.next
+        self.bucket = new_bucket
 
     def _bucket_seek(self, h, key):
         head = self.bucket[h]
