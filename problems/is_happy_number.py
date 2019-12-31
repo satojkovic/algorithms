@@ -42,3 +42,17 @@ def _is_happy_number3(n, seen):
         return False
     seen.add(n)
     return _is_happy_number3(n, seen)
+
+def is_happy_number4(n):
+    seen = set()
+    while n != 1 and not n in seen:
+        seen.add(n)
+        n = next_number(n)
+    return n == 1
+
+def next_number(n):
+    total = 0
+    while n > 0:
+        n, digit = divmod(n, 10)
+        total += digit ** 2
+    return total
