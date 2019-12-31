@@ -14,3 +14,15 @@ def intersect1(nums1, nums2):
             ret.append(num2)
             freq[num2] -= 1
     return ret
+
+# Time complexity:
+#   O(m + n), O(m) time is used to convert `num1` to `set1` and O(n) time is used to convert `num2`
+#   `in` operations are O(1) in average time.
+# Space complexity: O(m + n) in the worst case when all elements in the arrays are different
+def intersect2(nums1, nums2):
+    set1 = set(nums1)
+    set2 = set(nums2)
+    if len(set1) <= len(set2):
+        return [x for x in set1 if x in set2]
+    else:
+        return [x for x in set2 if x in set1]
