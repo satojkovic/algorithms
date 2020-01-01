@@ -7,8 +7,8 @@
 def two_sum(nums, target):
     seen = {}
     for i, num in enumerate(nums):
-        if not target - num in seen:
-            seen[num] = i
-        else:
-            return [seen[target - num], i]
+        rest = target - num
+        if rest in seen:
+            return [seen[rest], i]
+        seen[num] = i
     return [-1, -1]
