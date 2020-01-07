@@ -22,7 +22,7 @@ class Graph:
             self.nodes[dst] = GraphNode(dst)
             self.n_vertices += 1
 
-        self.nodes[src].adjs.append(self.nodes[dst])
+        self.nodes[src].adjs.appendleft(self.nodes[dst])
 
     # To detect cycle, find back edge by DFS
     def detect_cycle(self):
