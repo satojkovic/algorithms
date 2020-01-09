@@ -20,5 +20,7 @@ def build_tree(inorder, postorder):
         root.right = _build_tree(
             root.right, inorder[parent_idx + 1:], postorder[len(postorder) - len(inorder[parent_idx + 1:]) - 1: -1])
         return root
+    if len(postorder) == 0:
+        return None
     root = TreeNode(postorder[-1])
     return _build_tree(root, inorder, postorder)
