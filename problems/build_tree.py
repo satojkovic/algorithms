@@ -22,5 +22,4 @@ def build_tree(inorder, postorder):
         return root
     if len(postorder) == 0:
         return None
-    root = TreeNode(postorder[-1])
-    return _build_tree(root, inorder, postorder)
+    return _build_tree(None, inorder, postorder)
