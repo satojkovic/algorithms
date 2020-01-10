@@ -17,5 +17,5 @@ def count_unival_subtrees(root):
         elif root.val in set(children) and len(set(children)) == 1:
             total += 1
         return total, children + [root.val]
-    n, nodes = _count_unival_subtrees(root)
+    n, _ = _count_unival_subtrees(root)
     return n
