@@ -23,3 +23,26 @@ def build_tree(inorder, postorder):
     if len(postorder) == 0:
         return None
     return _build_tree(None, inorder, postorder)
+
+def build_tree2(inorder, postorder):
+    def _build_tree(root, inorder, postorder, left_in, right_in, left_post, right_post):
+        if right_in < 0 or left_in >= len(inorder) or left_in > right_in:
+            return None
+        if left_in == right_in:
+            return TreeNode(inorder[left_in])
+        if root is None:
+            root = TreeNode(postorder[right_post])
+        parent_idx = inorder.index(postorder[right_post])
+        left_len = parent_idx - left_in
+        right_len = right_in - parent_idx
+        root.left = _build_tree(
+            root.left, inorder, postorder, left_in, parent_idx - 1, 
+            left_post, left_post + left_len - 1)
+        root.right = _build_tree(
+            root.right, inorder, postorder, parent_idx + 1, right_in,
+            left_post + left_len, left_post + left_len + right_len - 1
+        )
+        return root
+    if len(postorder) == 0:
+        return None
+    return _build_tree(None, inorder, postorder, 0, len(inorder) - 1, 0, len(postorder) - 1)
