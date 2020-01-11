@@ -43,6 +43,4 @@ def build_tree2(inorder, postorder):
             left_post + left_len, left_post + left_len + right_len - 1
         )
         return root
-    if len(postorder) == 0:
-        return None
     return _build_tree(None, inorder, postorder, 0, len(inorder) - 1, 0, len(postorder) - 1)
