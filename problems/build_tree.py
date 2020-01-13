@@ -44,3 +44,27 @@ def build_tree2(inorder, postorder):
         )
         return root
     return _build_tree(None, inorder, postorder, 0, len(inorder) - 1, 0, len(postorder) - 1)
+
+def build_tree_pre_in(preorder, inorder):
+    def _build_tree(root, preorder, inorder, left_pre, right_pre, left_in, right_in):
+        if left_in < 0 or right_in >= len(inorder) or left_in > right_in:
+            return None
+        if left_in == right_in:
+            return TreeNode(inorder[left_in])
+        if root is None:
+            root = TreeNode(preorder[left_pre])
+        parent_idx = inorder.index(preorder[left_pre])
+        left_len = parent_idx - left_in
+        right_len = right_in - parent_idx
+        root.left = _build_tree(
+            root.left, preorder, inorder,
+            left_pre + 1, left_pre + left_len,
+            left_in, parent_idx - 1
+        )
+        root.right = _build_tree(
+            root.right, preorder, inorder,
+            left_pre + left_len + 1, right_pre,
+            parent_idx + 1, right_in
+        )
+        return root
+    return _build_tree(None, preorder, inorder, 0, len(preorder) - 1, 0, len(inorder) - 1)
