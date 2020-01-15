@@ -24,6 +24,11 @@ class Graph:
 
         self.nodes[src].adjs.appendleft(self.nodes[dst])
 
+    def add_vertex(self, v):
+        if not v in self.nodes:
+            self.nodes[v] = GraphNode(v)
+            self.n_vertices += 1
+
     # To detect cycle, find back edge by DFS
     def detect_cycle(self):
         trav_nodes = self.n_vertices * [False]
