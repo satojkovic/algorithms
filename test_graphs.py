@@ -11,14 +11,14 @@ class TestGraphs(unittest.TestCase):
         # 4: []
         # 5: []
         self.graph = Graph()
-        self.graph.add_edge(0, 1)
-        self.graph.add_edge(0, 4)
         self.graph.add_edge(0, 5)
-        self.graph.add_edge(1, 3)
+        self.graph.add_edge(0, 4)
+        self.graph.add_edge(0, 1)
         self.graph.add_edge(1, 4)
+        self.graph.add_edge(1, 3)
         self.graph.add_edge(2, 1)
-        self.graph.add_edge(3, 2)
         self.graph.add_edge(3, 4)
+        self.graph.add_edge(3, 2)
 
         # "A": ["B", "C"],
         # "B": ["A", "D", "E"],
@@ -27,18 +27,18 @@ class TestGraphs(unittest.TestCase):
         # "E": ["B", "F"],
         # "F": ["C", "E"],
         self.graph2 = Graph()
-        self.graph2.add_edge('A', 'B')
         self.graph2.add_edge('A', 'C')
-        self.graph2.add_edge('B', 'A')
-        self.graph2.add_edge('B', 'D')
+        self.graph2.add_edge('A', 'B')
         self.graph2.add_edge('B', 'E')
-        self.graph2.add_edge('C', 'A')
+        self.graph2.add_edge('B', 'D')
+        self.graph2.add_edge('B', 'A')
         self.graph2.add_edge('C', 'F')
+        self.graph2.add_edge('C', 'A')
         self.graph2.add_edge('D', 'B')
-        self.graph2.add_edge('E', 'B')
         self.graph2.add_edge('E', 'F')
-        self.graph2.add_edge('F', 'C')
+        self.graph2.add_edge('E', 'B')
         self.graph2.add_edge('F', 'E')
+        self.graph2.add_edge('F', 'C')
 
     def test_bfs(self):
         eq_(bfs(self.graph.nodes[0], path=[]), [0, 1, 4, 5, 3, 2])
