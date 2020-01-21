@@ -9,6 +9,10 @@ class TestQueue(unittest.TestCase):
         eq_(q.head.data, 5)
         eq_(q.tail.data, 10)
 
+        [q.enque(i) for i in [5, 'A']]
+        eq_(q.head.data, 5)
+        eq_(q.tail.data, 'A')
+
     def test_deque(self):
         q = Queue()
         [q.enque(i) for i in [5, 13, 8]]
