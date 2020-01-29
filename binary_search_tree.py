@@ -151,14 +151,11 @@ class BinarySearchTree:
         return self._search(self.root, elem)
 
     def _search(self, node, elem):
-        if node is None:
-            return None
-        elif elem == node.data:
+        if node is None or elem == node.data:
             return node
-        elif elem < node.data:
+        if elem < node.data:
             return self._search(node.left, elem)
-        else:
-            return self._search(node.right, elem)
+        return self._search(node.right, elem)
 
     # Returns True if the element exists in the tree
     def contains(self, elem):
