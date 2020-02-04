@@ -13,5 +13,10 @@ class TestGenParens(unittest.TestCase):
         eq_(set(gen_parens_bf(2)), {'()()', '(())'})
         eq_(set(gen_parens_bf(3)), {'()(())', '(()())', '((()))', '()()()', '(())()'})
 
+    def test_gen_parens_bt(self):
+        eq_(set(gen_parens_bt(1)), {'()'})
+        eq_(set(gen_parens_bt(2)), {'()()', '(())'})
+        eq_(set(gen_parens_bt(3)), {'()(())', '(()())', '((()))', '()()()', '(())()'})
+
 if __name__ == "__main__":
     unittest.main()

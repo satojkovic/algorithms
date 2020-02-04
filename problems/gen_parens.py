@@ -40,3 +40,20 @@ def gen_parens_bf(n):
         if _valid(paren):
             ans.append(paren)
     return [''.join(a) for a in ans]
+
+def gen_parens_bt(n):
+    def _gen_parens_bt(N, n, curr, l, r):
+        if l < r or N // 2 < l:
+            return None
+        if n == 1:
+            return [[curr]] if l + r == N else None
+        res = []
+        left = _gen_parens_bt(N, n - 1, '(', l + 1, r)
+        right = _gen_parens_bt(N, n - 1, ')', l, r + 1)
+        if left:
+            [res.append([curr] + l) for l in left]
+        if right:
+            [res.append([curr] + r) for r in right]
+        return res
+    ans = _gen_parens_bt(n * 2, n * 2, '(', 1, 0)
+    return [''.join(a) for a in ans]
