@@ -13,5 +13,11 @@ class TestFlattenDbl(unittest.TestCase):
         eq_(flat.next.next.val, 2)
         eq_(flat.next.next.next, None)
 
+        flat2 = flatten2(head)
+        eq_(flat2.val, 1)
+        eq_(flat2.next.val, 3)
+        eq_(flat2.next.next.val, 2)
+        eq_(flat2.next.next.next, None)
+
 if __name__ == "__main__":
     unittest.main()

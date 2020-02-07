@@ -5,7 +5,7 @@ class Node:
         self.next = next
         self.child = child
 
-def flatten(head):
+def flatten2(head):
     def _preorder(root):
         if root is None:
             return []
@@ -22,3 +22,22 @@ def flatten(head):
 
     lst = _preorder(head)
     return _create_flatten_list(lst) if len(lst) != 0 else None
+
+def flatten(head):
+    def _flatten(prev, curr):
+        if curr is None:
+            return prev
+        curr.prev = prev
+        prev.next = curr
+        tmp = curr.next
+        tail = _flatten(curr, curr.child)
+        curr.child = None
+        return _flatten(tail, tmp)
+
+    if head is None:
+        return head
+
+    sentinel = Node(None, None, head, None)
+    tail = _flatten(sentinel, head)
+    head.prev = None
+    return head
