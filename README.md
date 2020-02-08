@@ -5,6 +5,7 @@ Algorithms and Data structures implemented in Python.
 ## Linked Lists
 
 * A linked list is a data structure that represents a sequence of nodes.
+* In a singly linked list, each node has a pointer to the next node in the list, whereas a doubly linked list gives each node pointers to both the next and previous node.
 * Time Complexity
 
 | operations      | Singly linked list | Doubly linked list | Array |
@@ -13,9 +14,13 @@ Algorithms and Data structures implemented in Python.
 | Add(at head)    | O(1)               | O(1)               | O(n)  |
 | Remove(at head) | O(1)               | O(1)               | O(n)  |
 
+* As indicated in the above table, you can add or remove nodes from the head of the list in constant time, but a linked list does not provide constant time access to arbitrary node within the list.
+* A linked list can be used to implement stack and queue.
+
 ## Stack
 
 * A stack is a one-ended linear data structure which have two primary operations, namely push and pop.
+* The most recent item is added to the stack is removed first. (i.e. LIFO(last-in-first-out))
 * Unlike an array, a stack does not offer constant-time access to the i-th item. It does allow constant time adds and removes, as it doesn't require shifting elements around.
 * Time complexity
 
@@ -30,6 +35,7 @@ Algorithms and Data structures implemented in Python.
 
 * A queue is just a linear data structure.
 * There are two primary operations, which are enqueuing and dequeuing.
+* Items are removed from a queue in the same order that they are added. (i.e. FIFO(first-in-first-out))
 * Enqueuing(adds) and dequeuing(removes) are constant time operations. There is also another constant time operation, peeking. Peeking means that we are looking at the value at the front of the queue without removing it.
 * But checking if the element is contained within a queue is linear time because we would potentially need to scan through all of the elements.
 * Removing the element from the queue also requires linear time.
