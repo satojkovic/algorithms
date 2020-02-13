@@ -80,3 +80,7 @@ Algorithms and Data structures implemented in Python.
 * Other tree terminologies
     * The depth of a node is the number of edges from the root to the node.
     * The height of a node is the number of edges from the node to the deepest leaf node.
+
+* Trie
+* Graphs
+* Sort
