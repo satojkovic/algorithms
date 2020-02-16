@@ -155,6 +155,7 @@ class LinkedList:
     def clear(self):
         # clear the linked list
         self.head = None
+        self.size = 0
 
     def add(self, elem):
         # Add always append the new node at the tail
