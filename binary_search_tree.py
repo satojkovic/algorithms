@@ -27,42 +27,6 @@ def unique_bst_creator(start, end):
                 all_trees.append(root)
     return all_trees
 
-def validate_bst(root):
-    is_valid, nodes = _validate_bst(root)
-    return is_valid
-
-def _validate_bst(root):
-    if root is None:
-        return True, []
-    is_lvalid, left = _validate_bst(root.left)
-    is_rvalid, right = _validate_bst(root.right)
-    if is_lvalid and is_rvalid and validate(root, left, right):
-        return True, left + [root.data] + right
-    else:
-        return False, left + [root.data] + right
-
-def validate(root, left, right):
-    for l in left:
-        if l > root.data:
-            return False
-    for r in right:
-        if r < root.data:
-            return False
-    return True
-
-def validate_bst2(root):
-    return validate2(root, None, None)
-
-def validate2(root, min_val, max_val):
-    if root is None:
-        return True
-    # Replace max_val '<=' root.data with '<' if you need to accept duplicate values in the left subtree.
-    if (min_val is not None and min_val >= root.data) or (max_val is not None and max_val <= root.data):
-        return False
-    if not validate2(root.left, min_val, root.data) or not validate2(root.right, root.data, max_val):
-        return False
-    return True
-
 def add(root, elem):
     if root is None:
         return TreeNode(elem)
