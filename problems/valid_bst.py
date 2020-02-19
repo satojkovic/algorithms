@@ -22,6 +22,21 @@ def validate_bst(root):
         return True
     return _validate_bst(root, None, None)
 
+def validate_bst_i(root):
+    if root is None:
+        return True
+
+    stack = [(root, None, None)]
+    while stack:
+        root, min_val, max_val = stack.pop()
+        if root is None:
+            continue
+        if (min_val is not None and min_val >= root.val) or (max_val is not None and max_val <= root.val):
+            return False
+        stack.append((root.left, min_val, root.val))
+        stack.append((root.right, root.val, max_val))
+    return True
+
 def validate_bst_bf(root):
     is_valid, nodes = _validate_bst(root)
     return is_valid

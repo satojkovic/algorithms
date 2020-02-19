@@ -14,5 +14,16 @@ class TestValidBst(unittest.TestCase):
         root.left.right = TreeNode(9)
         eq_(validate_bst(root), False)
 
+    def test_valid_bst_i(self):
+        root = TreeNode(8)
+        root.left = TreeNode(4)
+        root.left.left = TreeNode(2)
+        root.left.right = TreeNode(6)
+        root.right = TreeNode(9)
+        eq_(validate_bst_i(root), True)
+
+        root.left.right = TreeNode(9)
+        eq_(validate_bst_i(root), False)
+
 if __name__ == "__main__":
     unittest.main()
