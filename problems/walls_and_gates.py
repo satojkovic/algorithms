@@ -1,40 +1,30 @@
 def walls_and_gates(rooms):
     if len(rooms) == 0:
         return
+    for row in range(len(rooms)):
+        for col in range(len(rooms[0])):
+            if rooms[row][col] != 0 and rooms[row][col] != -1:
+                rooms[row][col] = bfs(rooms, row, col)
+
+def bfs(rooms, row, col):
     m = len(rooms)
     n = len(rooms[0])
-    for row in range(m):
-        for col in range(n):
-            visited = [n * [0] for _ in range(m)]
-            dist = [n * [0] for _ in range(m)]
-            if rooms[row][col] != 0 and rooms[row][col] != -1:
-                rooms[row][col] = bf(row, col, rooms, visited, dist)
-
-def bf(row, col, rooms, visited, dist):
+    dist = [n * [0] for _ in range(m)]
     q = [(row, col)]
-    visited[row][col] = 1
     while q:
-        r, c = q.pop(0)
-        if rooms[r][c] == 0:
-            return dist[r][c]
-        elif rooms[r][c] == -1:
-            continue
-        if r - 1 >= 0 and visited[r-1][c] == 0:
-            q.append((r-1, c))
-            visited[r-1][c] = 1
-            dist[r-1][c] = dist[r][c] + 1
-        if r + 1 < len(rooms) and visited[r+1][c] == 0:
-            q.append((r+1, c))
-            visited[r+1][c] = 1
-            dist[r+1][c] = dist[r][c] + 1
-        if c - 1 >= 0 and visited[r][c-1] == 0:
-            q.append((r, c-1))
-            visited[r][c-1] = 1
-            dist[r][c-1] = dist[r][c] + 1
-        if c + 1 < len(rooms[0]) and visited[r][c+1] == 0:
-            q.append((r, c+1))
-            visited[r][c+1] = 1
-            dist[r][c+1] = dist[r][c] + 1
+        row, col = q.pop(0)
+        for (r_step, c_step) in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+            r = row + r_step
+            c = col + c_step
+            if r < 0 or c < 0 or r >= m or c >= n or rooms[r][c] == -1:
+                continue
+            # Already visited
+            if dist[r][c] != 0:
+                continue
+            dist[r][c] = dist[row][col] + 1
+            if rooms[r][c] == 0:
+                return dist[r][c]
+            q.append((r, c))
     return rooms[row][col]
 
 if __name__ == "__main__":
