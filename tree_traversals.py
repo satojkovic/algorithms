@@ -23,6 +23,22 @@ def inorder(root):
         print(root.data, end=' ')
         inorder(root.right)
 
+def inorder_iter(root):
+    s = []
+    curr = root
+    res = []
+    while True:
+        if curr is not None:
+            s.append(curr)
+            curr = curr.left
+        elif s:
+            node = s.pop()
+            res.append(node.data)
+            curr = node.right
+        else:
+            break
+    return res
+
 def inorder_retlist(root):
     def helper(root, path):
         if root is None:
