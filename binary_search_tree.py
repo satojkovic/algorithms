@@ -48,6 +48,11 @@ def search(root, elem):
     else:
         return search(root.right, elem)
 
+def search_iter(root, elem):
+    while root is not None and root.data != elem:
+        root = root.left if elem < root.data else root.right
+    return root
+
 def remove(root, elem):
     if not root:
         return None
