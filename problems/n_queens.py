@@ -49,18 +49,18 @@ class Board:
                 if r - c - (row - col) == 0 or r + c - (row + col) == 0:
                     self.grid[r][c] += update_val
 
-def queens(board):
-    if board.has_max_queens():
-        return board
-    for pos in board.unattacked_positions():
-        board.place_queen(pos)
-        solution = queens(board)
-        if solution:
-            return solution
-        board.remove_queen(pos)
-    return False
+    def queens(self):
+        if self.has_max_queens():
+            return True
+        for pos in self.unattacked_positions():
+            self.place_queen(pos)
+            solution = self.queens()
+            if solution:
+                return solution
+            self.remove_queen(pos)
+        return False
 
 if __name__ == "__main__":
     board = Board(4)
-    queens(board)
+    board.queens()
     board.print_queen()
