@@ -12,10 +12,10 @@ class TestReverseString(unittest.TestCase):
 
     def test_reverse_string_r(self):
         s = ['h', 'e', 'l', 'l', 'o']
-        eq_(reverse_string_r(s, 0, len(s) - 1), ['o', 'l', 'l', 'e', 'h'])
+        eq_(reverse_string_r(s), ['o', 'l', 'l', 'e', 'h'])
 
         s = ['H', 'a', 'n', 'n', 'a', 'h']
-        eq_(reverse_string_r(s, 0, len(s) - 1), ['h', 'a', 'n', 'n', 'a', 'H'])
+        eq_(reverse_string_r(s), ['h', 'a', 'n', 'n', 'a', 'H'])
 
 if __name__ == "__main__":
     unittest.main()

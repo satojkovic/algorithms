@@ -9,9 +9,11 @@ def reverse_string(s):
         hi -= 1
     return s
 
-def reverse_string_r(s, lo=0, hi=None):
-    if hi <= lo:
-        return s
+def reverse_string_r(s):
+    def _reverse(s, lo, hi):
+        if hi <= lo:
+            return s
 
-    s[lo], s[hi] = s[hi], s[lo]
-    return reverse_string_r(s, lo + 1, hi - 1)
+        s[lo], s[hi] = s[hi], s[lo]
+        return _reverse(s, lo + 1, hi - 1)
+    return _reverse(s, 0, len(s) - 1)
