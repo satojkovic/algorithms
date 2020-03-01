@@ -5,6 +5,7 @@ class Board:
         self.board_size = board_size
         self.grid = [self.board_size * [0] for _ in range(self.board_size)]
         self.queen = {}
+        self.count = 0
 
     def print_queen(self):
         for k in self.queen.keys():
@@ -60,7 +61,21 @@ class Board:
             self.remove_queen(pos)
         return False
 
+    def _is_unattacked_position(self, row, col):
+        return self.grid[row][col] == 0
+
+    def queens_count(self, row=0):
+        for col in range(self.board_size):
+            if self._is_unattacked_position(row, col):
+                self.place_queen((row, col))
+                if row + 1 == self.board_size:
+                    self.count += 1
+                else:
+                    self.queens_count(row + 1)
+                self.remove_queen((row, col))
+        return
+
 if __name__ == "__main__":
     board = Board(4)
-    board.queens()
-    board.print_queen()
+    board.queens_count()
+    print(board.count)
