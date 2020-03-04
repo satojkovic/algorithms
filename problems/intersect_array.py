@@ -26,3 +26,25 @@ def intersect2(nums1, nums2):
         return [x for x in set1 if x in set2]
     else:
         return [x for x in set2 if x in set1]
+
+# Assume sorted
+# Time complexity: O(n)
+# Space complexity: O(1)
+def intersect3(nums1, nums2):
+    i, j = 0, 0
+    res = []
+    i, j = 0, 0
+    res = []
+    while i < len(nums1) and j < len(nums2):
+        if nums1[i] == nums2[j]:
+            val = nums1[i]
+            res.append(val)
+            while i < len(nums1) and nums1[i] == val:
+                i += 1
+            while j < len(nums2) and nums2[j] == val:
+                j += 1
+        elif nums1[i] < nums2[j]:
+            i += 1
+        else:
+            j += 1
+    return res
