@@ -106,37 +106,66 @@ def postorder_retlist(root):
     right = postorder_retlist(root.right)
     return left + right + [root.data]
 
-def levelorder(root):
-    # Each node has the depth value.
+# Level order traversal and output nested lists
+def levelorder_r(root):
+    res = []
     if root is None:
-        return []
-    q = [(root, 0)]
-    res = [[]]
-    while q:
-        node, level = q.pop(0)
-        if len(res) == (level + 1):
-            res[level].append(node.data)
-        else:
-            res.append([node.data])
+        return res
+
+    def _levelorder_r(node, level):
+        if len(res) == level:
+            res.append([])
+        res[level].append(node.data)
         if node.left:
-            q = q + [(node.left, level + 1)]
+            _levelorder_r(node.left, level + 1)
         if node.right:
-            q = q + [(node.right, level + 1)]
+            _levelorder_r(node.right, level + 1)
+
+    _levelorder_r(root, 0)
+    return res
+
+def levelorder(root):
+    res = []
+    if root is None:
+        return res
+    q = [root] # deque([root])
+    level = 0
+    while q:
+        res.append([])
+        num_nodes_at_level = len(q)
+        for _ in range(num_nodes_at_level):
+            node = q.pop(0) # q.popleft()
+            res[level].append(node.data)
+            if node.left:
+                q.append(node.left)
+            if node.right:
+                q.append(node.right)
+        level += 1
+    return res
+
+# Level order traversal and output flattened lists
+def levelorder2(root):
+    res = []
+    if root is None:
+        return res
+    q = [root]
+    while q:
+        node = q.pop(0)
+        res.append(node.data)
+        if node.left:
+            q.append(node.left)
+        if node.right:
+            q.append(node.right)
     return res
 
 if __name__ == "__main__":
     root = TreeNode(1)
-    root.left = TreeNode(2)
-    root.right = TreeNode(3)
-    root.left.left = TreeNode(4)
-    root.left.right = TreeNode(5)
-
-    print('Inorder:', end=' ')
-    inorder(root)
-    print()
-    print('Preorder:', end=' ')
-    preorder(root)
-    print()
-    print('Postorder:', end=' ')
-    postorder(root)
-    print()
+    root.left = TreeNode(10)
+    root.left.right = TreeNode(3)
+    root.right = TreeNode(20)
+    root.right.left = TreeNode(9)
+    root.right.right = TreeNode(11)
+    print(levelorder_r(root))
+    print(levelorder(root))
+    print(levelorder2_r(root))
+    print(levelorder2(root))
