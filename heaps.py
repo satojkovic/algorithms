@@ -35,7 +35,7 @@ def heapify(data, p):
 
 
 def do_heapify(data):
-    last_pidx = len(data) // 2 - 1 if len(data) % 2 == 0 else len(data) // 2
+    last_pidx = (len(data) - 1) // 2
     for p in reversed(range(0, last_pidx)):
         data = heapify(data, p)
     return data 
