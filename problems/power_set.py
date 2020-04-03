@@ -25,6 +25,15 @@ def knapsack_brute_force(items, max_weight):
                 best_cand = cand
     return best_cand
 
+def knapsack_greedy(items, max_weight):
+    bag_weight = 0
+    bag_items = []
+    for item in sorted(items, key=lambda x: x[1], reverse=True):
+        if max_weight >= bag_weight + item[0]:
+            bag_weight = bag_weight + item[0]
+            bag_items.append(item)
+    return bag_items
+
 if __name__ == "__main__":
     ps = power_set(['a', 'b', 'c'])
     print(ps)
@@ -34,4 +43,10 @@ if __name__ == "__main__":
     print(sum([value for weight, value in res]))
 
     res = knapsack_brute_force([(9, 5), (10, 4)], 20)
+    print(sum([value for weight, value in res]))
+
+    res = knapsack_greedy([(2, 4), (2, 5), (1, 2), (3, 8)], 5)
+    print(sum([value for weight, value in res]))
+
+    res = knapsack_greedy([(9, 5), (10, 4)], 20)
     print(sum([value for weight, value in res]))
