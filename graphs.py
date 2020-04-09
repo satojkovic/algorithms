@@ -64,6 +64,8 @@ def bfs(root, path=[]):
     return path
 
 def dfs(root, path=[]):
+    if root is None:
+        return []
     root.visited = True
     s = deque([root])
     while s:

@@ -40,18 +40,23 @@ class TestGraphs(unittest.TestCase):
         self.graph2.add_edge('F', 'E')
         self.graph2.add_edge('F', 'C')
 
+        self.empty_graph = None
+
     def test_bfs(self):
         eq_(bfs(self.graph.nodes[0], path=[]), [0, 1, 4, 5, 3, 2])
         eq_(bfs(self.graph2.nodes['A'], path=[]), ['A', 'B', 'C', 'D', 'E', 'F'])
 
     def test_dfs(self):
         eq_(dfs(self.graph.nodes[0]), [0, 5, 4, 1, 3, 2])
+        eq_(dfs(self.empty_graph), [])
 
     def test_dfs_r(self):
         eq_(dfs_r(self.graph.nodes[0]), [0, 1, 3, 2, 4, 5])
+        eq_(dfs_r(self.empty_graph), [])
 
     def test_dfs_r2(self):
         eq_(dfs_r2(self.graph.nodes[0]), [0, 1, 3, 2, 4, 5])
+        eq_(dfs_r2(self.empty_graph), [])
 
     def test_detect_cycle_from_node(self):
         g = Graph()
