@@ -78,7 +78,7 @@ def dfs(root, path=[]):
 
 def dfs_r(root):
     def helper(root, path):
-        if root.visited:
+        if root is None or root.visited:
             return path
         root.visited = True
         path.append(root.data)
@@ -91,7 +91,7 @@ def dfs_r(root):
     return path
 
 def dfs_r2(root):
-    if root.visited:
+    if root is None or root.visited:
         return []
     root.visited = True
     path = [root.data]
