@@ -69,18 +69,19 @@ Algorithms and Data structures implemented in Python.
       * h + 1 = log(n + 1)
       * h = log(n + 1) - 1
     * Therefore, time complexity is O(n) at worst case, 'heapify' takes O(log(n)) time.
-    
-## Binary Trees
 
-* Trees are hierarchical data structures.
-* A tree whose elements have at most 2 children is called a binary tree, where each node contains a left and a right node.
+## Trees / Binary Trees / Binary Search Trees
+
 * The topmost node is called root of the tree.
 * The nodes that are directory under a node are called its children. Conversely, the node that is directory above a node is called its parent.
 * The nodes with no children are called leaves.
+* A tree whose elements have at most 2 children is called a binary tree, where each node contains a left and a right node.
+* A binary search tree is a binary tree which every node has an ordering property.
 * Other tree terminologies
-    * The depth of a node is the number of edges from the root to the node.
-    * The height of a node is the number of edges from the node to the deepest leaf node.
+  * The depth of a node is the number of edges from the root to the node.
+  * The height of a node is the number of edges from the node to the deepest leaf node.
+  * A complete binary tree is a binary tree in which every level of the tree is fully filled, except for the last level.
 
-* Trie
 * Graphs
+* Trie
 * Sort
