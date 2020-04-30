@@ -59,16 +59,10 @@ Algorithms and Data structures implemented in Python.
   * 'heapify' is the process that swap a node with its left or right child if a node and its children don't satify with the heap priority. If the heap priority is satisfied, do nothing.
   * In min-heap, if the left(right) child is smallest, then the left(right) child is swapped with its parent.
   * In max-heap, if the left(right) child is largest, then the left(right) child is swapped with its parent.
-  * Time complexity
-    * 'heapify': O(h) at worst case, where h is the height of the tree.
-    * Therefore, building heap takes O(2<sup>0</sup> * h + 2<sup>1</sup> * (h-1) + ... + 2<sup>h-1</sup> * 1) = O(2<sup>h</sup>) time, which is the sum of the 'heapify' for all internal node.
-    * We need to know the height of the tree h.
-      * 2<sup>0</sup> + 2<sup>1</sup> + ... + 2<sup>h-1</sup> + 2<sup>h</sup> = n
-      * 1 + 2 * (2<sup>h</sup> - 1) = n
-      * 2<sup>h+1</sup> = n + 1
-      * h + 1 = log(n + 1)
-      * h = log(n + 1) - 1
-    * Therefore, time complexity is O(n) at worst case, 'heapify' takes O(log(n)) time.
+  * Time complexity (simple analysis)
+    * 'heapify' takes O(log(n)) time because the height of a binary heaps is log(n).
+    * O(n) calls to 'heapify'
+    * Therefore, overall time complexity is O(nlog(n)).
 
 ## Trees / Binary Trees / Binary Search Trees
 
