@@ -51,7 +51,7 @@ class Graph:
         trav_nodes[node_i] = False
         return False
 
-def bfs(root, path=[]):
+def _bfs(root, path=[]):
     root.visited = True
     q = deque([root])
     while q:
@@ -63,7 +63,7 @@ def bfs(root, path=[]):
                 q.append(adj)
     return path
 
-def dfs(root, path=[]):
+def _dfs(root, path=[]):
     if root is None:
         return []
     root.visited = True
@@ -78,7 +78,7 @@ def dfs(root, path=[]):
                 s.appendleft(adj)
     return path
 
-def dfs_r(root):
+def _dfs_r(root):
     def helper(root, path):
         if root is None or root.visited:
             return path
@@ -92,12 +92,25 @@ def dfs_r(root):
     path = helper(root, path)
     return path
 
-def dfs_r2(root):
+def _dfs_r2(root):
     if root is None or root.visited:
         return []
     root.visited = True
     path = [root.data]
     for adj in root.adjs:
-        adj_path = dfs_r2(adj)
+        adj_path = _dfs_r2(adj)
         path += adj_path
     return path
+
+# graph is represented as an adjacency matrix
+# g = {0: [1, 4, 5], 1: [3, 4], 2: [1], 3: [2, 4], 4: [], 5: []}
+
+def dfs(g, root):
+    visited, stack = [], [root]
+    while stack:
+        node = stack.pop()
+        if not node in visited:
+            visited.append(node)
+            for adj in g[node]:
+                stack.append(adj)
+    return visited

@@ -76,6 +76,13 @@ Algorithms and Data structures implemented in Python.
   * The height of a node is the number of edges from the node to the deepest leaf node.
   * A complete binary tree is a binary tree in which every level of the tree is fully filled, except for the last level.
 
-* Graphs
-* Trie
-* Sort
+## Graphs
+
+* A graph is simliar to trees but doesn't have a relationship between parent and child nodes.
+* Graphs can be either directed or undirected.
+* Graphs can also have cycles.
+* There are two common ways for representing a graph, the first being an adjacency list and second an adjacency matrix.
+* Graph search
+  * The two common ways to search nodes in a graph are depth-first search (DFS) and breadth-first search (BFS).
+  * In depth-first search, starting from the root node, explore each branch before moving on to the next branch.
+  * In breadth-first search, starting from the root node, explore each adjacent node before moving on to any of their children.
