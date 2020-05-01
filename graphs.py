@@ -114,3 +114,23 @@ def dfs(g, root):
             for adj in g[node]:
                 stack.append(adj)
     return visited
+
+def dfs_r(g, root, visited=None):
+    # [common gotchas]
+    # A new list is created once when the function is defined and the same list
+    # is used in each successive call
+    #
+    # When you define the funtion as dfs_r(g, root, visited=[])
+    # dfs_r(g, 0) => [0, 1, 3, 2, 4, 5]
+    # dfs_r(g, 0) => None (Because visited is filled with previous dfs_r results)
+    #
+    # What you should do instead is to create a new object each time the function is called
+    # by using a default arg to signal that no argument was provided (None is often a good choice)
+    if visited is None:
+        visited = []
+    if root in visited:
+        return
+    visited.append(root)
+    for adj in g[root]:
+        dfs_r(g, adj, visited)
+    return visited
