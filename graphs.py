@@ -130,9 +130,9 @@ def dfs_r(g, root, visited=None):
         visited = []
     if root in visited:
         return visited
-    visited.append(root)
+    visited = visited + [root]
     for adj in g[root]:
-        dfs_r(g, adj, visited)
+        visited = dfs_r(g, adj, visited)
     return visited
 
 def dfs_r_paths(g, root, target, visited=None, path=None, paths=None):
