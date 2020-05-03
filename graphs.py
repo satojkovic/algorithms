@@ -63,59 +63,21 @@ def _bfs(root, path=[]):
                 q.append(adj)
     return path
 
-def _dfs(root, path=[]):
-    if root is None:
-        return []
-    root.visited = True
-    s = deque([root])
-    while s:
-        node = s.popleft()
-        path.append(node.data)
-        # Last node of the adjacency list is the first node of next while loop
-        for adj in node.adjs:
-            if not adj.visited:
-                adj.visited = True
-                s.appendleft(adj)
-    return path
-
-def _dfs_r(root):
-    def helper(root, path):
-        if root is None or root.visited:
-            return path
-        root.visited = True
-        path.append(root.data)
-        for adj in root.adjs:
-            path = helper(adj, path)
-        return path
-
-    path = []
-    path = helper(root, path)
-    return path
-
-def _dfs_r2(root):
-    if root is None or root.visited:
-        return []
-    root.visited = True
-    path = [root.data]
-    for adj in root.adjs:
-        adj_path = _dfs_r2(adj)
-        path += adj_path
-    return path
-
 # graph is represented as an adjacency matrix
 # g = {0: [1, 4, 5], 1: [3, 4], 2: [1], 3: [2, 4], 4: [], 5: []}
 
 def dfs(g, root):
-    visited, stack = [], [root]
+    _visited, visited, stack = set(), [], [root]
     while stack:
         node = stack.pop()
-        if not node in visited:
+        if not node in _visited:
+            _visited.add(node)
             visited.append(node)
             for adj in g[node]:
                 stack.append(adj)
     return visited
 
-def dfs_r(g, root, visited=None):
+def dfs_r(g, root, visited=None, path=None):
     # [common gotchas]
     # A new list is created once when the function is defined and the same list
     # is used in each successive call
@@ -127,26 +89,34 @@ def dfs_r(g, root, visited=None):
     # What you should do instead is to create a new object each time the function is called
     # by using a default arg to signal that no argument was provided (None is often a good choice)
     if visited is None:
-        visited = []
-    if root in visited:
-        return visited
-    visited = visited + [root]
-    for adj in g[root]:
-        visited = dfs_r(g, adj, visited)
-    return visited
+        visited = set()
+    if path is None:
+        path = []
 
-def dfs_r_paths(g, root, target, visited=None):
+    if root in visited:
+        return path
+    path = path + [root]
+    visited.add(root)
+    for adj in g[root]:
+        path = dfs_r(g, adj, visited, path)
+    return path
+
+def dfs_r_paths(g, root, target, visited=None, path=None):
     if visited is None:
-        visited = []
+        visited = set()
+    if path is None:
+        path = []
+
     paths = []
     if root in visited:
         return paths
     if root == target:
-        paths.append(visited + [root])
+        paths.append(path + [root])
         return paths
-    visited = visited + [root]
+    path = path + [root]
+    visited = visited | {root}
     for adj in g[root]:
-        ps = dfs_r_paths(g, adj, target, visited)
+        ps = dfs_r_paths(g, adj, target, visited, path)
         for p in ps:
             paths.append(p)
     return paths
