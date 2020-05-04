@@ -66,6 +66,17 @@ def _bfs(root, path=[]):
 # graph is represented as an adjacency matrix
 # g = {0: [1, 4, 5], 1: [3, 4], 2: [1], 3: [2, 4], 4: [], 5: []}
 
+def bfs(g, root):
+    _visited, visited, q = set(), [], deque([root])
+    while q:
+        node = q.popleft()
+        if not node in _visited:
+            _visited.add(node)
+            visited.append(node)
+            for adj in g[node]:
+                q.append(adj)
+    return visited
+
 def dfs(g, root):
     _visited, visited, stack = set(), [], [root]
     while stack:
