@@ -51,18 +51,6 @@ class Graph:
         trav_nodes[node_i] = False
         return False
 
-def _bfs(root, path=[]):
-    root.visited = True
-    q = deque([root])
-    while q:
-        node = q.popleft()
-        path.append(node.data)
-        for adj in node.adjs:
-            if not adj.visited:
-                adj.visited = True
-                q.append(adj)
-    return path
-
 # graph is represented as an adjacency matrix
 # g = {0: [1, 4, 5], 1: [3, 4], 2: [1], 3: [2, 4], 4: [], 5: []}
 
