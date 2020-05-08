@@ -119,12 +119,11 @@ def dfs_r(g, root, visited=None, path=None):
     if path is None:
         path = []
 
-    if root in visited:
-        return path
     path = path + [root]
     visited.add(root)
     for adj in g[root]:
-        path = dfs_r(g, adj, visited, path)
+        if not adj in visited:
+            path = dfs_r(g, adj, visited, path)
     return path
 
 def dfs_r_paths(g, root, target, visited=None, path=None):
@@ -134,15 +133,14 @@ def dfs_r_paths(g, root, target, visited=None, path=None):
         path = []
 
     paths = []
-    if root in visited:
-        return paths
     if root == target:
         paths.append(path + [root])
         return paths
     path = path + [root]
     visited = visited | {root}
     for adj in g[root]:
-        ps = dfs_r_paths(g, adj, target, visited, path)
-        for p in ps:
-            paths.append(p)
+        if not adj in visited:
+            ps = dfs_r_paths(g, adj, target, visited, path)
+            for p in ps:
+                paths.append(p)
     return paths
