@@ -12,6 +12,10 @@ type SinglyLinkedList struct {
 	size int
 }
 
+func (l *SinglyLinkedList) IsEmpty() bool {
+	return l.size == 0
+}
+
 func (l *SinglyLinkedList) AddHead(value int) {
 	node := Node{value: value}
 	node.next = l.head
@@ -31,6 +35,7 @@ func (l *SinglyLinkedList) RemoveHead() (int, bool) {
 
 func main() {
 	sll := SinglyLinkedList{nil, 0}
+	fmt.Println(sll.IsEmpty())
 	sll.AddHead(10)
 	fmt.Println(sll.head.value)
 	sll.AddHead(20)
@@ -38,4 +43,5 @@ func main() {
 	sll.RemoveHead()
 	fmt.Println(sll.head.value)
 	fmt.Println(sll.size)
+	fmt.Println(sll.IsEmpty())
 }
