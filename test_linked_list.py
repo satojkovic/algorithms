@@ -28,12 +28,12 @@ class TestLinkedList(unittest.TestCase):
         self.l.add(2)
         eq_(self.l.head.next_elem.data, 2)
 
-    def test_add_first(self):
-        self.l.add_first(1)
-        eq_(self.l.peek_first(), 1)
+    def test_add_head(self):
+        self.l.add_head(1)
+        eq_(self.l.peek_head(), 1)
 
-        self.l.add_first(2)
-        eq_(self.l.peek_first(), 2)
+        self.l.add_head(2)
+        eq_(self.l.peek_head(), 2)
         eq_(self.l.head.next_elem.data, 1)
 
     def test_add_last(self):
@@ -42,12 +42,12 @@ class TestLinkedList(unittest.TestCase):
         self.l.add_last(4)
         eq_(self.l.peek_last(), 4)
 
-    def test_remove_first(self):
+    def test_remove_head(self):
         self.l.add(100)
         self.l.add(10)
-        eq_(self.l.remove_first(), 100)
-        eq_(self.l.remove_first(), 10)
-        eq_(self.l.remove_first(), None)
+        eq_(self.l.remove_head(), 100)
+        eq_(self.l.remove_head(), 10)
+        eq_(self.l.remove_head(), None)
 
     def test_remove_last(self):
         self.l.add(1)
@@ -91,7 +91,7 @@ class TestLinkedList(unittest.TestCase):
         eq_(self.l.find_middle(), 1)
 
         # empty
-        self.l.remove_first()
+        self.l.remove_head()
         eq_(self.l.find_middle(), None)
 
     def test_remove_nth_from_end(self):
@@ -135,27 +135,6 @@ class TestLinkedList(unittest.TestCase):
         ll.clear()
         ll.head = ListElement(100)
         eq_(ll.detect_loop_start(), None)
-
-    def test_get_intersection_node(self):
-        l1 = LinkedList()
-        l2 = LinkedList()
-        node1 = ListElement(3)
-        node2 = ListElement(1)
-        node3 = ListElement(10)
-        node4 = ListElement(9)
-        l1.head = node1
-        node1.next_elem = node2
-        node2.next_elem = node3
-        node3.next_elem = node4
-        l2.head = node3
-        eq_(get_intersection_node(l1.head, l2.head), node3)
-
-        l3 = LinkedList()
-        l3.head = ListElement(4)
-        eq_(get_intersection_node(l1.head, l3.head), None)
-
-        l4 = LinkedList()
-        eq_(get_intersection_node(l1.head, l4.head), None)
 
     def test_reverse_list(self):
         ll = LinkedList()

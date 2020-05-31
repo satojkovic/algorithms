@@ -124,8 +124,8 @@ class LinkedList:
         self.size = 0
 
     def is_empty(self):
-        # check whether head is None
-        return True if not self.head else False
+        # check whether the size equal zero
+        return self.size == 0
 
     def clear(self):
         # clear the linked list
@@ -136,7 +136,7 @@ class LinkedList:
         # Add always append the new node at the tail
         self.add_last(elem)
 
-    def add_first(self, elem):
+    def add_head(self, elem):
         # Add a node to the head of the linked list, O(1)
         node = ListElement(elem)
         node.next_elem = self.head
@@ -154,8 +154,8 @@ class LinkedList:
             node.next_elem = ListElement(elem)
         self.size += 1
 
-    def peek_first(self):
-        # Check the value of the first node if it exists, O(1)
+    def peek_head(self):
+        # Return the value of the head node if it exists, O(1)
         return self.head.data if not self.is_empty() else None
 
     def peek_last(self):
@@ -167,7 +167,7 @@ class LinkedList:
             node = node.next_elem
         return node.data
 
-    def remove_first(self):
+    def remove_head(self):
         if self.is_empty():
             return None
         # Extract the data at the head and move the head pointer forwards one node
@@ -185,7 +185,7 @@ class LinkedList:
         trav1 = self.head
         trav2 = self.head.next_elem
         if not trav2:
-            return self.remove_first()
+            return self.remove_head()
 
         while trav2.next_elem:
             trav1 = trav1.next_elem
@@ -203,7 +203,7 @@ class LinkedList:
         # if the node to remove is somewhere either at the head or the tail
         # handle those independently
         if node.data == self.head.data:
-            return self.remove_first()
+            return self.remove_head()
 
         # search for a target node
         trav1 = self.head

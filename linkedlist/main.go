@@ -23,8 +23,15 @@ func (l *SinglyLinkedList) AddHead(value int) {
 	l.size += 1
 }
 
+func (l *SinglyLinkedList) PeekHead() (int, bool) {
+	if l.IsEmpty() {
+		return -1, false
+	}
+	return l.head.value, true
+}
+
 func (l *SinglyLinkedList) RemoveHead() (int, bool) {
-	if l.size == 0 {
+	if l.IsEmpty() {
 		return -1, false
 	}
 	value := l.head.value
