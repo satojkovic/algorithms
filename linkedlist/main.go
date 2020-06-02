@@ -23,6 +23,19 @@ func (l *SinglyLinkedList) AddHead(value int) {
 	l.size += 1
 }
 
+func (l *SinglyLinkedList) AddTail(value int) {
+	if l.IsEmpty() {
+		l.AddHead(value)
+	} else {
+		node := l.head
+		for node.next != nil {
+			node = node.next
+		}
+		node.next = &Node{value: value}
+	}
+	l.size += 1
+}
+
 func (l *SinglyLinkedList) PeekHead() (int, bool) {
 	if l.IsEmpty() {
 		return -1, false
@@ -51,4 +64,6 @@ func main() {
 	fmt.Println(sll.head.value)
 	fmt.Println(sll.size)
 	fmt.Println(sll.IsEmpty())
+	sll.AddTail(30)
+	fmt.Println(sll.head.next.value)
 }
