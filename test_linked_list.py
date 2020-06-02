@@ -36,11 +36,11 @@ class TestLinkedList(unittest.TestCase):
         eq_(self.l.peek_head(), 2)
         eq_(self.l.head.next_elem.data, 1)
 
-    def test_add_last(self):
-        self.l.add_last(3)
-        eq_(self.l.peek_last(), 3)
-        self.l.add_last(4)
-        eq_(self.l.peek_last(), 4)
+    def test_add_tail(self):
+        self.l.add_tail(3)
+        eq_(self.l.peek_tail(), 3)
+        self.l.add_tail(4)
+        eq_(self.l.peek_tail(), 4)
 
     def test_remove_head(self):
         self.l.add(100)

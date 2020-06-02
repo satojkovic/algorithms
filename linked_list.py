@@ -134,7 +134,7 @@ class LinkedList:
 
     def add(self, elem):
         # Add always append the new node at the tail
-        self.add_last(elem)
+        self.add_tail(elem)
 
     def add_head(self, elem):
         # Add a node to the head of the linked list, O(1)
@@ -143,7 +143,7 @@ class LinkedList:
         self.head = node
         self.size += 1
 
-    def add_last(self, elem):
+    def add_tail(self, elem):
         # Add a node to the tail of the linked list, O(n)
         if self.is_empty():
             self.head = ListElement(elem)
@@ -158,7 +158,7 @@ class LinkedList:
         # Return the value of the head node if it exists, O(1)
         return self.head.data if not self.is_empty() else None
 
-    def peek_last(self):
+    def peek_tail(self):
         # Check the value of the last node if it exits, O(n)
         if self.is_empty():
             return None
