@@ -1,6 +1,4 @@
-package main
-
-import "fmt"
+package linkedlist
 
 type Node struct {
 	value int
@@ -51,19 +49,4 @@ func (l *SinglyLinkedList) RemoveHead() (int, bool) {
 	l.head = l.head.next
 	l.size -= 1
 	return value, true
-}
-
-func main() {
-	sll := SinglyLinkedList{nil, 0}
-	fmt.Println(sll.IsEmpty())
-	sll.AddHead(10)
-	fmt.Println(sll.head.value)
-	sll.AddHead(20)
-	fmt.Println(sll.head.value)
-	sll.RemoveHead()
-	fmt.Println(sll.head.value)
-	fmt.Println(sll.size)
-	fmt.Println(sll.IsEmpty())
-	sll.AddTail(30)
-	fmt.Println(sll.head.next.value)
 }
