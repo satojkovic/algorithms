@@ -105,14 +105,14 @@ class BinarySearchTree:
 
     # Recursively add a value in the binary tree
     def _add(self, node, elem):
-        # Base case: we found a leaf node
+        # Base case: we found a leaf node (the place where inserting an elem)
         if node is None:
-            node = TreeNode(elem)
+            return TreeNode(elem)
+        # Already checked the same value by contains() method
+        if elem < node.data:
+            node.left = self._add(node.left, elem)
         else:
-            if elem < node.data:
-                node.left = self._add(node.left, elem)
-            else:
-                node.right = self._add(node.right, elem)
+            node.right = self._add(node.right, elem)
         return node
 
     # Return the node if the element exists in the tree
