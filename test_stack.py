@@ -1,11 +1,11 @@
 import unittest
-import stack
+from stack import Stack
 from nose.tools import eq_, ok_
 import numpy as np
 
 class TestStack(unittest.TestCase):
     def setUp(self):
-        self.s = stack.Stack()
+        self.s = Stack()
 
     def test_is_empty(self):
         eq_(self.s.is_empty(), True)

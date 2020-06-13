@@ -1,8 +1,9 @@
-class StackElem:
+class ListNode:
     def __init__(self, data):
         self.data = data
-        self.next_elem = None
+        self.next = None
 
+# Stack implemented by linked list
 class Stack:
     def __init__(self):
         self.top = None
@@ -14,18 +15,16 @@ class Stack:
         if self.is_empty():
             return None
         ret = self.top.data
-        self.top = self.top.next_elem
+        self.top = self.top.next
         return ret
 
     def push(self, data):
-        elem = StackElem(data)
-        elem.next_elem = self.top
-        self.top = elem
+        node = ListNode(data)
+        node.next = self.top
+        self.top = node
 
     def peek(self):
-        if self.is_empty():
-            return None
-        return self.top.data
+        return self.top.data if not self.is_empty() else None
 
     def print_stack(self):
         if self.is_empty():
@@ -33,24 +32,7 @@ class Stack:
             return
 
         print('Current Stack:')
-        elem = self.top
-        while elem:
-            print(elem.data)
-            elem = elem.next_elem
-
-if __name__ == "__main__":
-    s = Stack()
-    s.print_stack()
-
-    print('push(3)')
-    s.push(3)
-    print('push(1)')
-    s.push(1)
-    print('push(100)')
-    s.push(100)
-    s.print_stack()
-
-    print('pop():', s.pop())
-    print('peek():', s.peek())
-    print('pop():', s.pop())
-    s.print_stack()
+        node = self.top
+        while node:
+            print(node.data)
+            node = node.next
