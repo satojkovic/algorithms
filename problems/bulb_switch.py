@@ -9,3 +9,7 @@ def bulb_switch(n):
             for j in range(i - 1, n, i):
                 bulbs[j] = 0 if bulbs[j] == 1 else 1
     return sum(bulbs)
+
+def bulb_switch2(n):
+    import math
+    return int(math.sqrt(n))
