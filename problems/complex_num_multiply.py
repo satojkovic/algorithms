@@ -7,3 +7,11 @@ def complex_num_multiply(a, b):
     mult_latter = num_a1 * num_b2 + num_a2 * num_b1
     res = '+'.join([str(mult_former), str(mult_latter) + 'i'])
     return res
+
+def complex_num_multiply2(a, b):
+    num_a1, num_b1 = list(map(int, a.rstrip('i').split('+')))
+    num_a2, num_b2 = list(map(int, b.rstrip('i').split('+')))
+    mult_former = num_a1 * num_a2 + (-1) * num_b1 * num_b2
+    mult_latter = num_a1 * num_b2 + num_a2 * num_b1
+    res = '+'.join([str(mult_former), str(mult_latter) + 'i'])
+    return res
