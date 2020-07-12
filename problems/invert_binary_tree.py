@@ -1,8 +1,5 @@
 def invert_binary_tree(root):
     if root is None:
         return None
-    left = invert_binary_tree(root.right)
-    right = invert_binary_tree(root.left)
-    root.left = left
-    root.right = right
+    root.left, root.right = invert_binary_tree(root.right), invert_binary_tree(root.left)
     return root
