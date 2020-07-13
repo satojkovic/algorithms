@@ -55,6 +55,7 @@ class Graph:
 # g = {0: [1, 4, 5], 1: [3, 4], 2: [1], 3: [2, 4], 4: [], 5: []}
 
 def bfs(g, root):
+    # Initialize `visited` with an empty list
     _visited, visited, q = set(), [], deque([root])
     while q:
         node = q.popleft()
@@ -62,6 +63,18 @@ def bfs(g, root):
             _visited.add(node)
             visited.append(node)
             for adj in g[node]:
+                q.append(adj)
+    return visited
+
+def bfs2(g, root):
+    # Initialize `visited` with a root node
+    _visited, visited, q = set(), [root], deque([root])
+    while q:
+        node = q.popleft()
+        for adj in g[node]:
+            if not adj in _visited:
+                _visited.add(adj)
+                visited.append(adj)
                 q.append(adj)
     return visited
 
