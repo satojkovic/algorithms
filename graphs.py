@@ -69,6 +69,7 @@ def bfs(g, root):
 def bfs2(g, root):
     # Initialize `visited` with a root node
     _visited, visited, q = set(), [root], deque([root])
+    _visited.add(root)
     while q:
         node = q.popleft()
         for adj in g[node]:
