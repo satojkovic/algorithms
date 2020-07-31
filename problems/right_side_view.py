@@ -17,7 +17,4 @@ def right_side_view(root):
             q.append((node.left, level + 1))
         if node.right:
             q.append((node.right, level + 1))
-    ret = []
-    for level in nodes.keys():
-        ret.append(nodes[level][-1])
-    return ret
+    return [nodes[level][-1] for level in nodes.keys()]
