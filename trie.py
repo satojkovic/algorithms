@@ -21,8 +21,7 @@ class Trie:
 
         if not s[0] in root.children:
             root.children[s[0]] = TrieNode(root.data + s[0])
-        child = self._insert(root.children[s[0]], s[1:])
-        root.children[s[0]] = child
+        root.children[s[0]] = self._insert(root.children[s[0]], s[1:])
         return root
 
     def search(self, s):
