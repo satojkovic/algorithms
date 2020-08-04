@@ -9,20 +9,18 @@ class Trie:
         self.root = TrieNode('')
 
     def insert(self, s):
-        root = self.root
-        self._insert(root, s)
+        def _insert(root, s, pos):
+            if len(s) - 1 == pos:
+                if not s[pos] in root.children:
+                    root.children[s[pos]] = TrieNode(root.data + s[pos])
+                root.children[s[pos]].word_finished = True
+                return root
 
-    def _insert(self, root, s):
-        if len(s) == 1:
-            if not s in root.children:
-                root.children[s] = TrieNode(root.data + s)
-            root.children[s].word_finished = True
+            if not s[pos] in root.children:
+                root.children[s[pos]] = TrieNode(root.data + s[pos])
+            root.children[s[pos]] = _insert(root.children[s[pos]], s, pos + 1)
             return root
-
-        if not s[0] in root.children:
-            root.children[s[0]] = TrieNode(root.data + s[0])
-        root.children[s[0]] = self._insert(root.children[s[0]], s[1:])
-        return root
+        self.root = _insert(self.root, s, 0)
 
     def search(self, s):
         root = self.root
