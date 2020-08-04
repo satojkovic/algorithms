@@ -23,15 +23,13 @@ class Trie:
         self.root = _insert(self.root, s, 0)
 
     def search(self, s):
-        root = self.root
-        return self._search(root, s)
-
-    def _search(self, root, s):
-        if len(s) == 0:
-            return True if root.word_finished else False
-        if not s[0] in root.children:
-            return False
-        return self._search(root.children[s[0]], s[1:])
+        def _search(root, s, pos):
+            if len(s) == pos:
+                return True if root.word_finished else False
+            if not s[pos] in root.children:
+                return False
+            return _search(root.children[s[pos]], s, pos + 1)
+        return _search(self.root, s, 0)
 
     def starts_with(self, s):
         root = self.root
