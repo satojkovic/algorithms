@@ -33,3 +33,30 @@ def max_subarray2(nums):
         local_max = max(nums[i], local_max + nums[i])
         global_max = max(local_max, global_max)
     return global_max
+
+def max_subarray3(nums):
+    def _get_left_right_sum(nums, left, right, mid):
+        left_sum = float('-inf')
+        curr_sum = 0
+        for i in range(mid, left - 1, -1):
+            curr_sum += nums[i]
+            left_sum = max(curr_sum, left_sum)
+
+        right_sum = float('-inf')
+        curr_sum = 0
+        for i in range(mid + 1, right + 1):
+            curr_sum += nums[i]
+            right_sum = max(curr_sum, right_sum)
+
+        return left_sum + right_sum
+
+    def _get_max_subarray(nums, left, right):
+        if left == right:
+            return nums[left]
+        mid = (left + right) // 2
+        left_sum = _get_max_subarray(nums, left, mid)
+        right_sum = _get_max_subarray(nums, mid + 1, right)
+        left_right_sum = _get_left_right_sum(nums, left, right, mid)
+        return max(left_sum, right_sum, left_right_sum)
+
+    return _get_max_subarray(nums, 0, len(nums) - 1) if len(nums) != 0 else None
