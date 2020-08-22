@@ -19,23 +19,15 @@ def quick_sort(data):
     """
     if len(data) == 0 or len(data) == 1:
         return data
-    left, right, pivot_val = split(data)
+    pivot_idx = len(data) // 2
+    pivot = data[pivot_idx]
+    left = [d for i, d in enumerate(data) if i != pivot_idx and d <= pivot]
+    right = [d for i, d in enumerate(data) if i != pivot_idx and d > pivot ]
+
     # Sort each sublist recursively
     left = quick_sort(left)
     right = quick_sort(right)
-    return left + [pivot_val] + right
-
-def split(data):
-    left, right = [], []
-    pivot_idx = len(data) // 2
-    pivot_val = data[pivot_idx]
-    for i in range(len(data)):
-        if i != pivot_idx:
-            if data[i] < pivot_val:
-                left.append(data[i])
-            else:
-                right.append(data[i])
-    return left, right, pivot_val
+    return left + [pivot] + right
 
 
 def quick_sort_in_place(data):
