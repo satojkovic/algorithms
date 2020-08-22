@@ -7,9 +7,9 @@ def quick_sort(data):
     quick sort is executed in the following steps.
 
     1. select a pivot, make left and right list with a value greater and smaller than pivot respectively.
-    2. quick sort left list recursively.
-    3. quick sort right list recursively.
-    4. concatenate sorted left and right list.
+    2. quick sort smaller list recursively.
+    3. quick sort larger list recursively.
+    4. concatenate sorted smaller and equal and right.
 
     Args:
         data (list): an input list
@@ -17,17 +17,15 @@ def quick_sort(data):
     Returns:
         list: a new sorted list
     """
-    if len(data) == 0 or len(data) == 1:
+    if len(data) <= 1:
         return data
-    pivot_idx = len(data) // 2
-    pivot = data[pivot_idx]
-    left = [d for i, d in enumerate(data) if i != pivot_idx and d <= pivot]
-    right = [d for i, d in enumerate(data) if i != pivot_idx and d > pivot ]
-
-    # Sort each sublist recursively
-    left = quick_sort(left)
-    right = quick_sort(right)
-    return left + [pivot] + right
+    smaller, equal, larger = [], [], []
+    pivot = data[len(data)// 2]
+    for d in data:
+        if d < pivot: smaller.append(d)
+        elif d == pivot: equal.append(d)
+        else: larger.append(d)
+    return quick_sort(smaller) + equal + quick_sort(larger)
 
 
 def quick_sort_in_place(data):
