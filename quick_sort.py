@@ -50,14 +50,17 @@ def _quick_sort(data, l, r):
 
 
 def partition(data, l, r):
-    pivot = data[l]
-    i = l + 1
-    for j in range(l + 1, r + 1):
-        if pivot > data[j]:
+    i, j = l, l
+    pivot = data[r]
+    for current in range(l, r):
+        if data[current] > pivot:
+            j += 1
+        elif data[current] <= pivot:
             data[i], data[j] = data[j], data[i]
             i += 1
-    data[i - 1], data[l] = data[l], data[i - 1]
-    return i - 1
+            j += 1
+    data[i], data[r] = data[r], data[i]
+    return i
 
 
 if __name__ == "__main__":
