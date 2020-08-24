@@ -50,9 +50,10 @@ def _quick_sort(data, l, r):
 
 
 def partition(data, l, r):
+    # m indicate the tail position of lesser elements
     m = l
     for i in range(l + 1, r + 1):
-        if data[i] <= data[m]:
+        if data[i] <= data[l]:
             m += 1
             data[i], data[m] = data[m], data[i]
     data[l], data[m] = data[m], data[l]
