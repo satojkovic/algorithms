@@ -5,12 +5,12 @@ from collections import defaultdict
 def sort_by_anagram_words(arr):
     anagrams = defaultdict(list)
     for a in arr:
-        sorted_a = ''.join(sorted(a))
-        anagrams[sorted_a].append(a)
+        sig_a = ''.join(sorted(a))
+        anagrams[sig_a].append(a)
 
     pos = 0
-    for key in anagrams.keys():
-        for a in anagrams[key]:
+    for sig in anagrams.keys():
+        for a in anagrams[sig]:
             arr[pos] = a
             pos += 1
     return arr
