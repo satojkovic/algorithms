@@ -5,17 +5,19 @@ def search_2d_mat(mat, target):
     return binary_search_2d_mat(mat, target)
 
 def binary_search_2d_mat(mat, target):
-    ret = False
+    ret = -1
     for m in range(len(mat)):
-        ret = True if binary_search_r(mat[m], target, 0, len(mat[m]) - 1) else ret
-    return ret
+        ret = binary_search_r(mat[m], target, 0, len(mat[m]) - 1)
+        if ret != -1:
+            return True
+    return False
 
 def binary_search_r(data, target, left, right):
     if left > right:
-        return False
+        return -1
     mid = (left + right) // 2
     if data[mid] == target:
-        return True
+        return mid
     elif data[mid] > target:
         return binary_search_r(data, target, left, mid - 1)
     else:
@@ -67,16 +69,15 @@ def _binary_search(data, target, left, right):
         return _binary_search(data, target, mid + 1, right)
 
 def binary_search_iter(data, target):
-    lo = 0
-    hi = len(data) - 1
-    while lo <= hi:
-        mid = (lo + hi) // 2
+    left, right = 0, len(data) - 1
+    while left <= right:
+        mid = (left + right) // 2
         if data[mid] == target:
             return mid
         elif target < data[mid]:
-            hi = mid - 1
+            right = mid - 1
         else:
-            lo = mid + 1
+            left = mid + 1
     return -1
 
 if __name__ == "__main__":
