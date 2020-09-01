@@ -80,6 +80,31 @@ def binary_search_iter(data, target):
             left = mid + 1
     return -1
 
+def binary_search_sparse(strs, s, left, right):
+    if left > right:
+        return -1
+
+    mid = (left + right) // 2
+    if strs[mid] == '':
+        near_left = mid - 1
+        near_right = mid + 1
+        while True:
+            if near_left < left and right < near_right:
+                return -1
+            elif left <= near_left and strs[near_left] != '':
+                mid = near_left
+            elif near_right <= right and strs[near_right] != '':
+                mid = near_right
+            near_left -= 1
+            near_right += 1
+
+    if strs[mid] == s:
+        return mid
+    elif s < strs[mid]:
+        return binary_search_sparse(strs, s, left, mid - 1)
+    else:
+        return binary_search_sparse(strs, s, mid + 1, right)
+
 if __name__ == "__main__":
     data = [1, 3, 4, 13, 40, 193]
     target = 40
