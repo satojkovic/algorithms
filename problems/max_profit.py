@@ -20,3 +20,16 @@ def max_profit1(prices):
         if prices[i] > prices[i - 1]:
             profit += (prices[i] - prices[i - 1])
     return profit
+
+def max_profit(prices, size):
+    if size <= 0:
+        return 0
+    max_value = -1
+    for i in range(size):
+        new_max = prices[i] + max_profit(prices, size - i - 1)
+        max_value = new_max if max_value < new_max else max_value
+    return max_value
+
+if __name__ == "__main__":
+    prices = [1, 5, 8, 9, 10, 17, 17, 20, 24, 30]
+    print(max_profit(prices, 4))
