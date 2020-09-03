@@ -30,6 +30,22 @@ def max_profit(prices, size):
         max_value = new_max if max_value < new_max else max_value
     return max_value
 
+def max_profit_memo(prices, size):
+    def _max_profit_memo(prices, size, memo):
+        if size <= 0:
+            return 0
+        if memo[size] >= 0:
+            return memo[size]
+        max_value = -1
+        for i in range(size):
+            new_max = prices[i] + _max_profit_memo(prices, size - i - 1, memo)
+            max_value = new_max if max_value < new_max else max_value
+        memo[size] = max_value
+        return max_value
+    memo = [-1] * (size + 1)
+    return _max_profit_memo(prices, size, memo)
+
 if __name__ == "__main__":
     prices = [1, 5, 8, 9, 10, 17, 17, 20, 24, 30]
     print(max_profit(prices, 4))
+    print(max_profit_memo(prices, 4))
