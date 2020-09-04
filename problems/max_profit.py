@@ -45,7 +45,17 @@ def max_profit_memo(prices, size):
     memo = [-1] * (size + 1)
     return _max_profit_memo(prices, size, memo)
 
+def max_profit_iter(prices, size):
+    memo = [0] * (size + 1)
+    for i in range(size + 1):
+        max_value = -1
+        for j in range(i):
+            max_value = max(max_value, prices[j] + memo[i - j - 1])
+            memo[i] = max_value
+    return memo[size]
+
 if __name__ == "__main__":
     prices = [1, 5, 8, 9, 10, 17, 17, 20, 24, 30]
     print(max_profit(prices, 4))
     print(max_profit_memo(prices, 4))
+    print(max_profit_iter(prices, 4))
