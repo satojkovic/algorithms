@@ -4,8 +4,8 @@
 from collections import deque
 
 class GraphNode:
-    def __init__(self, data):
-        self.data = data
+    def __init__(self, val):
+        self.val = val
         self.visited = False
         self.adjs = deque()
 
@@ -43,9 +43,9 @@ class Graph:
         trav_nodes[node_i] = True
 
         for adj in self.nodes[node_i].adjs:
-            if not adj.visited and self._detect_cycle(adj.data, trav_nodes):
+            if not adj.visited and self._detect_cycle(adj.val, trav_nodes):
                 return True
-            elif trav_nodes[adj.data]:
+            elif trav_nodes[adj.val]:
                 return True
 
         trav_nodes[node_i] = False
@@ -55,7 +55,7 @@ class Graph:
 # g = {0: [1, 4, 5], 1: [3, 4], 2: [1], 3: [2, 4], 4: [], 5: []}
 
 def bfs(g, root):
-    # Initialize `visited` with an empty list
+    # Initialize `visited` with an empty list to return result as a list
     _visited, visited, q = set(), [], deque([root])
     while q:
         node = q.popleft()
@@ -65,6 +65,28 @@ def bfs(g, root):
             for adj in g[node]:
                 q.append(adj)
     return visited
+
+def find_route_bfs(start, end):
+    q = deque([start])
+    start.visited = True
+    while q:
+        node = q.popleft()
+        if node.val == end.val:
+            return True
+        for adj in node.adjs:
+            if not adj.visited:
+                q.append(adj)
+                adj.visited = True
+    return False
+
+def find_route_dfs(start, end):
+    if start.val == end.val:
+        return True
+    start.visited = True
+    for adj in start.adjs:
+        if not adj.visited:
+            return find_route_dfs(adj, end)
+    return False
 
 def bfs2(g, root):
     # Initialize `visited` with a root node
@@ -146,3 +168,25 @@ def dfs_r_paths(g, root, target, visited=None, path=None):
             for p in ps:
                 paths.append(p)
     return paths
+
+if __name__ == "__main__":
+    g = {}
+    a = GraphNode('a')
+    b = GraphNode('b')
+    c = GraphNode('c')
+    d = GraphNode('d')
+    e = GraphNode('e')
+    f = GraphNode('f')
+    g = GraphNode('g')
+    a.adjs.append(b)
+    a.adjs.append(c)
+    b.adjs.append(a)
+    b.adjs.append(d)
+    c.adjs.append(a)
+    c.adjs.append(g)
+    d.adjs.append(b)
+    d.adjs.append(e)
+    e.adjs.append(d)
+    f.adjs.append(d)
+
+    print(find_route_dfs(c, e))
