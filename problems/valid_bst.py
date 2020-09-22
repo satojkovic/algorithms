@@ -8,12 +8,12 @@ def validate_bst(root):
     def _validate_bst(root, min_val, max_val):
         if root is None:
             return True
-        # False if the current node value is greater than min_val or less than max_val
-        # Return imediately if the current node is not valid
+        # Being False if the current node is greater than or equal to the min_val or less than the max_val
+        # Return immediately if the current node is not valid
         if (min_val is not None and min_val >= root.val) or (max_val is not None and max_val < root.val):
             return False
         # Check if the left branch and the right branch is valid
-        # Return imediately if the left or right branch is not valid
+        # Return immediately if the left or right branch is not valid
         if not _validate_bst(root.left, min_val, root.val):
             return False
         if not _validate_bst(root.right, root.val, max_val):
