@@ -10,7 +10,7 @@ def validate_bst(root):
             return True
         # False if the current node value is greater than min_val or less than max_val
         # Return imediately if the current node is not valid
-        if (min_val is not None and min_val >= root.val) or (max_val is not None and max_val <= root.val):
+        if (min_val is not None and min_val >= root.val) or (max_val is not None and max_val < root.val):
             return False
         # Check if the left branch and the right branch is valid
         # Return imediately if the left or right branch is not valid
@@ -31,7 +31,7 @@ def validate_bst_i(root):
         root, min_val, max_val = stack.pop()
         if root is None:
             continue
-        if (min_val is not None and min_val >= root.val) or (max_val is not None and max_val <= root.val):
+        if (min_val is not None and min_val >= root.val) or (max_val is not None and max_val < root.val):
             return False
         stack.append((root.left, min_val, root.val))
         stack.append((root.right, root.val, max_val))
