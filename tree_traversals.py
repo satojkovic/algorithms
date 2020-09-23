@@ -167,5 +167,4 @@ if __name__ == "__main__":
     root.right.right = TreeNode(11)
     print(levelorder_r(root))
     print(levelorder(root))
-    print(levelorder2_r(root))
     print(levelorder2(root))
