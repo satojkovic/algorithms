@@ -13,23 +13,13 @@ def bst_sequences(root):
     right = bst_sequences(root.right)
     res = []
     for l, r in itertools.product(left, right):
-        if len(l) == 0 and len(r) == 0:
-            res.append([root.val])
-        elif len(l) == 0:
-            res.append([root.val] + r)
-        elif len(r) == 0:
-            res.append([root.val] + l)
-        else:
-            res.append([root.val] + l + r)
-            res.append([root.val] + r + l)
+        res += weave(l, r, [root.val])
     return res
 
-if __name__ == "__main__":
-    root = TreeNode(3)
-    root.left = TreeNode(2)
-    root.left.left = TreeNode(1)
-    root.right = TreeNode(9)
-    root.right.left = TreeNode(8)
-    root.right.right = TreeNode(11)
-
-    print(bst_sequences(root))
+def weave(left, right, prefix):
+    if len(left) == 0 or len(right) == 0:
+        return [prefix + left + right]
+    res = []
+    res += weave(left[1:], right, prefix + [left[0]])
+    res += weave(left, right[1:], prefix + [right[0]])
+    return res
