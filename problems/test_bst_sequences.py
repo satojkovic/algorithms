@@ -28,5 +28,35 @@ class TestBstSequences(unittest.TestCase):
              [3, 9, 2, 11, 8, 1],
              [3, 9, 11, 2, 1, 8], [3, 9, 11, 2, 8, 1],
              [3, 9, 11, 8, 2, 1]])
+
+        root = TreeNode(4)
+        root.left = TreeNode(2)
+        root.left.left = TreeNode(1)
+        root.left.right = TreeNode(3)
+        root.right = TreeNode(5)
+        root.right.right = TreeNode(6)
+        res = bst_sequences(root)
+        self.assertCountEqual(res,
+            [[4, 2, 5, 1, 3, 6],
+             [4, 2, 5, 1, 6, 3],
+             [4, 2, 5, 3, 1, 6],
+             [4, 2, 5, 3, 6, 1],
+             [4, 2, 5, 6, 1, 3],
+             [4, 2, 5, 6, 3, 1],
+             [4, 2, 1, 5, 3, 6],
+             [4, 2, 1, 5, 6, 3],
+             [4, 2, 1, 3, 5, 6],
+             [4, 2, 3, 5, 1, 6],
+             [4, 2, 3, 5, 6, 1],
+             [4, 2, 3, 1, 5, 6],
+             [4, 5, 2, 6, 1, 3],
+             [4, 5, 2, 6, 3, 1],
+             [4, 5, 2, 1, 6, 3],
+             [4, 5, 2, 1, 3, 6],
+             [4, 5, 2, 3, 6, 1],
+             [4, 5, 2, 3, 1, 6],
+             [4, 5, 6, 2, 1, 3],
+             [4, 5, 6, 2, 3, 1]])
+
 if __name__ == "__main__":
     unittest.main()
