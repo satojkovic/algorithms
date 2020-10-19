@@ -46,3 +46,17 @@ def add_two_numbers2(l1, l2):
         l1 = l1.next if l1 else None
         l2 = l2.next if l2 else None
     return head
+
+def add_two_numbers3(l1, l2):
+    def addition(l1, l2, carry):
+        if l1 is None and l2 is None and carry == 0:
+            return None
+        total = l1.val if l1 else 0
+        total += l2.val if l2 else 0
+        total += carry
+        node = ListNode(total % 10)
+        l1 = l1.next if l1 else None
+        l2 = l2.next if l2 else None
+        node.next = addition(l1, l2, total // 10)
+        return node
+    return addition(l1, l2, 0)
