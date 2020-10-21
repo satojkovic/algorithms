@@ -27,3 +27,29 @@ def get_intersection_node2(head_a, head_b):
             return hb
         hb = hb.next
     return None
+
+def get_intersection_node3(head_a, head_b):
+    tail_a, length_a = get_list_length(head_a)
+    tail_b, length_b = get_list_length(head_b)
+    if tail_a != tail_b:
+        return None
+    diff = abs(length_a - length_b)
+    longer = head_a if length_a > length_b else head_b
+    shorter = head_b if length_a > length_b else head_a
+    while diff > 0:
+        longer = longer.next
+        diff -= 1
+
+    while shorter != longer:
+        shorter = shorter.next
+        longer = longer.next
+    return longer
+
+def get_list_length(head):
+    if head is None:
+        return None, 0
+    length = 0
+    while head.next:
+        length += 1
+        head = head.next
+    return head, length

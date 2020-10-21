@@ -44,8 +44,6 @@ def remove_nth_from_end2(head, n):
     return head
 
 def reverse_list(head):
-    if head is None:
-        return head
     new_head = None
     while head:
         next_head = head.next_elem
@@ -82,47 +80,10 @@ def odd_even_order(head):
     odd.next_elem = even_h
     return odd_h
 
-def is_palindrome(head):
-    if head is None:
-        return True
-    list_len = list_length(head)
-    ret, _ = check_palindrome(head, list_len, 0)
-    return ret
-
 def list_length(head):
     if head is None:
         return 0
     return list_length(head.next_elem) + 1
-
-def check_palindrome(head, list_len, pos):
-    if pos == (list_len // 2):
-        return (True, head.next_elem) if (list_len % 2) != 0 else (True, head)
-    ret, node = check_palindrome(head.next_elem, list_len, pos + 1)
-    if ret and head.data == node.data:
-        return (True, node.next_elem)
-    else:
-        return (False, node.next_elem)
-
-def is_palindrome2(head):
-    # find the middle node
-    fast = slow = head
-    while fast and fast.next_elem:
-        fast = fast.next_elem.next_elem
-        slow = slow.next_elem
-    # reverse the latter half
-    prev_node = None
-    while slow:
-        next_node = slow.next_elem
-        slow.next = prev_node
-        prev_node = slow
-        slow = next_node
-    # compare former and latter half
-    while prev_node:
-        if prev_node.data != head.data:
-            return False
-        prev_node = prev_node.next_elem
-        head = head.next_elem
-    return True
 
 class LinkedList:
     """Linked List
