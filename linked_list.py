@@ -7,7 +7,7 @@ class ListElement:
 
     def __init__(self, data):
         self.data = data
-        self.next_elem = None
+        self.next = None
 
 def remove_nth_from_end(head, n):
     if head is None:
@@ -16,27 +16,27 @@ def remove_nth_from_end(head, n):
     fast = head
     # forward the fast pointer by n+1 times
     while n >= 0 and fast:
-        fast = fast.next_elem
+        fast = fast.next
         n -= 1
     # forward the fast pointer until the tail and move the slow pointer at the same time.
     while fast:
-        fast = fast.next_elem
-        slow = slow.next_elem
+        fast = fast.next
+        slow = slow.next
     # when the fast pointer reach to the tail, remove target is the next node of slow pointer.
     # however when the length of this linked list is n, remove target is head node.
     if n == 0:
-        head = slow.next_elem
+        head = slow.next
     else:
-        slow.next_elem = slow.next_elem.next_elem
+        slow.next = slow.next.next
     return head
 
 def remove_nth_from_end2(head, n):
     def helper(head, n, i):
         if head is None:
             return head, i
-        node, l = helper(head.next_elem, n, i + 1)
+        node, l = helper(head.next, n, i + 1)
         if (l - n) != i:
-            head.next_elem = node
+            head.next = node
             return head, l
         else:
             return node, l
@@ -46,8 +46,8 @@ def remove_nth_from_end2(head, n):
 def reverse_list(head):
     new_head = None
     while head:
-        next_head = head.next_elem
-        head.next_elem = new_head
+        next_head = head.next
+        head.next = new_head
         new_head = head
         head = next_head
     return new_head
@@ -56,34 +56,34 @@ def reverse_list_r(head):
     def reverse(head, prev_head):
         if head is None:
             return prev_head
-        next_head = head.next_elem
-        head.next_elem = prev_head
+        next_head = head.next
+        head.next = prev_head
         return reverse(next_head, head)
     return reverse(head, None)
 
 def remove_target_node(head, target):
     if head is None:
         return head
-    head.next_elem = remove_target_node(head.next_elem, target)
-    return head if head.data != target else head.next_elem
+    head.next = remove_target_node(head.next, target)
+    return head if head.data != target else head.next
 
 def odd_even_order(head):
     if head is None:
         return head
-    odd, even = head, head.next_elem
+    odd, even = head, head.next
     odd_h, even_h = odd, even
-    while odd.next_elem and odd.next_elem.next_elem:
-        odd.next_elem = even.next_elem
-        even.next_elem = odd.next_elem.next_elem
-        odd = odd.next_elem
-        even = even.next_elem
-    odd.next_elem = even_h
+    while odd.next and odd.next.next:
+        odd.next = even.next
+        even.next = odd.next.next
+        odd = odd.next
+        even = even.next
+    odd.next = even_h
     return odd_h
 
 def list_length(head):
     if head is None:
         return 0
-    return list_length(head.next_elem) + 1
+    return list_length(head.next) + 1
 
 class LinkedList:
     """Linked List
@@ -109,7 +109,7 @@ class LinkedList:
     def add_head(self, elem):
         # Add a node to the head of the linked list, O(1)
         node = ListElement(elem)
-        node.next_elem = self.head
+        node.next = self.head
         self.head = node
         self.size += 1
 
@@ -119,9 +119,9 @@ class LinkedList:
             self.head = ListElement(elem)
         else:
             node = self.head
-            while node.next_elem:
-                node = node.next_elem
-            node.next_elem = ListElement(elem)
+            while node.next:
+                node = node.next
+            node.next = ListElement(elem)
         self.size += 1
 
     def peek_head(self):
@@ -133,8 +133,8 @@ class LinkedList:
         if self.is_empty():
             return None
         node = self.head
-        while node.next_elem:
-            node = node.next_elem
+        while node.next:
+            node = node.next
         return node.data
 
     def remove_head(self):
@@ -142,7 +142,7 @@ class LinkedList:
             return None
         # Extract the data at the head and move the head pointer forwards one node
         data = self.head.data
-        self.head = self.head.next_elem
+        self.head = self.head.next
         self.size -= 1
 
         # Return the data that was at the head we just removed
@@ -153,15 +153,15 @@ class LinkedList:
             return None
 
         trav1 = self.head
-        trav2 = self.head.next_elem
+        trav2 = self.head.next
         if not trav2:
             return self.remove_head()
 
-        while trav2.next_elem:
-            trav1 = trav1.next_elem
-            trav2 = trav2.next_elem
+        while trav2.next:
+            trav1 = trav1.next
+            trav2 = trav2.next
         data = trav2.data
-        trav1.next_elem = trav2.next_elem
+        trav1.next = trav2.next
         self.size -= 1
 
         return data
@@ -177,14 +177,14 @@ class LinkedList:
 
         # search for a target node
         trav1 = self.head
-        trav2 = self.head.next_elem
+        trav2 = self.head.next
         while trav2:
             if trav2.data == node.data:
-                trav1.next_elem = trav2.next_elem
+                trav1.next = trav2.next
                 self.size -= 1
                 return True
-            trav1 = trav1.next_elem
-            trav2 = trav2.next_elem
+            trav1 = trav1.next
+            trav2 = trav2.next
         return False
 
     def search(self, node):
@@ -194,7 +194,7 @@ class LinkedList:
         while p:
             if p.data == node.data:
                 return True
-            p = p.next_elem
+            p = p.next
         return False
 
     def reverse_list(self):
@@ -203,33 +203,33 @@ class LinkedList:
         self.head = self._reverse_list(self.head)
 
     def _reverse_list(self, head):
-        if head.next_elem is None:
+        if head.next is None:
             return head
-        rhead = self._reverse_list(head.next_elem)
-        head.next_elem.next_elem = head
-        head.next_elem = None
+        rhead = self._reverse_list(head.next)
+        head.next.next = head
+        head.next = None
         return rhead
 
     def find_middle(self):
         if self.is_empty():
             return None
 
-        if not self.head.next_elem:
+        if not self.head.next:
             return self.head.data
 
         fast = self.head
         slow = self.head
-        while fast.next_elem and fast.next_elem.next_elem:
-            fast = fast.next_elem.next_elem
-            slow = slow.next_elem
+        while fast.next and fast.next.next:
+            fast = fast.next.next
+            slow = slow.next
         return slow.data
 
     def detect_loop(self):
         slow = self.head
         fast = self.head
-        while slow and fast and fast.next_elem:
-            slow = slow.next_elem
-            fast = fast.next_elem.next_elem
+        while slow and fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
             # Compare with object id
             if slow == fast:
                 return True
@@ -241,7 +241,7 @@ class LinkedList:
         while curr is not None:
             if not curr in visited:
                 visited.add(curr)
-                curr = curr.next_elem
+                curr = curr.next
             else:
                 return curr
         return None
@@ -253,7 +253,7 @@ class LinkedList:
         uniqs = set()
         dups = set()
         head = self._remove_dups(self.head, uniqs, dups)
-        self.head = head.next_elem if head.data in dups else head
+        self.head = head.next if head.data in dups else head
         print('uniqs:', uniqs)
         print('dups:', dups)
         return True
@@ -265,11 +265,11 @@ class LinkedList:
         if head.data in uniqs:
             dups.add(head.data)
         uniqs.add(head.data)
-        node = self._remove_dups(head.next_elem, uniqs, dups)
+        node = self._remove_dups(head.next, uniqs, dups)
         if node and node.data in dups:
-            head.next_elem = node.next_elem
+            head.next = node.next
         else:
-            head.next_elem = node
+            head.next = node
         return head
 
     def print_list(self):
@@ -281,5 +281,5 @@ class LinkedList:
 
         while temp:
             print(temp.data, end='->')
-            temp = temp.next_elem
+            temp = temp.next
         print('None')

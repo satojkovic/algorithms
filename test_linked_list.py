@@ -26,7 +26,7 @@ class TestLinkedList(unittest.TestCase):
         self.l.add(1)
         eq_(self.l.head.data, 1)
         self.l.add(2)
-        eq_(self.l.head.next_elem.data, 2)
+        eq_(self.l.head.next.data, 2)
 
     def test_add_head(self):
         self.l.add_head(1)
@@ -34,7 +34,7 @@ class TestLinkedList(unittest.TestCase):
 
         self.l.add_head(2)
         eq_(self.l.peek_head(), 2)
-        eq_(self.l.head.next_elem.data, 1)
+        eq_(self.l.head.next.data, 1)
 
     def test_add_tail(self):
         self.l.add_tail(3)
@@ -62,9 +62,9 @@ class TestLinkedList(unittest.TestCase):
         self.l.add(1)
         self.l.add(2)
         self.l.add(3)
-        eq_(self.l.remove(self.l.head.next_elem), True)
+        eq_(self.l.remove(self.l.head.next), True)
         eq_(self.l.head.data, 1)
-        eq_(self.l.head.next_elem.data, 3)
+        eq_(self.l.head.next.data, 3)
 
     def test_search(self):
         eq_(self.l.search(ListElement(10)), None)
@@ -101,10 +101,10 @@ class TestLinkedList(unittest.TestCase):
         ll.add(3)
         ll.head = remove_nth_from_end(ll.head, 2)
         eq_(ll.head.data, 1)
-        eq_(ll.head.next_elem.data, 3)
+        eq_(ll.head.next.data, 3)
         ll.head = remove_nth_from_end(ll.head, 1)
         eq_(ll.head.data, 1)
-        eq_(ll.head.next_elem, None)
+        eq_(ll.head.next, None)
 
     def test_detect_loop(self):
         ll = LinkedList()
@@ -112,9 +112,9 @@ class TestLinkedList(unittest.TestCase):
         node2 = ListElement(1)
         node3 = ListElement(10)
         ll.head = node1
-        node1.next_elem = node2
-        node2.next_elem = node3
-        node3.next_elem = node2
+        node1.next = node2
+        node2.next = node3
+        node3.next = node2
         eq_(ll.detect_loop(), True)
 
         ll.clear()
@@ -127,9 +127,9 @@ class TestLinkedList(unittest.TestCase):
         node2 = ListElement(1)
         node3 = ListElement(10)
         ll.head = node1
-        node1.next_elem = node2
-        node2.next_elem = node3
-        node3.next_elem = node2
+        node1.next = node2
+        node2.next = node3
+        node3.next = node2
         eq_(ll.detect_loop_start(), node2)
 
         ll.clear()
@@ -141,15 +141,15 @@ class TestLinkedList(unittest.TestCase):
         [ll.add(i) for i in range(1, 4)]
         ll.reverse_list()
         eq_(ll.head.data, 3)
-        eq_(ll.head.next_elem.data, 2)
-        eq_(ll.head.next_elem.next_elem.data, 1)
-        eq_(ll.head.next_elem.next_elem.next_elem, None)
+        eq_(ll.head.next.data, 2)
+        eq_(ll.head.next.next.data, 1)
+        eq_(ll.head.next.next.next, None)
 
         ll = LinkedList()
         ll.add(1)
         ll.reverse_list()
         eq_(ll.head.data, 1)
-        eq_(ll.head.next_elem, None)
+        eq_(ll.head.next, None)
 
         ll = LinkedList()
         ll.reverse_list()
@@ -162,8 +162,8 @@ class TestLinkedList(unittest.TestCase):
         ll.add(3)
         ll.head = remove_target_node(ll.head, 2)
         eq_(ll.head.data, 1)
-        eq_(ll.head.next_elem.data, 3)
-        eq_(ll.head.next_elem.next_elem, None)
+        eq_(ll.head.next.data, 3)
+        eq_(ll.head.next.next, None)
 
         ll = LinkedList()
         ll.add(3)
@@ -175,7 +175,7 @@ class TestLinkedList(unittest.TestCase):
         ll.add(1)
         ll.head = remove_target_node(ll.head, 10)
         eq_(ll.head.data, 1)
-        eq_(ll.head.next_elem, None)
+        eq_(ll.head.next, None)
 
     def test_odd_even_order(self):
         ll = LinkedList()
@@ -184,15 +184,15 @@ class TestLinkedList(unittest.TestCase):
         ll.add(3)
         ll.head = odd_even_order(ll.head)
         eq_(ll.head.data, 1)
-        eq_(ll.head.next_elem.data, 3)
-        eq_(ll.head.next_elem.next_elem.data, 2)
-        eq_(ll.head.next_elem.next_elem.next_elem, None)
+        eq_(ll.head.next.data, 3)
+        eq_(ll.head.next.next.data, 2)
+        eq_(ll.head.next.next.next, None)
 
         ll = LinkedList()
         ll.add(1)
         ll.head = odd_even_order(ll.head)
         eq_(ll.head.data, 1)
-        eq_(ll.head.next_elem, None)
+        eq_(ll.head.next, None)
 
         ll = LinkedList()
         ll.add(1)
@@ -201,45 +201,10 @@ class TestLinkedList(unittest.TestCase):
         ll.add(4)
         ll.head = odd_even_order(ll.head)
         eq_(ll.head.data, 1)
-        eq_(ll.head.next_elem.data, 3)
-        eq_(ll.head.next_elem.next_elem.data, 2)
-        eq_(ll.head.next_elem.next_elem.next_elem.data, 4)
-        eq_(ll.head.next_elem.next_elem.next_elem.next_elem, None)
-
-    def test_is_palindrome(self):
-        ll = LinkedList()
-        ll.add(1)
-        ll.add(2)
-        ll.add(3)
-        ll.add(2)
-        ll.add(1)
-        eq_(is_palindrome(ll.head), True)
-        eq_(is_palindrome2(ll.head), True)
-
-        ll = LinkedList()
-        ll.add(1)
-        ll.add(2)
-        ll.add(2)
-        ll.add(1)
-        eq_(is_palindrome(ll.head), True)
-        eq_(is_palindrome2(ll.head), True)
-
-        ll = LinkedList()
-        ll.add(1)
-        eq_(is_palindrome(ll.head), True)
-        eq_(is_palindrome2(ll.head), True)
-
-        ll = LinkedList()
-        ll.add(1)
-        ll.add(2)
-        ll.add(3)
-        eq_(is_palindrome(ll.head), False)
-        eq_(is_palindrome2(ll.head), False)
-
-        ll = LinkedList()
-        eq_(is_palindrome(ll.head), True)
-        eq_(is_palindrome2(ll.head), True)
-
+        eq_(ll.head.next.data, 3)
+        eq_(ll.head.next.next.data, 2)
+        eq_(ll.head.next.next.next.data, 4)
+        eq_(ll.head.next.next.next.next, None)
 
 if __name__ == "__main__":
     unittest.main()
