@@ -213,9 +213,6 @@ class LinkedList:
         if self.is_empty():
             return None
 
-        if not self.head.next:
-            return self.head.data
-
         fast = self.head
         slow = self.head
         while fast.next and fast.next.next:
