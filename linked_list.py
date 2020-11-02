@@ -198,16 +198,15 @@ class LinkedList:
         return False
 
     def reverse_list(self):
-        return self._reverse_list(self.head)
-
-    def _reverse_list(self, head):
-        new_head = None
-        while head:
-            next_head = head.next
-            head.next = new_head
-            new_head = head
-            head = next_head
-        return new_head
+        def reverse(head):
+            new_head = None
+            while head:
+                next_head = head.next
+                head.next = new_head
+                new_head = head
+                head = next_head
+            return new_head
+        return reverse(self.head)
 
     def find_middle(self):
         if self.is_empty():

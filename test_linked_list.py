@@ -139,21 +139,21 @@ class TestLinkedList(unittest.TestCase):
     def test_reverse_list(self):
         ll = LinkedList()
         [ll.add(i) for i in range(1, 4)]
-        ll.reverse_list()
-        eq_(ll.head.data, 3)
-        eq_(ll.head.next.data, 2)
-        eq_(ll.head.next.next.data, 1)
-        eq_(ll.head.next.next.next, None)
+        reversed = ll.reverse_list()
+        eq_(reversed.data, 3)
+        eq_(reversed.next.data, 2)
+        eq_(reversed.next.next.data, 1)
+        eq_(reversed.next.next.next, None)
 
         ll = LinkedList()
         ll.add(1)
-        ll.reverse_list()
-        eq_(ll.head.data, 1)
-        eq_(ll.head.next, None)
+        reversed = ll.reverse_list()
+        eq_(reversed.data, 1)
+        eq_(reversed.next, None)
 
         ll = LinkedList()
-        ll.reverse_list()
-        eq_(ll.head, None)
+        reversed = ll.reverse_list()
+        eq_(reversed, None)
 
     def test_remove_target_node(self):
         ll = LinkedList()
