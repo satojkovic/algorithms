@@ -4,7 +4,7 @@
 class QueueElem:
     def __init__(self, data):
         self.data = data
-        self.next_elem = None
+        self.next = None
 
 class Queue:
     def __init__(self):
@@ -16,21 +16,20 @@ class Queue:
 
     def enque(self, data):
         elem = QueueElem(data)
-        if self.tail is None:
-            self.tail = elem
-        else:
-            self.tail.next_elem = elem
-            self.tail = elem
-        if self.head is None:
+        if self.is_empty():
             self.head = elem
+            self.tail = self.head
+        else:
+            self.tail.next = elem
+            self.tail = self.tail.next
 
     def deque(self):
-        if self.head is None and self.tail is None:
+        if self.is_empty():
             return None
         ret = self.head.data
-        self.head = self.head.next_elem
-        if not self.head:
-            self.tail = self.head
+        self.head = self.head.next
+        if self.head is None:
+            self.tail = None
         return ret
 
     def print_queue(self):
@@ -41,7 +40,7 @@ class Queue:
         elem = self.head
         while elem:
             print(elem.data, end='->')
-            elem = elem.next_elem
+            elem = elem.next
         print('None')
 
 if __name__ == "__main__":
