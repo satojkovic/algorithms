@@ -1,6 +1,3 @@
-from numpy.lib.twodim_base import tri
-
-
 def triple_steps_brute_force(n):
     if n < 0:
         return 0
