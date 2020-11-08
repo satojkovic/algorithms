@@ -43,6 +43,43 @@ class Queue:
             elem = elem.next
         print('None')
 
+class QueueByList:
+    def __init__(self, capacity=3):
+        self.capacity = capacity
+        self.head = 0
+        self.tail = 0
+        self.size = 0
+        self.q = [0 for _ in range(self.capacity)]
+
+    def is_empty(self):
+        return (self.size == 0)
+
+    def enque(self, val):
+        self.q[self.tail] = val
+        self.tail += 1
+        if self.tail == self.capacity:
+            self.tail = 0
+        if self.size < self.capacity:
+            self.size += 1
+
+    def deque(self):
+        if self.is_empty():
+            return -1
+        ret = self.q[self.head]
+        self.head += 1
+        if self.head == self.capacity:
+            self.head = 0
+        if self.size > 0:
+            self.size -= 1
+        return ret
+
+    def print_queue(self):
+        if self.is_empty():
+            print('Queue is empty')
+        else:
+            for i in range(self.size):
+                print(self.q[(self.head + i) % self.capacity])
+
 if __name__ == "__main__":
     q = Queue()
     q.print_queue()
@@ -59,3 +96,20 @@ if __name__ == "__main__":
     print('deque():', q.deque())
     print('deque():', q.deque())
     q.print_queue()
+
+    ql = QueueByList()
+    print('---')
+    ql.enque(1)
+    ql.enque(2)
+    ql.enque(3)
+    ql.print_queue()
+    print('---')
+    ql.enque(4)
+    ql.print_queue()
+    print('---')
+
+    print(ql.deque())
+    print(ql.deque())
+    print(ql.deque())
+    print(ql.deque())
+    print(ql.deque())
