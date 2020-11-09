@@ -36,3 +36,29 @@ class Stack:
         while node:
             print(node.data)
             node = node.next
+
+class StackByList:
+    def __init__(self):
+        self.stack = []
+
+    def is_empty(self):
+        return len(self.stack) == 0
+
+    def push(self, val):
+        self.stack.append(val)
+
+    def pop(self):
+        if self.is_empty():
+            return -1
+        # Pop last: O(1)
+        return self.stack.pop(-1)
+
+if __name__ == "__main__":
+    stack = StackByList()
+    stack.push(1)
+    stack.push(2)
+    stack.push(3)
+    print(stack.pop())
+    print(stack.pop())
+    print(stack.pop())
+    print(stack.pop())
