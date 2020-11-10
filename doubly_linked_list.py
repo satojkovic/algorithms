@@ -4,8 +4,8 @@
 class DoublyListElement:
     def __init__(self, data):
         self.data = data
-        self.prev_elem = None
-        self.next_elem = None
+        self.prev = None
+        self.next = None
 
 class DoublyLinkedList:
     def __init__(self):
@@ -21,7 +21,7 @@ class DoublyLinkedList:
     def search(self, k):
         x = self.head
         while x and x.data != k:
-            x = x.next_elem
+            x = x.next
         return x
 
     def find(self, index):
@@ -29,7 +29,7 @@ class DoublyLinkedList:
             return None
         curr = self.head
         while index:
-            curr = curr.next_elem
+            curr = curr.next
             index -= 1
         return curr
 
@@ -38,16 +38,16 @@ class DoublyLinkedList:
             return -1
         curr = self.head
         while index:
-            curr = curr.next_elem
+            curr = curr.next
             index -= 1
         return curr.data
 
     def add_at_head(self, val):
         # Add a node to the head of the linked list, O(1)
         node = DoublyListElement(val)
-        node.next_elem = self.head
+        node.next = self.head
         if self.head:
-            self.head.prev_elem = node
+            self.head.prev = node
         self.head = node
         self.size += 1
 
@@ -57,11 +57,11 @@ class DoublyLinkedList:
             self.add_at_head(val)
         else:
             curr = self.head
-            while curr.next_elem:
-                curr = curr.next_elem
+            while curr.next:
+                curr = curr.next
             node = DoublyListElement(val)
-            curr.next_elem = node
-            node.prev_elem = curr
+            curr.next = node
+            node.prev = curr
             self.size += 1
 
     def add_at_index(self, index, val):
@@ -75,24 +75,24 @@ class DoublyLinkedList:
         else:
             curr = self.find(index)
             node = DoublyListElement(val)
-            node.prev_elem = curr.prev_elem
-            node.next_elem = curr
-            curr.prev_elem.next_elem = node
-            curr.prev_elem = node
+            node.prev = curr.prev
+            node.next = curr
+            curr.prev.next = node
+            curr.prev = node
             self.size += 1
 
     def delete_at_index(self, index):
         if index >= self.size or index < 0:
             return None
         curr = self.find(index)
-        if curr.prev_elem is None:
-            self.head = curr.next_elem
+        if curr.prev is None:
+            self.head = curr.next
         else:
-            curr.prev_elem.next_elem = curr.next_elem
-        if curr.next_elem:
-            curr.next_elem.prev_elem = curr.prev_elem
-        curr.next_elem = None
-        curr.prev_elem = None
+            curr.prev.next = curr.next
+        if curr.next:
+            curr.next.prev = curr.prev
+        curr.next = None
+        curr.prev = None
         self.size -= 1
 
     # Need to search the node x before deleting
@@ -100,11 +100,11 @@ class DoublyLinkedList:
         if x is None:
             return False
 
-        if x.prev_elem:
-            x.prev_elem.next_elem = x.next_elem
+        if x.prev:
+            x.prev.next = x.next
         else:
-            self.head = x.next_elem
-        if x.next_elem:
-            x.next_elem.prev_elem = x.prev_elem
+            self.head = x.next
+        if x.next:
+            x.next.prev = x.prev
 
         return True

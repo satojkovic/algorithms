@@ -11,10 +11,10 @@ class TestDoublyLinkedList(unittest.TestCase):
         dl.add_at_head(10)
         eq_(dl.is_empty(), False)
         eq_(dl.head.data, 10)
-        eq_(dl.head.next_elem.prev_elem.data, 10)
-        eq_(dl.head.next_elem.data, 20)
-        eq_(dl.head.next_elem.next_elem.prev_elem.data, 20)
-        eq_(dl.head.next_elem.next_elem.data, 30)
+        eq_(dl.head.next.prev.data, 10)
+        eq_(dl.head.next.data, 20)
+        eq_(dl.head.next.next.prev.data, 20)
+        eq_(dl.head.next.next.data, 30)
 
     def test_is_emtpy_add_at_tail(self):
         dl = DoublyLinkedList()
@@ -24,10 +24,10 @@ class TestDoublyLinkedList(unittest.TestCase):
         dl.add_at_tail(30)
         eq_(dl.is_empty(), False)
         eq_(dl.head.data, 10)
-        eq_(dl.head.next_elem.prev_elem.data, 10)
-        eq_(dl.head.next_elem.data, 20)
-        eq_(dl.head.next_elem.next_elem.prev_elem.data, 20)
-        eq_(dl.head.next_elem.next_elem.data, 30)
+        eq_(dl.head.next.prev.data, 10)
+        eq_(dl.head.next.data, 20)
+        eq_(dl.head.next.next.prev.data, 20)
+        eq_(dl.head.next.next.data, 30)
 
     def test_add_delete_get(self):
         dl = DoublyLinkedList()
