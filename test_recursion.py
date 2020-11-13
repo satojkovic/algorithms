@@ -48,16 +48,16 @@ class TestRecursion(unittest.TestCase):
 
     def test_swap_node_pairs(self):
         head = ListElement(1)
-        head.next_elem = ListElement(2)
-        head.next_elem.next_elem = ListElement(3)
-        head.next_elem.next_elem.next_elem = ListElement(4)
+        head.next = ListElement(2)
+        head.next.next = ListElement(3)
+        head.next.next.next = ListElement(4)
 
         swap_head = swap_node_pairs(head)
         eq_(swap_head.data, 2)
-        eq_(swap_head.next_elem.data, 1)
-        eq_(swap_head.next_elem.next_elem.data, 4)
-        eq_(swap_head.next_elem.next_elem.next_elem.data, 3)
-        eq_(swap_head.next_elem.next_elem.next_elem.next_elem, None)
+        eq_(swap_head.next.data, 1)
+        eq_(swap_head.next.next.data, 4)
+        eq_(swap_head.next.next.next.data, 3)
+        eq_(swap_head.next.next.next.next, None)
 
     def test_climb_stairs(self):
         eq_(climb_stairs(2), 2)
@@ -86,14 +86,14 @@ class TestRecursion(unittest.TestCase):
 
     def test_reverse_list(self):
         head = ListElement(1)
-        head.next_elem = ListElement(2)
-        head.next_elem.next_elem = ListElement(3)
+        head.next = ListElement(2)
+        head.next.next = ListElement(3)
 
         rhead = reverse_list(head)
         eq_(rhead.data, 3)
-        eq_(rhead.next_elem.data, 2)
-        eq_(rhead.next_elem.next_elem.data, 1)
-        eq_(rhead.next_elem.next_elem.next_elem, None)
+        eq_(rhead.next.data, 2)
+        eq_(rhead.next.next.data, 1)
+        eq_(rhead.next.next.next, None)
 
     def test_max_depth(self):
         root = TreeNode(3)
@@ -138,18 +138,6 @@ class TestRecursion(unittest.TestCase):
         eq_(pow4(3, 0), 1)
         eq_(pow4(0, 0), 1)
         eq_(pow4(-4, 3), -64)
-
-    def test_kth_symbol(self):
-        eq_(kth_symbol(1, 1), 0)
-        eq_(kth_symbol(2, 1), 0)
-        eq_(kth_symbol(2, 2), 1)
-        eq_(kth_symbol(4, 5), 1)
-
-    def test_kth_symbol2(self):
-        eq_(kth_symbol2(1, 1), 0)
-        eq_(kth_symbol2(2, 1), 0)
-        eq_(kth_symbol2(2, 2), 1)
-        eq_(kth_symbol2(4, 5), 1)
 
     def test_perm(self):
         eq_(perm(3), [[3, 2, 1], [2, 3, 1], [2, 1, 3], [3, 1, 2], [1, 3, 2], [1, 2, 3]])

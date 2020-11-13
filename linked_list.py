@@ -61,6 +61,14 @@ def reverse_list_r(head):
         return reverse(next_head, head)
     return reverse(head, None)
 
+def reverse_list_r2(head):
+    if head.next is None:
+        return head
+    node = reverse_list_r2(head.next)
+    head.next.next = head
+    head.next = None
+    return node
+
 def remove_target_node(head, target):
     if head is None:
         return head

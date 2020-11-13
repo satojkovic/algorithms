@@ -35,12 +35,12 @@ def reverse_str3(s, head, tail):
     return reverse_str3(s, head + 1, tail - 1)
 
 def swap_node_pairs(head):
-    if head is None or head.next_elem is None:
+    if head is None or head.next is None:
         return head
-    swap_head = swap_node_pairs(head.next_elem.next_elem)
-    pair = head.next_elem
-    head.next_elem = swap_head
-    pair.next_elem = head
+    swap_head = swap_node_pairs(head.next.next)
+    pair = head.next
+    head.next = swap_head
+    pair.next = head
     return pair
 
 def climb_stairs(n):
@@ -95,11 +95,11 @@ def pascal_triangle3(n):
     return prev_row + [1]
 
 def reverse_list(head):
-    if not head or head.next_elem is None:
+    if head is None or head.next is None:
         return head
-    node = reverse_list(head.next_elem)
-    head.next_elem.next_elem = head
-    head.next_elem = None
+    node = reverse_list(head.next)
+    head.next.next = head
+    head.next = None
     return node
 
 def max_depth(root):
@@ -159,26 +159,6 @@ def pow4(x, n):
         return memo[n]
     memo = {}
     return helper(x, n, memo)
-
-def kth_symbol(N, K):
-    def n_row(N):
-        if N == 1:
-            return 0
-        row = n_row(N - 1)
-        bits = format(row, 'b').zfill(2 ** (N - 2))
-        i_bits = ''.join(['1' if x == '0' else '0' for x in bits])
-        return int(bits + i_bits, 2)
-    row = n_row(N)
-    return 1 if (row & (1 << (2 ** (N - 1) - K))) else 0
-
-def kth_symbol2(N, K):
-    if N == 1:
-        return 0
-    symbol = kth_symbol2(N - 1, (K - 1) % (2 ** (N -2)) + 1)
-    if K > (2 ** N - 2):
-        return 0 if symbol == 1 else 1
-    else:
-        return 0 if symbol == 1 else 1
 
 def perm(n):
     if n == 0:
