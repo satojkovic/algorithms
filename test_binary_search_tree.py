@@ -49,29 +49,6 @@ class TestBinarySearchTree(unittest.TestCase):
         eq_(root.right.data, 10)
         eq_(root.right.right.data, 20)
 
-    def test_validate_bst(self):
-        eq_(validate_bst(self.root), True)
-        eq_(validate_bst(self.root2), False)
-        eq_(validate_bst(self.root3), False)
-
-    def test_validate_bst2(self):
-        eq_(validate_bst(self.root), True)
-        eq_(validate_bst(self.root2), False)
-        eq_(validate_bst(self.root3), False)
-
-        # Not accpept duplicate values in the left subtree
-        root = TreeNode(1)
-        root.left = TreeNode(1)
-        eq_(validate_bst2(root), False)
-
-        root = TreeNode(1)
-        root.right = TreeNode(1)
-        eq_(validate_bst2(root), False)
-
-        root = TreeNode(0)
-        root.right = TreeNode(-1)
-        eq_(validate_bst2(root), False)
-
     def test_unique_bst(self):
         trees = unique_bst(3)
         eq_(len(trees), 5)
