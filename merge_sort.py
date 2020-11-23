@@ -32,6 +32,18 @@ def merge(left, right):
     merged.extend(right[right_idx:])
     return merged
 
+def merge2(left, right):
+    buf = left + list(reversed(right))
+    head, tail = 0, len(buf) - 1
+    merged = []
+    while head <= tail:
+        if buf[head] <= buf[tail]:
+            merged.append(buf[head])
+            head += 1
+        else:
+            merged.append(buf[tail])
+            tail -= 1
+    return merged
 
 def merge_sort(data):
     # base case or data is empty
@@ -46,7 +58,7 @@ def merge_sort(data):
 
     # [conquer]
     # Sort and merge
-    merged = merge(left, right)
+    merged = merge2(left, right)
     return merged
 
 if __name__ == "__main__":
