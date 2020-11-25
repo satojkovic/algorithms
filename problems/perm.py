@@ -12,8 +12,7 @@ def perm2(s):
     if len(s) == 0:
         return []
     if len(s) == 1:
-        # type(s): list
-        return [s]
+        return [[s]]
     ret = []
     for i, ch in enumerate(s):
         res = perm2(s[:i] + s[i+1:])
