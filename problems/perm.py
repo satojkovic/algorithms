@@ -18,3 +18,13 @@ def perm2(s):
         res = perm2(s[:i] + s[i+1:])
         ret.extend([[ch] + r for r in res])
     return ret
+
+def perm3(s):
+    if len(s) == 0:
+        return []
+    if len(s) == 1:
+        return [[s]]
+    ret = []
+    for c in s:
+        [ret.append([c] + p) for p in perm3(s.replace(c, ''))]
+    return ret
