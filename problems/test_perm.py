@@ -23,5 +23,10 @@ class TestPerm(unittest.TestCase):
         eq_(perm3(''), [])
         eq_(perm3('a'), [['a']])
 
+    def test_perm4(self):
+        eq_(perm4('aac'), ['aac', 'aca', 'caa'])
+        eq_(perm4('aaaa'), ['aaaa'])
+        eq_(perm4(''), [])
+
 if __name__ == "__main__":
     unittest.main()

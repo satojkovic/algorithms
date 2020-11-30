@@ -28,3 +28,19 @@ def perm3(s):
     for c in s:
         [ret.append([c] + p) for p in perm3(s.replace(c, ''))]
     return ret
+
+def perm4(s):
+    from collections import Counter
+    chars_counter = Counter(s)
+    def _perm(chars_counter, prefix, remaining):
+        if remaining == 0:
+            return [prefix] if prefix != '' else []
+        ret = []
+        for c in chars_counter:
+            count = chars_counter[c]
+            if count > 0:
+                chars_counter[c] -= 1
+                ret.extend(_perm(chars_counter, prefix + c, remaining - 1))
+                chars_counter[c] = count
+        return ret
+    return _perm(chars_counter, '', len(s))
