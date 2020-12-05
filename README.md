@@ -1,6 +1,6 @@
 # Algorithms and Data structures
 
-Algorithms and Data structures implemented in Python.
+Algorithms and Data structures implemented in Python/C++/Go.
 
 ## Linked Lists
 
