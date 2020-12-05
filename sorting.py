@@ -164,9 +164,7 @@ def merge(left, right):
             right_idx += 1
     
     # Append what is remained in either of the lists
-    merged.extend(left[left_idx:])
-    merged.extend(right[right_idx:])
-    return merged
+    return merged + left[left_idx:] + right[right_idx:]
 
 # Time complexity: O(nlogn)
 # Space complexity: O(n)

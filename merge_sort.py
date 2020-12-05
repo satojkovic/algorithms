@@ -28,9 +28,7 @@ def merge(left, right):
             right_idx += 1
     
     # Append remaining elements to the result list
-    merged.extend(left[left_idx:])
-    merged.extend(right[right_idx:])
-    return merged
+    return merged + left[left_idx:] + right[right_idx:]
 
 def merge2(left, right):
     buf = left + list(reversed(right))
