@@ -1,3 +1,5 @@
+import re
+
 def gen_parens(n):
     if n == 0:
         return []
@@ -5,11 +7,9 @@ def gen_parens(n):
         return ['()']
     res = []
     for p in gen_parens(n - 1):
-        res.append('()' + p)
-        res.append(p + '()')
-        res.append('(' + p + ')')
-        for i in [i for i, x in enumerate(p) if p[i] == '(']:
-            res.append(p[:i+1] + '()' + p[i+1:])
+        for i in [m.start() for m in re.finditer('\(', p)]:
+            res.append(''.join([p[:i+1] + '()' + p[i+1:]]))
+        res.append(''.join(['()', p]))
     return list(set(res))
 
 def gen_parens_bf(n):
