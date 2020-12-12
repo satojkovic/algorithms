@@ -12,6 +12,24 @@ def gen_parens(n):
         res.append(''.join(['()', p]))
     return list(set(res))
 
+def gen_parens2(n):
+    def parens(n, n_left, n_right, s, pos):
+        if n_left < 0 or n_left > n_right:
+            return
+        if n_left == 0 and n_right == 0:
+            return [''.join(s)] if len(s) != 0 else []
+        ret = []
+        if n_left > 0:
+            s[pos] = '('
+            res = parens(n, n_left - 1, n_right, s, pos + 1)
+            ret.extend(res)
+        if n_left < n_right:
+            s[pos] = ')'
+            res = parens(n, n_left, n_right - 1, s, pos + 1)
+            ret.extend(res)
+        return ret
+    return parens(n, n, n, [''] * (2 * n), 0)
+
 def gen_parens_bf(n):
     def _gen_parens_bf(n, curr):
         if n == 1:
