@@ -1,10 +1,9 @@
 import sys
 def frog(N, costs):
     dp = [sys.maxsize] * N
-    for i in range(N):
-        if i == 0:
-            dp[i] = 0
-        elif i == 1:
+    dp[0] = 0
+    for i in range(1, N):
+        if i == 1:
             dp[i] = abs(costs[i] - costs[i - 1])
         else:
             dp[i] = min(
