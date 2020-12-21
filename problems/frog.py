@@ -35,7 +35,19 @@ def frog3(N, costs):
             dp[i + 2] = chmin(dp[i + 2], dp[i] + abs(costs[i] - costs[i + 2]))
     return dp[N - 1]
 
+def frog4(N, costs):
+    def frog_r(pos, costs):
+        if pos == 0:
+            return 0
+        res = sys.maxsize
+        res = min(res, frog_r(pos-1, costs) + abs(costs[pos] - costs[pos-1]))
+        if pos > 1:
+            res = min(res, frog_r(pos-2, costs) + abs(costs[pos] - costs[pos-2]))
+        return res
+    return frog_r(N-1, costs)
+
 if __name__ == "__main__":
     print(frog(7, [2, 9, 4, 5, 1, 6, 10]))
     print(frog2(7, [2, 9, 4, 5, 1, 6, 10]))
     print(frog3(7, [2, 9, 4, 5, 1, 6, 10]))
+    print(frog4(7, [2, 9, 4, 5, 1, 6, 10]))
