@@ -46,8 +46,24 @@ def frog4(N, costs):
         return res
     return frog_r(N-1, costs)
 
+def frog5(N, costs):
+    def frog_r(pos, costs, memo):
+        if pos == 0:
+            return 0
+        if memo[pos] < sys.maxsize:
+            return memo[pos]
+        res = sys.maxsize
+        res = min(res, frog_r(pos-1, costs, memo) + abs(costs[pos] - costs[pos-1]))
+        if pos > 1:
+            res = min(res, frog_r(pos-2, costs, memo) + abs(costs[pos] - costs[pos-2]))
+        memo[pos] = res
+        return res
+    memo = [sys.maxsize] * N
+    return frog_r(N-1, costs, memo)
+
 if __name__ == "__main__":
     print(frog(7, [2, 9, 4, 5, 1, 6, 10]))
     print(frog2(7, [2, 9, 4, 5, 1, 6, 10]))
     print(frog3(7, [2, 9, 4, 5, 1, 6, 10]))
     print(frog4(7, [2, 9, 4, 5, 1, 6, 10]))
+    print(frog5(7, [2, 9, 4, 5, 1, 6, 10]))
