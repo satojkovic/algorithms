@@ -112,16 +112,20 @@ class LinkedList:
 
     def add(self, elem):
         # Add always append the new node at the tail
-        self.add_tail(elem)
+        self._add_tail(elem)
 
-    def add_head(self, elem):
+    def insert(self, elem):
+        # Insert always add the new node at the head
+        self._add_head(elem)
+
+    def _add_head(self, elem):
         # Add a node to the head of the linked list, O(1)
         node = ListElement(elem)
         node.next = self.head
         self.head = node
         self.size += 1
 
-    def add_tail(self, elem):
+    def _add_tail(self, elem):
         # Add a node to the tail of the linked list, O(n)
         if self.is_empty():
             self.head = ListElement(elem)

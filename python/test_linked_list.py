@@ -28,19 +28,13 @@ class TestLinkedList(unittest.TestCase):
         self.l.add(2)
         eq_(self.l.head.next.data, 2)
 
-    def test_add_head(self):
-        self.l.add_head(1)
+    def test_insert(self):
+        self.l.insert(1)
         eq_(self.l.peek_head(), 1)
 
-        self.l.add_head(2)
+        self.l.insert(2)
         eq_(self.l.peek_head(), 2)
         eq_(self.l.head.next.data, 1)
-
-    def test_add_tail(self):
-        self.l.add_tail(3)
-        eq_(self.l.peek_tail(), 3)
-        self.l.add_tail(4)
-        eq_(self.l.peek_tail(), 4)
 
     def test_remove_head(self):
         self.l.add(100)
