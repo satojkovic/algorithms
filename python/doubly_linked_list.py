@@ -13,10 +13,8 @@ class DoublyLinkedList:
         self.size = 0
 
     def is_empty(self):
-        if self.head is None:
-            return True
-        else:
-            return False
+        # check whether the size equal zero
+        return self.size == 0
 
     def search(self, k):
         x = self.head
