@@ -12,16 +12,15 @@ class Queue:
         self.tail = None
 
     def is_empty(self):
-        return not self.head and not self.tail
+        return self.head == None
 
     def enque(self, data):
         elem = QueueElem(data)
-        if self.is_empty():
-            self.head = elem
-            self.tail = self.head
-        else:
+        if self.tail is not None:
             self.tail.next = elem
-            self.tail = self.tail.next
+        self.tail = elem
+        if self.head is None:
+            self.head = elem
 
     def deque(self):
         if self.is_empty():
