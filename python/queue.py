@@ -12,7 +12,7 @@ class Queue:
         self.tail = None
 
     def is_empty(self):
-        return self.head == None
+        return self.head is None
 
     def enque(self, data):
         elem = QueueElem(data)
@@ -23,16 +23,16 @@ class Queue:
             self.head = elem
 
     def deque(self):
-        if self.is_empty():
+        if self.head is None:
             return None
-        ret = self.head.data
+        data = self.head.data
         self.head = self.head.next
         if self.head is None:
             self.tail = None
-        return ret
+        return data
 
     def print_queue(self):
-        if self.is_empty():
+        if self.head is None:
             print('Queue is empty.')
             return
 
