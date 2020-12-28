@@ -23,7 +23,7 @@ class Queue:
             self.head = elem
 
     def deque(self):
-        if self.head is None:
+        if self.is_empty():
             return None
         data = self.head.data
         self.head = self.head.next
@@ -32,7 +32,7 @@ class Queue:
         return data
 
     def print_queue(self):
-        if self.head is None:
+        if self.is_empty():
             print('Queue is empty.')
             return
 
@@ -53,8 +53,8 @@ class QueueByList:
     def is_empty(self):
         return (self.size == 0)
 
-    def enque(self, val):
-        self.q[self.tail] = val
+    def enque(self, data):
+        self.q[self.tail] = data
         self.size = self.size + 1 if self.size < self.capacity else self.size
         self.head = (self.head + 1) % self.capacity if self.size == self.capacity and self.head == self.tail else self.head
         self.tail = (self.tail + 1) % self.capacity

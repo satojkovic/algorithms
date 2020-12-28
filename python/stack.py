@@ -44,14 +44,14 @@ class StackByList:
     def is_empty(self):
         return len(self.stack) == 0
 
-    def push(self, val):
-        self.stack.append(val)
+    def push(self, data):
+        self.stack.append(data)
 
     def pop(self):
         if self.is_empty():
-            return -1
+            return None
         # Pop last: O(1)
-        return self.stack.pop(-1)
+        return self.stack.pop()
 
 if __name__ == "__main__":
     stack = StackByList()
