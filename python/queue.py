@@ -25,11 +25,11 @@ class Queue:
     def deque(self):
         if self.is_empty():
             return None
-        data = self.head.data
+        ret = self.head.data
         self.head = self.head.next
         if self.head is None:
             self.tail = None
-        return data
+        return ret
 
     def print_queue(self):
         if self.is_empty():
