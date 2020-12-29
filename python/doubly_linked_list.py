@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding=utf-8 -*-
 
-class DoublyListElement:
+class DoublyListNode:
     def __init__(self, data):
         self.data = data
         self.prev = None
@@ -40,39 +40,39 @@ class DoublyLinkedList:
             index -= 1
         return curr.data
 
-    def add_at_head(self, val):
+    def add_at_head(self, data):
         # Add a node to the head of the linked list, O(1)
-        node = DoublyListElement(val)
+        node = DoublyListNode(data)
         node.next = self.head
         if self.head:
             self.head.prev = node
         self.head = node
         self.size += 1
 
-    def add_at_tail(self, val):
+    def add_at_tail(self, data):
         # Add a node to the tail of the linked list, O(n)
         if self.is_empty():
-            self.add_at_head(val)
+            self.add_at_head(data)
         else:
             curr = self.head
             while curr.next:
                 curr = curr.next
-            node = DoublyListElement(val)
+            node = DoublyListNode(data)
             curr.next = node
             node.prev = curr
             self.size += 1
 
-    def add_at_index(self, index, val):
+    def add_at_index(self, index, data):
         # Accept when index == self.size because that means add_at_tail()
         if index > self.size or index < 0:
             return None
         if index == 0:
-            self.add_at_head(val)
+            self.add_at_head(data)
         elif index == self.size:
-            self.add_at_tail(val)
+            self.add_at_tail(data)
         else:
             curr = self.find(index)
-            node = DoublyListElement(val)
+            node = DoublyListNode(data)
             node.prev = curr.prev
             node.next = curr
             curr.prev.next = node

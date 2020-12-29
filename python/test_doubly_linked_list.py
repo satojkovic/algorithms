@@ -1,5 +1,5 @@
 import unittest
-from doubly_linked_list import DoublyLinkedList, DoublyListElement
+from doubly_linked_list import DoublyLinkedList, DoublyListNode
 from nose.tools import eq_
 
 class TestDoublyLinkedList(unittest.TestCase):
