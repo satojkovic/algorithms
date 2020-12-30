@@ -56,9 +56,12 @@ class TestLinkedList(unittest.TestCase):
         self.l.insert_tail(1)
         self.l.insert_tail(2)
         self.l.insert_tail(3)
-        eq_(self.l.remove(self.l.head.next), True)
+        eq_(self.l.remove(2), True)
         eq_(self.l.head.data, 1)
         eq_(self.l.head.next.data, 3)
+        eq_(self.l.remove(3), True)
+        eq_(self.l.head.data, 1)
+        eq_(self.l.head.next, None)
 
     def test_search(self):
         eq_(self.l.search(ListElement(10)), None)

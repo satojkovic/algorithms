@@ -163,24 +163,22 @@ class LinkedList:
         return data
 
     # Remove a particular node in the linked list, O(n)
-    def remove(self, node):
+    def remove(self, data):
         if self.is_empty():
             return False
         # if the node to remove is somewhere either at the head or the tail
         # handle those independently
-        if node.data == self.head.data:
-            return self.remove_head()
+        if self.head.data == data:
+            self.head = self.head.next
+            return True
 
         # search for a target node
-        trav1 = self.head
-        trav2 = self.head.next
-        while trav2:
-            if trav2.data == node.data:
-                trav1.next = trav2.next
-                self.size -= 1
-                return True
-            trav1 = trav1.next
-            trav2 = trav2.next
+        head = self.head
+        while head.next and head.next.data != data:
+            head = head.next
+        if head.next:
+            head.next = head.next.next
+            return True
         return False
 
     def search(self, node):
