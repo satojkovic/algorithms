@@ -151,19 +151,15 @@ class LinkedList:
     def remove_last(self):
         if self.is_empty():
             return None
-
-        trav1 = self.head
-        trav2 = self.head.next
-        if not trav2:
+        # Only one node in the list
+        if self.head.next is None:
             return self.remove_head()
-
-        while trav2.next:
-            trav1 = trav1.next
-            trav2 = trav2.next
-        data = trav2.data
-        trav1.next = trav2.next
+        head = self.head
+        while head.next.next:
+            head = head.next
+        data = head.next.data
+        head.next = head.next.next
         self.size -= 1
-
         return data
 
     # Remove a particular node in the linked list, O(n)
