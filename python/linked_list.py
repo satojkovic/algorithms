@@ -99,6 +99,7 @@ class LinkedList:
 
     def __init__(self):
         self.head = None
+        self.tail = None
         self.size = 0
 
     def is_empty(self):
@@ -108,32 +109,24 @@ class LinkedList:
     def clear(self):
         # clear the linked list
         self.head = None
+        self.tail = None
         self.size = 0
 
-    def add(self, elem):
-        # Add always append the new node at the tail
-        self._add_tail(elem)
-
-    def insert(self, elem):
-        # Insert always add the new node at the head
-        self._add_head(elem)
-
-    def _add_head(self, elem):
+    def insert_head(self, elem):
         # Add a node to the head of the linked list, O(1)
         node = ListElement(elem)
         node.next = self.head
         self.head = node
         self.size += 1
 
-    def _add_tail(self, elem):
-        # Add a node to the tail of the linked list, O(n)
-        if self.is_empty():
-            self.head = ListElement(elem)
-        else:
-            node = self.head
-            while node.next:
-                node = node.next
-            node.next = ListElement(elem)
+    def insert_tail(self, elem):
+        # Add a node to the tail of the linked list, O(1)
+        node = ListElement(elem)
+        if self.tail is not None:
+            self.tail.next = node
+        self.tail = node
+        if self.head is None:
+            self.head = node
         self.size += 1
 
     def peek_head(self):
@@ -141,13 +134,8 @@ class LinkedList:
         return self.head.data if not self.is_empty() else None
 
     def peek_tail(self):
-        # Check the value of the last node if it exits, O(n)
-        if self.is_empty():
-            return None
-        node = self.head
-        while node.next:
-            node = node.next
-        return node.data
+        # Return the value of the last node if it exits, O(1)
+        return self.tail.data if not self.is_empty() else None
 
     def remove_head(self):
         if self.is_empty():

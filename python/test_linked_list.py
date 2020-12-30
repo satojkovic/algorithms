@@ -9,70 +9,70 @@ class TestLinkedList(unittest.TestCase):
 
     def test_empty(self):
         ok_(self.l.is_empty())
-        self.l.add(1)
+        self.l.insert_tail(1)
         ok_(not self.l.is_empty())
 
     def test_clear(self):
-        self.l.add(1)
+        self.l.insert_tail(1)
         self.l.clear()
         eq_(self.l.head, None)
 
     def test_size(self):
         eq_(self.l.size, 0)
-        self.l.add(1)
+        self.l.insert_tail(1)
         eq_(self.l.size, 1)
 
-    def test_add(self):
-        self.l.add(1)
+    def test_insert_tail(self):
+        self.l.insert_tail(1)
         eq_(self.l.head.data, 1)
-        self.l.add(2)
+        self.l.insert_tail(2)
         eq_(self.l.head.next.data, 2)
 
-    def test_insert(self):
-        self.l.insert(1)
+    def test_insert_head(self):
+        self.l.insert_head(1)
         eq_(self.l.peek_head(), 1)
 
-        self.l.insert(2)
+        self.l.insert_head(2)
         eq_(self.l.peek_head(), 2)
         eq_(self.l.head.next.data, 1)
 
     def test_remove_head(self):
-        self.l.add(100)
-        self.l.add(10)
+        self.l.insert_tail(100)
+        self.l.insert_tail(10)
         eq_(self.l.remove_head(), 100)
         eq_(self.l.remove_head(), 10)
         eq_(self.l.remove_head(), None)
 
     def test_remove_last(self):
-        self.l.add(1)
-        self.l.add(2)
-        self.l.add(3)
+        self.l.insert_tail(1)
+        self.l.insert_tail(2)
+        self.l.insert_tail(3)
         eq_(self.l.remove_last(), 3)
         eq_(self.l.remove_last(), 2)
         eq_(self.l.remove_last(), 1)
         eq_(self.l.remove_last(), None)
 
     def test_remove(self):
-        self.l.add(1)
-        self.l.add(2)
-        self.l.add(3)
+        self.l.insert_tail(1)
+        self.l.insert_tail(2)
+        self.l.insert_tail(3)
         eq_(self.l.remove(self.l.head.next), True)
         eq_(self.l.head.data, 1)
         eq_(self.l.head.next.data, 3)
 
     def test_search(self):
         eq_(self.l.search(ListElement(10)), None)
-        self.l.add(10)
+        self.l.insert_tail(10)
         eq_(self.l.search(ListElement(10)), True)
         eq_(self.l.search(ListElement(-1)), False)
         eq_(self.l.search(ListElement('a')), False)
 
     def test_find_middle(self):
-        self.l.add(1)
-        self.l.add(2)
-        self.l.add(3)
-        self.l.add(4)
-        self.l.add(5)
+        self.l.insert_tail(1)
+        self.l.insert_tail(2)
+        self.l.insert_tail(3)
+        self.l.insert_tail(4)
+        self.l.insert_tail(5)
         # odd case
         eq_(self.l.find_middle(), 3)
 
@@ -90,9 +90,9 @@ class TestLinkedList(unittest.TestCase):
 
     def test_remove_nth_from_end(self):
         ll = LinkedList()
-        ll.add(1)
-        ll.add(2)
-        ll.add(3)
+        ll.insert_tail(1)
+        ll.insert_tail(2)
+        ll.insert_tail(3)
         ll.head = remove_nth_from_end(ll.head, 2)
         eq_(ll.head.data, 1)
         eq_(ll.head.next.data, 3)
@@ -132,7 +132,7 @@ class TestLinkedList(unittest.TestCase):
 
     def test_reverse_list(self):
         ll = LinkedList()
-        [ll.add(i) for i in range(1, 4)]
+        [ll.insert_tail(i) for i in range(1, 4)]
         reversed = ll.reverse_list()
         eq_(reversed.data, 3)
         eq_(reversed.next.data, 2)
@@ -140,7 +140,7 @@ class TestLinkedList(unittest.TestCase):
         eq_(reversed.next.next.next, None)
 
         ll = LinkedList()
-        ll.add(1)
+        ll.insert_tail(1)
         reversed = ll.reverse_list()
         eq_(reversed.data, 1)
         eq_(reversed.next, None)
@@ -151,31 +151,31 @@ class TestLinkedList(unittest.TestCase):
 
     def test_remove_target_node(self):
         ll = LinkedList()
-        ll.add(1)
-        ll.add(2)
-        ll.add(3)
+        ll.insert_tail(1)
+        ll.insert_tail(2)
+        ll.insert_tail(3)
         ll.head = remove_target_node(ll.head, 2)
         eq_(ll.head.data, 1)
         eq_(ll.head.next.data, 3)
         eq_(ll.head.next.next, None)
 
         ll = LinkedList()
-        ll.add(3)
-        ll.add(3)
+        ll.insert_tail(3)
+        ll.insert_tail(3)
         ll.head = remove_target_node(ll.head, 3)
         eq_(ll.head, None)
 
         ll = LinkedList()
-        ll.add(1)
+        ll.insert_tail(1)
         ll.head = remove_target_node(ll.head, 10)
         eq_(ll.head.data, 1)
         eq_(ll.head.next, None)
 
     def test_odd_even_order(self):
         ll = LinkedList()
-        ll.add(1)
-        ll.add(2)
-        ll.add(3)
+        ll.insert_tail(1)
+        ll.insert_tail(2)
+        ll.insert_tail(3)
         ll.head = odd_even_order(ll.head)
         eq_(ll.head.data, 1)
         eq_(ll.head.next.data, 3)
@@ -183,16 +183,16 @@ class TestLinkedList(unittest.TestCase):
         eq_(ll.head.next.next.next, None)
 
         ll = LinkedList()
-        ll.add(1)
+        ll.insert_tail(1)
         ll.head = odd_even_order(ll.head)
         eq_(ll.head.data, 1)
         eq_(ll.head.next, None)
 
         ll = LinkedList()
-        ll.add(1)
-        ll.add(2)
-        ll.add(3)
-        ll.add(4)
+        ll.insert_tail(1)
+        ll.insert_tail(2)
+        ll.insert_tail(3)
+        ll.insert_tail(4)
         ll.head = odd_even_order(ll.head)
         eq_(ll.head.data, 1)
         eq_(ll.head.next.data, 3)
