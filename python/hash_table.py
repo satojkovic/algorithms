@@ -70,7 +70,7 @@ class HashTable:
             self._resize_table()
 
     def _hash(self, key):
-        return (hash(key) & 0x7fffffff) % self.capacity
+        return hash(key) % self.capacity
 
     def _resize_table(self):
         self.capacity *= 2
@@ -231,7 +231,7 @@ class HashTableQuadProbing:
         return (x**2 + x) >> 1
 
     def _hash(self, key):
-        return (key & 0x7fffffff) % self.capacity
+        return hash(key) % self.capacity
 
     def _resize_table(self):
         self.capacity *= 2

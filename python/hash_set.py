@@ -13,7 +13,7 @@ class HashSet:
         self.size = 0
 
     def _hash(self, key):
-        return (hash(key) & 0x7fffffff) % self.capacity
+        return hash(key) % self.capacity
 
     def _bucket_seek(self, h, key):
         head = self.bucket[h]
