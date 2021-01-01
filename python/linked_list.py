@@ -165,12 +165,11 @@ class LinkedList:
     # Remove a particular node in the linked list, O(n)
     def remove(self, data):
         if self.is_empty():
-            return False
+            return None
         # if the node to remove is somewhere either at the head or the tail
         # handle those independently
         if self.head.data == data:
-            self.head = self.head.next
-            return True
+            return self.remove_head()
 
         # search for a target node
         head = self.head
@@ -178,8 +177,9 @@ class LinkedList:
             head = head.next
         if head.next:
             head.next = head.next.next
-            return True
-        return False
+            self.size -= 1
+            return data
+        return None
 
     def search(self, node):
         if self.is_empty():
