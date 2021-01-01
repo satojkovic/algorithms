@@ -64,11 +64,12 @@ class TestLinkedList(unittest.TestCase):
         eq_(self.l.head.next, None)
 
     def test_search(self):
-        eq_(self.l.search(ListElement(10)), None)
+        eq_(self.l.search(10), False)
         self.l.insert_tail(10)
-        eq_(self.l.search(ListElement(10)), True)
-        eq_(self.l.search(ListElement(-1)), False)
-        eq_(self.l.search(ListElement('a')), False)
+        self.l.insert_head(-1)
+        eq_(self.l.search(10), True)
+        eq_(self.l.search(-1), True)
+        eq_(self.l.search('a'), False)
 
     def test_find_middle(self):
         self.l.insert_tail(1)

@@ -181,14 +181,12 @@ class LinkedList:
             return data
         return None
 
-    def search(self, node):
-        if self.is_empty():
-            return None
-        p = self.head
-        while p:
-            if p.data == node.data:
+    def search(self, data):
+        head = self.head
+        while head:
+            if head.data == data:
                 return True
-            p = p.next
+            head = head.next
         return False
 
     def reverse_list(self):
