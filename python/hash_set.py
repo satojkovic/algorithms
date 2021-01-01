@@ -2,21 +2,21 @@
 # -*- coding=utf-8 -*-
 
 class HashEntry:
-    def __init__(self, key) -> None:
+    def __init__(self, key):
         self.key = key
         self.next = None
 
 class HashSet:
-    def __init__(self, capacity=1000):
-        self.capacity = capacity
-        self.bucket = self.capacity * [None]
-        self.size = 0
+    def __init__(self, size):
+        self.size = size
+        self.bucket = self.size * [None]
 
-    def _hash(self, key):
-        return hash(key) % self.capacity
+    def _map_bucket_idx(self, key):
+        return hash(key) % self.size
 
-    def _bucket_seek(self, h, key):
-        head = self.bucket[h]
+    def _bucket_seek(self, key):
+        idx = self._map_bucket_idx(key)
+        head = self.bucket[idx]
         pos = 0
         while head:
             if head.key == key:
@@ -26,31 +26,26 @@ class HashSet:
         return -1
 
     def add(self, key):
-        h = self._hash(key)
-        if self._bucket_seek(h, key) < 0:
-            head = self.bucket[h]
+        idx = self._map_bucket_idx(key)
+        if not self.contains(key):
             node = HashEntry(key)
-            node.next = head
-            self.bucket[h] = node
-            self.size += 1
+            node.next = self.bucket[idx]
+            self.bucket[idx] = node
 
     def contains(self, key):
-        h = self._hash(key)
-        return self._bucket_seek(h, key) >= 0
+        return self._bucket_seek(key) >= 0
 
     def remove(self, key):
-        h = self._hash(key)
-        pos = self._bucket_seek(h, key)
-        if pos < 0:
-            return False
-        elif pos == 0:
-            head = self.bucket[h]
-            self.bucket[h] = head.next
-        else:
-            head = self.bucket[h]
-            while pos > 1:
-                head = head.next
-                pos -= 1
+        idx = self._map_bucket_idx(key)
+        head = self.bucket[idx]
+        if head is None:
+            return None
+        if head.key == key:
+            self.bucket[idx] = head.next
+            return key
+        while head.next and head.next.key != key:
+            head = head.next
+        if head.next:
             head.next = head.next.next
-        self.size -= 1
-        return True
+            return key
+        return None
