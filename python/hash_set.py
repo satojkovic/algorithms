@@ -45,7 +45,8 @@ class HashSet:
             return key
         while head.next and head.next.key != key:
             head = head.next
-        if head.next:
+        if head.next is None:
+            return None
+        else:
             head.next = head.next.next
             return key
-        return None
