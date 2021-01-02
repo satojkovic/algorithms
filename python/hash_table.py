@@ -18,49 +18,30 @@ class HashTable:
         self.bucket = self.capacity * [None]
         self.threshold = int(self.capacity * self.load_factor)
 
-    def is_empty(self):
-        return self.size == 0
+    def _map_bucket_idx(self, key):
+        return hash(key) % self.capacity
 
-    def remove(self, key):
-        h = self._hash(key)
-        pos = self._bucket_seek(h, key)
-        if pos < 0:
-            return False
-        elif pos == 0:
-            head = self.bucket[h]
-            self.bucket[h] = head.next
-        else:
-            head = self.bucket[h]
-            while pos > 1:
-                head = head.next
-                pos -= 1
-            head.next = head.next.next
-        self.size -= 1
-        return True
+    def _bucket_seek(self, idx, key):
+        head = self.bucket[idx]
+        pos = 0
+        while head:
+            if head.key == key:
+                return pos
+            head = head.next
+            pos += 1
+        return -1
 
-    def get(self, key):
-        h = self._hash(key)
-        pos = self._bucket_seek(h, key)
-        if pos < 0:
-            return -1
-        else:
-            head = self.bucket[h]
-            while pos > 0:
-                head = head.next
-                pos -= 1
-            return head.value
-
-    def put(self, key, value):
-        h = self._hash(key)
-        pos = self._bucket_seek(h, key)
+    def add(self, key, value):
+        idx = self._map_bucket_idx(key)
+        pos = self._bucket_seek(idx, key)
         if pos < 0:
             node = HashEntry(key, value)
-            node.next = self.bucket[h]
-            self.bucket[h] = node
+            node.next = self.bucket[idx]
+            self.bucket[idx] = node
             self.size += 1
         else:
             # Update the existing value
-            head = self.bucket[h]
+            head = self.bucket[idx]
             while pos > 0:
                 head = head.next
                 pos -= 1
@@ -69,8 +50,35 @@ class HashTable:
         if self.size > self.threshold:
             self._resize_table()
 
-    def _hash(self, key):
-        return hash(key) % self.capacity
+    def remove(self, key):
+        idx = self._map_bucket_idx(key)
+        head = self.bucket[idx]
+        if head is None:
+            return None
+        if head.key == key:
+            self.bucket[idx] = head.next
+            self.size -= 1
+            return key
+        while head.next and head.next.key != key:
+            head = head.next
+        if head is None:
+            return None
+        else:
+            head.next = head.next.next
+            self.size -= 1
+            return key
+
+    def get(self, key):
+        idx = self._map_bucket_idx(key)
+        pos = self._bucket_seek(idx, key)
+        if pos < 0:
+            return None
+        else:
+            head = self.bucket[idx]
+            while pos > 0:
+                head = head.next
+                pos -= 1
+            return head.value
 
     def _resize_table(self):
         self.capacity *= 2
@@ -82,25 +90,15 @@ class HashTable:
                 continue
             head = bucket
             while head:
-                h = self._hash(head.key)
-                if new_bucket[h]:
+                idx = self._map_bucket_idx(head.key)
+                if new_bucket[idx]:
                     node = HashEntry(head.key, head.value)
-                    node.next = new_bucket[h]
-                    new_bucket[h] = node
+                    node.next = new_bucket[idx]
+                    new_bucket[idx] = node
                 else:
-                    new_bucket[h] = HashEntry(head.key, head.value)
+                    new_bucket[idx] = HashEntry(head.key, head.value)
                 head = head.next
         self.bucket = new_bucket
-
-    def _bucket_seek(self, h, key):
-        head = self.bucket[h]
-        pos = 0
-        while head:
-            if head.key == key:
-                return pos
-            head = head.next
-            pos += 1
-        return -1
 
     def print_table(self):
         print('(capacity, size, threshold) = ({}, {}, {}):'.format(self.capacity, self.size, self.threshold))
@@ -133,7 +131,7 @@ class HashTableQuadProbing:
         # Searching for an empty bucket
         x = 1
         key_hash = hash(key)
-        index = self._hash(key_hash)
+        index = self._map_bucket_idx(key_hash)
         seen_tombstone = -1
         while True:
             # The current bucket was previously deleted
@@ -165,7 +163,7 @@ class HashTableQuadProbing:
                 return None
 
             # Quadratic Probing
-            index = self._hash(key_hash + self._quad_probing(x))
+            index = self._map_bucket_idx(key_hash + self._quad_probing(x))
             x += 1
 
     def remove(self, key):
@@ -174,11 +172,11 @@ class HashTableQuadProbing:
 
         x = 1
         key_hash = hash(key)
-        index = self._hash(key_hash)
+        index = self._map_bucket_idx(key_hash)
         while True:
             # Ignore deleted buckets
             if self.key_table[index] == self.tombstone:
-                index = self._hash(key_hash + self._quad_probing(x))
+                index = self._map_bucket_idx(key_hash + self._quad_probing(x))
                 x += 1
                 continue
 
@@ -200,7 +198,7 @@ class HashTableQuadProbing:
 
         x = 1
         key_hash = hash(key)
-        index = self._hash(key_hash)
+        index = self._map_bucket_idx(key_hash)
         seen_tombstone = -1
         while True:
             if self.key_table[index] == self.tombstone:
@@ -220,7 +218,7 @@ class HashTableQuadProbing:
                 # Not found
                 return None
 
-            index = self._hash(key_hash + self._quad_probing(x))
+            index = self._map_bucket_idx(key_hash + self._quad_probing(x))
             x += 1
 
     def print_table(self):
@@ -230,7 +228,7 @@ class HashTableQuadProbing:
     def _quad_probing(self, x):
         return (x**2 + x) >> 1
 
-    def _hash(self, key):
+    def _map_bucket_idx(self, key):
         return hash(key) % self.capacity
 
     def _resize_table(self):

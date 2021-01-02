@@ -14,8 +14,7 @@ class HashSet:
     def _map_bucket_idx(self, key):
         return hash(key) % self.size
 
-    def _bucket_seek(self, key):
-        idx = self._map_bucket_idx(key)
+    def _bucket_seek(self, idx, key):
         head = self.bucket[idx]
         pos = 0
         while head:
@@ -27,13 +26,15 @@ class HashSet:
 
     def add(self, key):
         idx = self._map_bucket_idx(key)
-        if not self.contains(key):
+        pos = self._bucket_seek(idx, key)
+        if pos < 0:
             node = HashEntry(key)
             node.next = self.bucket[idx]
             self.bucket[idx] = node
 
     def contains(self, key):
-        return self._bucket_seek(key) >= 0
+        idx = self._map_bucket_idx(key)
+        return self._bucket_seek(idx, key) >= 0
 
     def remove(self, key):
         idx = self._map_bucket_idx(key)
