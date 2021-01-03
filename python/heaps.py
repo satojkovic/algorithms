@@ -39,7 +39,7 @@ class MaxHeap:
         return data
 
     def build(self, data):
-        last_pidx = (len(data) // 2) - 1
+        last_pidx = (len(data) - 1) // 2
         for p in range(last_pidx, -1, -1):
             data = self.heapify(data, p)
         self.data = data
