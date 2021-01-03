@@ -45,7 +45,36 @@ class MaxHeap:
         self.data = data
         self.size = len(self.data)
 
+class MinHeap:
+    def __init__(self):
+        self.size = 0
+        self.data = []
+
+    def heapify(self, data, p):
+        left_idx = 2 * p + 1
+        right_idx = 2 * p + 2
+        smallest = p
+        if left_idx < len(data) and data[left_idx] < data[smallest]:
+            smallest = left_idx
+        if right_idx < len(data) and data[right_idx] < data[smallest]:
+            smallest = right_idx
+        if smallest != p:
+            data[smallest], data[p] = data[p], data[smallest]
+            data = self.heapify(data, smallest)
+        return data
+    
+    def build(self, data):
+        last_pidx = (len(data) - 1) // 2
+        for p in range(last_pidx, -1, -1):
+            data = self.heapify(data, p)
+        self.data = data
+        self.size = len(self.data)
+ 
 if __name__ == "__main__":
     max_heap = MaxHeap()
     max_heap.build([6, 5, 1, 8, 2, 4])
     print(max_heap.data)
+
+    min_heap = MinHeap()
+    min_heap.build([6, 5, 1, 8, 2, 4])
+    print(min_heap.data)
