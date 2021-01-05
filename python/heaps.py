@@ -45,6 +45,16 @@ class MaxHeap:
         self.data = data
         self.size = len(self.data)
 
+    def push(self, val):
+        self.data.append(val)
+        curr = len(self.data) - 1
+        while curr > 0:
+            parent = (curr - 1) // 2
+            if self.data[parent] >= self.data[curr]:
+                break
+            self.data[parent], self.data[curr] = self.data[curr], self.data[parent]
+            curr = parent
+
 class MinHeap:
     def __init__(self):
         self.size = 0
@@ -69,12 +79,26 @@ class MinHeap:
             data = self.heapify(data, p)
         self.data = data
         self.size = len(self.data)
+
+    def push(self, val):
+        self.data.append(val)
+        curr = len(self.data) - 1
+        while curr > 0:
+            parent = (curr - 1) // 2
+            if self.data[parent] <= self.data[curr]:
+                break
+            self.data[parent], self.data[curr] = self.data[curr], self.data[parent]
+            curr = parent
  
 if __name__ == "__main__":
     max_heap = MaxHeap()
     max_heap.build([6, 5, 1, 8, 2, 4])
     print(max_heap.data)
+    max_heap.push(10)
+    print(max_heap.data)
 
     min_heap = MinHeap()
     min_heap.build([6, 5, 1, 8, 2, 4])
+    print(min_heap.data)
+    min_heap.push(0)
     print(min_heap.data)
