@@ -9,6 +9,16 @@ class GraphNode:
         self.visited = False
         self.adjs = deque()
 
+class SimpleGraph:
+    def __init__(self):
+        self.nodes = {}
+
+    def add_edge(self, src, dst):
+        if src in self.nodes:
+            self.nodes[src].append(dst)
+        else:
+            self.nodes[src] = [dst]
+
 class Graph:
     def __init__(self):
         self.nodes = {}
@@ -170,6 +180,13 @@ def dfs_r_paths(g, root, target, visited=None, path=None):
     return paths
 
 if __name__ == "__main__":
+    g = SimpleGraph()
+    g.add_edge(0, 1)
+    g.add_edge(0, 4)
+    g.add_edge(4, 5)
+    for node in g.nodes:
+        print(node, '->', ' -> '.join([str(n) for n in g.nodes[node]]))
+
     g = {}
     a = GraphNode('a')
     b = GraphNode('b')
