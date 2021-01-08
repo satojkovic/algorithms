@@ -10,14 +10,22 @@ class GraphNode:
         self.adjs = deque()
 
 class SimpleGraph:
+    '''
+    Simple Directed Graph
+    '''
     def __init__(self):
         self.nodes = {}
 
     def add_edge(self, src, dst):
-        if src in self.nodes:
-            self.nodes[src].append(dst)
-        else:
-            self.nodes[src] = [dst]
+        if not src in self.nodes:
+            self.nodes[src] = []
+        if not dst in self.nodes:
+            self.nodes[dst] = []
+        self.nodes[src].append(dst)
+
+    def add_vertex(self, v):
+        if not v in self.nodes:
+            self.nodes[v] = []
 
 class Graph:
     def __init__(self):
@@ -185,7 +193,9 @@ if __name__ == "__main__":
     g.add_edge(0, 4)
     g.add_edge(4, 5)
     for node in g.nodes:
-        print(node, '->', ' -> '.join([str(n) for n in g.nodes[node]]))
+        print(node, '->', ','.join([str(n) for n in g.nodes[node]]))
+    g.add_vertex(10)
+    print('nodes:', ','.join([str(node) for node in g.nodes]))
 
     g = {}
     a = GraphNode('a')
