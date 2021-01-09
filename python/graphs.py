@@ -10,11 +10,9 @@ class GraphNode:
         self.adjs = deque()
 
 class SimpleGraph:
-    '''
-    Simple Directed Graph
-    '''
-    def __init__(self):
+    def __init__(self, is_directed=True):
         self.nodes = {}
+        self.is_directed = is_directed
 
     def add_edge(self, src, dst):
         if not src in self.nodes:
@@ -22,6 +20,8 @@ class SimpleGraph:
         if not dst in self.nodes:
             self.nodes[dst] = []
         self.nodes[src].append(dst)
+        if not self.is_directed:
+            self.nodes[dst].append(src)
 
     def add_vertex(self, v):
         if not v in self.nodes:
@@ -188,7 +188,7 @@ def dfs_r_paths(g, root, target, visited=None, path=None):
     return paths
 
 if __name__ == "__main__":
-    g = SimpleGraph()
+    g = SimpleGraph(is_directed=False)
     g.add_edge(0, 1)
     g.add_edge(0, 4)
     g.add_edge(4, 5)
