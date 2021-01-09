@@ -135,14 +135,16 @@ def bfs_paths(g, root, target):
     return paths
 
 def dfs(g, root):
-    _visited, visited, stack = {root}, [], deque([root])
+    stack, visited = [root], []
+    seen = set()
+    seen.add(root)
     while stack:
-        node = stack.popleft()
+        node = stack.pop()
         visited.append(node)
         for adj in g[node]:
-            if not adj in _visited:
-                _visited.add(adj)
-                stack.appendleft(adj)
+            if not adj in seen:
+                stack.append(adj)
+                seen.add(adj)
     return visited
 
 def dfs_r(g, root, visited=None, path=None):
@@ -196,6 +198,7 @@ if __name__ == "__main__":
         print(node, '->', ','.join([str(n) for n in g.nodes[node]]))
     g.add_vertex(10)
     print('nodes:', ','.join([str(node) for node in g.nodes]))
+    print('dfs:', dfs(g.nodes, 0))
 
     g = {}
     a = GraphNode('a')
