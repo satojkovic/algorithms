@@ -146,47 +146,18 @@ def dfs(g, root):
                 seen.add(adj)
     return visited
 
-def dfs_r(g, root, visited=None, path=None):
-    # [common gotchas]
-    # A new list is created once when the function is defined and the same list
-    # is used in each successive call
-    #
-    # When you define the funtion as dfs_r(g, root, visited=[])
-    # dfs_r(g, 0) => [0, 1, 3, 2, 4, 5]
-    # dfs_r(g, 0) => None (Because visited is filled with previous dfs_r results)
-    #
-    # What you should do instead is to create a new object each time the function is called
-    # by using a default arg to signal that no argument was provided (None is often a good choice)
-    if visited is None:
-        visited = set()
-    if path is None:
-        path = []
-
-    path = path + [root]
-    visited.add(root)
-    for adj in g[root]:
-        if not adj in visited:
-            path = dfs_r(g, adj, visited, path)
-    return path
-
-def dfs_r_paths(g, root, target, visited=None, path=None):
-    if visited is None:
-        visited = set()
-    if path is None:
-        path = []
-
-    paths = []
-    if root == target:
-        paths.append(path + [root])
-        return paths
-    path = path + [root]
-    visited = visited | {root}
-    for adj in g[root]:
-        if not adj in visited:
-            ps = dfs_r_paths(g, adj, target, visited, path)
-            for p in ps:
-                paths.append(p)
-    return paths
+def dfs_r(g, root):
+    def _dfs_r(g, root, visited, path):
+        if root in visited:
+            return path
+        visited.add(root)
+        path.append(root)
+        for adj in g[root]:
+            if not adj in visited:
+                path = _dfs_r(g, adj, visited, path)
+        return path
+    visited, path = set(), []
+    return _dfs_r(g, root, visited, path)
 
 if __name__ == "__main__":
     g = SimpleGraph(is_directed=False)
@@ -198,6 +169,7 @@ if __name__ == "__main__":
     g.add_vertex(10)
     print('nodes:', ','.join([str(node) for node in g.nodes]))
     print('dfs:', dfs(g.nodes, 0))
+    print('dfs_r:', dfs_r(g.nodes, 0))
 
     g = {}
     a = GraphNode('a')
