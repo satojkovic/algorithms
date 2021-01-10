@@ -136,8 +136,7 @@ def bfs_paths(g, root, target):
 
 def dfs(g, root):
     stack, visited = [root], []
-    seen = set()
-    seen.add(root)
+    seen = {root}
     while stack:
         node = stack.pop()
         visited.append(node)
