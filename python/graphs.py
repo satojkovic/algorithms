@@ -74,13 +74,13 @@ class Graph:
 
 def bfs(g, root):
     # Initialize `visited` with an empty list to return result as a list
-    _visited, visited, q = set(), [], deque([root])
+    q, seen, visited = deque([root]), {root}, []
     while q:
         node = q.popleft()
-        if not node in _visited:
-            _visited.add(node)
-            visited.append(node)
-            for adj in g[node]:
+        visited.append(node)
+        for adj in g[node]:
+            if not adj in seen:
+                seen.add(adj)
                 q.append(adj)
     return visited
 
@@ -106,19 +106,6 @@ def find_route_dfs(start, end):
             return find_route_dfs(adj, end)
     return False
 
-def bfs2(g, root):
-    # Initialize `visited` with a root node
-    _visited, visited, q = set(), [root], deque([root])
-    _visited.add(root)
-    while q:
-        node = q.popleft()
-        for adj in g[node]:
-            if not adj in _visited:
-                _visited.add(adj)
-                visited.append(adj)
-                q.append(adj)
-    return visited
-
 def bfs_paths(g, root, target):
     q = deque([(root, set(), [])])
     paths = []
@@ -135,8 +122,7 @@ def bfs_paths(g, root, target):
     return paths
 
 def dfs(g, root):
-    stack, visited = [root], []
-    seen = {root}
+    stack, seen, visited = [root], {root}, []
     while stack:
         node = stack.pop()
         visited.append(node)
