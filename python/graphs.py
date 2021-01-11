@@ -69,7 +69,7 @@ class Graph:
         trav_nodes[node_i] = False
         return False
 
-# graph is represented as an adjacency matrix
+# graph is represented as an adjacency list
 # g = {0: [1, 4, 5], 1: [3, 4], 2: [1], 3: [2, 4], 4: [], 5: []}
 
 def bfs(g, root):
