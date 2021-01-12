@@ -84,26 +84,28 @@ def bfs(g, root):
                 q.append(adj)
     return visited
 
-def find_route_bfs(start, end):
-    q = deque([start])
-    start.visited = True
+def find_route_bfs(g, start, end):
+    q, seen = deque([start]), {start}
     while q:
         node = q.popleft()
-        if node.val == end.val:
+        if node == end:
             return True
-        for adj in node.adjs:
-            if not adj.visited:
+        for adj in g[node]:
+            if not adj in seen:
+                seen.add(adj)
                 q.append(adj)
-                adj.visited = True
     return False
 
-def find_route_dfs(start, end):
-    if start.val == end.val:
-        return True
-    start.visited = True
-    for adj in start.adjs:
-        if not adj.visited:
-            return find_route_dfs(adj, end)
+def find_route_dfs(g, start, end):
+    stack, seen = [start], {start}
+    while stack:
+        node = stack.pop()
+        if node == end:
+            return True
+        for adj in g[node]:
+            if not adj in seen:
+                seen.add(adj)
+                stack.append(adj)
     return False
 
 def bfs_paths(g, root, target):
