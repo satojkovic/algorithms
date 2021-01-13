@@ -76,12 +76,17 @@ def preorder(root):
         preorder(root.left)
         preorder(root.right)
 
-def preorder_relist(root):
-    if root is None:
-        return []
-    left = preorder_relist(root.left)
-    right = preorder_relist(root.right)
-    return [root.data] + left + right
+def preorder_iter(root):
+    stack = [root] if root else []
+    visited = []
+    while stack:
+        node = stack.pop()
+        visited.append(node.data)
+        if node.right:
+            stack.append(node.right)
+        if node.left:
+            stack.append(node.left)
+    return visited
 
 def postorder(root):
     """Postorder traversal
