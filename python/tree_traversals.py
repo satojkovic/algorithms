@@ -70,11 +70,14 @@ def preorder(root):
     Args:
         root (TreeNode): root node of a tree
     """
-
-    if root:
-        print(root.data, end=' ')
-        preorder(root.left)
-        preorder(root.right)
+    def _preorder(root, visited):
+        if root:
+            visited.append(root.data)
+            visited = _preorder(root.left, visited)
+            visited = _preorder(root.right, visited)
+        return visited
+    visited = []
+    return _preorder(root, visited)
 
 def preorder_iter(root):
     stack = [root] if root else []

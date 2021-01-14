@@ -25,6 +25,10 @@ class TestTreeTraversals(unittest.TestCase):
         eq_(inorder_retlist2(self.root), [2, 4, 6, 8, 10, 20])
         eq_(inorder_retlist2(self.root2), [])
 
+    def test_preorder(self):
+        eq_(preorder(self.root), [8, 4, 2, 6, 10, 20])
+        eq_(preorder(self.root2), [])
+
     def test_preorder_iter(self):
         eq_(preorder_iter(self.root), [8, 4, 2, 6, 10, 20])
         eq_(preorder_iter(self.root2), [])
