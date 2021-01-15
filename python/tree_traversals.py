@@ -83,18 +83,14 @@ def postorder(root):
     Args:
         root (TreeNode): root node of a tree
     """
-
-    if root:
-        postorder(root.left)
-        postorder(root.right)
-        print(root.data, end=' ')
-
-def postorder_retlist(root):
-    if root is None:
-        return []
-    left = postorder_retlist(root.left)
-    right = postorder_retlist(root.right)
-    return left + right + [root.data]
+    def _postorder(root, visited):
+        if root:
+            visited = _postorder(root.left, visited)
+            visited = _postorder(root.right, visited)
+            visited.append(root.data)
+        return visited
+    visited = []
+    return _postorder(root, visited)
 
 # Level order traversal and output nested lists
 def levelorder_r(root):
