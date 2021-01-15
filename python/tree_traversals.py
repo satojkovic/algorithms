@@ -17,11 +17,14 @@ def inorder(root):
     Args:
         root (TreeNode): root node of a tree
     """
-
-    if root:
-        inorder(root.left)
-        print(root.data, end=' ')
-        inorder(root.right)
+    def _inorder(root, visited):
+        if root:
+            visited = _inorder(root.left, visited)
+            visited.append(root.data)
+            visited = _inorder(root.right, visited)
+        return visited
+    visited = []
+    return _inorder(root, visited)
 
 def inorder_iter(root):
     s = []
@@ -38,27 +41,6 @@ def inorder_iter(root):
         else:
             break
     return res
-
-def inorder_retlist(root):
-    def helper(root, path):
-        if root is None:
-            return path
-        path = helper(root.left, path)
-        path.append(root.data)
-        path = helper(root.right, path)
-        return path
-
-    path = []
-    path = helper(root, path)
-    return path
-
-def inorder_retlist2(root):
-    if root is None:
-        return []
-
-    left = inorder_retlist2(root.left)
-    right = inorder_retlist2(root.right)
-    return left + [root.data] + right
 
 def preorder(root):
     """Preorder traversal
