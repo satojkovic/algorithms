@@ -92,6 +92,22 @@ def postorder(root):
     visited = []
     return _postorder(root, visited)
 
+def postorder_iter(root):
+    stack = [root] if root else []
+    seen, visited = set(), []
+    while stack:
+        node = stack.pop()
+        if (not node.left and not node.right) or node in seen:
+            visited.append(node.data)
+            continue
+        stack.append(node)
+        if node.right:
+            stack.append(node.right)
+        if node.left:
+            stack.append(node.left)
+        seen.add(node)
+    return visited
+
 # Level order traversal and output nested lists
 def levelorder_r(root):
     res = []

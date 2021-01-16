@@ -33,6 +33,10 @@ class TestTreeTraversals(unittest.TestCase):
         eq_(postorder(self.root), [2, 6, 4, 20, 10, 8])
         eq_(postorder(self.root2), [])
 
+    def test_postorder_iter(self):
+        eq_(postorder_iter(self.root), [2, 6, 4, 20, 10, 8])
+        eq_(postorder_iter(self.root2), [])
+
     def test_levelorder(self):
         eq_(levelorder(self.root), [[8], [4, 10], [2, 6, 20]])
 
