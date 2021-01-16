@@ -93,20 +93,17 @@ def postorder(root):
     return _postorder(root, visited)
 
 def postorder_iter(root):
+    from collections import deque
     stack = [root] if root else []
-    seen, visited = set(), []
+    visited = deque()
     while stack:
         node = stack.pop()
-        if (not node.left and not node.right) or node in seen:
-            visited.append(node.data)
-            continue
-        stack.append(node)
-        if node.right:
-            stack.append(node.right)
+        visited.appendleft(node.data)
         if node.left:
             stack.append(node.left)
-        seen.add(node)
-    return visited
+        if node.right:
+            stack.append(node.right)
+    return list(visited)
 
 # Level order traversal and output nested lists
 def levelorder_r(root):
