@@ -20,6 +20,15 @@ def edit_distance(s, t):
                 dp[r][c] = min(dp[r-1][c-1] + 1, dp[r-1][c] + 1, dp[r][c-1] + 1)
     return dp[len(s)][len(t)]
 
+def divide(elems, costs):
+    import sys
+    N = len(elems)
+    dp = [sys.maxsize if i != 0 else 0 for i in range(N + 1)]
+    for i in range(N + 1):
+        for j in range(i):
+            dp[i] = min(dp[i], dp[j] + costs[j][i])
+    return dp[N]
+
 if __name__ == "__main__":
     items = [(3, 2), (4, 3), (1, 2), (2, 3), (3, 6)]
     print(knapsack(items, max_weight=10))
