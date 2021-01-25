@@ -27,15 +27,15 @@ def inorder(root):
     return _inorder(root, visited)
 
 def inorder_iter(root):
-    s = []
+    stack = []
     curr = root
     res = []
     while True:
         if curr is not None:
-            s.append(curr)
+            stack.append(curr)
             curr = curr.left
-        elif s:
-            node = s.pop()
+        elif stack:
+            node = stack.pop()
             res.append(node.data)
             curr = node.right
         else:
