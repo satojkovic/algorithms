@@ -30,16 +30,16 @@ def inorder_iter(root):
     stack = []
     curr = root
     res = []
-    while True:
-        if curr is not None:
+    # Repeat until the current node is None and stack is also empty
+    while stack or curr != None:
+        # Push the current node to the stack and set the left as the current
+        if curr != None:
             stack.append(curr)
             curr = curr.left
-        elif stack:
-            node = stack.pop()
-            res.append(node.data)
-            curr = node.right
         else:
-            break
+            curr = stack.pop()
+            res.append(curr.data)
+            curr = curr.right
     return res
 
 def preorder(root):
