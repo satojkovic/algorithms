@@ -126,16 +126,14 @@ def quick_sort_in_place(data):
     Returns:
         list: a sorted list
     """
+    def _quick_sort(data, l, r):
+        if l > r:
+            return
+        mid = partition(data, l, r)
+        _quick_sort(data, l, mid - 1)
+        _quick_sort(data, mid + 1, r)
+        return data
     return _quick_sort(data, 0, len(data) - 1) if len(data) > 0 else []
-
-
-def _quick_sort(data, l, r):
-    if l > r:
-        return
-    mid = partition(data, l, r)
-    _quick_sort(data, l, mid - 1)
-    _quick_sort(data, mid + 1, r)
-    return data
 
 
 def partition(data, l, r):
