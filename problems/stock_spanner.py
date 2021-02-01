@@ -11,10 +11,10 @@ class StockSpanner:
 
 if __name__ == '__main__':
     S = StockSpanner()
-    print(S.next(100))
-    print(S.next(80))
-    print(S.next(60))
-    print(S.next(70))
-    print(S.next(60))
-    print(S.next(75))
-    print(S.next(85))
+    print(S.next(100))# [(100, 1)] => 1
+    print(S.next(80)) # [(100, 1), (80, 1)] => 1
+    print(S.next(60)) # [(100, 1), (80, 1), (60, 1)] => 1
+    print(S.next(70)) # [(100, 1), (80, 1), (70, 2)] => 2
+    print(S.next(60)) # [(100, 1), (80, 1), (70, 2), (60, 1)] => 1
+    print(S.next(75)) # [(100, 1), (80, 1), (75, 4)] => 4
+    print(S.next(85)) # [(100, 1), (85, 6)] => 6
