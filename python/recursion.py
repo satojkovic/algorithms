@@ -9,7 +9,7 @@ def fib_memo(n):
             return n
 
         if memo[n] == 0:
-            memo[n] = fib_m(n - 1) + fib_m(n - 2)
+            memo[n] = fib_m(n - 1, memo) + fib_m(n - 2, memo)
         return memo[n]
 
     # memoization of (n + 1) values (from 0 to n)
