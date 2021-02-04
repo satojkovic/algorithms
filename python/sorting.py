@@ -68,30 +68,19 @@ def find_min_idx(data, start):
     return min_pos
 
 
-# best caseの場合は、左隣のノードとの比較は注目要素について1回で済む. i=1から始まるので => O(n-1) ~~ O(n)
-# best case = sort済みリスト
-# worst caseの場合は、selection sortと同じで => O(n^2)
-# worst case = 逆順sort済みリスト
-# average caseの場合も => O(n^2)
-#
-# nによらず、i, j, pivotが必要になるだけ => O(1) space
-#
-# stable
+# worst case: O(n^2)
+# average case: O(n^2)
+# best case: O(n)
+# Note: stable and in-place
 def insertion_sort(data):
-    if data is None:
-        return None
-
-    # i番目の値とj=i-1番目以前の要素を比較
-    # data[i] < data[j]ならばj番目の要素を一つ右へ
-    # data[i] >= data[j]となるまで続ける
     for i in range(1, len(data)):
         pivot = data[i]
         j = i - 1
+        # Repeat until the pivot is greater than data[j]
         while j >= 0 and pivot < data[j]:
             data[j+1] = data[j]
             j -= 1
         data[j+1] = pivot
-        print(data)
     return data
 
 
