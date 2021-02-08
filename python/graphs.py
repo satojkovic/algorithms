@@ -134,6 +134,22 @@ def dfs(g, root):
                 seen.add(adj)
     return visited
 
+def check_biparty_graph(g, root):
+    stack, seen = [root], {root}
+    current = 0
+    color = {}
+    while stack:
+        node = stack.pop()
+        if node in color and color[node] == current:
+            return False
+        color[node] = current
+        current = 1 - current
+        for adj in g[node]:
+            if not adj in seen:
+                stack.append(adj)
+                seen.add(adj)
+    return True
+
 def dfs_r(g, root):
     def _dfs_r(g, root, visited, path):
         if root in visited:
