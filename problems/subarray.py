@@ -60,3 +60,17 @@ def max_subarray3(nums):
         return max(left_sum, right_sum, left_right_sum)
 
     return _get_max_subarray(nums, 0, len(nums) - 1) if len(nums) != 0 else None
+
+# Time complexity: O(n^2)
+def min_subarray_len(target, nums):
+    min_len = len(nums) + 1
+    cum_sum = [nums[0] if i == 0 else 0 for i in range(len(nums))]
+    for i in range(1, len(nums)):
+        cum_sum[i] = cum_sum[i - 1] + nums[i]
+    for s in range(len(nums)):
+        for e in range(s, len(nums)):
+            total = cum_sum[e] - cum_sum[s] + nums[s]
+            if total >= target:
+                min_len = min(min_len, e - s + 1)
+                break
+    return min_len if min_len != len(nums) + 1 else 0
