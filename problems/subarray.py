@@ -74,3 +74,14 @@ def min_subarray_len(target, nums):
                 min_len = min(min_len, e - s + 1)
                 break
     return min_len if min_len != len(nums) + 1 else 0
+
+def min_subarray_len2(target, nums):
+    min_len = len(nums) + 1
+    total, s = 0, 0
+    for e in range(len(nums)):
+        total += nums[e]
+        while total >= target:
+            min_len = min(min_len, e - s + 1)
+            total -= nums[s]
+            s += 1
+    return min_len if min_len != len(nums) + 1 else 0
