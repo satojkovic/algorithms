@@ -13,15 +13,18 @@ def is_possible(target):
         return is_possible(target)
 
 def is_possible_iter(target):
-    while sum(target) != len(target):
-        max_elem = max(target)
-        max_elem_i = target.index(max_elem)
-        rest = sum(target[:max_elem_i])
-        rest = rest + sum(target[max_elem_i + 1:]) if max_elem_i != len(target) - 1 else rest
+    total = sum(target)
+    max_elem = max(target)
+    max_elem_i = target.index(max_elem)
+    while max_elem > 1:
+        rest = total - max_elem
         before = max_elem - rest
         if before < 1:
             return False
+        total = total - max_elem + before
         target[max_elem_i] = before
+        max_elem = max(target)
+        max_elem_i = target.index(max_elem)
     return True
 
 if __name__ == '__main__':
