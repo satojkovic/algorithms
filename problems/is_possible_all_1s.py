@@ -20,9 +20,11 @@ def is_possible_iter(target):
     while -target[0] > 1:
         max_elem = -target[0]
         rest = total - max_elem
-        before = max_elem - rest
-        if before < 1:
+        if max_elem == 1 or rest == 1: # Special case: [1, 100000] is True
+            return True
+        if max_elem < rest or rest == 0 or max_elem % rest == 0:
             return False
+        before = max_elem % rest
         total = total - max_elem + before
         heapq.heapreplace(target, -before)
     return True
