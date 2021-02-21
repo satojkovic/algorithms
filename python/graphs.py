@@ -163,6 +163,24 @@ def dfs_r(g, root):
     visited, path = set(), []
     return _dfs_r(g, root, visited, path)
 
+def topological_sort(g):
+    def _dfs_r(g, root, visited, path):
+        if root in visited:
+            return path
+        visited.add(root)
+        for adj in g[root]:
+            if not adj in visited:
+                path = _dfs_r(g, adj, visited, path)
+        path.append(root)
+        return path
+
+    visited, path = set(), []
+    for v in g.keys():
+        if v in visited:
+            continue
+        path = _dfs_r(g, v, visited, path)
+    return path[::-1] if len(path) != 0 else []
+
 if __name__ == "__main__":
     g = SimpleGraph(is_directed=False)
     g.add_edge(0, 1)

@@ -30,6 +30,10 @@ class TestGraphs(unittest.TestCase):
         g = {0: [1, 4, 5], 1: [3, 4], 2: [1], 3: [2, 4], 4: [], 5: []}
         eq_(dfs_r(g, 0), [0, 1, 3, 2, 4, 5])
 
+    def test_toplogical_sort(self):
+        g = {0: [5], 1: [3, 6], 2: [5, 7], 3: [0, 7], 4: [1, 2, 6], 5: [], 6: [7], 7: [0]}
+        eq_(topological_sort(g), [4, 2, 1, 6, 3, 7, 0, 5])
+
     def test_find_route_dfs(self):
         g = {0: [1, 4, 5], 1: [3, 4], 2: [1], 3: [2, 4], 4: [], 5: []}
         eq_(find_route_dfs(g, 0, 2), True)
