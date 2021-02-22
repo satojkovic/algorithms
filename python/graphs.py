@@ -173,12 +173,10 @@ def topological_sort(g):
                 path = _dfs_r(g, adj, visited, path)
         path.append(root)
         return path
-
     visited, path = set(), []
     for v in g.keys():
-        if v in visited:
-            continue
-        path = _dfs_r(g, v, visited, path)
+        if not v in visited:
+            path = _dfs_r(g, v, visited, path)
     return path[::-1] if len(path) != 0 else []
 
 if __name__ == "__main__":
