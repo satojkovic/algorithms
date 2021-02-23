@@ -1,19 +1,11 @@
 def is_alien_char_sorted(words, order):
+    def compare(s, t, order_index):
+        for s_ch, t_ch in zip(s, t):
+            if order_index[s_ch] > order_index[t_ch]:
+                return False
+            elif order_index[s_ch] < order_index[t_ch]:
+                return True
+        return len(s) <= len(t)
     order_index = {c:i for i, c in enumerate(order)}
     N = len(words)
-    for i in range(N - 1):
-        prev_word = words[i] if len(words[i]) <= len(words[i+1]) else words[i+1]
-        next_word = words[i+1] if len(words[i]) <= len(words[i+1]) else words[i]
-        toggle = False if len(words[i]) <= len(words[i+1]) else True
-        is_order = True
-        for j in range(len(prev_word)):
-            if order_index[prev_word[j]] == order_index[next_word[j]]:
-                continue
-            elif order_index[prev_word[j]] < order_index[next_word[j]]:
-                break
-            else:
-                is_order = False
-                break                
-        if (toggle and is_order) or (not toggle and not is_order):
-            return False
-    return True
+    return all(compare(words[i], words[i+1], order_index) for i in range(N - 1))
