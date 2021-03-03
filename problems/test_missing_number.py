@@ -17,5 +17,8 @@ class TestMissingNumber(unittest.TestCase):
         #eq_(missing_number2([0]), 1)
         #eq_(missing_number2([0, 1]), 2)
 
+    def test_missing_number3(self):
+        eq_(missing_number3([3, 0, 1]), 2)
+
 if __name__ == "__main__":
     unittest.main()

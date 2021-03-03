@@ -35,3 +35,12 @@ def missing_number2(nums):
         res ^= i
         res ^= num
     return res
+
+# Time complexity: O(nlogn)
+def missing_number3(nums):
+    nums.sort()
+    i = 0
+    # To prevent list index out of error, use nums[i] in while condition
+    while i < len(nums) and i == nums[i]:
+        i += 1
+    return i
