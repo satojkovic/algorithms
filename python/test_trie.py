@@ -34,5 +34,12 @@ class TestTrie(unittest.TestCase):
         res = trie.prefix_search('acdc')
         eq_(res, ['acdc'])
 
+    def test_prefix_match(self):
+        trie = Trie()
+        trie.insert('RANDOM')
+        eq_(trie.prefix_match_len('RANK'), 3)
+        eq_(trie.prefix_match_len('RAINBOW'), 2)
+        eq_(trie.prefix_match_len('RANDOM'), 6)
+
 if __name__ == "__main__":
     unittest.main()

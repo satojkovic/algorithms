@@ -74,3 +74,13 @@ class Trie:
         if not word[0] in head.children:
             return None
         return self._replace_with_prefix(head.children[word[0]], word[1:])
+
+    def prefix_match_len(self, s):
+        def _prefix_match_len(root, s, pos):
+            # Same word <=> len(s)
+            if len(s) == pos:
+                return len(s)
+            if not s[pos] in root.children:
+                return pos
+            return _prefix_match_len(root.children[s[pos]], s, pos + 1)
+        return _prefix_match_len(self.root, s, 0)
