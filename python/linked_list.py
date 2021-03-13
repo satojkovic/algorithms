@@ -259,6 +259,23 @@ class LinkedList:
             head.next = node
         return head
 
+    # O(KN)
+    def rotate(self, K):
+        def _rotate(head, K):
+            if head is None or head.next is None:
+                return head
+            for k in range(K):
+                new_tail = head
+                tail = head.next
+                while tail.next:
+                    new_tail = new_tail.next
+                    tail = tail.next
+                new_tail.next = tail.next
+                tail.next = head
+                head = tail
+            return head
+        self.head = _rotate(self.head, K)
+
     def print_list(self):
         if self.is_empty():
             print('List is empty.')
