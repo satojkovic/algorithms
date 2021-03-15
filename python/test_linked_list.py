@@ -204,6 +204,8 @@ class TestLinkedList(unittest.TestCase):
         eq_(ll.head.next.next.next.data, 4)
         eq_(ll.head.next.next.next.next, None)
 
+        eq_(ll.head.data, 1)
+
     def test_rotate(self):
         ll = LinkedList()
         ll.insert_tail(1)
@@ -217,7 +219,20 @@ class TestLinkedList(unittest.TestCase):
         ll = LinkedList()
         ll.insert_tail(1)
         ll.rotate(3)
-        eq_(ll.head.data, 1)
+
+    def test_rotate2(self):
+        ll = LinkedList()
+        ll.insert_tail(1)
+        ll.insert_tail(2)
+        ll.insert_tail(3)
+        ll.insert_tail(4)
+        ll.insert_tail(5)
+        ll.rotate2(7)
+        eq_(ll.head.data, 4)
+
+        ll = LinkedList()
+        ll.insert_tail(1)
+        ll.rotate2(3)
 
 if __name__ == "__main__":
     unittest.main()
