@@ -28,5 +28,21 @@ def bus_route():
                 res = days[0] if days[0] > res else res
         print('Case #{}: {}'.format(t, res))
 
+# Test set1: Passed
+# Test set2: TLE
+def bus_route2():
+    import math
+    T = int(input())
+    for t in range(1, T + 1):
+        N, D = list(map(int, input().split()))
+        Xs = list(map(int, input().split()))
+        for k in range(D, 0, -1):
+            days = [math.ceil(k / Xs[0]) * Xs[0]]
+            for i in range(1, N):
+                days.append(math.ceil(days[i-1] / Xs[i]) * Xs[i])
+            if days[-1] <= D:
+                print('Case #{}: {}'.format(t, days[0]))
+                break
+
 if __name__ == '__main__':
-    bus_route()
+    bus_route2()
