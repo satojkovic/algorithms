@@ -44,5 +44,31 @@ def bus_route2():
                 print('Case #{}: {}'.format(t, days[0]))
                 break
 
+# Test set1: Passed
+# Test set2: Passed
+def bus_route3():
+    import math
+
+    def binary_search(N, D, Xs, left, right):
+        res = 1
+        while left <= right:
+            mid = (left + right) // 2
+            days = [math.ceil(mid / Xs[0]) * Xs[0]]
+            for i in range(1, N):
+                days.append(math.ceil(days[i-1]/Xs[i]) * Xs[i])
+            if days[-1] <= D:
+                left = mid + 1
+                res = mid
+            else:
+                right = mid - 1
+        return res
+
+    T = int(input())
+    for t in range(1, T + 1):
+        N, D = list(map(int, input().split()))
+        Xs = list(map(int, input().split()))
+        res = binary_search(N, D, Xs, 1, D)
+        print('Case #{}: {}'.format(t, res))
+
 if __name__ == '__main__':
-    bus_route2()
+    bus_route3()
