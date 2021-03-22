@@ -1,3 +1,5 @@
+import math
+
 def get_row_seg_len(mat, start, end, step, c):
     seg_len = 0
     for i in range(start, end, step):
@@ -25,24 +27,14 @@ def get_seg_lens(mat, r, c, R, C):
 
 def get_row_count(row_seg, col_seg, R, C):
     count = 0
-    col = 2
-    for row in range(4, R + 1, 2):
-        if row_seg < row or col_seg < col:
-            break
-        if row_seg >= row and col_seg >= col:
-            count += 1
-        col += 1
+    if row_seg >= 4 and col_seg >= 2:
+        count = min(math.floor((row_seg - 4) / 2) + 1, col_seg - 1)
     return count
     
 def get_col_count(row_seg, col_seg, R, C):
     count = 0
-    row = 2
-    for col in range(4, C + 1, 2):
-        if row_seg < row or col_seg < col:
-            break
-        if row_seg >= row and col_seg >= col:
-            count += 1
-        row += 1
+    if row_seg >= 2 and col_seg >= 4:
+        count = min(row_seg - 1, math.floor((col_seg - 4) / 2) + 1)
     return count
 
 from itertools import product
