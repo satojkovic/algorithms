@@ -50,18 +50,16 @@ def bus_route3():
     import math
 
     def binary_search(N, D, Xs, left, right):
-        res = 1
-        while left <= right:
-            mid = (left + right) // 2
+        while left < right:
+            mid = (left + right + 1) // 2
             days = [math.ceil(mid / Xs[0]) * Xs[0]]
             for i in range(1, N):
                 days.append(math.ceil(days[i-1]/Xs[i]) * Xs[i])
             if days[-1] <= D:
-                left = mid + 1
-                res = mid
+                left = mid
             else:
                 right = mid - 1
-        return res
+        return left
 
     T = int(input())
     for t in range(1, T + 1):
