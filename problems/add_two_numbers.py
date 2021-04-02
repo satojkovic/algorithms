@@ -3,11 +3,11 @@ class ListNode:
         self.val = val
         self.next = None
 
-def add_two_numbers(l1: ListNode, l2: ListNode) -> ListNode:
+def add_two_numbers(l1, l2):
     if l1 is None or l2 is None:
         return l1 if l2 is None else l2
-    res = ListNode(None)
-    head = res
+    dummy = ListNode(None)
+    head = dummy
     carry = 0
     while l1 or l2:
         total = l1.val if l1 else 0
@@ -21,7 +21,7 @@ def add_two_numbers(l1: ListNode, l2: ListNode) -> ListNode:
     if carry != 0:
         head.next = ListNode(carry)
         head = head.next
-    return res.next
+    return dummy.next
 
 def add_two_numbers2(l1, l2):
     if l1 is None or l2 is None:
