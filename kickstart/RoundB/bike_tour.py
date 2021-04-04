@@ -1,3 +1,5 @@
+# Test set1: Passed
+# Test set2: Passed
 def bike_tour():
     T = int(input())
     for t in range(1, T + 1):
