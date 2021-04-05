@@ -1,3 +1,20 @@
+# Test set1: Passed
+# Test set2: TLE
+def countdown0():
+    T = int(input())
+    for t in range(1, T + 1):
+        N, K = list(map(int, input().split()))
+        data = list(map(int, input().split()))
+        res = 0
+        i = 0
+        while i + K <= N:
+            if all([True if data[i+j]==K-j else False for j in range(K)]):
+                res += 1
+                i = i + K
+            else:
+                i += 1
+        print('Case #{}: {}'.format(t, res))
+
 def countdown(N, K, data):
     res = 0
     i = N - 1
@@ -18,6 +35,4 @@ def countdown(N, K, data):
     print('Case #: {}'.format(res))
 
 if __name__ == '__main__':
-    N, K = 12, 3
-    data = [1, 2, 3, 7, 9, 3, 2, 1, 8, 3, 2, 1]
-    countdown(N, K, data)
+    countdown0()
