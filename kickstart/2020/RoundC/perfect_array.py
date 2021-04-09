@@ -1,3 +1,13 @@
+import math
+
+
+def check_square(x):
+    if x >= 0:
+        sq = math.sqrt(x)
+        return (sq - math.floor(sq)) == 0
+    return False
+
+
 def perfect_array():
     T = int(input())
     for t in range(1, T + 1):
@@ -10,14 +20,8 @@ def perfect_array():
         for i in range(N):
             for j in range(i, N):
                 total = cumsum[j] - cumsum[i - 1] if i != 0 else cumsum[j]
-                if total == 0:
+                if check_square(total):
                     res += 1
-                k = 1
-                while k**2 <= total:
-                    if total // k == k and total % k == 0:
-                        res += 1
-                        break
-                    k += 1
         print('Case #{}: {}'.format(t, res))
 
 
