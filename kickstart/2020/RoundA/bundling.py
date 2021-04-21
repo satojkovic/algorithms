@@ -3,7 +3,7 @@ def gen_groups(words, i):
         return [[[words[i]]]]
 
     res = []
-    groups = gen_groups(words, i + 1)    
+    groups = gen_groups(words, i + 1)
     for group in groups:
         for k, elem in enumerate(group):
             new_elem = elem + [words[i]]
@@ -16,6 +16,7 @@ def gen_groups(words, i):
         group.append([words[i]])
         res.append(group)
     return res
+
 
 if __name__ == '__main__':
     words = ['s4', 's3', 's2', 's1']

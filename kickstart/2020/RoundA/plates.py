@@ -14,6 +14,7 @@ def plates(stack, i, num_used, N, P, K):
             current_total = max(current_total, ret)
     return current_total
 
+
 def cumulative_sum(stack, N, K):
     cum_sum = []
     for i in range(N):
@@ -22,6 +23,7 @@ def cumulative_sum(stack, N, K):
             cum_sum_i[j + 1] = cum_sum_i[j] + stack[i][j]
         cum_sum.append(cum_sum_i)
     return cum_sum
+
 
 def plates_dp(stack, N, P, K):
     dp = [[0] * (P + 1) for _ in range(N + 1)]
@@ -32,6 +34,7 @@ def plates_dp(stack, N, P, K):
             for x in range(min(j, K) + 1):
                 dp[i][j] = max(dp[i][j], cum_sum[i - 1][x] + dp[i - 1][j - x])
     return dp[N][P]
+
 
 if __name__ == '__main__':
     stack = [[10, 10, 100, 30], [80, 50, 10, 50]]
