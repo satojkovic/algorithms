@@ -18,10 +18,10 @@ def allocation():
         N, B = list(map(int, input().split()))
         A = list(map(int, input().split()))
         A = counting_sort(A)
-        res, sum = 0, 0
+        res = 0
         for a in A:
-            sum += a
-            if sum > B:
+            B -= a
+            if B < 0:
                 break
             res += 1
         print('Case #{}: {}'.format(x, res))
