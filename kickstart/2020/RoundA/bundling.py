@@ -64,5 +64,31 @@ def bundling():
         print('Case #{}: {}'.format(t, score))
 
 
+def bundling2():
+    from collections import defaultdict
+    T = int(input())
+    for t in range(1, T + 1):
+        N, K = list(map(int, input().split()))
+        strings = []
+        for i in range(N):
+            strings.append(input())
+        res = 0
+        stack = [(strings, 0)]
+        while stack:
+            strings, char_idx = stack.pop()
+            d = defaultdict(list)
+            for s in strings:
+                if len(s) <= char_idx:
+                    continue
+                d[s[char_idx]].append(s)
+            for group in d.values():
+                score = len(group) // K
+                if not score:
+                    continue
+                res += score
+                stack.append((group, char_idx + 1))
+        print('Case #{}: {}'.format(t, res))
+
+
 if __name__ == '__main__':
     bundling()
