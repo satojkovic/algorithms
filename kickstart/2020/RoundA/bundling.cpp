@@ -22,26 +22,24 @@ void insert(TrieNode *root, string &s)
     curr->count++;
 }
 
-pair<int, int> calc_score(TrieNode *root, int depth, int K)
+int calc_score(TrieNode *root, int depth, int K)
 {
     int curr_score = 0;
-    int curr_count = 0;
     for (int i = 0; i < 26; ++i)
     {
         if (root->child[i])
         {
-            pair<int, int> score_count = calc_score(root->child[i], depth + 1, K);
-            curr_score += score_count.first;
-            curr_count += score_count.second;
+            int score = calc_score(root->child[i], depth + 1, K);
+            curr_score += score;
+            root->count += root->child[i]->count;
         }
     }
-    curr_count += root->count;
-    while (curr_count >= K)
+    while (root->count >= K)
     {
-        curr_count -= K;
+        root->count -= K;
         curr_score += depth;
     }
-    return make_pair(curr_score, curr_count);
+    return curr_score;
 }
 
 int main()
@@ -60,9 +58,9 @@ int main()
             cin >> strings[i];
             insert(root, strings[i]);
         }
-        pair<int, int> score_count = calc_score(root, 0, K);
+        int score = calc_score(root, 0, K);
         cout
-            << "Case #" << t << ": " << score_count.first << endl;
+            << "Case #" << t << ": " << score << endl;
         delete root;
     }
     return 0;
