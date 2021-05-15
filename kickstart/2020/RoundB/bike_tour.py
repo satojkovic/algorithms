@@ -11,5 +11,6 @@ def bike_tour():
                 res += 1
         print('Case #{}: {}'.format(t, res))
 
+
 if __name__ == '__main__':
     bike_tour()
