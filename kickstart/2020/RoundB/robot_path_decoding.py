@@ -10,6 +10,7 @@ def push(col_moves, row_moves, c):
         row_moves.append(move)
     return col_moves, row_moves
 
+
 def update(moves, X):
     i = len(moves) - 1
     move = 0
@@ -19,6 +20,19 @@ def update(moves, X):
     moves.pop()
     moves.append(move * X)
     return moves
+
+
+def parentheses(program):
+    p = {}
+    stack = []
+    for i, c in enumerate(program):
+        if c == '(':
+            stack.append(i)
+        elif c == ')':
+            j = stack.pop()
+            p[j] = i
+    return p
+
 
 def robot_path_decoding():
     T = int(input())
@@ -39,6 +53,7 @@ def robot_path_decoding():
         col_end = 1 + sum(col_moves) % 10**9
         row_end = 1 + sum(row_moves) % 10**9
         print('Case #{}: {} {}'.format(t, col_end, row_end))
+
 
 if __name__ == '__main__':
     robot_path_decoding()
