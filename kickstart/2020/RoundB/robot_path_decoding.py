@@ -46,9 +46,9 @@ def robot_path_decoding():
                 X = Xs.pop()
                 col_moves = update(col_moves, X)
                 row_moves = update(row_moves, X)
-            elif c in ['(', 'N', 'S', 'E', 'W']:
+            elif c in {'(', 'N', 'S', 'E', 'W'}:
                 col_moves, row_moves = push(col_moves, row_moves, c)
-            elif c in '23456789':
+            elif c >= '2' and c <= '9':
                 Xs.append(int(c))
         col_end = 1 + sum(col_moves) % 10**9
         row_end = 1 + sum(row_moves) % 10**9
