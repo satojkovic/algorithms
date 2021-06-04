@@ -19,15 +19,22 @@ def is_prime(p):
 
 
 def count_prime_number_eratosthenes(n):
-    import math
-    is_prime_flags = [0] * (n+1)
-    primes = []
+    primes = {i for i in range(2, n)}
     for i in range(2, n):
-        if is_prime_flags[i] == 0:
-            primes.append(i)
-            for j in range(i + i, n, i):
-                is_prime_flags[j] = 1
+        if i in primes:
+            for j in range(i * 2, n, i):
+                if j in primes:
+                    primes.remove(j)
     return len(primes)
+
+
+def count_prime_number_eratosthenes_list(n):
+    primes = [0] * 2 + [1] * (n - 2)
+    for i in range(2, n):
+        if primes[i]:
+            for j in range(i * 2, n, i):
+                primes[j] = 0
+    return sum(primes)
 
 
 if __name__ == '__main__':
