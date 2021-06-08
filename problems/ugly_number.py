@@ -15,5 +15,15 @@ def ugly_number(n):
     return heapq.heappop(q)
 
 
+def is_ugly(n):
+    if n <= 0:
+        return False
+    for p in [2, 3, 5]:
+        while n % p == 0:
+            n = n // p
+    return n == 1
+
+
 if __name__ == '__main__':
     print(ugly_number(10))
+    print(is_ugly(6), is_ugly(7), is_ugly(8), is_ugly(1))
