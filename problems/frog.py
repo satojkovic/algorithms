@@ -1,4 +1,6 @@
 import sys
+
+
 def frog(N, costs):
     dp = [sys.maxsize] * N
     dp[0] = 0
@@ -12,6 +14,7 @@ def frog(N, costs):
             )
     return dp[N - 1]
 
+
 def frog2(N, costs):
     def chmin(a, b):
         return b if a > b else a
@@ -22,6 +25,7 @@ def frog2(N, costs):
         if i > 1:
             dp[i] = chmin(dp[i], dp[i - 2] + abs(costs[i] - costs[i - 2]))
     return dp[N - 1]
+
 
 def frog3(N, costs):
     def chmin(a, b):
@@ -35,6 +39,7 @@ def frog3(N, costs):
             dp[i + 2] = chmin(dp[i + 2], dp[i] + abs(costs[i] - costs[i + 2]))
     return dp[N - 1]
 
+
 def frog4(N, costs):
     def frog_r(pos, costs):
         if pos == 0:
@@ -42,9 +47,11 @@ def frog4(N, costs):
         res = sys.maxsize
         res = min(res, frog_r(pos-1, costs) + abs(costs[pos] - costs[pos-1]))
         if pos > 1:
-            res = min(res, frog_r(pos-2, costs) + abs(costs[pos] - costs[pos-2]))
+            res = min(res, frog_r(pos-2, costs) +
+                      abs(costs[pos] - costs[pos-2]))
         return res
     return frog_r(N-1, costs)
+
 
 def frog5(N, costs):
     def frog_r(pos, costs, memo):
@@ -53,13 +60,33 @@ def frog5(N, costs):
         if memo[pos] < sys.maxsize:
             return memo[pos]
         res = sys.maxsize
-        res = min(res, frog_r(pos-1, costs, memo) + abs(costs[pos] - costs[pos-1]))
+        res = min(res, frog_r(pos-1, costs, memo) +
+                  abs(costs[pos] - costs[pos-1]))
         if pos > 1:
-            res = min(res, frog_r(pos-2, costs, memo) + abs(costs[pos] - costs[pos-2]))
+            res = min(res, frog_r(pos-2, costs, memo) +
+                      abs(costs[pos] - costs[pos-2]))
         memo[pos] = res
         return res
     memo = [sys.maxsize] * N
     return frog_r(N-1, costs, memo)
+
+
+def min_num_frogs(s):
+    freqs = {ch: 0 for ch in 'croak'}
+    num = 0
+    for ch in s:
+        if not ch in freqs or not freqs['c'] >= freqs['r'] >= freqs['o'] >= freqs['a'] >= freqs['k']:
+            return -1
+        freqs[ch] += 1
+        num = max(num, freqs['c'] - freqs['k'])
+    return num if freqs['c'] == freqs['r'] == freqs['o'] == freqs['a'] == freqs['k'] else -1
+
+
+def test_min_num_frogs():
+    assert min_num_frogs('croakcroak') == 1
+    assert min_num_frogs('crcoakroak') == 2
+    assert min_num_frogs('croakcroa') == -1
+
 
 if __name__ == "__main__":
     print(frog(7, [2, 9, 4, 5, 1, 6, 10]))
