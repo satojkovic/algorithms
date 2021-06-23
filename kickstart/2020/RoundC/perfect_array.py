@@ -13,13 +13,10 @@ def perfect_array():
     for t in range(1, T + 1):
         N = int(input())
         arr = list(map(int, input().split()))
-        cumsum = [arr[0] if i == 0 else 0 for i in range(N)]
-        for i in range(1, N):
-            cumsum[i] = cumsum[i - 1] + arr[i]
         res = 0
         for i in range(N):
             for j in range(i, N):
-                total = cumsum[j] - cumsum[i - 1] if i != 0 else cumsum[j]
+                total = sum(arr[i:j+1])
                 if check_square(total):
                     res += 1
         print('Case #{}: {}'.format(t, res))
