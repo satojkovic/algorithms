@@ -1,9 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-bool check_perfect(vector<int> &slice)
+bool check_perfect(vector<int> &arr, int start, int end)
 {
-    int sum = accumulate(slice.begin(), slice.end(), 0);
+    int sum = accumulate(arr.begin() + start, arr.begin() + end + 1, 0);
     if (sum >= 0)
     {
         float sq = sqrt(float(sum));
@@ -44,9 +44,7 @@ int main()
         {
             for (int j = i; j < N; ++j)
             {
-                vector<int> slice;
-                copy(arr.begin() + i, arr.begin() + j + 1, back_inserter(slice));
-                if (check_perfect(slice))
+                if (check_perfect(arr, i, j))
                 {
                     res++;
                 }
