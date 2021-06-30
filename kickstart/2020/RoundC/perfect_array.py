@@ -8,6 +8,14 @@ def check_square(x):
     return False
 
 
+def cumulative_sum(arr):
+    N = len(arr)
+    cum_sum = [0] * (N+1)
+    for i in range(N):
+        cum_sum[i+1] = cum_sum[i] + arr[i]
+    return cum_sum
+
+
 def perfect_array():
     T = int(input())
     for t in range(1, T + 1):
@@ -20,6 +28,10 @@ def perfect_array():
                 if check_square(total):
                     res += 1
         print('Case #{}: {}'.format(t, res))
+
+
+def test_cumulative_sum():
+    assert cumulative_sum([1, 2, 3, 4, 5]) == [0, 1, 3, 6, 10, 15]
 
 
 if __name__ == '__main__':
