@@ -21,10 +21,11 @@ def perfect_array():
     for t in range(1, T + 1):
         N = int(input())
         arr = list(map(int, input().split()))
+        cum_sum = cumulative_sum(arr)
         res = 0
         for i in range(N):
             for j in range(i, N):
-                total = sum(arr[i:j+1])
+                total = cum_sum[j+1] - cum_sum[i]
                 if check_square(total):
                     res += 1
         print('Case #{}: {}'.format(t, res))
