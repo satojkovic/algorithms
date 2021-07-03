@@ -1,9 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-bool check_perfect(vector<int> &arr, int start, int end)
+bool check_perfect(int sum)
 {
-    int sum = accumulate(arr.begin() + start, arr.begin() + end + 1, 0);
     if (sum >= 0)
     {
         float sq = sqrt(float(sum));
@@ -25,6 +24,18 @@ void print_vector(vector<int> &v)
     cout << endl;
 }
 
+vector<int> cumulative_sum(vector<int> &arr)
+{
+    vector<int> cum_sum;
+    cum_sum.resize(arr.size() + 1);
+    cum_sum[0] = 0;
+    for (int i = 0; i < arr.size(); ++i)
+    {
+        cum_sum[i + 1] = cum_sum[i] + arr[i];
+    }
+    return cum_sum;
+}
+
 int main()
 {
     int T, N;
@@ -39,12 +50,14 @@ int main()
             cin >> d;
             arr.push_back(d);
         }
+        vector<int> cum_sum = cumulative_sum(arr);
         int res = 0;
         for (int i = 0; i < N; ++i)
         {
             for (int j = i; j < N; ++j)
             {
-                if (check_perfect(arr, i, j))
+                int sum = cum_sum[j + 1] - cum_sum[i];
+                if (check_perfect(sum))
                 {
                     res++;
                 }
