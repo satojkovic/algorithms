@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+typedef long long ll;
 using namespace std;
 
 bool check_perfect(int sum)
@@ -38,30 +39,35 @@ vector<int> cumulative_sum(vector<int> &arr)
 
 int main()
 {
-    int T, N;
+    ll T, N;
     cin >> T;
-    for (int t = 1; t <= T; ++t)
+    for (ll t = 1; t <= T; ++t)
     {
         cin >> N;
-        vector<int> arr;
-        for (int i = 0; i < N; ++i)
+        vector<ll> arr;
+        for (ll i = 0; i < N; ++i)
         {
             int d;
             cin >> d;
             arr.push_back(d);
         }
-        vector<int> cum_sum = cumulative_sum(arr);
-        int res = 0;
-        for (int i = 0; i < N; ++i)
+        ll res = 0;
+        ll sum = 0;
+        ll min_sum = 0;
+        unordered_map<ll, ll> m;
+        m[0] = 1;
+        for (ll i = 0; i < arr.size(); ++i)
         {
-            for (int j = i; j < N; ++j)
+            sum += arr[i];
+            min_sum = min(sum, min_sum);
+            for (ll j = 0; sum - (j * j) >= min_sum; ++j)
             {
-                int sum = cum_sum[j + 1] - cum_sum[i];
-                if (check_perfect(sum))
+                if (m.count(sum - (j * j)) == 1)
                 {
-                    res++;
+                    res += m[sum - (j * j)];
                 }
             }
+            m[sum] += 1;
         }
         cout
             << "Case #" << t << ": " << res << endl;
