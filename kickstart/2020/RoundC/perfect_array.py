@@ -31,9 +31,32 @@ def perfect_array():
         print('Case #{}: {}'.format(t, res))
 
 
+def perfect_array2():
+    T = int(input())
+    for t in range(1, T + 1):
+        N = int(input())
+        arr = list(map(int, input().split()))
+        res = 0
+        curr_sum, min_sum = 0, 0
+        m = {0: 1}
+        for i in range(N):
+            curr_sum += arr[i]
+            min_sum = min(min_sum, curr_sum)
+            j = 0
+            while curr_sum - (j * j) >= min_sum:
+                if curr_sum - (j * j) in m:
+                    res += m[curr_sum - j*j]
+                j += 1
+            if curr_sum in m:
+                m[curr_sum] += 1
+            else:
+                m[curr_sum] = 1
+        print('Case #{}: {}'.format(t, res))
+
+
 def test_cumulative_sum():
     assert cumulative_sum([1, 2, 3, 4, 5]) == [0, 1, 3, 6, 10, 15]
 
 
 if __name__ == '__main__':
-    perfect_array()
+    perfect_array2()
