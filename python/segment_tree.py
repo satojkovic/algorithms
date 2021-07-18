@@ -13,6 +13,13 @@ class SegmentTree:
         for i in range(self.n - 2, -1, -1):
             self.data[i] = min(self.data[(2*i)+1], self.data[(2*i)+2])
 
+    def update(self, i, x):
+        curr = i + self.n - 1
+        self.data[curr] = x
+        while curr > 0:
+            curr = (curr - 1) // 2
+            self.data[curr] = min(self.data[2*curr+1], self.data[2*curr+2])
+
 
 if __name__ == '__main__':
     arr = [5, 3, 7, 9, 1, 4, 6, 2]
