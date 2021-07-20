@@ -43,9 +43,27 @@ class SegmentTree:
         return _query(a, b, 0, 0, self.n)
 
 
+class SegmentTreeSum:
+    def __init__(self, arr=None):
+        if arr:
+            self.build(arr)
+
+    def build(self, arr):
+        self.n = len(arr)
+        self.data = [0] * (self.n * 2 - 1)
+        for i in range(self.n):
+            self.data[i + self.n - 1] = arr[i]
+        for i in range(self.n - 2, -1, -1):
+            self.data[i] = self.data[2*i+1] + self.data[2*i+2]
+
+
 if __name__ == '__main__':
     arr = [5, 3, 7, 9, 1, 4, 6, 2]
     st = SegmentTree()
     st.build(arr)
     print(st.data)
     print(st.query(1, 5))
+
+    sts = SegmentTreeSum()
+    sts.build(arr)
+    print(sts.data)
