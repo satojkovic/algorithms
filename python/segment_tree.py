@@ -1,4 +1,5 @@
 import sys
+import math
 
 
 class SegmentTree:
@@ -50,11 +51,20 @@ class SegmentTreeSum:
 
     def build(self, arr):
         self.n = len(arr)
-        self.data = [0] * (self.n * 2 - 1)
-        for i in range(self.n):
-            self.data[i + self.n - 1] = arr[i]
-        for i in range(self.n - 2, -1, -1):
-            self.data[i] = self.data[2*i+1] + self.data[2*i+2]
+        x = math.ceil(math.log2(self.n))
+        self.data = [None] * (2 ** (x+1) - 1)
+
+        def _build(curr, arr, left, right):
+            if left == right:
+                self.data[curr] = arr[left]
+            else:
+                mid = (left + right) // 2
+                _build(2 * curr + 1, arr, left, mid)
+                _build(2 * curr + 2, arr, mid + 1, right)
+                self.data[curr] = self.data[2 * curr + 1] + \
+                    self.data[2 * curr + 2]
+
+        _build(0, arr, 0, self.n - 1)
 
 
 if __name__ == '__main__':
@@ -64,6 +74,7 @@ if __name__ == '__main__':
     print(st.data)
     print(st.query(1, 5))
 
+    arr = [1, 3, 5, 7, 9, 11]
     sts = SegmentTreeSum()
     sts.build(arr)
     print(sts.data)
