@@ -66,6 +66,21 @@ class SegmentTreeSum:
 
         _build(0, arr, 0, self.n - 1)
 
+    def update(self, i, x):
+        def _update(i, x, curr, left, right):
+            if left == right:
+                self.data[curr] = x
+            else:
+                mid = (left + right) // 2
+                if mid >= i:
+                    _update(i, x, 2 * curr + 1, left, mid)
+                else:
+                    _update(i, x, 2 * curr + 2, mid + 1, right)
+                self.data[curr] = self.data[2 * curr + 1] + \
+                    self.data[2 * curr + 2]
+
+        _update(i, x, 0, 0, self.n - 1)
+
 
 if __name__ == '__main__':
     arr = [5, 3, 7, 9, 1, 4, 6, 2]
@@ -77,4 +92,9 @@ if __name__ == '__main__':
     arr = [1, 3, 5, 7, 9, 11]
     sts = SegmentTreeSum()
     sts.build(arr)
+    print(sts.data)
+
+    sts.update(3, 4)
+    print(sts.data)
+    sts.update(0, -1)
     print(sts.data)
