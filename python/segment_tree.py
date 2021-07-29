@@ -81,6 +81,21 @@ class SegmentTreeSum:
 
         _update(i, x, 0, 0, self.n - 1)
 
+    def query(self, range_l, range_r):
+        def _query(curr, left, right, range_l, range_r):
+            if right < range_l or range_r < left:
+                return 0
+            elif left == right:
+                return self.data[curr]
+            else:
+                mid = (left + right) // 2
+                left_sum = _query(2 * curr + 1, left, mid, range_l, range_r)
+                right_sum = _query(2 * curr + 2, mid + 1,
+                                   right, range_l, range_r)
+                return left_sum + right_sum
+
+        return _query(0, 0, self.n - 1, range_l, range_r)
+
 
 if __name__ == '__main__':
     arr = [5, 3, 7, 9, 1, 4, 6, 2]
@@ -98,3 +113,8 @@ if __name__ == '__main__':
     print(sts.data)
     sts.update(0, -1)
     print(sts.data)
+
+    print(sts.query(2, 5))
+    print(sts.query(3, 3))
+    print(sts.query(0, 5))
+    print(sts.query(1, 2))
