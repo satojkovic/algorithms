@@ -9,6 +9,7 @@ class ListElement:
         self.data = data
         self.next = None
 
+
 def remove_nth_from_end(head, n):
     if head is None:
         return None
@@ -30,6 +31,7 @@ def remove_nth_from_end(head, n):
         slow.next = slow.next.next
     return head
 
+
 def remove_nth_from_end2(head, n):
     def helper(head, n, i):
         if head is None:
@@ -43,6 +45,7 @@ def remove_nth_from_end2(head, n):
     head, l = helper(head, n, 0)
     return head
 
+
 def reverse_list(head):
     new_head = None
     while head:
@@ -51,6 +54,7 @@ def reverse_list(head):
         new_head = head
         head = next_head
     return new_head
+
 
 def reverse_list_r(head):
     def reverse(head, prev_head):
@@ -61,6 +65,7 @@ def reverse_list_r(head):
         return reverse(next_head, head)
     return reverse(head, None)
 
+
 def reverse_list_r2(head):
     if head.next is None:
         return head
@@ -69,11 +74,13 @@ def reverse_list_r2(head):
     head.next = None
     return node
 
+
 def remove_target_node(head, target):
     if head is None:
         return head
     head.next = remove_target_node(head.next, target)
     return head if head.data != target else head.next
+
 
 def odd_even_order(head):
     if head is None:
@@ -88,10 +95,12 @@ def odd_even_order(head):
     odd.next = even_h
     return odd_h
 
+
 def list_length(head):
     if head is None:
         return 0
     return list_length(head.next) + 1
+
 
 class LinkedList:
     """Linked List
@@ -99,7 +108,6 @@ class LinkedList:
 
     def __init__(self):
         self.head = None
-        self.tail = None
         self.size = 0
 
     def is_empty(self):
@@ -109,7 +117,6 @@ class LinkedList:
     def clear(self):
         # clear the linked list
         self.head = None
-        self.tail = None
         self.size = 0
 
     def insert_head(self, elem):
@@ -119,14 +126,32 @@ class LinkedList:
         self.head = node
         self.size += 1
 
+    def insert_at(self, elem, pos):
+        if pos <= 1:
+            self.insert_head(elem)
+        elif pos > self.size:
+            self.insert_tail(elem)
+        else:
+            head = self.head
+            prev = None
+            while pos - 1 > 0 and head is not None:
+                prev = head
+                head = head.next
+                pos -= 1
+            node = ListElement(elem)
+            node.next = head
+            prev.next = node
+            self.size += 1
+
     def insert_tail(self, elem):
-        # Add a node to the tail of the linked list, O(1)
+        # Add a node to the tail of the linked list, O(n)
         node = ListElement(elem)
-        if self.tail is not None:
-            self.tail.next = node
-        self.tail = node
-        if self.head is None:
-            self.head = node
+        head = self.head
+        prev = None
+        while head:
+            prev = head
+            head = head.next
+        prev.next = node
         self.size += 1
 
     def peek_head(self):
@@ -134,8 +159,13 @@ class LinkedList:
         return self.head.data if not self.is_empty() else None
 
     def peek_tail(self):
-        # Return the value of the last node if it exits, O(1)
-        return self.tail.data if not self.is_empty() else None
+        # Return the value of the last node if it exits, O(n)
+        if self.is_empty():
+            return None
+        head = self.head
+        while head.next:
+            head = head.next
+        return head.data
 
     def remove_head(self):
         if self.is_empty():
