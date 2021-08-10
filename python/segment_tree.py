@@ -50,10 +50,6 @@ class SegmentTreeSum:
             self.build(arr)
 
     def build(self, arr):
-        self.n = len(arr)
-        x = math.ceil(math.log2(self.n))
-        self.data = [None] * (2 ** (x+1) - 1)
-
         def _build(curr, arr, left, right):
             if left == right:
                 self.data[curr] = arr[left]
@@ -63,7 +59,9 @@ class SegmentTreeSum:
                 _build(2 * curr + 2, arr, mid + 1, right)
                 self.data[curr] = self.data[2 * curr + 1] + \
                     self.data[2 * curr + 2]
-
+        self.n = len(arr)
+        x = 2 ** math.ceil(math.log2(self.n))
+        self.data = [0] * (2 * x - 1)  # Initialize with Identity
         _build(0, arr, 0, self.n - 1)
 
     def update(self, i, x):
@@ -81,20 +79,23 @@ class SegmentTreeSum:
 
         _update(i, x, 0, 0, self.n - 1)
 
-    def query(self, range_l, range_r):
-        def _query(curr, left, right, range_l, range_r):
-            if right < range_l or range_r < left:
+    # req_l and req_r is an index of an array
+    def query(self, req_l, req_r):
+        def _query(curr, left, right, req_l, req_r):
+            # Out of range
+            if req_r < left or right < req_l:
                 return 0
-            elif left == right:
+            # Matches the range
+            if req_l <= left and right <= req_r:
                 return self.data[curr]
-            else:
-                mid = (left + right) // 2
-                left_sum = _query(2 * curr + 1, left, mid, range_l, range_r)
-                right_sum = _query(2 * curr + 2, mid + 1,
-                                   right, range_l, range_r)
-                return left_sum + right_sum
+            # Within range
+            mid = (left + right) // 2
+            left_sum = _query(2 * curr + 1, left, mid, req_l, req_r)
+            right_sum = _query(2 * curr + 2, mid + 1,
+                               right, req_l, req_r)
+            return left_sum + right_sum
 
-        return _query(0, 0, self.n - 1, range_l, range_r)
+        return _query(0, 0, self.n - 1, req_l, req_r)
 
 
 if __name__ == '__main__':
