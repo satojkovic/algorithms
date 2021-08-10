@@ -44,7 +44,7 @@ class SegmentTreeSum:
         def _query(curr, left, right, range_l, range_r):
             if right < range_l or range_r < left:
                 return 0
-            elif range_l <= left and right <= range_r:
+            if range_l <= left and right <= range_r:
                 return self.data[curr]
             mid = (left + right) // 2
             left_sum = _query(2 * curr + 1, left, mid, range_l, range_r)
