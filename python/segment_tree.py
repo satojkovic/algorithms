@@ -105,17 +105,12 @@ if __name__ == '__main__':
     print(st.data)
     print(st.query(1, 5))
 
-    arr = [1, 3, 5, 7, 9, 11]
+    arr = [1, 3, 9, 8, 2]
     sts = SegmentTreeSum()
     sts.build(arr)
     print(sts.data)
 
-    sts.update(3, 4)
-    print(sts.data)
-    sts.update(0, -1)
-    print(sts.data)
-
-    print(sts.query(2, 5))
-    print(sts.query(3, 3))
-    print(sts.query(0, 5))
-    print(sts.query(1, 2))
+    print(sts.query(0, 2))
+    print(sts.query(0, 4))
+    print(sts.query(1, 3))
+    print(sts.query(1, 4))
