@@ -51,26 +51,6 @@ class SegmentTreeSum:
         return _query(0, 0, self.n - 1, range_l, range_r)
 
 
-def calc_prefix_sum(arr):
-    s = [0] * (len(arr) + 1)
-    for i in range(len(arr)):
-        s[i+1] = s[i] + arr[i] if i % 2 == 0 else s[i] - arr[i]
-    return s
-
-
-def calc_mult_prefix_sum(arr):
-    ms = [0] * (len(arr) + 1)
-    for i in range(len(arr)):
-        ms[i+1] = ms[i] + arr[i] * \
-            (i+1) if i % 2 == 0 else ms[i] - arr[i] * (i+1)
-    return ms
-
-
-def calc_candy_score(s, ms, l, r):
-    ret = ms[r] - ms[l-1] - (l - 1) * (s[r] - s[l-1])
-    return ret if l % 2 != 0 else -ret
-
-
 T = int(input())
 for t in range(1, T + 1):
     N, Q = list(map(int, input().split()))
