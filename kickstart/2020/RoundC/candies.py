@@ -2,10 +2,9 @@ import math
 
 
 class SegmentTreeSum:
-    def __init__(self, arr=None, is_mult=False):
+    def __init__(self, arr=None):
         if arr:
             self.build(arr)
-        self.is_mult = is_mult
 
     def build(self, arr):
         def _build(curr, arr, left, right):
@@ -25,10 +24,7 @@ class SegmentTreeSum:
     def update(self, i, x):
         def _update(i, x, curr, left, right):
             if left == right:
-                if self.is_mult:
-                    self.data[curr] = x * (i+1) if i % 2 == 0 else -x * (i+1)
-                else:
-                    self.data[curr] = x if i % 2 == 0 else -x
+                self.data[curr] = x
             else:
                 mid = (left + right) // 2
                 if mid >= i:
@@ -79,19 +75,20 @@ T = int(input())
 for t in range(1, T + 1):
     N, Q = list(map(int, input().split()))
     arr = list(map(int, input().split()))
-    s = [a if i % 2 == 0 else -a for i, a in enumerate(arr)]
-    ms = [a * (i+1) if i % 2 == 0 else -a * (i+1) for i, a in enumerate(arr)]
+    s = [(-1) ** i * a for i, a in enumerate(arr)]
+    ms = [(-1) ** i * a * (i+1) for i, a in enumerate(arr)]
     st_s = SegmentTreeSum(s)
-    st_ms = SegmentTreeSum(ms, is_mult=True)
+    st_ms = SegmentTreeSum(ms)
     ret = 0
     for _ in range(Q):
         line = input().split()
         op, l, r = line[0], int(line[1]), int(line[2])
+        sign = (-1) ** (l-1)
         if op == 'Q':
-            q = (-1) ** (l-1) * (st_ms.query(l-1, r-1) -
-                                 (l-1) * st_s.query(l-1, r-1))
+            q = sign * (st_ms.query(l-1, r-1) -
+                        (l-1) * st_s.query(l-1, r-1))
             ret += int(q)
         elif op == 'U':
-            st_s.update(l-1, r)
-            st_ms.update(l-1, r)
+            st_s.update(l-1, sign * r)
+            st_ms.update(l-1, sign * r * l)
     print('Case #{}: {}'.format(t, ret))
