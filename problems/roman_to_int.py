@@ -58,3 +58,15 @@ def roman_to_int3(s):
     return ret
 
 
+def roman_to_int4(s):
+    roman2int = {'I': 1, 'V': 5, 'X': 10,
+                 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
+    i, res = 0, 0
+    while i < len(s):
+        if i+1 < len(s) and int(roman2int[s[i]]) < int(roman2int[s[i+1]]):
+            res += int(roman2int[s[i+1]]) - int(roman2int[s[i]])
+            i += 2
+        else:
+            res += int(roman2int[s[i]])
+            i += 1
+    return res
