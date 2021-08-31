@@ -1,7 +1,12 @@
-# Time complexity: O(n)
-#  we iterate over an input string, nums. (length: n)
-# Space complexity: O(n)
-#  we create new list nums. 
+#
+# Note: In this problem, you can assume that the input string is valid.
+#
+
+#
+# Whether the symbols are ordered from most significant to least.
+# If not, subtract the current value from the value immediately after it.
+#
+
 def roman_to_int1(s):
     roman2int = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
     nums = [roman2int[ch] for ch in s]
