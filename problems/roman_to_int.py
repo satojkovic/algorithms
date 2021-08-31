@@ -70,3 +70,15 @@ def roman_to_int4(s):
             res += int(roman2int[s[i]])
             i += 1
     return res
+
+
+def roman_to_int5(s):
+    roman2int = {'I': 1, 'V': 5, 'X': 10,
+                 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
+    res = roman2int[s[-1]]
+    for i in range(len(s) - 2, -1, -1):
+        if roman2int[s[i]] < roman2int[s[i+1]]:
+            res -= roman2int[s[i]]
+        else:
+            res += roman2int[s[i]]
+    return res
