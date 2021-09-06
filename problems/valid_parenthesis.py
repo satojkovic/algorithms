@@ -12,6 +12,14 @@ def valid_parenthesis(s):
     return len(stack) == 0
 
 
+def test_valid_parenthesis():
+    assert valid_parenthesis('()') == True
+    assert valid_parenthesis('(){}[]') == True
+    assert valid_parenthesis('(]') == False
+    assert valid_parenthesis('([)]') == False
+    assert valid_parenthesis('{()}') == True
+
+
 def valid_parenthesis_aster(s):
     # (*) is valid?
     cmin, cmax = 0, 0
@@ -30,10 +38,5 @@ def valid_parenthesis_aster(s):
     return cmin == 0
 
 
-if __name__ == '__main__':
-    print(valid_parenthesis('[()]{}{[()()]()}'))
-    print(valid_parenthesis('[(])'))
-    print(valid_parenthesis('}}{{'))
-    print(valid_parenthesis(''))
-
-    print(valid_parenthesis_aster('(*)'))
+def test_valid_parenthesis_aster():
+    assert valid_parenthesis_aster('(*)') == True
