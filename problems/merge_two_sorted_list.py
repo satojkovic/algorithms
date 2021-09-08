@@ -70,8 +70,5 @@ def merge_two_sorted_list3(l1, l2):
             l2 = l2.next
         head = head.next
     remains = l1 if l1 else l2
-    while remains:
-        head.next = ListNode(remains.val)
-        head = head.next
-        remains = remains.next
+    head.next = remains
     return dummy_head.next
