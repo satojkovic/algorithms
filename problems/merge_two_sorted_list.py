@@ -8,9 +8,12 @@ class ListNode:
 #
 # Space complexity: O(m + n)
 #  m + n recursive calls
+
+
 def merge_two_sorted_list1(l1, l2):
     head = None
     return merge_list(head, l1, l2)
+
 
 def merge_list(head, l1, l2):
     if l1 is None and l2 is None:
@@ -30,6 +33,7 @@ def merge_list(head, l1, l2):
             head.next = merge_list(head.next, l1, l2.next)
     return head
 
+
 def merge_two_sorted_list2_0(l1, l2):
     if l1 is None:
         return l2
@@ -44,6 +48,7 @@ def merge_two_sorted_list2_0(l1, l2):
         head.next = merge_two_sorted_list2_0(l1, l2.next)
     return head
 
+
 def merge_two_sorted_list2(l1, l2):
     if l1 is None:
         return l2
@@ -56,6 +61,7 @@ def merge_two_sorted_list2(l1, l2):
     else:
         l2.next = merge_two_sorted_list2(l1, l2.next)
         return l2
+
 
 def merge_two_sorted_list3(l1, l2):
     dummy_head = ListNode(-1)
