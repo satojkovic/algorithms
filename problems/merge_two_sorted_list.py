@@ -19,10 +19,10 @@ def merge_two_sorted_list(l1, l2):
         return l1
 
     if l1.val <= l2.val:
-        l1.next = merge_two_sorted_list1(l1.next, l2)
+        l1.next = merge_two_sorted_list(l1.next, l2)
         return l1
     else:
-        l2.next = merge_two_sorted_list1(l1, l2.next)
+        l2.next = merge_two_sorted_list(l1, l2.next)
         return l2
 
 
