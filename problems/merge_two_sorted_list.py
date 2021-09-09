@@ -10,56 +10,19 @@ class ListNode:
 #  m + n recursive calls
 
 
-def merge_two_sorted_list1(l1, l2):
-    head = None
-    return merge_list(head, l1, l2)
-
-
-def merge_list(head, l1, l2):
-    if l1 is None and l2 is None:
-        return None
-    if l1 is None:
-        head = ListNode(l2.val)
-        head.next = merge_list(head.next, l1, l2.next)
-    elif l2 is None:
-        head = ListNode(l1.val)
-        head.next = merge_list(head.next, l1.next, l2)
-    else:
-        if l1.val <= l2.val:
-            head = ListNode(l1.val)
-            head.next = merge_list(head.next, l1.next, l2)
-        else:
-            head = ListNode(l2.val)
-            head.next = merge_list(head.next, l1, l2.next)
-    return head
-
-
-def merge_two_sorted_list2_0(l1, l2):
+def merge_two_sorted_list(l1, l2):
+    # Edge case:
+    # If l1 or l2 is initially None, there is no merge to perform.
     if l1 is None:
         return l2
-    elif l2 is None:
+    if l2 is None:
         return l1
 
     if l1.val <= l2.val:
-        head = ListNode(l1.val)
-        head.next = merge_two_sorted_list2_0(l1.next, l2)
-    else:
-        head = ListNode(l2.val)
-        head.next = merge_two_sorted_list2_0(l1, l2.next)
-    return head
-
-
-def merge_two_sorted_list2(l1, l2):
-    if l1 is None:
-        return l2
-    elif l2 is None:
-        return l1
-
-    if l1.val <= l2.val:
-        l1.next = merge_two_sorted_list2(l1.next, l2)
+        l1.next = merge_two_sorted_list1(l1.next, l2)
         return l1
     else:
-        l2.next = merge_two_sorted_list2(l1, l2.next)
+        l2.next = merge_two_sorted_list1(l1, l2.next)
         return l2
 
 
