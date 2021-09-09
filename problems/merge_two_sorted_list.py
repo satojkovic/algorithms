@@ -26,16 +26,15 @@ def merge_two_sorted_list(l1, l2):
         return l2
 
 
-def merge_two_sorted_list3(l1, l2):
+def merge_two_sorted_list_iter(l1, l2):
     dummy_head = ListNode(-1)
     head = dummy_head
-    # To avoid changing l1 and l2, new node is created from the value of l1 and l2.
     while l1 and l2:
         if l1.val <= l2.val:
-            head.next = ListNode(l1.val)
+            head.next = l1
             l1 = l1.next
         else:
-            head.next = ListNode(l2.val)
+            head.next = l2
             l2 = l2.next
         head = head.next
     remains = l1 if l1 else l2
