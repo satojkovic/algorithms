@@ -5,15 +5,23 @@
 #  We can duplicate values in-place.
 #
 # Algorithm:
-#  Use two pointers. 
-#  When the condition nums[j] != nums[i] is True, non-duplicate value is found.
-#  Therefore you can insert its value to the position of index (i+1).
-def remove_dups1(nums):
+#  Use two pointers.
+#  When the condition nums[k] != nums[i] is True, non-duplicate value is found.
+#  Therefore you can insert its value to the position of index (k+1).
+def remove_dups(nums):
     if len(nums) == 0:
         return 0
-    i = 0
-    for j in range(1, len(nums), 1):
-        if nums[j] != nums[i]:
-            i += 1
-            nums[i] = nums[j]
-    return i + 1
+    k = 0
+    for i in range(1, len(nums)):
+        if nums[k] != nums[i]:
+            k += 1
+            nums[k] = nums[i]
+    return k + 1
+
+
+def test_remove_dups():
+    assert remove_dups([0, 0, 1, 1, 1, 2, 2, 3, 3, 4]) == 5
+    assert remove_dups([]) == 0
+    assert remove_dups([1, 10, 13]) == 3
+    assert remove_dups([1, 1, 1, 1, 1]) == 1
+    assert remove_dups([-1, -1, 0, 10, 11]) == 4
