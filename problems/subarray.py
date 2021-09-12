@@ -33,7 +33,7 @@ def max_subarray1_2(nums):
 #
 # Space complexity: O(1)
 #  Only a fixed number of variables are needed.
-# 
+#
 # Algorithm:
 #  When the element of index i is greater than the sum of previous subarray, the local max is re-initialized by the element of index i.
 #  When the local max is greater thatn the global max, the global max is replaced by the local max.
@@ -47,6 +47,7 @@ def max_subarray2(nums):
         local_max = max(nums[i], local_max + nums[i])
         global_max = max(local_max, global_max)
     return global_max
+
 
 def max_subarray3(nums):
     def _get_left_right_sum(nums, left, right, mid):
@@ -75,6 +76,7 @@ def max_subarray3(nums):
 
     return _get_max_subarray(nums, 0, len(nums) - 1) if len(nums) != 0 else None
 
+
 # Time complexity: O(n^2)
 def min_subarray_len(target, nums):
     min_len = len(nums) + 1
@@ -88,6 +90,7 @@ def min_subarray_len(target, nums):
                 min_len = min(min_len, e - s + 1)
                 break
     return min_len if min_len != len(nums) + 1 else 0
+
 
 def min_subarray_len2(target, nums):
     min_len = len(nums) + 1
