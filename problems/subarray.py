@@ -14,6 +14,20 @@ def max_subarray1(nums):
                 ret = sum(nums[i:j+1])
     return ret
 
+
+# Time complexity: O(n^2)
+#  Almost same as max_subarray1 but try to not calculate sum at every iteration.
+def max_subarray1_2(nums):
+    import sys
+    ret = -sys.maxsize
+    for i in range(len(nums)):
+        current_sum = 0
+        for j in range(i, len(nums)):
+            current_sum += nums[j]
+            ret = max(ret, current_sum)
+    return ret
+
+
 # Time complexity: O(n)
 #  We iterate over entire array only once.
 #
