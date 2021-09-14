@@ -35,18 +35,14 @@ def max_subarray1_2(nums):
 #  Only a fixed number of variables are needed.
 #
 # Algorithm:
-#  When the element of index i is greater than the sum of previous subarray, the local max is re-initialized by the element of index i.
-#  When the local max is greater thatn the global max, the global max is replaced by the local max.
+#  When the element of index i is greater than the sum of previous subarray, current_sum is re-initialized by the element of index i.
+#  When the current_sum is greater thatn ret(max subarray), ret is replaced by the current_sum.
 def max_subarray2(nums):
-    n = len(nums)
-    if len(nums) == 0:
-        return None
-    local_max = nums[0]
-    global_max = nums[0]
-    for i in range(1, n):
-        local_max = max(nums[i], local_max + nums[i])
-        global_max = max(local_max, global_max)
-    return global_max
+    current_sum, ret = nums[0], nums[0]
+    for i in range(1, len(nums)):
+        current_sum = max(nums[i], current_sum + nums[i])
+        ret = max(current_sum, ret)
+    return ret
 
 
 def max_subarray3(nums):
