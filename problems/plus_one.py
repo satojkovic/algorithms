@@ -23,3 +23,19 @@ def test_plus_one2():
     assert plus_one2([1, 2, 3]) == [1, 2, 4]
     assert plus_one2([9, 9]) == [1, 0, 0]
     assert plus_one2([0]) == [1]
+
+
+def plus_one3(digits):
+    for i in reversed(range(len(digits))):
+        if digits[i] != 9:
+            digits[i] += 1
+            return digits
+        else:
+            digits[i] = 0
+    return [1] + digits
+
+
+def test_plus_one3():
+    assert plus_one3([1, 2, 3]) == [1, 2, 4]
+    assert plus_one3([9, 9]) == [1, 0, 0]
+    assert plus_one3([0]) == [1]
