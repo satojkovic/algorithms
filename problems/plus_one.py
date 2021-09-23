@@ -7,6 +7,12 @@ def plus_one(digits):
     return digits if carry == 0 else [1] + digits
 
 
+def test_plus_one():
+    assert plus_one([1, 2, 3]) == [1, 2, 4]
+    assert plus_one([9, 9]) == [1, 0, 0]
+    assert plus_one([0]) == [1]
+
+
 def plus_one2(digits):
     n = int(''.join([str(d) for d in digits]))
     n += 1
