@@ -3,10 +3,12 @@ class ListNode:
         self.val = val
         self.next = None
 
+
 def remove_dups_from_linked_list(head):
     if head is None:
-        return
-    prev_head = ListNode('dummy')
+        return head
+    dummy_head = ListNode('dummy')
+    prev_head = dummy_head
     prev_head.next = head
     curr_head = head
     dups = set()
@@ -17,7 +19,8 @@ def remove_dups_from_linked_list(head):
             dups.add(curr_head.val)
             prev_head = curr_head
         curr_head = curr_head.next
-    return
+    return dummy_head.next
+
 
 if __name__ == "__main__":
     head = ListNode(1)
