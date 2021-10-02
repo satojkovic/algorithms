@@ -22,16 +22,14 @@ def remove_dups_from_linked_list(head):
     return dummy_head.next
 
 
-if __name__ == "__main__":
+def test_remove_dups_from_linked_list():
     head = ListNode(1)
     head.next = ListNode(3)
     head.next.next = ListNode(4)
     head.next.next.next = ListNode(1)
+    no_dups_head = remove_dups_from_linked_list(head)
 
-    remove_dups_from_linked_list(head)
-    curr = head
-    while curr:
-        print(curr.val)
-        curr = curr.next
-
-
+    assert no_dups_head.val == 1
+    assert no_dups_head.next.val == 3
+    assert no_dups_head.next.next.val == 4
+    assert no_dups_head.next.next.next is None
