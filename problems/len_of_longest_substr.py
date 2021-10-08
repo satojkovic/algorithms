@@ -25,3 +25,31 @@ def test_len_of_longest_substr():
     assert len_of_longest_substr('abcabcbb') == 3
     assert len_of_longest_substr('bbbbb') == 1
     assert len_of_longest_substr('abcadef') == 6
+
+
+def brute_force(s):
+    # Check all the substring one by one to see if it has no duplicate character.
+    def check(s, start, end):
+        seen = set()
+        for i in range(start, end + 1):
+            if s[i] in seen:
+                return False
+            seen.add(s[i])
+        return True
+    ret = 0
+    # Create substrings. s[i:j+1]
+    for i in range(len(s)):
+        for j in range(i, len(s)):
+            # Check to see if the substring has no duplicate character.
+            if check(s, i, j):
+                ret = max(ret, j - i + 1)
+    return ret
+
+
+def test_brute_force():
+    assert brute_force('abba') == 2
+    assert brute_force('') == 0
+    assert brute_force('s') == 1
+    assert brute_force('abcabcbb') == 3
+    assert brute_force('bbbbb') == 1
+    assert brute_force('abcadef') == 6
