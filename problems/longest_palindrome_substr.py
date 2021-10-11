@@ -1,21 +1,25 @@
-def longest_palindrome_substr(s):
-    N = len(s)
-    for n in range(N, 1, -1):
-        for i in range(N):
-            if i + n > N:
-                break
-            if is_palindrome(s[i:i+n]):
-                return s[i:i+n]
-    return s[0] if N > 0 else s
+def brute_force(s):
+    def check(s, i, j):
+        left, right = i, j
+        while left < right:
+            if s[left] != s[right]:
+                return False
+            left += 1
+            right -= 1
+        return True
 
-def is_palindrome(s):
-    def check(s, head, tail):
-        if head > tail:
-            return True
-        if s[head] != s[tail]:
-            return False
-        return check(s, head + 1, tail - 1)
-    return check(s, 0, len(s) - 1)
+    ret = ''
+    for i in range(len(s)):
+        for j in range(i, len(s)):
+            if check(s, i, j) and len(ret) < j - i + 1:
+                ret = s[i:j+1]
+    return ret
 
-if __name__ == "__main__":
-    print(longest_palindrome_substr('abcdad'))
+
+def test_brute_force():
+    assert brute_force('babad') == 'bab'
+    assert brute_force('cbbd') == 'bb'
+    assert brute_force('a') == 'a'
+    assert brute_force('ac') == 'a'
+    assert brute_force('aaaa') == 'aaaa'
+    assert brute_force('89255') == '55'
