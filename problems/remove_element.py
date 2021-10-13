@@ -1,14 +1,10 @@
 def remove_element(nums, val):
-    i, j = 0, 0
-    while i < len(nums):
-        if nums[i] == val:
+    i = 0
+    for j in range(len(nums)):
+        if nums[j] != val:
+            nums[i] = nums[j]
             i += 1
-            continue
-        else:
-            nums[j] = nums[i]
-            j += 1
-            i += 1
-    return j
+    return i
 
 
 def test_remove_element():
