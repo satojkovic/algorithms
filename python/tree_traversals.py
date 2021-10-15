@@ -7,9 +7,10 @@ class TreeNode:
         self.left = None
         self.right = None
 
+
 def inorder(root):
     """Inorder traversal
-    
+
     1. Traverse the left subtree
     2. Visit the root node
     3. Traverse the right subtree
@@ -25,6 +26,7 @@ def inorder(root):
         return visited
     visited = []
     return _inorder(root, visited)
+
 
 def inorder_iter(root):
     stack = []
@@ -42,13 +44,14 @@ def inorder_iter(root):
             curr = curr.right
     return res
 
+
 def preorder(root):
     """Preorder traversal
 
     1. Visit the root node
     2. Traverse the left subtree
     3. Traverse the right subtree
-    
+
     Args:
         root (TreeNode): root node of a tree
     """
@@ -60,6 +63,7 @@ def preorder(root):
         return visited
     visited = []
     return _preorder(root, visited)
+
 
 def preorder_iter(root):
     stack = [root] if root else []
@@ -73,9 +77,10 @@ def preorder_iter(root):
             stack.append(node.left)
     return visited
 
+
 def postorder(root):
     """Postorder traversal
-    
+
     1. Traverse the left subtree
     2. Traverse the right subtree
     3. Visit the root node
@@ -92,6 +97,7 @@ def postorder(root):
     visited = []
     return _postorder(root, visited)
 
+
 def postorder_iter(root):
     from collections import deque
     stack = [root] if root else []
@@ -106,6 +112,8 @@ def postorder_iter(root):
     return list(visited)
 
 # Level order traversal and output nested lists
+
+
 def levelorder_r(root):
     res = []
     if root is None:
@@ -123,17 +131,18 @@ def levelorder_r(root):
     _levelorder_r(root, 0)
     return res
 
+
 def levelorder(root):
     res = []
     if root is None:
         return res
-    q = [root] # deque([root])
+    q = [root]  # deque([root])
     level = 0
     while q:
         res.append([])
         num_nodes_at_level = len(q)
         for _ in range(num_nodes_at_level):
-            node = q.pop(0) # q.popleft()
+            node = q.pop(0)  # q.popleft()
             res[level].append(node.data)
             if node.left:
                 q.append(node.left)
@@ -143,6 +152,8 @@ def levelorder(root):
     return res
 
 # Level order traversal and output flattened lists
+
+
 def levelorder2(root):
     res = []
     if root is None:
@@ -156,6 +167,7 @@ def levelorder2(root):
         if node.right:
             q.append(node.right)
     return res
+
 
 if __name__ == "__main__":
     root = TreeNode(1)
