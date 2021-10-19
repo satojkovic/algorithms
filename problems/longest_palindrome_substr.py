@@ -36,20 +36,18 @@ def dp(s):
 
     n = len(s)
     dp = [[False] * n for _ in range(n)]
-    ret = ''
     for i in range(n):
         dp[i][i] = True
-        ret = s[i]
-    max_len = len(ret)
+    max_start_pos, max_len = 0, 1
     for i in range(n-1, -1, -1):
         for j in range(i, n):
             if check(s, dp, i, j):
                 dp[i][j] = True
-                cand = s[i:j+1]
-                if len(cand) > max_len:
-                    ret = cand
-                    max_len = len(cand)
-    return ret
+                cand_len = j - i + 1
+                if cand_len > max_len:
+                    max_len = cand_len
+                    max_start_pos = i
+    return s[max_start_pos:max_start_pos + max_len]
 
 
 def test_dp():
