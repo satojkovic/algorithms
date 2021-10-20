@@ -3,7 +3,7 @@
 #  iterate over s once, and also iterate over t once, array insertion is O(1).
 #  sum of the array is O(1) because of the length of the array is fixed.
 # Space complexity: O(1)
-def valid_anagram1(s, t):
+def valid_anagram(s, t):
     used = 256 * [0]
     for ch in s:
         used[ord(ch)] += 1
@@ -13,3 +13,11 @@ def valid_anagram1(s, t):
         else:
             used[ord(ch)] -= 1
     return True if sum(used) == 0 else False
+
+
+def test_valid_anagram():
+    assert valid_anagram('anagram', 'nagaram') == True
+    assert valid_anagram('rat', 'car') == False
+    assert valid_anagram('', 'abc') == False
+    assert valid_anagram('abc', '') == False
+    assert valid_anagram('', '') == True
