@@ -2,7 +2,7 @@
 
 using namespace std;
 
-bool check(const string &s, const vector<vector<int>> &dp, int i, int j)
+bool check(const string &s, const vector<vector<int>> &dp, const int i, const int j)
 {
     if (i == j)
     {
