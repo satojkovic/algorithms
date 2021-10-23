@@ -8,7 +8,7 @@
 #  depends on the length of nums, which is O(n).
 #
 # Algorithm:
-#  Two step algorithm. 
+#  Two step algorithm.
 #  1. Count the frequency and stores the freq to the dictionary.
 #  2. Sort the dictionary by value
 #  Finally return the top k element from the sorted list.
@@ -21,3 +21,10 @@ def top_k_freq1(nums, k):
             freqs[num] = 1
     ret = sorted(freqs, key=freqs.get, reverse=True)
     return ret[:k]
+
+
+def test_top_k_freq1():
+    assert top_k_freq1([1, 1, 1, 2, 2, 3], 2) == [1, 2]
+    assert top_k_freq1([1], 1) == [1]
+    assert top_k_freq1([], 3) == []
+    assert top_k_freq1([1, 2], 2) == [1, 2]
