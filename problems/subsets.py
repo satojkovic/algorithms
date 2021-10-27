@@ -9,7 +9,16 @@ def subsets1(nums):
     backtrack(ret, [], nums, 0)
     return ret
 
+
 def backtrack(ret, tmp, nums, start):
     ret.append(tmp)
     for i in range(start, len(nums)):
         backtrack(ret, tmp + [nums[i]], nums, i + 1)
+
+
+def test_subsets():
+    assert subsets1([1, 2, 3]) == [[], [1], [1, 2],
+                                   [1, 2, 3], [1, 3], [2], [2, 3], [3]]
+    assert subsets1([1]) == [[], [1]]
+    assert subsets1([]) == [[]]
+    assert subsets1([5, 4]) == [[], [5], [5, 4], [4]]
