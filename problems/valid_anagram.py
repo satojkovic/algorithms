@@ -16,8 +16,8 @@ def valid_anagram(s, t):
 
 
 def test_valid_anagram():
-    assert valid_anagram('anagram', 'nagaram') == True
-    assert valid_anagram('rat', 'car') == False
-    assert valid_anagram('', 'abc') == False
-    assert valid_anagram('abc', '') == False
-    assert valid_anagram('', '') == True
+    assert valid_anagram('anagram', 'nagaram') is True
+    assert valid_anagram('rat', 'car') is False
+    assert valid_anagram('', 'abc') is False
+    assert valid_anagram('abc', '') is False
+    assert valid_anagram('', '') is True
