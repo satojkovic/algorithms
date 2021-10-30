@@ -13,3 +13,9 @@ def approx_sqrt(x):
         else:
             return mid
     return hi
+
+
+def test_approx_sqrt():
+    assert approx_sqrt(4) == 2
+    assert approx_sqrt(15) == 3
+    assert approx_sqrt(1) == 1
