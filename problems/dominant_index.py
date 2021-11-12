@@ -12,3 +12,10 @@ def dominant_index(nums):
         elif n > next_max_num:
             next_max_num = n
     return max_idx if max_num >= next_max_num * 2 else -1
+
+
+def test_dominant_index():
+    assert dominant_index([3, 2, 10, 4, 5]) == 2
+    assert dominant_index([1]) == 0
+    assert dominant_index([2, 2, 2, 2]) == -1
+    assert dominant_index([1, 2, 3]) == -1
