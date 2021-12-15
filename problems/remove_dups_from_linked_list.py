@@ -33,3 +33,24 @@ def test_remove_dups_from_linked_list():
     assert no_dups_head.next.val == 3
     assert no_dups_head.next.next.val == 4
     assert no_dups_head.next.next.next is None
+
+
+def remove_dups_from_sorted_linked_list(head):
+    current = head
+    while current and current.next:
+        if current.next.val == current.val:
+            current.next = current.next.next
+        else:
+            current = current.next
+    return head
+
+
+def remove_dups_from_sorted_linked_list_r(head):
+    if head is None:
+        return head
+    removed_head = remove_dups_from_sorted_linked_list_r(head.next)
+    if removed_head is None or removed_head.val != head.val:
+        head.next = removed_head
+    else:
+        head = removed_head
+    return head
