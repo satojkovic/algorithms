@@ -18,6 +18,16 @@ def test_merge_two_sorted_array():
     merge_two_sorted_array(a, b, 3, 3)
     assert a == [1, 2, 2, 3, 5, 6]
 
+    a = [1, 3, 7, 8, 0, 0, 0]
+    b = [2, 4, 11]
+    merge_two_sorted_array(a, b, 4, 3)
+    assert a == [1, 2, 3, 4, 7, 8, 11]
+
+    a = [2, 5, 0, 0, 0, 0]
+    b = [1, 6, 7, 8]
+    merge_two_sorted_array(a, b, 2, 4)
+    assert a == [1, 2, 5, 6, 7, 8]
+
     a = [1]
     b = []
     merge_two_sorted_array(a, b, 1, 0)
