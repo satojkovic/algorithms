@@ -31,51 +31,53 @@ def moons_and_umbrellas_dp():
         X, Y, S = input().split()
         costCJ, costJC = int(X), int(Y)
         N = len(S)
-        dp = [[0] * 2 for _ in range(N)]
+        dp = [0] * 2
+        prev_dp = [0] * 2
         for m in range(N):
             if S[m] == "C" and m == 0:
-                dp[m][0] = 0
+                dp[0] = 0
                 # Heavily penalise attempt to change hardwired C to J
-                dp[m][1] = INF
+                dp[1] = INF
             if S[m] == "J" and m == 0:
                 # Heavily penalise attempt to change hardwired J to C
-                dp[m][0] = INF
-                dp[m][1] = 0
+                dp[0] = INF
+                dp[1] = 0
             if S[m] == "?" and m == 0:
-                dp[m][0] = 0
-                dp[m][1] = 0
+                dp[0] = 0
+                dp[1] = 0
 
             if S[m] == "C" and m > 0 and S[m-1] == "C":
-                dp[m][0] = dp[m-1][0]
-                dp[m][1] = INF
+                dp[0] = prev_dp[0]
+                dp[1] = INF
             if S[m] == "C" and m > 0 and S[m-1] == "J":
-                dp[m][0] = dp[m-1][1]+costJC
-                dp[m][1] = INF
+                dp[0] = prev_dp[1]+costJC
+                dp[1] = INF
             if S[m] == "J" and m > 0 and S[m-1] == "C":
-                dp[m][0] = INF
-                dp[m][1] = dp[m-1][0]+costCJ
+                dp[0] = INF
+                dp[1] = prev_dp[0]+costCJ
             if S[m] == "J" and m > 0 and S[m-1] == "J":
-                dp[m][0] = INF
-                dp[m][1] = dp[m-1][1]
+                dp[0] = INF
+                dp[1] = prev_dp[1]
 
             if S[m] == "?" and m > 0 and S[m-1] == "C":
-                dp[m][0] = dp[m-1][0]
-                dp[m][1] = dp[m-1][0]+costCJ
+                dp[0] = prev_dp[0]
+                dp[1] = prev_dp[0]+costCJ
             if S[m] == "?" and m > 0 and S[m-1] == "J":
-                dp[m][0] = dp[m-1][1]+costJC
-                dp[m][1] = dp[m-1][1]
+                dp[0] = prev_dp[1]+costJC
+                dp[1] = prev_dp[1]
 
             if S[m] == "C" and m > 0 and S[m-1] == "?":
-                dp[m][0] = min(dp[m-1][0], dp[m-1][1]+costJC)
-                dp[m][1] = INF
+                dp[0] = min(prev_dp[0], prev_dp[1]+costJC)
+                dp[1] = INF
             if S[m] == "J" and m > 0 and S[m-1] == "?":
-                dp[m][0] = INF
-                dp[m][1] = min(dp[m-1][0]+costCJ, dp[m-1][1])
+                dp[0] = INF
+                dp[1] = min(prev_dp[0]+costCJ, prev_dp[1])
             if S[m] == "?" and m > 0 and S[m-1] == "?":
-                dp[m][0] = min(dp[m-1][0], dp[m-1][1]+costJC)
-                dp[m][1] = min(dp[m-1][0]+costCJ, dp[m-1][1])
+                dp[0] = min(prev_dp[0], prev_dp[1]+costJC)
+                dp[1] = min(prev_dp[0]+costCJ, prev_dp[1])
 
-        print('Case #{}: {}'.format(t, min(dp[N-1][0], dp[N-1][1])))
+            prev_dp[0], prev_dp[1] = dp[0], dp[1]
+        print('Case #{}: {}'.format(t, min(dp[0], dp[1])))
 
 
 if __name__ == '__main__':
