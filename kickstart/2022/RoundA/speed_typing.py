@@ -1,4 +1,4 @@
-# Sub sequence check can be done in O(M) with no extra space.
+# Sub sequence check can be done in O(M) with constant extra space.
 def is_subsequence(I, P):
     N = len(I)
     M = len(P)
