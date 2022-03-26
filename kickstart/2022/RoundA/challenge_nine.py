@@ -16,6 +16,12 @@ def insert_digit(N, d, k):
     return (N - N % 10**k) * 10 + d * 10**k + (N % 10**k)
 
 
+def insert_digit_with_slice(N, d, k):
+    N = list(str(N))
+    n = N[:k] + [str(d)] + N[k:]
+    return int(''.join(n))
+
+
 def solution2():
     import math
     N = int(input().rstrip())
@@ -56,11 +62,9 @@ def where_to_insert(N, d):
     digits = get_digits_iter(N, L)
     for i, digit in enumerate(digits):
         if digit > d:
-            # insert left of `digit` => (L - i - 1) + 1 = L - i
-            # if all digits in N are less than d, then k = 0 (initial value)
-            k = L - i
             break
-    return k - 1 if d == 0 and k == L else k
+        k += 1
+    return k + 1 if d == 0 and k == 0 else k
 
 
 def solution3():
@@ -68,7 +72,7 @@ def solution3():
     N = int(input().rstrip())
     d = which_digit_to_insert(N)
     k = where_to_insert(N, d)
-    print('Case #{}: {}'.format(t, insert_digit(N, d, k)))
+    print('Case #{}: {}'.format(t, insert_digit_with_slice(N, d, k)))
 
 
 T = int(input())

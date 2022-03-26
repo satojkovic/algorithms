@@ -38,21 +38,21 @@ int where_to_insert(string &s, int d)
     {
         if (digits[i] > d)
         {
-            k = L - i;
             break;
         }
+        k++;
     }
-    if (d == 0 && k == L)
+    if (d == 0 && k == 0)
     {
-        k -= 1;
+        k += 1;
     }
     return k;
 }
 
 string insert_digit_str(string &s, int d, int k)
 {
-    string before = s.substr(0, s.size() - k);
-    string after = s.substr(s.size() - k);
+    string before = s.substr(0, k);
+    string after = s.substr(k);
     return before + to_string(d) + after;
 }
 
