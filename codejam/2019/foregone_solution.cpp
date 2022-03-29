@@ -32,19 +32,16 @@ void bruteforce(ll t)
 
 pair<string,string> decompose(string& A)
 {
-    string B = string(A.size(), '0');
+    string B;
     for (ll i = 0; i < A.size(); ++i) {
         if (A[i] == '4') {
             A[i] = '2';
-            B[i] = '2';
+            B.push_back('2');
+        } else {
+            B.push_back('0');
         }
     }
-    ll num_leading_zeros = 0;
-    for (ll i = 0; i < B.size(); ++i) {
-        if (B[i] != '0') break;
-        num_leading_zeros++;
-    }
-    return pair<string, string>(A, B.substr(num_leading_zeros));
+    return pair<string, string>(A, B);
 }
 
 int main()
