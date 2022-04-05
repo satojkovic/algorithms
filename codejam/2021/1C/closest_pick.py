@@ -1,7 +1,7 @@
 def calc_prob(a, b, K, sold_tickets):
     count = 0
     for c in range(1, K + 1):
-        if c in set(sold_tickets):
+        if c in sold_tickets:
             continue
         elif c == a or c == b:
             count += 1
@@ -17,19 +17,11 @@ T = int(input())
 for t in range(1, T + 1):
     N, K = list(map(int, input().split()))
     sold_tickets = list(map(int, input().split()))
-    unsold_tickets = []
-    for k in range(1, K + 1):
-        if not k in set(sold_tickets):
-            unsold_tickets.append(k)
+    sold_tickets = set(sold_tickets)
     res = 0.0
-    if len(unsold_tickets) == 0:
-        res = 0.0
-    elif len(unsold_tickets) == 1:
-        res = 1 / K
-    else:
-        for i in range(len(unsold_tickets)-1):
-            for j in range(i+1, len(unsold_tickets)):
-                prob = calc_prob(
-                    unsold_tickets[i], unsold_tickets[j], K, sold_tickets)
-                res = max(res, prob)
+    # Pick K^2 possible pairs and calc probability
+    for i in range(1, K):
+        for j in range(i+1, K+1):
+            prob = calc_prob(i, j, K, sold_tickets)
+            res = max(res, prob)
     print('Case #{}: {}'.format(t, res))
