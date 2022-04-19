@@ -21,6 +21,24 @@ def linear_search(y, years):
     return ret
 
 
+def concat(x):
+    import math
+    digit_len = int(math.log10(x + 1) + 1)
+    return x * (10**digit_len) + (x + 1)
+
+
+def binary_search(y):
+    left = 0
+    right = 10**9 - 1
+    while right - left > 1:
+        mid = left + (right - left) // 2
+        if concat(mid) > y:
+            right = mid
+        else:
+            left = mid
+    return concat(right)
+
+
 T = int(input())
 for t in range(1, T + 1):
     Y = int(input())
