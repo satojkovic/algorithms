@@ -6,6 +6,9 @@
 #
 # Algorithm:
 #  Check all subarray
+#
+# Note:
+#  `ret` contains at least one number
 def max_subarray1(nums):
     import sys
     ret = -sys.maxsize
