@@ -9,14 +9,9 @@ def tower(perm, blocks):
 
 
 def check(s):
-    prev = ''
-    m = set()
-    for c in s:
-        if prev != '' and (prev != c and c in m):
-            return False
-        m.add(c)
-        prev = c
-    return True
+    chars = set(s)
+    grouped_s = [k for k, g in itertools.groupby(s)]
+    return len(chars) == len(grouped_s)
 
 
 T = int(input())
