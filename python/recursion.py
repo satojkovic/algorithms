@@ -3,18 +3,33 @@ def fib(n):
         return n
     return fib(n-1) + fib(n-2)
 
+
 def fib_memo(n):
     def fib_m(n, memo):
         if n == 0 or n == 1:
             return n
-
-        if memo[n] == 0:
+        if memo[n] == -1:
             memo[n] = fib_m(n - 1, memo) + fib_m(n - 2, memo)
         return memo[n]
 
     # memoization of (n + 1) values (from 0 to n)
-    memo = (n + 1) * [0]
+    memo = (n + 1) * [-1]
     return fib_m(n, memo)
+
+
+def trib_memo(n):
+    def trib_m(n, memo):
+        if n == 0 or n == 1:
+            return n
+        if n == 2:
+            return 1
+        if memo[n] == -1:
+            memo[n] = trib_m(n-3, memo) + trib_m(n-2, memo) + trib_m(n-1, memo)
+        return memo[n]
+
+    memo = (n + 1) * [-1]
+    return trib_m(n, memo)
+
 
 def reverse_str(s):
     if len(s) == 0:
@@ -22,17 +37,20 @@ def reverse_str(s):
     rstr = reverse_str(s[1:])
     return ''.join([rstr, s[0]])
 
+
 def reverse_str2(s):
     if len(s) == 0:
         return []
     rstr = reverse_str2(s[1:])
     return rstr + [s[0]]
 
+
 def reverse_str3(s, head, tail):
     if head >= tail:
         return
     s[head], s[tail] = s[tail], s[head]
     return reverse_str3(s, head + 1, tail - 1)
+
 
 def swap_node_pairs(head):
     if head is None or head.next is None:
@@ -42,6 +60,7 @@ def swap_node_pairs(head):
     head.next = swap_head
     pair.next = head
     return pair
+
 
 def climb_stairs(n):
     def cs_memo(n, memo):
@@ -57,6 +76,7 @@ def climb_stairs(n):
     memo = (n + 1) * [0]
     return cs_memo(n, memo)
 
+
 def pascal_triangle(n):
     if n == 0:
         return []
@@ -71,6 +91,7 @@ def pascal_triangle(n):
     prev_rows.append(cur_row)
     return prev_rows
 
+
 def pascal_triangle2(n):
     if n == 0:
         return [1]
@@ -84,6 +105,7 @@ def pascal_triangle2(n):
         cur_row[i] = prev_row[i - 1] + prev_row[i]
     return cur_row
 
+
 def pascal_triangle3(n):
     if n == 0:
         return [1]
@@ -94,6 +116,7 @@ def pascal_triangle3(n):
         prev_row[i] = prev_row[i - 1] + prev_row[i]
     return prev_row + [1]
 
+
 def reverse_list(head):
     if head is None or head.next is None:
         return head
@@ -102,6 +125,7 @@ def reverse_list(head):
     head.next = None
     return node
 
+
 def max_depth(root):
     def helper(root, depth):
         if root is None:
@@ -109,10 +133,12 @@ def max_depth(root):
         return max(helper(root.left, depth + 1), helper(root.right, depth + 1))
     return helper(root, 0)
 
+
 def pow(x, n):
     if n == 0:
         return 1
     return x * pow(x, n - 1) if n > 0 else (1/x) * pow(x, n + 1)
+
 
 def pow2(x, n):
     if n == 0:
@@ -126,6 +152,7 @@ def pow2(x, n):
         n = abs(n)
         return pow2(1 / x, n // 2) * pow2(1 / x, n - n // 2)
 
+
 def pow3(x, n):
     def helper(x, n, memo):
         if n == 0:
@@ -138,10 +165,12 @@ def pow3(x, n):
                 memo[n] = helper(x, n // 2, memo) * helper(x, n - n // 2, memo)
             else:
                 n = abs(n)
-                memo[n] = helper(1 / x, n // 2, memo) * helper(1 / x, n - n // 2, memo)
+                memo[n] = helper(1 / x, n // 2, memo) * \
+                    helper(1 / x, n - n // 2, memo)
         return memo[n]
     memo = (abs(n) + 1) * [-1]
     return helper(x, n, memo)
+
 
 def pow4(x, n):
     def helper(x, n, memo):
@@ -155,10 +184,12 @@ def pow4(x, n):
                 memo[n] = helper(x, n // 2, memo) * helper(x, n - n // 2, memo)
             else:
                 n = abs(n)
-                memo[n] = helper(1 / x, n // 2, memo) * helper(1 / x, n - n // 2, memo)
+                memo[n] = helper(1 / x, n // 2, memo) * \
+                    helper(1 / x, n - n // 2, memo)
         return memo[n]
     memo = {}
     return helper(x, n, memo)
+
 
 def perm(n):
     if n == 0:
@@ -171,11 +202,13 @@ def perm(n):
             res.append(p[:i] + [n] + p[i:])
     return res
 
+
 def search_2d_mat(mat, target):
     if len(mat) == 0 or len(mat[0]) == 0:
         return False
     M, N = len(mat), len(mat[0])
     return search(mat, target, 0, 0, M - 1, N - 1)
+
 
 def search(mat, target, top, left, bottom, right):
     # Area size is zero
