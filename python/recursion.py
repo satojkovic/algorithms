@@ -74,6 +74,16 @@ def climb_stairs(n):
     return cs_memo(n, memo)
 
 
+def climb_stairs_dp(n):
+    if n == 0 or n == 1:
+        return 1
+    dp = (n + 1) * [0]
+    dp[0], dp[1] = 1, 1
+    for i in range(2, n + 1):
+        dp[i] = dp[i-1] + dp[i-2]
+    return dp[n]
+
+
 def pascal_triangle(n):
     if n == 0:
         return []
