@@ -7,6 +7,20 @@ def max_rob(nums):
     return dp[-1]
 
 
+def max_rob_circle(nums):
+    def max_rob(nums):
+        N = len(nums)
+        dp = (N + 1) * [0]
+        dp[1] = nums[0]
+        for i in range(2, N + 1):
+            dp[i] = max(dp[i-2] + nums[i-1], dp[i-1])
+        return dp[-1]
+
+    if len(nums) == 1:
+        return nums[0]
+    return max(max_rob(nums[:-1]), max_rob(nums[1:]))
+
+
 def max_rob_space_optim(nums):
     N = len(nums)
     dp = [0, nums[0]]
@@ -47,3 +61,10 @@ def test_max_rob_recursion_with_memo():
     assert max_rob_recursion_with_memo([1, 2, 3, 1]) == 4
     assert max_rob_recursion_with_memo([10]) == 10
     assert max_rob_recursion_with_memo([0, 0, 100]) == 100
+
+
+def test_max_rob_circle():
+    assert max_rob_circle([2, 7, 9, 3, 1]) == 11
+    assert max_rob_circle([1, 2, 3, 1]) == 4
+    assert max_rob_circle([10]) == 10
+    assert max_rob_circle([0, 0, 100]) == 100
