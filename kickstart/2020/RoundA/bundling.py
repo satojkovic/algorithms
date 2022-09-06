@@ -52,14 +52,10 @@ def bundling():
     T = int(input())
     for t in range(1, T + 1):
         N, K = list(map(int, input().split()))
-        strings = []
-        for i in range(N):
-            strings.append(input())
-
+        strings = [input().rstrip() for _ in range(N)]
         root = TrieNode()
         for s in strings:
             insert(root, s)
-
         score, _ = calc_score(root, 0, K)
         print('Case #{}: {}'.format(t, score))
 
@@ -69,9 +65,7 @@ def bundling2():
     T = int(input())
     for t in range(1, T + 1):
         N, K = list(map(int, input().split()))
-        strings = []
-        for i in range(N):
-            strings.append(input())
+        strings = [input().rstrip() for _ in range(N)]
         res = 0
         stack = [(strings, 0)]
         while stack:
