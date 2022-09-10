@@ -7,6 +7,18 @@ def cumsum_matrix(mat):
                 if c != 0 else mat[r][c]
     return cumsum_mat
 
+
+def prefixsum_matrix(mat):
+    rows, cols = len(mat), len(mat[0])
+    cumsum_mat = cumsum_matrix(mat)
+    prefixsum_mat = [[0] * cols for _ in range(rows)]
+    for r in range(rows):
+        for c in range(cols):
+            prefixsum_mat[r][c] = prefixsum_mat[r-1][c] + cumsum_mat[r][c] \
+                if r != 0 else cumsum_mat[r][c]
+    return prefixsum_mat
+
+
 def test_cumsum_matrix():
     mat = [
         [1, 2, 3, 4],
@@ -50,17 +62,6 @@ def test_cumsum_matrix():
         [2, 6, 14, 23, 27]
     ]
 
-
-
-def prefixsum_matrix(mat):
-    rows, cols = len(mat), len(mat[0])
-    cumsum_mat = cumsum_matrix(mat)
-    prefixsum_mat = [[0] * cols for _ in range(rows)]
-    for r in range(rows):
-        for c in range(cols):
-            prefixsum_mat[r][c] = prefixsum_mat[r-1][c] + cumsum_mat[r][c] \
-                if r != 0 else cumsum_mat[r][c]
-    return prefixsum_mat
 
 def test_prefixsum_matrix():
     mat = [
