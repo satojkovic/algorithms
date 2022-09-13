@@ -75,6 +75,8 @@ def test_prefixsum_matrix():
         [6, 14, 24, 36],
         [15, 33, 54, 78]
     ]
+    # sum between (0, 1) to (2, 2) => 2 + 3 + 6 + 7 + 10 + 11 = 39
+    assert prefixsum_mat[2][2] - prefixsum_mat[2][0] == 39
 
     mat = [
         [1],
@@ -105,3 +107,7 @@ def test_prefixsum_matrix():
         [10, 21, 39, 49, 62],
         [12, 27, 53, 72, 89]
     ]
+    # sum between (2, 2) and (3, 4) => 7 + 5 + 5 + 8 + 9 + 4 = 38
+    assert prefixsum_mat[3][4] - prefixsum_mat[3][1] - prefixsum_mat[1][4] + prefixsum_mat[1][1] == 38
+    # sum between (1, 2) and (3, 3) => 8 + 1 + 7 + 5 + 8 + 9 = 38
+    assert prefixsum_mat[3][3] - prefixsum_mat[3][1] - prefixsum_mat[0][3] + prefixsum_mat[0][1] == 38
