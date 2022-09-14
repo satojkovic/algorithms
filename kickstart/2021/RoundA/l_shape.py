@@ -46,6 +46,7 @@ def solve1():
             count += get_col_count(row_seg, col_seg, R, C)
         return count
 
+    # main loop
     # Test set1: Passed
     # Test set2: TLE
     T = int(input())
@@ -59,7 +60,8 @@ def solve1():
             for c in range(C):
                 seg_lens = get_seg_lens(mat, r, c, R, C)
                 res += count_l_shape(seg_lens, R, C) 
-        print('Case #{}: {}'.format(t, res))    
+        print('Case #{}: {}'.format(t, res))
+
 
 if __name__ == '__main__':
     solve1()
