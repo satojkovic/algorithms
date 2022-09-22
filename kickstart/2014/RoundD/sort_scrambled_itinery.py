@@ -59,7 +59,7 @@ def solve():
     T = int(input())
     for t in range(1, T + 1):
         N = int(input())
-        flights = [[input().rstrip(), input().rstrip()] for _ in range(N)]
+        flights = [[input(), input()] for _ in range(N)]
         g = Graph()
         for flight in flights:
             src, dst = flight
