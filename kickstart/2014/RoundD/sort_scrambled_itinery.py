@@ -69,5 +69,33 @@ def solve():
         print('Case #{}: {}'.format(t, print_path(path)))
 
 
+def solve2():
+    from collections import defaultdict
+    T = int(input())
+    for t in range(1, T + 1):
+        N = int(input())
+        # following is not working in kickstart site. (key and value is flipped)
+        # flights = {input(): input() for _ in range(N)}
+        flights = defaultdict(str)
+        for _ in range(N):
+            src = input()
+            dst = input()
+            flights[src] = dst
+        counts = defaultdict(int)
+        for src in flights.keys():
+            counts[src] += 1
+            counts[flights[src]] += 1
+        start = ''
+        for src in flights.keys():
+            if counts[src] == 1:
+                start = src
+                break
+        res = []
+        for _ in range(N):
+            res.append(start + '-' + flights[start])
+            start = flights[start]
+        print('Case #{}: {}'.format(t, ' '.join(res)))
+
+
 if __name__ == '__main__':
     solve()
