@@ -13,7 +13,7 @@ class MaxHeap:
         If p denotes the index of a parent node, then 2*p + 1 denotes the left child node and
         2*p + 2 denotes the right child node.
 
-        A node with largest value among parent and child nodes will be a new parent node, 
+        A node with largest value among parent and child nodes will be a new parent node,
         and building a max heap is repeated to a subtree of a child node swapped by previous parent node.
 
         Args:
@@ -77,6 +77,7 @@ class MaxHeap:
             self.data[largest], self.data[curr] = self.data[curr], self.data[largest]
             curr = largest
         return ret
+
 
 class MinHeap:
     def __init__(self):
