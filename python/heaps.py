@@ -39,8 +39,8 @@ class MaxHeap:
         return data
 
     def build(self, data):
-        last_pidx = (len(data) - 1) // 2
-        for p in range(last_pidx, -1, -1):
+        start_idx = (len(data) - 1) // 2
+        for p in range(start_idx, -1, -1):
             data = self.heapify(data, p)
         self.data = data
         self.size = len(self.data)
@@ -95,10 +95,10 @@ class MinHeap:
             data[smallest], data[p] = data[p], data[smallest]
             data = self.heapify(data, smallest)
         return data
-    
+
     def build(self, data):
-        last_pidx = (len(data) - 1) // 2
-        for p in range(last_pidx, -1, -1):
+        start_idx = (len(data) - 1) // 2
+        for p in range(start_idx, -1, -1):
             data = self.heapify(data, p)
         self.data = data
         self.size = len(self.data)
@@ -136,21 +136,15 @@ class MinHeap:
             curr = smallest
         return ret
 
-if __name__ == "__main__":
-    max_heap = MaxHeap()
-    max_heap.build([6, 5, 1, 8, 2, 4])
-    print(max_heap.data)
-    max_heap.push(10)
-    print(max_heap.data)
-    for i in range(len(max_heap.data)):
-        print('pop()=>{}'.format(max_heap.pop()))
-    print('pop()=>{}'.format(max_heap.pop()))
 
+# data from Algorithm Introduction 3rd edition
+def test_max_heap():
+    max_heap = MaxHeap()
+    max_heap.build([4, 1, 3, 2, 16, 9, 10, 14, 8, 7])
+    assert max_heap.data == [16, 14, 10, 8, 7, 9, 3, 2, 4, 1]
+
+
+def test_min_heap():
     min_heap = MinHeap()
-    min_heap.build([6, 5, 1, 8, 2, 4])
-    print(min_heap.data)
-    min_heap.push(0)
-    print(min_heap.data)
-    for i in range(len(min_heap.data)):
-        print('pop()=>{}'.format(min_heap.pop()))
-    print('pop()=>{}'.format(min_heap.pop()))
+    min_heap.build([4, 1, 3, 2, 16, 9, 10, 14, 8, 7])
+    assert min_heap.data == [1, 2, 3, 4, 7, 9, 10, 14, 8, 16]
