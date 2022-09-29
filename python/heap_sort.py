@@ -14,6 +14,7 @@ def heapify(data, p, n):
         data = heapify(data, largest, n)
     return data
 
+
 def heap_sort(data):
     """heap sort
 
@@ -21,10 +22,10 @@ def heap_sort(data):
     We create a max heap to sort input list in ascending order. 
     Once the heap is created we swap the root node with the last node and 
     exclude the last node from next heapify.
-    
+
     Args:
         data (list): an input list
-    
+
     Returns:
         list: a list which is sorted in ascending order
     """
@@ -45,7 +46,8 @@ def heap_sort(data):
     return data
 
 
-if __name__ == "__main__":
-    data = [6, 5, 1, 8, 2, 4]
-    print('heap sort {} => '.format(data), end='')
-    print('{}'.format(heap_sort(data)))
+def test_heap_sort():
+    assert heap_sort([6, 5, 1, 8, 2, 4]) == [1, 2, 4, 5, 6, 8]
+    assert heap_sort([10, 1, 3, 7, 2]) == [1, 2, 3, 7, 10]
+    assert heap_sort([1]) == [1]
+    assert heap_sort([]) == None
