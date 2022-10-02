@@ -3,7 +3,6 @@
 
 class MaxHeap:
     def __init__(self):
-        self.size = 0
         self.data = []
 
     def heapify(self, data, p):
@@ -43,11 +42,9 @@ class MaxHeap:
         for p in range(start_idx, -1, -1):
             data = self.heapify(data, p)
         self.data = data
-        self.size = len(self.data)
 
     def push(self, val):
         self.data.append(val)
-        self.size += 1
         curr = len(self.data) - 1
         while curr > 0:
             parent = (curr - 1) // 2
@@ -57,11 +54,10 @@ class MaxHeap:
             curr = parent
 
     def pop(self):
-        if self.size == 0:
+        if len(self.data) == 0:
             return None
         self.data[0], self.data[-1] = self.data[-1], self.data[0]
         ret = self.data.pop()
-        self.size -= 1
         curr = 0
         data_size = len(self.data)
         while curr < data_size:
@@ -81,7 +77,6 @@ class MaxHeap:
 
 class MinHeap:
     def __init__(self):
-        self.size = 0
         self.data = []
 
     def heapify(self, data, p):
@@ -102,11 +97,9 @@ class MinHeap:
         for p in range(start_idx, -1, -1):
             data = self.heapify(data, p)
         self.data = data
-        self.size = len(self.data)
 
     def push(self, val):
         self.data.append(val)
-        self.size += 1
         curr = len(self.data) - 1
         while curr > 0:
             parent = (curr - 1) // 2
@@ -116,11 +109,10 @@ class MinHeap:
             curr = parent
 
     def pop(self):
-        if self.size == 0:
+        if len(self.data) == 0:
             return None
         self.data[0], self.data[-1] = self.data[-1], self.data[0]
         ret = self.data.pop()
-        self.size -= 1
         curr = 0
         data_size = len(self.data)
         while curr < data_size:
