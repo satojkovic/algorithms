@@ -38,8 +38,9 @@ class MaxHeap:
         return data
 
     def build(self, data):
-        start_idx = (len(data) - 1) // 2
-        for p in range(start_idx, -1, -1):
+        curr = len(data) - 1
+        parent = (curr - 1) // 2
+        for p in range(parent, -1, -1):
             data = self.heapify(data, p)
         self.data = data
 
@@ -93,8 +94,9 @@ class MinHeap:
         return data
 
     def build(self, data):
-        start_idx = (len(data) - 1) // 2
-        for p in range(start_idx, -1, -1):
+        curr = len(data) - 1
+        parent = (curr - 1) // 2
+        for p in range(parent, -1, -1):
             data = self.heapify(data, p)
         self.data = data
 
