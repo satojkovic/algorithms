@@ -6,6 +6,7 @@ class QueueElem:
         self.data = data
         self.next = None
 
+
 class Queue:
     def __init__(self):
         self.head = None
@@ -42,74 +43,55 @@ class Queue:
             elem = elem.next
         print('None')
 
+
 class QueueByList:
     def __init__(self, capacity):
         self.capacity = capacity
         self.head = 0
         self.tail = 0
-        self.size = 0
         self.q = [0 for _ in range(self.capacity)]
 
     def is_empty(self):
-        return (self.size == 0)
+        # Queue is empty when head and tail are at same position.
+        return self.head == self.tail
+
+    def is_full(self):
+        return (self.tail + 1 == self.head) or \
+            (self.head == 0 and (self.tail == self.capacity - 1))
 
     def enque(self, data):
+        if self.is_full():
+            return None
         self.q[self.tail] = data
-        self.size = self.size + 1 if self.size < self.capacity else self.size
-        self.head = (self.head + 1) % self.capacity if self.size == self.capacity and self.head == self.tail else self.head
         self.tail = (self.tail + 1) % self.capacity
 
     def deque(self):
-        if self.size == 0:
-            return -1
+        if self.is_empty():
+            return None
         ret = self.q[self.head]
-        self.size = self.size - 1 if self.size > 0 else self.size
         self.head = (self.head + 1) % self.capacity
         return ret
 
-    def print_queue(self):
-        if self.size == 0:
-            print('Queue is empty')
-        else:
-            for i in range(self.size):
-                print(self.q[(self.head + i) % self.capacity])
 
-if __name__ == "__main__":
-    q = Queue()
-    q.print_queue()
-    print('enque(10)')
-    q.enque(10)
-    print('enque(1)')
-    q.enque(1)
-    print('enque(6)')
-    q.enque(6)
-    q.print_queue()
-
-    print('deque():', q.deque())
-    print('deque():', q.deque())
-    print('deque():', q.deque())
-    print('deque():', q.deque())
-    q.print_queue()
-
-    ql = QueueByList(capacity=3)
-    print('---')
-    ql.enque(1)
-    ql.enque(2)
-    ql.enque(3)
-    ql.print_queue()
-    print('---')
+def test_queue():
+    ql = QueueByList(6)
     ql.enque(4)
-    ql.print_queue()
-    print('---')
-    ql.enque(5)
-    ql.print_queue()
-    print('---')
+    ql.enque(1)
+    ql.enque(3)
+    ql.deque()
+    ql.enque(8)
+    ql.deque()
+    assert ql.head == 2
+    assert ql.tail == 4
 
-    print(ql.deque())
-    print('---')
-    ql.print_queue()
-    print('---')
-    print(ql.deque())
-    print(ql.deque())
-    print(ql.deque())
-    print(ql.deque())
+    ql.deque()
+    ql.deque()
+    assert ql.is_empty() is True
+    assert ql.deque() is None
+
+    [ql.enque(i*10) for i in range(6)]
+    assert ql.is_full() is True
+    ql.deque()
+    ql.enque(100)
+    assert ql.is_full() is True
+    assert ql.enque(1000) is None
