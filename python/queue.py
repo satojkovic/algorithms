@@ -83,9 +83,8 @@ def test_queue():
     ql.deque()
     assert ql.head == 2
     assert ql.tail == 4
-
-    ql.deque()
-    ql.deque()
+    assert ql.deque() == 3
+    assert ql.deque() == 8
     assert ql.is_empty() is True
     assert ql.deque() is None
 
