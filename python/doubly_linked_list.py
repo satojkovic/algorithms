@@ -7,6 +7,7 @@ class DoublyListNode:
         self.prev = None
         self.next = None
 
+
 class DoublyLinkedList:
     def __init__(self):
         self.head = None
@@ -15,6 +16,14 @@ class DoublyLinkedList:
     def is_empty(self):
         # check whether the size equal zero
         return self.size == 0
+
+    def insert(self, data):
+        node = DoublyListNode(data)
+        node.next = self.head
+        if self.head:
+            self.head.prev = node
+        self.head = node
+        self.size += 1
 
     def search(self, k):
         x = self.head
@@ -106,3 +115,15 @@ class DoublyLinkedList:
             x.next.prev = x.prev
 
         return True
+
+
+def test_doubly_linked_list():
+    dl = DoublyLinkedList()
+    assert dl.is_empty() is True
+    dl.add_at_head(1)
+    dl.add_at_head(4)
+    dl.add_at_head(16)
+    dl.add_at_head(9)
+    assert dl.head.data == 9
+    dl.insert(10)
+    assert dl.head.data == 10
