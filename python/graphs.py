@@ -179,14 +179,17 @@ def topological_sort(g):
             path = _dfs_r(g, v, visited, path)
     return path[::-1] if len(path) != 0 else []
 
-if __name__ == "__main__":
+def test_simple_graph():
     g = SimpleGraph(is_directed=False)
     g.add_edge(0, 1)
     g.add_edge(0, 4)
     g.add_edge(4, 5)
-    for node in g.nodes:
-        print(node, '->', ','.join([str(n) for n in g.nodes[node]]))
+    assert g.nodes[0] == [1, 4]
+    assert g.nodes[1] == [0]
+    assert g.nodes[4] == [0, 5]
+    assert g.nodes[5] == [4]
+
     g.add_vertex(10)
-    print('nodes:', ','.join([str(node) for node in g.nodes]))
-    print('dfs:', dfs(g.nodes, 0))
-    print('dfs_r:', dfs_r(g.nodes, 0))
+    assert g.nodes[10] == []
+    g.add_vertex(0)
+    assert g.nodes[0] == [1, 4]
