@@ -2,12 +2,48 @@
 # -*- coding=utf-8 -*-
 
 class ListElement:
-    """List Element of Singly Linked List
-    """
-
     def __init__(self, data):
         self.data = data
         self.next = None
+
+class SimpleLinkedList:
+    def __init__(self):
+        self.head = None
+
+    def search(self, target):
+        # O(n)
+        x = self.head
+        while x and x.data != target:
+            x = x.next
+        return x
+
+    def insert(self, data):
+        # O(1)
+        node = ListElement(data)
+        node.next = self.head
+        self.head = node
+
+    def delete(self, target):
+        # O(n)
+        x = self.head
+        while x and x.data != target:
+            x = x.next
+        if x:
+            x.data = x.next.data
+            x.next = x.next.next
+
+
+def test_simple_linked_list():
+    simple_ll = SimpleLinkedList()
+    assert simple_ll.search(10) is None
+    [simple_ll.insert(i) for i in range(10, 41, 10)]
+    assert simple_ll.head.data == 40
+    simple_ll.delete(20)
+    assert simple_ll.head.next.next.data == 10
+    simple_ll.delete(40)
+    assert simple_ll.head.data == 30
+    simple_ll.delete(100)
+    assert simple_ll.head.data == 30
 
 
 def remove_nth_from_end(head, n):
