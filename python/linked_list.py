@@ -24,25 +24,30 @@ class SimpleLinkedList:
         self.head = node
 
     def delete(self, target):
-        # O(n)
-        x = self.head
-        while x and x.data != target:
-            x = x.next
-        if x:
-            x.data = x.next.data
-            x.next = x.next.next
+        # Assume that the target node is already searched in a list.
+        # O(1)
+        if target:
+            target.data = target.next.data
+            target.next = target.next.next
 
 
 def test_simple_linked_list():
     simple_ll = SimpleLinkedList()
     assert simple_ll.search(10) is None
+
     [simple_ll.insert(i) for i in range(10, 41, 10)]
     assert simple_ll.head.data == 40
-    simple_ll.delete(20)
+
+    node = simple_ll.search(20)
+    simple_ll.delete(node)
     assert simple_ll.head.next.next.data == 10
-    simple_ll.delete(40)
+
+    node = simple_ll.search(40)
+    simple_ll.delete(node)
     assert simple_ll.head.data == 30
-    simple_ll.delete(100)
+
+    node = simple_ll.search(100)
+    simple_ll.delete(node)
     assert simple_ll.head.data == 30
 
 
