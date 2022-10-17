@@ -59,6 +59,30 @@ def test_simple_doubly_linked_list():
     assert simple_dl.head is None
 
 
+class SimpleDoublyLinkedListWithSentinel:
+    def __init__(self):
+        self.nil = DoublyListNode(None)
+        self.nil.prev = self.nil.next
+        self.nil.next = self.nil.prev
+
+    def search(self, target):
+        x = self.nil.next
+        while x != self.nil and x.data != target:
+            x = x.next
+        return x
+
+    def insert(self, data):
+        node = DoublyListNode(data)
+        node.next = self.nil.next
+        node.prev = self.nil
+        self.nil.next.prev = node
+        self.nil.next = node
+
+    def delete(self, target):
+        target.prev.next = target.next
+        target.next.prev = target.prev
+
+
 class DoublyLinkedList:
     def __init__(self):
         self.head = None
