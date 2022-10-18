@@ -1,6 +1,46 @@
 #!/usr/bin/env python
 # -*- coding=utf-8 -*-
 
+class DirectAccessTable:
+    def __init__(self, size):
+        self.T = [None for _ in range(size)]
+
+    def search(self, k):
+        return self.T[k] if 0 <= k < len(self.T) else None
+
+    def insert(self, k):
+        if 0 <= k < len(self.T):
+            self.T[k] = k
+
+    def delete(self, k):
+        if 0 <= k < len(self.T):
+            self.T[k] = None
+
+    def max(self):
+        for i in range(len(self.T) - 1, -1, -1):
+            if self.T[i] is not None:
+                return self.T[i]
+        return None
+
+
+def test_direct_access_table():
+    dt = DirectAccessTable(5)
+    dt.insert(3)
+    dt.insert(5)
+    assert dt.search(3) == 3
+    assert dt.search(4) is None
+
+    dt.delete(3)
+    assert dt.search(3) is None
+    dt.delete(5)
+    assert dt.search(5) is None
+
+    dt.insert(2)
+    assert dt.max() == 2
+    dt.delete(2)
+    assert dt.max() is None
+
+
 class TombStone:
     pass
 
