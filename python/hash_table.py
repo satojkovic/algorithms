@@ -25,6 +25,7 @@ class DirectAccessTable:
 
 def test_direct_access_table():
     dt = DirectAccessTable(5)
+    assert dt.search(10) is None
     dt.insert(3)
     dt.insert(5)
     assert dt.search(3) == 3
