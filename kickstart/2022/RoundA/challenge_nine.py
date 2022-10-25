@@ -57,9 +57,15 @@ def where_to_insert(N, d):
             digits.append(d)
             L = L - 1
         return digits
+    def get_digits_iter2(N, L):
+        sN = str(N)
+        digits = []
+        for i in range(len(sN)):
+            digits.append(ord(sN[i]) - ord('0'))
+        return digits
     k = 0
     L = len(str(N))
-    digits = get_digits_iter(N, L)
+    digits = get_digits_iter2(N, L)
     for i, digit in enumerate(digits):
         if digit > d:
             break
