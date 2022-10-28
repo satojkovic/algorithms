@@ -105,12 +105,9 @@ def binary_search_sparse(strs, s, left, right):
     else:
         return binary_search_sparse(strs, s, mid + 1, right)
 
-if __name__ == "__main__":
+def test_binary_search():
     data = [1, 3, 4, 13, 40, 193]
-    target = 40
-    print('org:', data)
-    result = binary_search(data, target)
-    if result != -1:
-        print('target {} is present at index {}'.format(target, result)) 
-    else:
-        print('target {} is not present in the list'.format(target))
+    assert binary_search(data, 40) == 4
+    assert binary_search(data, 11) == -1
+    assert binary_search(data, 1) == 0
+    assert binary_search(data, 193) == 5
