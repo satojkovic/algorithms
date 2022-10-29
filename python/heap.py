@@ -5,7 +5,7 @@ class MaxHeap:
     def __init__(self):
         self.data = []
 
-    def heapify(self, data, p):
+    def heapify(self, data, p, size):
         """Build a max heap
 
         In a max heap, the parent node is always greater than or equal to its child nodes.
@@ -26,22 +26,22 @@ class MaxHeap:
         right_idx = 2 * p + 2
         largest = p
 
-        if left_idx < len(data) and data[largest] < data[left_idx]:
+        if left_idx < size and data[largest] < data[left_idx]:
             largest = left_idx
-        if right_idx < len(data) and data[largest] < data[right_idx]:
+        if right_idx < size and data[largest] < data[right_idx]:
             largest = right_idx
 
         if largest != p:
             data[largest], data[p] = data[p], data[largest]
-            data = self.heapify(data, largest)
+            data = self.heapify(data, largest, size)
 
         return data
 
     def build(self, data):
-        curr = len(data) - 1
-        parent = (curr - 1) // 2
+        tail = len(data) - 1
+        parent = (tail - 1) // 2
         for p in range(parent, -1, -1):
-            data = self.heapify(data, p)
+            data = self.heapify(data, p, size=len(data))
         self.data = data
 
     def push(self, val):
@@ -80,24 +80,24 @@ class MinHeap:
     def __init__(self):
         self.data = []
 
-    def heapify(self, data, p):
+    def heapify(self, data, p, size):
         left_idx = 2 * p + 1
         right_idx = 2 * p + 2
         smallest = p
-        if left_idx < len(data) and data[left_idx] < data[smallest]:
+        if left_idx < size and data[left_idx] < data[smallest]:
             smallest = left_idx
-        if right_idx < len(data) and data[right_idx] < data[smallest]:
+        if right_idx < size and data[right_idx] < data[smallest]:
             smallest = right_idx
         if smallest != p:
             data[smallest], data[p] = data[p], data[smallest]
-            data = self.heapify(data, smallest)
+            data = self.heapify(data, smallest, size)
         return data
 
     def build(self, data):
-        curr = len(data) - 1
-        parent = (curr - 1) // 2
+        tail = len(data) - 1
+        parent = (tail - 1) // 2
         for p in range(parent, -1, -1):
-            data = self.heapify(data, p)
+            data = self.heapify(data, p, size=len(data))
         self.data = data
 
     def push(self, val):

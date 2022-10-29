@@ -1,17 +1,19 @@
 #!/usr/bin/env python
 # -*- coding=utf-8 -*-
 
-def heapify(data, p, n):
+
+# To heapify subtree rooted at index p.
+def heapify(data, p, size):
     left_idx = 2 * p + 1
     right_idx = 2 * p + 2
     largest = p
-    if left_idx <= n and data[largest] < data[left_idx]:
+    if left_idx < size and data[largest] < data[left_idx]:
         largest = left_idx
-    if right_idx <= n and data[largest] < data[right_idx]:
+    if right_idx < size and data[largest] < data[right_idx]:
         largest = right_idx
     if largest != p:
         data[largest], data[p] = data[p], data[largest]
-        data = heapify(data, largest, n)
+        data = heapify(data, largest, size)
     return data
 
 
@@ -34,14 +36,16 @@ def heap_sort(data):
     if len(data) < 2:
         return data
 
-    last_idx = len(data) - 1
-    last_pidx = (len(data) - 1) // 2
-    for p in range(last_pidx, -1, -1):
-        data = heapify(data, p, last_idx)
+    parent = (len(data) - 1) // 2
+    for p in range(parent, -1, -1):
+        data = heapify(data, p, size=len(data))
 
-    for i in range(last_idx, 0, -1):
+    tail = len(data) - 1
+    size = len(data)
+    for i in range(tail, 0, -1):
         data[i], data[0] = data[0], data[i]
-        data = heapify(data, 0, i - 1)
+        size -= 1
+        data = heapify(data, 0, size=size)
 
     return data
 
@@ -49,5 +53,7 @@ def heap_sort(data):
 def test_heap_sort():
     assert heap_sort([6, 5, 1, 8, 2, 4]) == [1, 2, 4, 5, 6, 8]
     assert heap_sort([10, 1, 3, 7, 2]) == [1, 2, 3, 7, 10]
+    assert heap_sort([10, 3]) == [3, 10]
     assert heap_sort([1]) == [1]
     assert heap_sort([]) == None
+    assert heap_sort([1, 1, 1]) == [1, 1, 1]
