@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # -*- coding=utf-8 -*-
 
+from doubly_linked_list import SimpleDoublyLinkedList
+
+
 class DirectAccessTable:
     def __init__(self, size):
         self.T = [None for _ in range(size)]
@@ -40,6 +43,40 @@ def test_direct_access_table():
     assert dt.max() == 2
     dt.delete(2)
     assert dt.max() is None
+
+
+class SimpleHashTable:
+    def __init__(self, capacity):
+        self.capacity = capacity
+        self.bucket = self.capacity * [SimpleDoublyLinkedList()]
+
+    def _hash(self, k):
+        return hash(k) % self.capacity
+
+    def search(self, data):
+        bucket = self.bucket[self._hash(data)]
+        return bucket.search(data)
+
+    def insert(self, data):
+        bucket = self.bucket[self._hash(data)]
+        bucket.insert(data)
+
+    def delete(self, node):
+        # Assume that the target node is already searched in a list.
+        bucket = self.bucket[self._hash(node.data)]
+        bucket.delete(node)
+
+def test_simple_hash_table():
+    sht = SimpleHashTable(capacity=10)
+    node = sht.search(100)
+    assert node is None
+    sht.insert(10)
+    node = sht.search(10)
+    assert node is not None and node.data == 10
+    
+    sht.delete(node)
+    node = sht.search(10)
+    assert node is None
 
 
 class TombStone:
