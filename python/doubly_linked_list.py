@@ -12,10 +12,10 @@ class SimpleDoublyLinkedList:
     def __init__(self):
         self.head = None
 
-    def search(self, target):
+    def search(self, data):
         # O(n)
         x = self.head
-        while x and x.data != target:
+        while x and x.data != data:
             x = x.next
         return x
 
@@ -27,15 +27,15 @@ class SimpleDoublyLinkedList:
             self.head.prev = node
         self.head = node
 
-    def delete(self, target):
+    def delete(self, node):
         # Assume that the target node is already searched in a list.
         # O(1)
-        if target.prev:
-            target.prev.next = target.next
+        if node.prev:
+            node.prev.next = node.next
         else:
-            self.head = target.next
-        if target.next:
-            target.next.prev = target.prev
+            self.head = node.next
+        if node.next:
+            node.next.prev = node.prev
 
 
 def test_simple_doubly_linked_list():
