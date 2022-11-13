@@ -1,41 +1,48 @@
 #!/usr/bin/env python
 # -*- coding=utf-8 -*-
 
-# O(n^2)
-# i=0, 1, 2, ..., n-1の各要素で、
-# n-1回の比較 + n-2回の比較 + ... + 1 = (n * (n-1) / 2)回の計算
-#
-# nによらず、i, j, min_idxが必要になるだけ => O(1) space
-#
-# stable
+# time complexity: O(n^2)
+# space complexity: O(1)
+# not stable
 def selection_sort(data):
-    if data is None:
-        return None
-
-    # i番目とj=i+1番目以降の要素を比較
-    # data[i] > data[j]の中でminな要素とswap
     for i in range(len(data)-1):
         min_idx = i
+        # Find minimum
         for j in range(i+1, len(data)):
-            # i+1番目以降の要素でminな要素のindexに逐次更新
             if data[min_idx] > data[j]:
                 min_idx = j
-        # 最終的にmin_idxと現在のi番目の要素をswap
+        # Swap i-th element with minimum
         data[i], data[min_idx] = data[min_idx], data[i]
         print(data)
     return data
 
-# recursive
-def do_selection_sort_r(data):
-    return selection_sort_r(data, 0)
 
-def selection_sort_r(data, start):
-    # base caseはpivot位置が(len(data) - 1) - 1になるとき
-    if start < len(data) - 1:
-        min_pos = find_min_idx(data, start)
-        data[start], data[min_pos] = data[min_pos], data[start]
-        selection_sort_r(data, start + 1)
-    return data
+def test_selection_sort():
+    assert selection_sort([3, 1, 10, 7, 6]) == [1, 3, 6, 7, 10]
+    assert selection_sort([2, 2, 2]) == [2, 2, 2]
+    assert selection_sort([23, -1]) == [-1, 23]
+    assert selection_sort([1, 2, 3, 4]) == [1, 2, 3, 4]
+    assert selection_sort([]) == []
+
+
+# recursive version
+def selection_sort_r(data):
+    def find_min_idx(data, start):
+        min_pos = start
+        for i in range(start + 1, len(data)):
+            if data[min_pos] > data[i]:
+                min_pos = i
+        return min_pos
+
+    def _selection_sort_r(data, start):
+        # base case: when start become (len(data) - 1)
+        if start < len(data) - 1:
+            min_pos = find_min_idx(data, start)
+            data[start], data[min_pos] = data[min_pos], data[start]
+            _selection_sort_r(data, start + 1)
+        return data
+
+    return _selection_sort_r(data, 0)
 
 
 def selection_sort_stable(data):
@@ -58,14 +65,6 @@ def insert(data, i):
         data[k] = data[k - 1]
     data[i] = val
     return data
-
-
-def find_min_idx(data, start):
-    min_pos = start
-    for i in range(start + 1, len(data)):
-        if data[min_pos] > data[i]:
-            min_pos = i
-    return min_pos
 
 
 # worst case: O(n^2)
