@@ -46,24 +46,23 @@ def selection_sort_r(data):
 
 
 def selection_sort_stable(data):
+    def insert(data, i):
+        min_idx = i
+        for j in range(i + 1, len(data)):
+            if data[min_idx] > data[j]:
+                min_idx = j
+        val = data[min_idx]
+        for k in range(min_idx, i, -1):
+            data[k] = data[k - 1]
+        data[i] = val
+        return data
+
     if data is None:
         return None
 
     for i in range(len(data) - 1):
         data = insert(data, i)
         print(data)
-    return data
-
-
-def insert(data, i):
-    min_idx = i
-    for j in range(i + 1, len(data)):
-        if data[min_idx] > data[j]:
-            min_idx = j
-    val = data[min_idx]
-    for k in range(min_idx, i, -1):
-        data[k] = data[k - 1]
-    data[i] = val
     return data
 
 
@@ -74,13 +73,22 @@ def insert(data, i):
 def insertion_sort(data):
     for i in range(1, len(data)):
         pivot = data[i]
-        j = i - 1
         # Repeat until the pivot is greater than data[j]
-        while j >= 0 and pivot < data[j]:
-            data[j+1] = data[j]
-            j -= 1
-        data[j+1] = pivot
+        j = i
+        while j > 0:
+            if data[j - 1] > pivot:
+                data[j] = data[j - 1]
+                j -= 1
+            else:
+                break
+        data[j] = pivot
     return data
+
+def test_insertion_sort():
+    assert insertion_sort([4, 1, 3, 5, 2]) == [1, 2, 3, 4, 5]
+    assert insertion_sort([1, 3, 1]) == [1, 1, 3]
+    assert insertion_sort([10]) == [10]
+    assert insertion_sort([]) == []
 
 
 # worst case = pivotがsmallestもしくはlargetstなとき
@@ -220,36 +228,3 @@ def heap_sort(data):
     return data
 
 
-if __name__ == "__main__":
-    data = [64, 25, 12, 22, 11]
-    print('org', data)
-    print('--selection sort--')
-    print('result', selection_sort(data))
-
-    data = [4, 3, 4, 2, 1]
-    print('org', data)
-    print('--selection sort stable--')
-    print('result', selection_sort_stable(data))
-
-    data = [64, 25, 12, 22, 11]
-    print('--insertion sort--')
-    print('result', insertion_sort(data))
-
-    data = [64, 25, 12, 22, 11]
-    print('--quick sort--')
-    print('result', quick_sort(data))
-
-    data = [97, 200, 100, 101, 211, 107]
-    print('--quick sort in place--')
-    print('result', quick_sort_in_place(data))
-
-    data = [6, 5, 3, 1, 8, 7, 2, 4]
-    print('org', data)
-    print('--merge sort--')
-    print('result', merge_sort(data))
-
-    #data = [4, 1, 6, 2, 9, 7, 3, 8]
-    data = [6, 5, 1, 8, 2, 4]
-    print('org', data)
-    print('heap sort')
-    print('result', heap_sort(data))
