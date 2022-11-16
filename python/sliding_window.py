@@ -30,3 +30,24 @@ def test_find_average_subarrays():
 
     assert find_average_subarrays(2, [123]) == []
     assert find_average_subarrays_window(2, [123]) == []
+
+
+def max_sum_subarray(k, arr):
+    import sys
+    max_sum = -sys.maxsize
+    curr_sum, left = 0.0, 0
+    for right in range(len(arr)):
+        curr_sum += arr[right]
+        if right >= k - 1:
+            max_sum = curr_sum if curr_sum > max_sum else max_sum
+            curr_sum -= arr[left]
+            left += 1
+    return max_sum
+
+
+def test_max_sum_subarray():
+    assert max_sum_subarray(3, [2, 1, 5, 1, 3, 2]) == 9
+    assert max_sum_subarray(2, [2, 3, 4, 1, 5]) == 7
+    assert max_sum_subarray(2, [1, 2, -3]) == 3
+    assert max_sum_subarray(2, [-3, 2, -5, -9]) == -1
+    assert max_sum_subarray(2, [1, 2, -3, 9]) == 6
