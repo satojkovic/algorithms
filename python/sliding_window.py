@@ -51,3 +51,26 @@ def test_max_sum_subarray():
     assert max_sum_subarray(2, [1, 2, -3]) == 3
     assert max_sum_subarray(2, [-3, 2, -5, -9]) == -1
     assert max_sum_subarray(2, [1, 2, -3, 9]) == 6
+
+
+def max_substring_with_k_distinct_chars(k, s):
+    from collections import defaultdict
+    char_freqs = defaultdict(int)
+    left = 0
+    max_length = 0
+    for right in range(len(s)):
+        char_freqs[s[right]] += 1
+        while len(char_freqs) > k:
+            left_char = s[left]
+            char_freqs[left_char] -= 1
+            if char_freqs[left_char] == 0:
+                del char_freqs[left_char]
+            left += 1
+        max_length = max(max_length, right - left + 1)
+    return max_length
+
+
+def test_max_susbstring_with_k_distinct_chars():
+    assert max_substring_with_k_distinct_chars(2, 'araaci') == 4
+    assert max_substring_with_k_distinct_chars(1, 'araaci') == 2
+    assert max_substring_with_k_distinct_chars(3, 'cbbebi') == 5
