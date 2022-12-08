@@ -2,20 +2,43 @@
 # -*- coding=utf-8 -*-
 
 class TreeNode:
-    def __init__(self, elem, left=None, right=None):
-        self.data = elem
-        self.left = left
-        self.right = right
+    def __init__(self, data):
+        self.data = data
+        self.parent = None
+        self.left = None
+        self.right = None
 
-def add(root, elem):
+
+def inorder_print(root):
+    if root:
+        inorder_print(root.left)
+        print(root.data, end=' ')
+        inorder_print(root.right)
+
+
+def add(root, data):
     if root is None:
-        return TreeNode(elem)
+        return TreeNode(data)
 
-    if elem < root.data:
-        root.left = add(root.left, elem)
+    if data < root.data:
+        left = add(root.left, data)
+        root.left = left
+        left.parent = root
     else:
-        root.right = add(root.right, elem)
+        right = add(root.right, data)
+        root.right = right
+        right.parent = root
     return root
+
+
+def test_add():
+    root = None
+    root = add(root, 12)
+    assert root.data == 12
+    root = add(root, 5)
+    root = add(root, 18)
+    assert root.left.data == 5 and root.right.data == 18
+
 
 def search(root, elem):
     if root is None or elem is None:
@@ -59,11 +82,6 @@ def dig_right(node):
         cur = cur.right
     return cur
 
-def inorder_print(root):
-    if root:
-        inorder_print(root.left)
-        print(root.data, end=' ')
-        inorder_print(root.right)
 
 class BinarySearchTree:
     def __init__(self):
