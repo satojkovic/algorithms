@@ -40,16 +40,29 @@ def test_add():
     assert root.left.data == 5 and root.right.data == 18
 
 
-def search(root, elem):
-    if root is None or elem is None:
+def search(root, data):
+    if root is None:
         return False
 
-    if root.data == elem:
+    if root.data == data:
         return True
-    elif elem < root.data:
-        return search(root.left, elem)
+    elif data < root.data:
+        return search(root.left, data)
     else:
-        return search(root.right, elem)
+        return search(root.right, data)
+
+
+def test_search():
+    root = None
+    assert not search(root, 1)
+    root = add(root, 12)
+    root = add(root, 5)
+    root = add(root, 18)
+    assert search(root, 12)
+    assert search(root, 5)
+    assert search(root, 18)
+    assert not search(root, 10)
+
 
 def search_iter(root, elem):
     while root is not None and root.data != elem:
