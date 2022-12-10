@@ -52,9 +52,16 @@ def search(root, data):
         return search(root.right, data)
 
 
+def search_iter(root, data):
+    while root and root.data != data:
+        root = root.left if data < root.data else root.right
+    return True if root else False
+
+
 def test_search():
     root = None
     assert not search(root, 1)
+    assert not search_iter(root, 1)
     root = add(root, 12)
     root = add(root, 5)
     root = add(root, 18)
@@ -62,12 +69,11 @@ def test_search():
     assert search(root, 5)
     assert search(root, 18)
     assert not search(root, 10)
+    assert search_iter(root, 12)
+    assert search_iter(root, 5)
+    assert search_iter(root, 18)
+    assert not search_iter(root, 10)
 
-
-def search_iter(root, elem):
-    while root is not None and root.data != elem:
-        root = root.left if elem < root.data else root.right
-    return root
 
 def remove(root, elem):
     if not root:
