@@ -58,6 +58,18 @@ def search_iter(root, data):
     return True if root else False
 
 
+def search_min(root):
+    while root.left:
+        root = root.left
+    return root.data if root else None
+
+
+def search_max(root):
+    while root.right:
+        root = root.right
+    return root.data if root else None
+
+
 def test_search():
     root = None
     assert not search(root, 1)
@@ -73,6 +85,9 @@ def test_search():
     assert search_iter(root, 5)
     assert search_iter(root, 18)
     assert not search_iter(root, 10)
+
+    assert search_min(root) == 5
+    assert search_max(root) == 18
 
 
 def remove(root, elem):
