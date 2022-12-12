@@ -41,11 +41,11 @@ def test_add():
 
 
 def search(root, data):
-    if root is None:
-        return False
+    if not root:
+        return None
 
     if root.data == data:
-        return True
+        return root
     elif data < root.data:
         return search(root.left, data)
     else:
@@ -72,14 +72,18 @@ def search_max(root):
 
 def test_search():
     root = None
-    assert not search(root, 1)
+    node = search(root, 1)
+    assert node is None
     assert not search_iter(root, 1)
     root = add(root, 12)
     root = add(root, 5)
     root = add(root, 18)
-    assert search(root, 12)
-    assert search(root, 5)
-    assert search(root, 18)
+    node = search(root, 12)
+    assert node.data == 12
+    node = search(root, 5)
+    assert node.data == 5
+    node = search(root, 18)
+    assert node.data == 18
     assert not search(root, 10)
     assert search_iter(root, 12)
     assert search_iter(root, 5)
