@@ -94,14 +94,14 @@ def test_search():
     assert search_max(root) == 18
 
 
-def remove(root, elem):
+def remove(root, data):
     if not root:
         return None
 
-    if elem < root.data:
-        root.left = remove(root.left, elem)
-    elif root.data < elem:
-        root.right = remove(root.right, elem)
+    if data < root.data:
+        root.left = remove(root.left, data)
+    elif root.data < data:
+        root.right = remove(root.right, data)
     else:
         if root.left is None:
             return root.right
@@ -132,71 +132,71 @@ class BinarySearchTree:
     def size(self):
         return self.num_nodes
 
-    def add(self, elem):
-        if self.contains(elem):
+    def add(self, data):
+        if self.contains(data):
             return False
-        self.root = self._add(self.root, elem)
+        self.root = self._add(self.root, data)
         self.num_nodes += 1
         return True
 
     # Recursively add a value in the binary tree
-    def _add(self, node, elem):
-        # Base case: we found a leaf node (the place where inserting an elem)
+    def _add(self, node, data):
+        # Base case: we found a leaf node (the place where inserting an data)
         if node is None:
-            return TreeNode(elem)
+            return TreeNode(data)
         # Already checked the same value by contains() method
-        if elem < node.data:
-            node.left = self._add(node.left, elem)
+        if data < node.data:
+            node.left = self._add(node.left, data)
         else:
-            node.right = self._add(node.right, elem)
+            node.right = self._add(node.right, data)
         return node
 
     # Return the node if the element exists in the tree
-    def search(self, elem):
-        return self._search(self.root, elem)
+    def search(self, data):
+        return self._search(self.root, data)
 
-    def _search(self, node, elem):
-        if node is None or elem == node.data:
+    def _search(self, node, data):
+        if node is None or data == node.data:
             return node
-        if elem < node.data:
-            return self._search(node.left, elem)
-        return self._search(node.right, elem)
+        if data < node.data:
+            return self._search(node.left, data)
+        return self._search(node.right, data)
 
     # Returns True if the element exists in the tree
-    def contains(self, elem):
-        return self._contains(self.root, elem)
+    def contains(self, data):
+        return self._contains(self.root, data)
 
-    def _contains(self, node, elem):
+    def _contains(self, node, data):
         if node is None:
             return False
         
-        if elem < node.data:
-            return self._contains(node.left, elem)
-        elif elem > node.data:
-            return self._contains(node.right, elem)
+        if data < node.data:
+            return self._contains(node.left, data)
+        elif data > node.data:
+            return self._contains(node.right, data)
         else:
             return True
 
-    def remove(self, elem):
-        if self.contains(elem):
-            self.root = self._remove(self.root, elem)
+    def remove(self, data):
+        if self.contains(data):
+            self.root = self._remove(self.root, data)
             self.num_nodes -= 1
             return True
         else:
             return False
 
-    def _remove(self, node, elem):
+    def _remove(self, node, data):
         if node is None:
             return None
 
         # Dig into left subtree, the value we're looking for is
         # samller than the current value
-        if node.data > elem:
-            node.left = self._remove(node.left, elem)
+        if node.data > data:
+            node.left = self._remove(node.left, data)
         # Dig into right subtree, the value we're looking for is
         # larger than the current value
-        elif node.data < elem:
-            node.right = self._remove(node.right, elem)
+        elif node.data < data:
+            node.right = self._remove(node.right, data)
         # Found the node we wish to remove
         else:
             # In this situation just swap the node we wish to remove
