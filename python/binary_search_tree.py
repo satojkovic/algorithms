@@ -61,13 +61,13 @@ def search_iter(root, data):
 def search_min(root):
     while root.left:
         root = root.left
-    return root.data if root else None
+    return root if root else None
 
 
 def search_max(root):
     while root.right:
         root = root.right
-    return root.data if root else None
+    return root if root else None
 
 
 def test_search():
@@ -90,8 +90,34 @@ def test_search():
     assert search_iter(root, 18)
     assert not search_iter(root, 10)
 
-    assert search_min(root) == 5
-    assert search_max(root) == 18
+    node = search_min(root)
+    assert node.data == 5
+    node = search_max(root)
+    assert node.data == 18
+
+
+def search_successor(root):
+    if root.right:
+        return search_min(root.right)
+    p = root.parent
+    while p and p.right == root:
+        root = p
+        p = p.parent
+    return p
+
+
+def test_search_successor():
+    root = None
+    data = [15, 6, 18, 3, 7, 17, 20, 2, 4, 13, 9]
+    for d in data:
+        root = add(root, d)
+    node = search(root, 13)
+    assert node.data == 13 and node.parent.data == 7 and node.left.data == 9
+    succ = search_successor(node)
+    assert succ.data == 15
+    node = search(root, 6)
+    succ = search_successor(node)
+    assert succ.data == 7
 
 
 def remove(root, data):
