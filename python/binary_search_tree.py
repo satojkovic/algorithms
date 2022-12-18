@@ -106,11 +106,22 @@ def search_successor(root):
     return p
 
 
-def test_search_successor():
+def search_predecessor(root):
+    if root.left:
+        return search_max(root.left)
+    p = root.parent
+    while p and p.left == root:
+        root = p
+        p = p.parent
+    return p
+
+
+def test_search_successor_predecessor():
     root = None
     data = [15, 6, 18, 3, 7, 17, 20, 2, 4, 13, 9]
     for d in data:
         root = add(root, d)
+
     node = search(root, 13)
     assert node.data == 13 and node.parent.data == 7 and node.left.data == 9
     succ = search_successor(node)
@@ -118,7 +129,22 @@ def test_search_successor():
     node = search(root, 6)
     succ = search_successor(node)
     assert succ.data == 7
+    node = search(root, 15)
+    succ = search_successor(node)
+    assert succ.data == 17
 
+    node = search(root, 9)
+    pred = search_predecessor(node)
+    assert pred.data == 7
+    node = search(root, 6)
+    pred = search_predecessor(node)
+    assert pred.data == 4
+    node = search(root, 17)
+    pred = search_predecessor(node)
+    assert pred.data == 15
+    node = search(root, 15)
+    pred = search_predecessor(node)
+    assert pred.data == 13
 
 def remove(root, data):
     if not root:
