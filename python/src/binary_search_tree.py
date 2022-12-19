@@ -46,7 +46,7 @@ def search(root, data):
 def search_iter(root, data):
     while root and root.data != data:
         root = root.left if data < root.data else root.right
-    return True if root else False
+    return root if root else None
 
 
 def search_min(root):
