@@ -24,6 +24,19 @@ def test_add(empty_bst):
     assert root.left.data == 5 and root.right.data == 18
 
 
+def test_add_iter(empty_bst, simple_bst):
+    root = add_iter(empty_bst, TreeNode(15))
+    assert root.data == 15 and root.left is None and root.right is None and root.parent is None
+    root = add_iter(root, TreeNode(6))
+    assert root.left.data == 6 and root.left.parent.data == 15
+    root = add_iter(root, TreeNode(18))
+    assert root.right.data == 18 and root.right.parent.data == 15
+    root = add_iter(root, TreeNode(3))
+    assert root.left.left.data == 3 and root.left.left.parent.data == 6
+    root = add_iter(root, TreeNode(20))
+    assert root.right.right.data == 20 and root.right.right.parent.data == 18
+
+
 def test_search(simple_bst):
     assert search(simple_bst, 1) is None
     assert search_iter(simple_bst, 1) is None

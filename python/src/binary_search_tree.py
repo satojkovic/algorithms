@@ -31,6 +31,22 @@ def add(root, data):
     return root
 
 
+def add_iter(root, z):
+    y = None
+    x = root
+    while x:
+        y = x
+        x = x.left if z.data < x.data else x.right
+    z.parent = y
+    if y is None:
+        root = z
+    elif z.data < y.data:
+        y.left = z
+    else:
+        y.right = z
+    return root
+
+
 def search(root, data):
     if not root:
         return None
