@@ -15,9 +15,30 @@ def valid_anagram(s, t):
     return True if sum(used) == 0 else False
 
 
+def valid_anagram2(s, t):
+    from collections import defaultdict
+    chars = defaultdict(int)
+    for c in s:
+        chars[c] += 1
+    for c in t:
+        if chars[c] == 0:
+            return False
+        else:
+            chars[c] -= 1
+    return True if sum([v for _, v in chars.items()]) == 0 else False
+
+
 def test_valid_anagram():
     assert valid_anagram('anagram', 'nagaram') is True
     assert valid_anagram('rat', 'car') is False
     assert valid_anagram('', 'abc') is False
     assert valid_anagram('abc', '') is False
     assert valid_anagram('', '') is True
+
+
+def test_valid_anagram2():
+    assert valid_anagram2('anagram', 'nagaram') is True
+    assert valid_anagram2('rat', 'car') is False
+    assert valid_anagram2('', 'abc') is False
+    assert valid_anagram2('abc', '') is False
+    assert valid_anagram2('', '') is True
