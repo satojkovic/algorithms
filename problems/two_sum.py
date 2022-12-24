@@ -26,3 +26,25 @@ def test_two_sum():
     assert two_sum([2, 7, 11, 15], 9) == [0, 1]
     assert two_sum([3, 2, 4], 6) == [1, 2]
     assert two_sum([3, 3], 6) == [0, 1]
+
+
+def two_sum_all_pairs(nums, target):
+    seen = {}
+    for i in range(len(nums)):
+        if nums[i] in seen:
+            seen[nums[i]] += 1
+        else:
+            seen[nums[i]] = 1
+    results = []
+    for i in range(len(nums)):
+        rest = target - nums[i]
+        seen[nums[i]] -= 1
+        if seen[rest] >= 1:
+            results.append((nums[i], rest))
+        seen[rest] -= 1
+    return results
+
+
+def test_two_sum_all_pairs():
+    assert two_sum_all_pairs([5, 5, 5], 10) == [(5, 5)]
+    assert two_sum_all_pairs([5, 5, 5, 5], 10) == [(5, 5), (5, 5)]
