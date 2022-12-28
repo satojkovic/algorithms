@@ -21,9 +21,4 @@ def group_anagram_words2(words):
             g[key].append(word)
         else:
             g[key] = [word]
-    return g.values()
-
-
-if __name__ == '__main__':
-    print(list(group_anagram_words(['abf', 'bc', 'cb', 'fab', 'aaa', 'baf'])))
-    print(list(group_anagram_words2(['abf', 'bc', 'cb', 'fab', 'aaa', 'baf'])))
+    return list(g.values())
