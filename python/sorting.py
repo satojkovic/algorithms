@@ -88,6 +88,7 @@ def test_insertion_sort():
     assert insertion_sort([4, 1, 3, 5, 2]) == [1, 2, 3, 4, 5]
     assert insertion_sort([1, 3, 1]) == [1, 1, 3]
     assert insertion_sort([10]) == [10]
+    assert insertion_sort([10, 20, 30]) == [10, 20, 30]
     assert insertion_sort([]) == []
 
 

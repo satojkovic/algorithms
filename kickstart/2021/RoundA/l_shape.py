@@ -1,3 +1,63 @@
+def cumsum_matrix(mat):
+    rows, cols = len(mat), len(mat[0])
+    cumsum_mat = [[0] * cols for _ in range(rows)]
+    for r in range(rows):
+        for c in range(cols):
+            cumsum_mat[r][c] = cumsum_mat[r][c-1] + mat[r][c] \
+                if c != 0 else mat[r][c]
+    return cumsum_mat
+
+
+def prefixsum_matrix(mat):
+    rows, cols = len(mat), len(mat[0])
+    cumsum_mat = cumsum_matrix(mat)
+    prefixsum_mat = [[0] * cols for _ in range(rows)]
+    for r in range(rows):
+        for c in range(cols):
+            prefixsum_mat[r][c] = prefixsum_mat[r-1][c] + cumsum_mat[r][c] \
+                if r != 0 else cumsum_mat[r][c]
+    return prefixsum_mat
+
+
+def segment_one_count(lt_row, lt_col, rb_row, rb_col, prefixsum_mat):
+    a = prefixsum_mat[rb_row][rb_col]
+    b = prefixsum_mat[rb_row][lt_col-1] if lt_col > 0 else 0
+    c = prefixsum_mat[lt_row-1][rb_col] if lt_row > 0 else 0
+    d = prefixsum_mat[lt_row-1][lt_col-1] if lt_row > 0 and lt_col > 0 else 0
+    return (a - b - c + d)
+
+
+def is_len_cond(lt_row, lt_col, rb_row, rb_col):
+    return abs(rb_col - lt_col) + 1 == 2 * (abs(rb_row - lt_row) + 1) or \
+        2 * (abs(rb_col - lt_col) + 1) == abs(rb_row - lt_row) + 1
+
+
+def check(R, C, prefixsum_mat):
+    import itertools
+    res = 0
+    for (i, j) in itertools.product(range(R), range(C)):
+        for (k, l) in itertools.product(range(R), range(C)):
+            if segment_one_count(i, j, i, l, prefixsum_mat) == (abs(l - j) + 1) and \
+                segment_one_count(k, l, i, l, prefixsum_mat) == (abs(k - i) + 1) and \
+                is_len_cond(i, j, k, l):
+                res += 1
+            if segment_one_count(i, j, k, j, prefixsum_mat) == (abs(k - i) + 1) and \
+                segment_one_count(k, j, k, l, prefixsum_mat) == (abs(l - j) + 1) and \
+                is_len_cond(i, j, k, l):
+                res += 1
+    return res // 2
+
+
+def solve2():
+    T = int(input())
+    for t in range(1, T + 1):
+        R, C = list(map(int, input().split()))
+        mat = [list(map(int, input().split())) for _ in range(R)]
+        prefixsum_mat = prefixsum_matrix(mat)
+        res = check(R, C, prefixsum_mat)
+        print('Case #{}: {}'.format(t, res))
+
+
 def solve1():
     import math
 
@@ -64,4 +124,4 @@ def solve1():
 
 
 if __name__ == '__main__':
-    solve1()
+    solve2()
