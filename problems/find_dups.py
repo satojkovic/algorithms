@@ -4,12 +4,11 @@
 # Space complexity: O(n)
 #  the space used by a hash set is linear
 def find_dups1(nums):
-    elems = set()
+    seen = set()
     for num in nums:
-        if not num in elems:
-            elems.add(num)
-        else:
+        if num in seen:
             return True
+        seen.add(num)
     return False
 
 # Time complexity: O(nlogn)
