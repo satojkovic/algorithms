@@ -58,9 +58,3 @@ def merge_sort(data):
     # Sort and merge
     merged = merge2(left, right)
     return merged
-
-if __name__ == "__main__":
-    data = [1, 1, 5, -1, 8, 19, 2, 7]
-    print('input:', data)
-    print('--merge sort--')
-    print('result:', merge_sort(data))
