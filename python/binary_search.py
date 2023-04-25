@@ -56,6 +56,18 @@ def binary_search_sparse(strs, s, left, right):
         return binary_search_sparse(strs, s, mid + 1, right)
 
 
+def binary_search2(data, target):
+    left, right = -1, len(data)
+    while right - left > 1:
+        mid = left + (right - left) // 2
+        if data[mid] == target:
+            return mid
+        elif data[mid] < target:
+            left = mid
+        else:
+            right = mid
+    return -1
+
 def test_binary_search():
     data = [1, 3, 4, 13, 40, 193]
     assert binary_search(data, 40) == 4
