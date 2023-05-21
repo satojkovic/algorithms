@@ -1,15 +1,20 @@
-def merge_two_sorted_array(a, b, a_size, b_size):
-    last_a = a_size - 1
-    last_b = b_size - 1
-    last_merged = a_size + b_size - 1
-    while last_b >= 0:
-        if last_a >= 0 and a[last_a] >= b[last_b]:
-            a[last_merged] = a[last_a]
-            last_a -= 1
+def merge_two_sorted_array_(nums1, m, nums2, n):
+    nums1[m:] = nums2
+    nums1.sort()
+
+
+def merge_two_sorted_array(nums1, m, nums2, n):
+    # merge arrays backwards
+    merged_idx = m + n - 1
+    idx_m, idx_n = m - 1, n - 1
+    while idx_n >= 0:
+        if idx_m >= 0 and nums1[idx_m] >= nums2[idx_n]:
+            nums1[merged_idx] = nums1[idx_m]
+            idx_m -= 1
         else:
-            a[last_merged] = b[last_b]
-            last_b -= 1
-        last_merged -= 1
+            nums1[merged_idx] = nums2[idx_n]
+            idx_n -= 1
+        merged_idx -= 1
 
 
 def test_merge_two_sorted_array():
