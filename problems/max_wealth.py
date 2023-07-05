@@ -1,5 +1,5 @@
 def max_wealth(accounts):
-    max_wealth = -1
+    max_wealth = 0
     for i in range(len(accounts)):
         w = sum(accounts[i])
         max_wealth = max(max_wealth, w)
