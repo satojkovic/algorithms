@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 # -*- coding=utf-8 -*-
 
+
 class ListElement:
     def __init__(self, data):
         self.data = data
         self.next = None
+
 
 class SimpleLinkedList:
     def __init__(self):
@@ -63,6 +65,7 @@ def remove_nth_from_end2(head, n):
             return head, l
         else:
             return node, l
+
     head, l = helper(head, n, 0)
     return head
 
@@ -84,6 +87,7 @@ def reverse_list_r(head):
         next_head = head.next
         head.next = prev_head
         return reverse(next_head, head)
+
     return reverse(head, None)
 
 
@@ -124,8 +128,7 @@ def list_length(head):
 
 
 class LinkedList:
-    """Linked List
-    """
+    """Linked List"""
 
     def __init__(self):
         self.head = None
@@ -249,6 +252,7 @@ class LinkedList:
                 new_head = head
                 head = next_head
             return new_head
+
         return reverse(self.head)
 
     def find_middle(self):
@@ -257,7 +261,7 @@ class LinkedList:
 
         fast = self.head
         slow = self.head
-        while fast.next and fast.next.next:
+        while fast and fast.next:
             fast = fast.next.next
             slow = slow.next
         return slow.data
@@ -292,8 +296,8 @@ class LinkedList:
         dups = set()
         head = self._remove_dups(self.head, uniqs, dups)
         self.head = head.next if head.data in dups else head
-        print('uniqs:', uniqs)
-        print('dups:', dups)
+        print("uniqs:", uniqs)
+        print("dups:", dups)
         return True
 
     def _remove_dups(self, head, uniqs, dups):
@@ -325,6 +329,7 @@ class LinkedList:
                 tail.next = head
                 head = tail
             return head
+
         self.head = _rotate(self.head, K)
 
     # O(N)
@@ -346,16 +351,17 @@ class LinkedList:
             head = new_tail.next
             new_tail.next = None
             return head
+
         self.head = _rotate(self.head, K)
 
     def print_list(self):
         if self.is_empty():
-            print('List is empty.')
+            print("List is empty.")
             return
         temp = self.head
-        print('List:', end=' ')
+        print("List:", end=" ")
 
         while temp:
-            print(temp.data, end='->')
+            print(temp.data, end="->")
             temp = temp.next
-        print('None')
+        print("None")
