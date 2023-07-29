@@ -1,18 +1,19 @@
 # Time complexity: O(n^2) (need to shift n-1 elems)
 # Space complexity: O(1)
 def move_zeros1(nums):
-    for i in range(len(nums)-1, -1, -1):
+    for i in range(len(nums) - 1, -1, -1):
         if nums[i] != 0:
             continue
         else:
             tail = nums[-1]
             nums[-1] = nums[i]
-            for j in range(len(nums)-2, i, -1):
+            for j in range(len(nums) - 2, i, -1):
                 tmp = nums[j]
                 nums[j] = tail
                 tail = tmp
             nums[i] = tail
     return nums
+
 
 # Time complexity: O(n) (append is O(1) at average case)
 # Space complexity: O(n) (non_zeros)
@@ -35,6 +36,7 @@ def move_zeros2(nums):
 
     return res
 
+
 # Time complexity: O(n) (not optimal in case of the array which has all leading zeros[0, 0, ..., 1])
 # Space complexity: O(1)
 def move_zeros3(nums):
@@ -50,12 +52,16 @@ def move_zeros3(nums):
         last_non_zero_found_at += 1
     return nums
 
+
 # Time complexity: O(n)
 # Space complexity: O(1)
 def move_zeros4(nums):
     last_non_zero_found_at = 0
     for i in range(len(nums)):
         if nums[i] != 0:
-            nums[i], nums[last_non_zero_found_at] = nums[last_non_zero_found_at], nums[i]
+            nums[i], nums[last_non_zero_found_at] = (
+                nums[last_non_zero_found_at],
+                nums[i],
+            )
             last_non_zero_found_at += 1
     return nums
