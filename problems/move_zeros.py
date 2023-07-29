@@ -45,10 +45,9 @@ def move_zeros3(nums):
         if nums[i] != 0:
             nums[last_non_zero_found_at] = nums[i]
             last_non_zero_found_at += 1
-
-    for i in range(last_non_zero_found_at, len(nums), 1):
-        nums[i] = 0
-
+    while last_non_zero_found_at < len(nums):
+        nums[last_non_zero_found_at] = 0
+        last_non_zero_found_at += 1
     return nums
 
 # Time complexity: O(n)
