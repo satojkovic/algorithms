@@ -11,6 +11,11 @@ def find_dups1(nums):
         seen.add(num)
     return False
 
+
+def find_dups1a(nums):
+    return False if len(set(nums)) == len(nums) else True
+
+
 # Time complexity: O(nlogn)
 #  entire algorithm is dominated by the sorting step, which is O(nlogn)
 # Space complexity: O(1)
