@@ -73,12 +73,40 @@ def roman_to_int4(s):
 
 
 def roman_to_int5(s):
-    roman2int = {'I': 1, 'V': 5, 'X': 10,
-                 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
+    roman2int = {"I": 1, "V": 5, "X": 10, "L": 50, "C": 100, "D": 500, "M": 1000}
     res = roman2int[s[-1]]
     for i in range(len(s) - 2, -1, -1):
-        if roman2int[s[i]] < roman2int[s[i+1]]:
+        if roman2int[s[i]] < roman2int[s[i + 1]]:
             res -= roman2int[s[i]]
         else:
             res += roman2int[s[i]]
+    return res
+
+
+def roman_to_int6(s):
+    roman2int = {
+        "I": 1,
+        "V": 5,
+        "X": 10,
+        "L": 50,
+        "C": 100,
+        "D": 500,
+        "M": 1000,
+        "IV": 4,
+        "IX": 9,
+        "XL": 40,
+        "XC": 90,
+        "CD": 400,
+        "CM": 900,
+    }
+
+    res = 0
+    pos = 0
+    while pos < len(s):
+        if pos < len(s) - 1 and s[pos : pos + 2] in roman2int:
+            res += roman2int[s[pos : pos + 2]]
+            pos += 2
+        else:
+            res += roman2int[s[pos]]
+            pos += 1
     return res
