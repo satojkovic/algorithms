@@ -7,13 +7,12 @@
 #  profit is calculated by the price of current day and min price at the same time.
 #  max profit is updated if the profit is greater than the existing max profit.
 
+
 def max_profit(prices):
-    import sys
-    min_price, max_profit = sys.maxsize, 0
+    min_price, max_profit = prices[0], 0
     for price in prices:
+        max_profit = max(max_profit, price - min_price)
         min_price = min(min_price, price)
-        profit = price - min_price
-        max_profit = max(max_profit, profit)
     return max_profit
 
 
