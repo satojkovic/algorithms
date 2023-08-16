@@ -1,6 +1,6 @@
 # Time complexity: O(2^n)
 #  maximum size(number of nodes) of the recursion tree is O(2^n)
-# 
+#
 # Space complexity: O(n)
 #  the depth of the recursion tree is n
 #
@@ -13,7 +13,8 @@ def climb_stairs1(n):
     elif n == 0:
         return 1
     else:
-        return climb_stairs1(n-1) + climb_stairs1(n-2)
+        return climb_stairs1(n - 1) + climb_stairs1(n - 2)
+
 
 # Time complexity: O(n)
 #  You only have to calculate once for each n.
@@ -25,17 +26,19 @@ def climb_stairs1(n):
 # Algorithm:
 #  Algorithm1 with memoization
 def climb_stairs2(n):
-    def cs_memo(n):
+    def cs_memo(n, memo):
         if n < 0:
             return 0
         if n == 0:
             return 1
 
         if memo[n] == 0:
-            memo[n] = cs_memo(n-1) + cs_memo(n-2)
+            memo[n] = cs_memo(n - 1, memo) + cs_memo(n - 2, memo)
         return memo[n]
-    memo = [0] * (n+1)
-    return cs_memo(n)
+
+    memo = [0] * (n + 1)
+    return cs_memo(n, memo)
+
 
 # Time complexity: O(n)
 #  Single for-loop up to n
@@ -51,12 +54,13 @@ def climb_stairs3(n):
     if n == 0 or n == 1:
         return 1
 
-    memo = [0] * (n+1)
+    memo = [0] * (n + 1)
     memo[0] = 1
     memo[1] = 1
     for i in range(2, n + 1, 1):
-        memo[i] = memo[i-1] + memo[i-2]
+        memo[i] = memo[i - 1] + memo[i - 2]
     return memo[n]
+
 
 # Time complexity: O(n)
 #
