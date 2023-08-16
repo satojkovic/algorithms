@@ -49,17 +49,12 @@ def climb_stairs2(n):
 # Algorithm:
 #  The total number of steps to reach n is equal to sum of ways of reaching n-1 and ways of reaching n-2.
 def climb_stairs3(n):
-    if n < 0:
-        return 0
-    if n == 0 or n == 1:
-        return 1
-
-    memo = [0] * (n + 1)
-    memo[0] = 1
-    memo[1] = 1
-    for i in range(2, n + 1, 1):
-        memo[i] = memo[i - 1] + memo[i - 2]
-    return memo[n]
+    dp = [0] * (n + 1)
+    dp[0] = 1
+    dp[1] = 1
+    for i in range(2, n + 1):
+        dp[i] = dp[i - 1] + dp[i - 2]
+    return dp[n]
 
 
 # Time complexity: O(n)
