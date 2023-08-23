@@ -26,6 +26,6 @@ def convert_to_dict(edges):
 
 
 def test_valid_path():
-    assert valid_path(3, [[0, 1], [1, 2], [0, 2]], 0, 2) == True
-    assert valid_path(6, [[0, 1], [0, 2], [3, 5], [5, 4], [4, 3]], 0, 5) == False
-    assert valid_path(1, [], 0, 0) == True
+    assert valid_path(3, [[0, 1], [1, 2], [0, 2]], 0, 2) is True
+    assert valid_path(6, [[0, 1], [0, 2], [3, 5], [5, 4], [4, 3]], 0, 5) is False
+    assert valid_path(1, [], 0, 0) is True
