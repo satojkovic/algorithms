@@ -3,7 +3,7 @@ def merge_two_sorted_array_(nums1, m, nums2, n):
     nums1.sort()
 
 
-def merge_two_sorted_array(nums1, m, nums2, n):
+def merge_two_sorted_array(nums1, nums2, m, n):
     # merge arrays backwards
     merged_idx = m + n - 1
     idx_m, idx_n = m - 1, n - 1
