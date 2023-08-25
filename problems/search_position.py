@@ -4,7 +4,7 @@ def search_position(nums, target):
         mid = left + (right - left) // 2
         if nums[mid] == target:
             return mid
-        elif nums[mid] > target:
+        elif target < nums[mid]:
             right = mid
         else:
             left = mid
