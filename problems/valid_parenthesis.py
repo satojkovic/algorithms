@@ -13,11 +13,11 @@ def valid_parenthesis(s):
 
 
 def test_valid_parenthesis():
-    assert valid_parenthesis('()') == True
-    assert valid_parenthesis('(){}[]') == True
-    assert valid_parenthesis('(]') == False
-    assert valid_parenthesis('([)]') == False
-    assert valid_parenthesis('{()}') == True
+    assert valid_parenthesis("()") is True
+    assert valid_parenthesis("(){}[]") is True
+    assert valid_parenthesis("(]") is False
+    assert valid_parenthesis("([)]") is False
+    assert valid_parenthesis("{()}") is True
 
 
 def valid_parenthesis_aster(s):
@@ -39,4 +39,4 @@ def valid_parenthesis_aster(s):
 
 
 def test_valid_parenthesis_aster():
-    assert valid_parenthesis_aster('(*)') == True
+    assert valid_parenthesis_aster("(*)") is True
