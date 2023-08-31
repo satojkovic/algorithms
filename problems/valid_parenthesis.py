@@ -1,11 +1,9 @@
 def valid_parenthesis(s):
-    # Process recursively from outside to inwards in place <=> stack
     stack = []
-    parenthesis = {')': '(', '}': '{', ']': '['}
+    parenthesis = {")": "(", "}": "{", "]": "["}
     for c in s:
-        if c in {')', '}', ']'}:
-            top_elem = stack.pop() if stack else '#'
-            if parenthesis[c] != top_elem:
+        if c in {")", "}", "]"}:
+            if len(stack) == 0 or parenthesis[c] != stack[-1]:
                 return False
         else:
             stack.append(c)
