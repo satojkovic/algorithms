@@ -1,3 +1,34 @@
+def permutations(nums):
+    if len(nums) == 1:
+        return [nums]
+    res = []
+    for i, n in enumerate(nums):
+        former, latter = nums[:i], nums[i + 1 :]
+        perms = permutations(former + latter)
+        for p in perms:
+            res.append(p + [n])
+    return res
+
+
+def perm_backtrack(nums):
+    def backtrack(curr, seen):
+        if len(curr) == len(nums):
+            res.append(curr[:])  # curr[:] means copy values
+            return
+        for n in nums:
+            if n not in seen:
+                curr.append(n)
+                seen.add(n)
+                backtrack(curr)
+                curr.pop()
+                seen.remove(n)
+
+    res = []
+    seen = set()
+    backtrack([], seen)
+    return res
+
+
 def perm1(nums):
     if len(nums) < 2:
         return [nums]
