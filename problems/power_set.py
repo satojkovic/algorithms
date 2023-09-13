@@ -3,17 +3,21 @@ def power_set(S):
         if len(S[i:]) == 0:
             return [[]]
         ps = []
-        for sub_ps in helper(S, i+1):
+        for sub_ps in helper(S, i + 1):
             ps.append(sub_ps)
             ps.append(sub_ps + [S[i]])
         return ps
+
     return helper(S, 0)
+
 
 def total_weight(cand):
     return sum([weight for weight, value in cand])
 
+
 def sales_value(cand):
     return sum([value for weight, value in cand])
+
 
 def knapsack_brute_force(items, max_weight):
     best_value = 0
@@ -25,6 +29,7 @@ def knapsack_brute_force(items, max_weight):
                 best_cand = cand
     return best_cand
 
+
 def knapsack_greedy(items, max_weight):
     bag_weight = 0
     bag_items = []
@@ -34,19 +39,24 @@ def knapsack_greedy(items, max_weight):
             bag_items.append(item)
     return bag_items
 
-if __name__ == "__main__":
-    ps = power_set(['a', 'b', 'c'])
-    print(ps)
 
-    # (weight, value)
-    res = knapsack_brute_force([(2, 4), (2, 5), (1, 2), (3, 8)], 5)
-    print(sum([value for weight, value in res]))
+def test_power_set():
+    import deepdiff
 
-    res = knapsack_brute_force([(9, 5), (10, 4)], 20)
-    print(sum([value for weight, value in res]))
+    ps = power_set([1, 2, 3])
+    assert not deepdiff.DeepDiff(
+        ps, [[], [1], [2], [3], [1, 2], [1, 3], [2, 3], [1, 2, 3]], ignore_order=True
+    )
 
-    res = knapsack_greedy([(2, 4), (2, 5), (1, 2), (3, 8)], 5)
-    print(sum([value for weight, value in res]))
+    # # (weight, value)
+    # res = knapsack_brute_force([(2, 4), (2, 5), (1, 2), (3, 8)], 5)
+    # print(sum([value for weight, value in res]))
 
-    res = knapsack_greedy([(9, 5), (10, 4)], 20)
-    print(sum([value for weight, value in res]))
+    # res = knapsack_brute_force([(9, 5), (10, 4)], 20)
+    # print(sum([value for weight, value in res]))
+
+    # res = knapsack_greedy([(2, 4), (2, 5), (1, 2), (3, 8)], 5)
+    # print(sum([value for weight, value in res]))
+
+    # res = knapsack_greedy([(9, 5), (10, 4)], 20)
+    # print(sum([value for weight, value in res]))
