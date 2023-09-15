@@ -16,9 +16,27 @@ def backtrack(ret, tmp, nums, start):
         backtrack(ret, tmp + [nums[i]], nums, i + 1)
 
 
-def test_subsets():
-    assert subsets1([1, 2, 3]) == [[], [1], [1, 2],
-                                   [1, 2, 3], [1, 3], [2], [2, 3], [3]]
+def subsets2(nums):
+    res = [[]]
+    for num in nums:
+        res += [r + [num] for r in res]
+    return res
+
+
+def test_subsets1():
+    assert subsets1([1, 2, 3]) == [[], [1], [1, 2], [1, 2, 3], [1, 3], [2], [2, 3], [3]]
     assert subsets1([1]) == [[], [1]]
     assert subsets1([]) == [[]]
     assert subsets1([5, 4]) == [[], [5], [5, 4], [4]]
+
+
+def test_subsets2():
+    import deepdiff
+
+    assert not deepdiff.DeepDiff(
+        subsets2([1, 2, 3]),
+        [[], [1], [1, 2], [1, 2, 3], [1, 3], [2], [2, 3], [3]],
+        ignore_order=True,
+    )
+    assert subsets2([1]) == [[], [1]]
+    assert subsets2([]) == [[]]
