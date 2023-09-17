@@ -23,6 +23,22 @@ def subsets2(nums):
     return res
 
 
+def subsets3(nums):
+    def add_subsets(curr, start):
+        if len(curr) == k:
+            res.append(curr[:])
+            return
+        for i in range(start, len(nums)):
+            curr.append(nums[i])
+            add_subsets(curr, i + 1)
+            curr.pop()
+
+    res = []
+    for k in range(len(nums) + 1):
+        add_subsets(curr=[], start=0)
+    return res
+
+
 def test_subsets1():
     assert subsets1([1, 2, 3]) == [[], [1], [1, 2], [1, 2, 3], [1, 3], [2], [2, 3], [3]]
     assert subsets1([1]) == [[], [1]]
@@ -40,3 +56,15 @@ def test_subsets2():
     )
     assert subsets2([1]) == [[], [1]]
     assert subsets2([]) == [[]]
+
+
+def test_subsets3():
+    import deepdiff
+
+    assert not deepdiff.DeepDiff(
+        subsets3([1, 2, 3]),
+        [[], [1], [1, 2], [1, 2, 3], [1, 3], [2], [2, 3], [3]],
+        ignore_order=True,
+    )
+    assert subsets3([1]) == [[], [1]]
+    assert subsets3([]) == [[]]
