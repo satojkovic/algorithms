@@ -18,12 +18,12 @@ def gen_quad_tree(grid):
 
         # isLeaf is False
         curr_root = Node(0, False, None, None, None, None)
-        med_row = (top + bottom) // 2
-        med_col = (left + right) // 2
-        curr_root.topLeft = quad_tree(grid, top, left, med_row, med_col)
-        curr_root.bottomLeft = quad_tree(grid, med_row, left, bottom, med_col)
-        curr_root.topRight = quad_tree(grid, top, med_col, med_row, right)
-        curr_root.bottomRight = quad_tree(grid, med_row, med_col, bottom, right)
+        mid_row = (top + bottom) // 2
+        mid_col = (left + right) // 2
+        curr_root.topLeft = quad_tree(grid, top, left, mid_row, mid_col)
+        curr_root.bottomLeft = quad_tree(grid, mid_row, left, bottom, mid_col)
+        curr_root.topRight = quad_tree(grid, top, mid_col, mid_row, right)
+        curr_root.bottomRight = quad_tree(grid, mid_row, mid_col, bottom, right)
         return curr_root
 
     return quad_tree(grid, 0, 0, len(grid), len(grid))
