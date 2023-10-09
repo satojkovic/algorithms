@@ -10,6 +10,19 @@ def gen_parens(n):
         res.append(''.join(['()', p]))
     return list(set(res))
 
+
+def gen_parens_dp(n):
+    if n == 0:
+        return [""]
+
+    res = []
+    for left_count in range(n):
+        for left_parts in gen_parens(left_count):
+            for right_parts in gen_parens(n - left_count - 1):
+                res.append("(" + left_parts + ")" + right_parts)
+    return res
+
+
 def gen_parens2(n):
     def parens(n, n_left, n_right, s, pos):
         if n_left < 0 or n_left > n_right:
