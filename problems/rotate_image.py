@@ -11,9 +11,9 @@ def rotate(matrix):
         prev_pos = (n - j - 1, i)
         mid_pos = (n - i - 1, n - j - 1)
         # swap
-        swap(matrix, curr_pos, next_pos)
         swap(matrix, curr_pos, prev_pos)
         swap(matrix, prev_pos, mid_pos)
+        swap(matrix, mid_pos, next_pos)
 
     n = len(matrix)
     for i in range(n // 2):

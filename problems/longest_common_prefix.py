@@ -49,7 +49,7 @@ def test_longest_common_prefix():
 
 def longest_common_prefix2(strs):
     if not strs:
-        return ''
+        return ""
     if len(strs) == 1:
         return strs[0]
     min_len = min([len(s) for s in strs])
@@ -72,7 +72,7 @@ def is_common(strs, mid):
 
 
 def test_longest_common_prefix2():
-    assert longest_common_prefix2(['flower', 'flow', 'flight']) == 'fl'
-    assert longest_common_prefix2(['', 'test']) == ''
-    assert longest_common_prefix2(['abc']) == 'abc'
-    assert longest_common_prefix2(['abc', 'bca', 'cab']) == ''
+    assert longest_common_prefix2(["flower", "flow", "flight"]) == "fl"
+    assert longest_common_prefix2(["", "test"]) == ""
+    assert longest_common_prefix2(["abc"]) == "abc"
+    assert longest_common_prefix2(["abc", "bca", "cab"]) == ""

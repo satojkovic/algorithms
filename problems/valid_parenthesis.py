@@ -22,13 +22,13 @@ def valid_parenthesis_aster(s):
     # (*) is valid?
     cmin, cmax = 0, 0
     for c in s:
-        if c == '(':
+        if c == "(":
             cmin += 1
             cmax += 1
-        if c == ')':
+        if c == ")":
             cmin = max(cmin - 1, 0)
             cmax -= 1
-        if c == '*':
+        if c == "*":
             cmin = max(cmin - 1, 0)
             cmax += 1
         if cmax < 0:
