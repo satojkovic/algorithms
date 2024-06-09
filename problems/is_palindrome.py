@@ -22,6 +22,36 @@ def is_palindrome2(x):
     return x == revert_num or x == revert_num // 10
 
 
+def is_palindrome3(s):
+    l, r = 0, len(s) - 1
+
+    while l < r:
+        while l < r and not is_alpha_numeric(s[l]):
+            l += 1
+        while r > l and not is_alpha_numeric(s[r]):
+            r -= 1
+        if s[l].lower() != s[r].lower():
+            return False
+        l, r = l + 1, r - 1
+    return True
+
+
+def is_alpha_numeric(c):
+    return (
+        ord("A") <= ord(c) <= ord("Z")
+        or ord("a") <= ord(c) <= ord("z")
+        or ord("0") <= ord(c) <= ord("9")
+    )
+
+
+def test_is_palindrome3():
+    assert is_palindrome3("Was it a car or a cat I saw?") is True
+    assert is_palindrome3("tab a cat") is False
+    assert is_palindrome3("A") is True
+    assert is_palindrome3("abc") is False
+    assert is_palindrome3("abcd") is False
+
+
 def test_is_palindrome2():
     assert is_palindrome2(12321) == True
     assert is_palindrome2(120) == False
