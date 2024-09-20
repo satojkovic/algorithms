@@ -10,7 +10,19 @@ def max_subarray_o3(data):
             maxsofar = max(maxsofar, temp_sum)
     return maxsofar
 
+# O(n^2)
+def max_subarray_o2(data):
+    maxsofar = 0
+    n = len(data)
+    for i in range(0, n):
+        sum = 0
+        for j in range(i, n):
+            sum += data[j]
+            maxsofar = max(maxsofar, sum)
+    return maxsofar
+
 
 def test_max_subarray():
     data = [31, -41, 59, 26, -53, 58, 97, -93, -23, 84]
     assert max_subarray_o3(data) == 187
+    assert max_subarray_o2(data) == 187
