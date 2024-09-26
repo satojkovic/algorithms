@@ -54,6 +54,13 @@ def max_subarray_divide_and_conquer(data):
     n = len(data)
     return maxsum(data, 0, n - 1)
 
+def max_subarray_linear(data):
+    maxsofar, maxendinghere = 0, 0
+    n = len(data)
+    for i in range(n):
+        maxendinghere = max(maxendinghere + data[i], 0)
+        maxsofar = max(maxsofar, maxendinghere)
+    return maxsofar
 
 def test_max_subarray():
     data = [31, -41, 59, 26, -53, 58, 97, -93, -23, 84]
@@ -61,3 +68,4 @@ def test_max_subarray():
     assert max_subarray_o2(data) == 187
     assert max_subarray_o2_another(data) == 187
     assert max_subarray_divide_and_conquer(data) == 187
+    assert max_subarray_linear(data) == 187
