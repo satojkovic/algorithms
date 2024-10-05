@@ -1,11 +1,12 @@
 T = int(input())
-vowels = set(['A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u'])
+vowels = set(['a', 'e', 'i', 'o', 'u'])
 for t in range(1, T + 1):
     kingdom = input().rstrip()
-    if kingdom[-1] == 'y' or kingdom[-1] == 'Y':
-        ruler = 'nobody'
-    elif kingdom[-1] in vowels:
+    last_char = kingdom[-1].lower()
+    if last_char in vowels:
         ruler = 'Alice'
+    elif last_char == 'y':
+        ruler = 'nobody'
     else:
         ruler = 'Bob'
     print('Case #{}: {} is ruled by {}.'.format(t, kingdom, ruler))
