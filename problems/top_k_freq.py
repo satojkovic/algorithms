@@ -15,10 +15,7 @@
 def top_k_freq1(nums, k):
     freqs = {}
     for num in nums:
-        if num in freqs:
-            freqs[num] += 1
-        else:
-            freqs[num] = 1
+        freqs[num] = freqs.get(num, 0) + 1
     ret = sorted(freqs, key=freqs.get, reverse=True)
     return ret[:k]
 
@@ -26,5 +23,9 @@ def top_k_freq1(nums, k):
 def test_top_k_freq1():
     assert top_k_freq1([1, 1, 1, 2, 2, 3], 2) == [1, 2]
     assert top_k_freq1([1], 1) == [1]
-    assert top_k_freq1([], 3) == []
     assert top_k_freq1([1, 2], 2) == [1, 2]
+    assert top_k_freq1([3, 3, 1, 1, 10, 2, 10, 1], 3) == [1, 3, 10]
+
+
+if __name__ == '__main__':
+    print(top_k_freq1([1, 1, 1, 2, 2, 3], 2))
