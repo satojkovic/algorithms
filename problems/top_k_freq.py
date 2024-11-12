@@ -27,5 +27,19 @@ def test_top_k_freq1():
     assert top_k_freq1([3, 3, 1, 1, 10, 2, 10, 1], 3) == [1, 3, 10]
 
 
+def top_k_freq_heap(nums, k):
+    from collections import Counter
+    import heapq
+    freqs = Counter(nums)
+    return heapq.nlargest(k, freqs.keys(), key=freqs.get)
+
+
+def test_top_k_freq_heap():
+    assert top_k_freq_heap([1, 1, 1, 2, 2, 3], 2) == [1, 2]
+    assert top_k_freq_heap([1], 1) == [1]
+    assert top_k_freq_heap([1, 2], 2) == [1, 2]
+    assert top_k_freq_heap([3, 3, 1, 1, 10, 2, 10, 1], 3) == [1, 3, 10]
+
+
 if __name__ == '__main__':
     print(top_k_freq1([1, 1, 1, 2, 2, 3], 2))
