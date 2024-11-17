@@ -30,5 +30,27 @@ def test_product_except_self():
     assert product_except_self([1, 1, 1]) == [1, 1, 1]
     assert product_except_self([10, 3]) == [3, 10]
 
+
+def product_except_self_no_additional_list(nums):
+    nums_len = len(nums)
+    # prefixとsuffixとして用意してanswersに結果を格納することで空間計算量をO(1)とする
+    prefix, suffix = 1, 1
+    answers = [1] * nums_len
+    for i in range(nums_len):
+        answers[i] = prefix if i != 0 else 1
+        prefix *= nums[i]
+    for i in range(nums_len - 1, -1, -1):
+        answers[i] = answers[i] * suffix if i != nums_len - 1 else answers[i]
+        suffix *= nums[i]
+    return answers
+
+
+def test_product_except_self_no_additional_list():
+    assert product_except_self_no_additional_list([1, 2, 3, 4]) == [24, 12, 8, 6]
+    assert product_except_self_no_additional_list([-1, 1, 0, -3, 3]) == [0, 0, 9, 0, 0]
+    assert product_except_self_no_additional_list([1, 1, 1]) == [1, 1, 1]
+    assert product_except_self_no_additional_list([10, 3]) == [3, 10]
+
+
 if __name__ == '__main__':
     print(product_except_self([1, 2, 3, 4]))
