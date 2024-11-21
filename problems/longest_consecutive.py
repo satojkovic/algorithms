@@ -1,3 +1,21 @@
+def longest_consecutive_bf(nums):
+    longest_length = 0
+    for num in nums:
+        current_num = num
+        current_length = 1
+        while current_num + 1 in nums:
+            current_num += 1
+            current_length += 1
+        longest_length = max(longest_length, current_length)
+    return longest_length
+
+
+def test_longest_consecutive_bf():
+    assert longest_consecutive_bf([100, 4, 200, 1, 3, 2]) == 4
+    assert longest_consecutive_bf([0,3,7,2,5,8,4,6,0,1]) == 9
+    assert longest_consecutive_bf([1, 1, 1]) == 1
+
+
 def longest_consecutive(nums):
     nums.sort()
     longest_length = 0
