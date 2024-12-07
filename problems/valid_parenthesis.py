@@ -1,21 +1,25 @@
 def valid_parenthesis(s):
+    paren = {")": "(", "}": "{", "]": "["}
     stack = []
-    parenthesis = {")": "(", "}": "{", "]": "["}
     for c in s:
-        if c in {")", "}", "]"}:
-            if len(stack) == 0 or parenthesis[c] != stack[-1]:
+        if c in paren:
+            if stack and stack[-1] == paren[c]:
+                stack.pop()
+            else:
                 return False
         else:
             stack.append(c)
-    return len(stack) == 0
+    return True if not stack else False
 
 
 def test_valid_parenthesis():
-    assert valid_parenthesis("()") is True
-    assert valid_parenthesis("(){}[]") is True
-    assert valid_parenthesis("(]") is False
-    assert valid_parenthesis("([)]") is False
-    assert valid_parenthesis("{()}") is True
+    assert valid_parenthesis("()")
+    assert valid_parenthesis("(){}[]")
+    assert not valid_parenthesis("(]")
+    assert not valid_parenthesis("([)]")
+    assert valid_parenthesis("{()}")
+    assert not valid_parenthesis("(((")
+    assert not valid_parenthesis(")))))")
 
 
 def valid_parenthesis_aster(s):
