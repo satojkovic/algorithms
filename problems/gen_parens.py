@@ -1,5 +1,32 @@
 import re
 
+def gen_parens_backtrack(n):
+    stack = []
+    res = []
+
+    def backtrack(open_n, close_n):
+        if open_n == close_n == n:
+            res.append(''.join(stack))
+            return
+
+        if open_n < n:
+            stack.append('(')
+            backtrack(open_n + 1, close_n)
+            stack.pop()
+        if open_n > close_n:
+            stack.append(')')
+            backtrack(open_n, close_n + 1)
+            stack.pop()
+
+    backtrack(0, 0)
+    return res
+
+
+def test_gen_parens_backtrack():
+    assert gen_parens_backtrack(1) == ['()']
+    assert gen_parens_backtrack(2) == ['(())', '()()']
+    assert gen_parens_backtrack(3) == ['((()))', '(()())', '(())()', '()(())', '()()()']
+
 
 def gen_parens(n):
     if n == 1:
