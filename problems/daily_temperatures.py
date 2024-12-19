@@ -1,9 +1,9 @@
 def daily_temperatures_bf(temperatures):
     answer = []
-    for i, temp in enumerate(temperatures):
+    for i in range(len(temperatures)):
         diff = 0
         for j in range(i + 1, len(temperatures)):
-            if temperatures[j] > temp:
+            if temperatures[j] > temperatures[i]:
                 diff = j - i
                 break
         answer.append(diff)
