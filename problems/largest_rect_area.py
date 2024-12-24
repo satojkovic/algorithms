@@ -1,7 +1,7 @@
 def largest_rect_area_bf(heights):
     res = 0
     for i in range(len(heights)):
-        for j in range(i - 1, -1, -1):
+        for j in range(i, -1, -1):
             min_h = min(heights[j:i + 1])
             res = max(res, (i - j + 1) * min_h)
         res = max(res, heights[i])
