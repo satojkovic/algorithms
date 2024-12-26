@@ -2,20 +2,16 @@
 # -*- coding=utf-8 -*-
 
 def binary_search(data, target):
-    def _binary_search(data, target, left, right):
-        if left > right:
-            return -1
-
+    left, right = 0, len(data) - 1
+    while left <= right:
         mid = left + (right - left) // 2
         if data[mid] == target:
             return mid
-        elif data[mid] > target:
-            return _binary_search(data, target, left, mid - 1)
+        elif target < data[mid]:
+            right = mid - 1
         else:
-            return _binary_search(data, target, mid + 1, right)
-
-    return _binary_search(data, target, 0, len(data) - 1)
-
+            left = mid + 1
+    return -1
 
 def binary_search_iter(data, target):
     left, right = 0, len(data) - 1
