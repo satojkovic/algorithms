@@ -21,7 +21,7 @@ class TimeMapLinear:
         return ""
 
 
-class TimeMap:
+class TimeMapOld:
 
     def __init__(self):
         self.data = defaultdict(dict)
@@ -43,6 +43,33 @@ class TimeMap:
                 target_timestamp = self.key_timestamp[key][mid]
                 return self.data[key][target_timestamp]
             elif self.key_timestamp[key][mid] < timestamp:
+                left = mid + 1
+            else:
+                right = mid - 1
+        return self.data[key][self.key_timestamp[key][right]] if right >= 0 else ""
+
+
+class TimeMap:
+
+    def __init__(self):
+        self.data = defaultdict(dict)
+        self.key_timestamp = defaultdict(list)
+
+    def set(self, key: str, value: str, timestamp: int) -> None:
+        self.data[key][timestamp] = value
+        self.key_timestamp[key].append(timestamp)
+
+    def get(self, key: str, timestamp: int) -> str:
+        if key not in self.data:
+            return ""
+
+        if timestamp in self.data[key]:
+            return self.data[key][timestamp]
+
+        left, right = 0, len(self.key_timestamp[key]) - 1
+        while left <= right:
+            mid = left + (right - left) // 2
+            if self.key_timestamp[key][mid] < timestamp:
                 left = mid + 1
             else:
                 right = mid - 1
