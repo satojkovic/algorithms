@@ -23,6 +23,18 @@ def max_profit_partial_sort(prices):
     return profit
 
 
+def max_profit_two_pointer(prices):
+    left, right = 0, 1
+    profit = 0
+    while right < len(prices):
+        if prices[left] < prices[right]:
+            profit = max(profit, prices[right] - prices[left])
+        else:
+            left = right
+        right += 1
+    return profit
+
+
 def max_profit(prices):
     min_price, max_profit = prices[0], 0
     for price in prices:
