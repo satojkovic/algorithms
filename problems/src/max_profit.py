@@ -15,6 +15,14 @@ def max_profit_brute_force(prices):
     return profit
 
 
+def max_profit_partial_sort(prices):
+    profit = 0
+    for i in range(len(prices)):
+        max_price = list(sorted(prices[i:]))[-1]
+        profit = max(profit, max_price - prices[i])
+    return profit
+
+
 def max_profit(prices):
     min_price, max_profit = prices[0], 0
     for price in prices:
