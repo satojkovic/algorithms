@@ -7,6 +7,13 @@
 #  profit is calculated by the price of current day and min price at the same time.
 #  max profit is updated if the profit is greater than the existing max profit.
 
+def max_profit_brute_force(prices):
+    profit = 0
+    for i in range(len(prices)):
+        for j in range(i, len(prices)):
+            profit = max(profit, prices[j] - prices[i])
+    return profit
+
 
 def max_profit(prices):
     min_price, max_profit = prices[0], 0
