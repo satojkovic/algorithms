@@ -1,9 +1,9 @@
 def checkInclusion(s1: str, s2: str) -> bool:
-    s1_hash = {}
-    s2_hash = {}
-
     if len(s1) > len(s2):
         return False
+
+    s1_hash = {}
+    s2_hash = {}
 
     for i in range(len(s1)):
         s1_hash[s1[i]] = 1 + s1_hash.get(s1[i], 0)
