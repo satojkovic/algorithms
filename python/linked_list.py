@@ -80,6 +80,17 @@ def reverse_list(head):
     return new_head
 
 
+def reverse_list2(head):
+    prev_node = None
+    curr_node = head
+    while curr_node:
+        next_node = curr_node.next
+        curr_node.next = prev_node
+        prev_node = curr_node
+        curr_node = next_node
+    return prev_node
+
+
 def reverse_list_r(head):
     def reverse(head, prev_head):
         if head is None:
