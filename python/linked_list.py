@@ -103,12 +103,12 @@ def reverse_list_r(head):
 
 
 def reverse_list_r2(head):
-    if head.next is None:
+    if not head or not head.next:
         return head
-    node = reverse_list_r2(head.next)
+    sub_list = reverse_list_r2(head.next)
     head.next.next = head
     head.next = None
-    return node
+    return sub_list
 
 
 def remove_target_node(head, target):
