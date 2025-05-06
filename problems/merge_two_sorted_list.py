@@ -1,5 +1,5 @@
 class ListNode:
-    def __init__(self, x):
+    def __init__(self, x=0):
         self.val = x
         self.next = None
 
@@ -28,16 +28,15 @@ def merge_two_sorted_list(l1, l2):
 
 
 def merge_two_sorted_list_iter(l1, l2):
-    dummy_head = ListNode(-1)
-    tail = dummy_head
+    dummy_head = ListNode()
+    curr_head = dummy_head
     while l1 and l2:
         if l1.val <= l2.val:
-            tail.next = l1
+            curr_head.next = l1
             l1 = l1.next
         else:
-            tail.next = l2
+            curr_head.next = l2
             l2 = l2.next
-        tail = tail.next
-    remains = l1 if l1 else l2
-    tail.next = remains
+        curr_head = curr_head.next
+    curr_head.next = l1 if l1 else l2
     return dummy_head.next
