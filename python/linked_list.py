@@ -92,20 +92,9 @@ def reverse_list2(head):
 
 
 def reverse_list_r(head):
-    def reverse(head, prev_head):
-        if head is None:
-            return prev_head
-        next_head = head.next
-        head.next = prev_head
-        return reverse(next_head, head)
-
-    return reverse(head, None)
-
-
-def reverse_list_r2(head):
     if not head or not head.next:
         return head
-    sub_list = reverse_list_r2(head.next)
+    sub_list = reverse_list_r(head.next)
     head.next.next = head
     head.next = None
     return sub_list
