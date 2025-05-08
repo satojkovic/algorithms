@@ -71,16 +71,6 @@ def remove_nth_from_end2(head, n):
 
 
 def reverse_list(head):
-    new_head = None
-    while head:
-        next_head = head.next
-        head.next = new_head
-        new_head = head
-        head = next_head
-    return new_head
-
-
-def reverse_list2(head):
     prev_node = None
     curr_node = head
     while curr_node:
