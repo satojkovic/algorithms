@@ -27,6 +27,11 @@ def merge_two_sorted_list(l1, l2):
         return l2
 
 
+# Time complexity: O(m + n)
+#  we need to traverse each element within two lists
+# Space complexity: O(1)
+#  we only use a few pointers to traverse the list
+
 def merge_two_sorted_list_iter(l1, l2):
     dummy_head = ListNode()
     curr_head = dummy_head
