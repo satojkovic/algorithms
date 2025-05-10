@@ -1,5 +1,5 @@
 import unittest
-from find_dups import *
+from src.find_dups import *
 from nose.tools import eq_
 
 class TestFindDups(unittest.TestCase):
