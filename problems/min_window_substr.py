@@ -26,8 +26,8 @@ def minWindow(s: str, t: str) -> str:
             left += 1
         right += 1
 
-    res = s[res[0] : res[1] + 1]
-    return res if res_len != len(s) + 1 else ''
+    ans = s[res[0] : res[1] + 1]
+    return ans if res_len != len(s) + 1 else ''
 
 
 def test_min_window():
