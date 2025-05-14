@@ -1,6 +1,10 @@
 import heapq
 from typing import List
 
+# This function returns the maximum value in each sliding window of size k
+# in the given list of integers nums.
+# It uses a max heap to keep track of the maximum values in the current window.
+# The time complexity is O(n log k) and the space complexity is O(k).
 def maxSlidingWindow(nums: List[int], k: int) -> List[int]:
     heap = []
     output = []
