@@ -1,4 +1,9 @@
 # O(n^3)
+# This function returns the maximum sum of a contiguous subarray in the given list of integers.
+# It uses a brute-force approach with three nested loops.
+# The time complexity is O(n^3) and the space complexity is O(1).
+# The function iterates through all possible subarrays and calculates their sums.
+# The maximum sum is updated whenever a larger sum is found.
 def max_subarray_o3(data):
     maxsofar = 0
     n = len(data)
@@ -11,6 +16,14 @@ def max_subarray_o3(data):
     return maxsofar
 
 # O(n^2)
+# This function returns the maximum sum of a contiguous subarray in the given list of integers.
+# It uses a brute-force approach with two nested loops.
+# The time complexity is O(n^2) and the space complexity is O(1).
+# The function iterates through all possible subarrays and calculates their sums.
+# The maximum sum is updated whenever a larger sum is found.
+# The function uses a cumulative sum array to optimize the calculation of subarray sums.
+# The cumulative sum array is built in O(n) time, and the subarray sums are calculated in O(1) time.
+# The overall time complexity is O(n^2) and the space complexity is O(n).
 def max_subarray_o2(data):
     maxsofar = 0
     n = len(data)
