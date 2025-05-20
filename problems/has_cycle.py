@@ -3,6 +3,12 @@ class ListNode:
         self.val = x
         self.next = None
 
+# This function detects if a linked list has a cycle.
+# It uses two pointers, slow and fast. The slow pointer moves one step at a time,
+# while the fast pointer moves two steps at a time. If there is a cycle, the fast pointer
+# will eventually meet the slow pointer. If there is no cycle, the fast pointer will reach the end of the list.
+# The time complexity is O(n) and the space complexity is O(1).
+# The function returns True if a cycle is detected, otherwise it returns False.
 def hasCycle(head):
     if not head:
         return False
