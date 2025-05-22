@@ -22,6 +22,15 @@ def hasCycle(head):
     return True
 
 
+# Test cases for the hasCycle function
+# This function tests the hasCycle function with various test cases.
+# It creates linked lists with and without cycles and checks if the function correctly identifies them.
+# The test cases include:
+# 1. A linked list with no cycle
+# 2. A linked list with a cycle
+# 3. A single node linked list with no cycle
+# 4. A single node linked list with a cycle
+# 5. An empty linked list
 def test_hasCycle():
     # Test case 1: No cycle
     head1 = ListNode(1)
