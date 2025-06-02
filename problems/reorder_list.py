@@ -3,6 +3,12 @@ class ListNode:
         self.val = val
         self.next = next
 
+# Reorder a linked list in-place such that the nodes are arranged in the order:
+# L0 → Ln → L1 → Ln-1 → L2 → Ln-2 → ...
+# Example: Given 1 -> 2 -> 3 -> 4, reorder it to 1 -> 4 -> 2 -> 3.
+
+# This function collects all nodes in a list, then rearranges them
+# by alternating between the start and end of the list.
 def reorderList(head):
     nodes = []
     curr = head
@@ -20,6 +26,9 @@ def reorderList(head):
         right -= 1
     nodes[left].next = None
 
+# Another approach to reorder a linked list in-place.
+# This method finds the middle of the list, reverses the latter half,
+# and then merges the two halves.
 def reorderList2(head):
     """
     Do not return anything, modify head in-place instead.
