@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 # -*- coding=utf-8 -*-
 
+# Binary Search Algorithms
+# This module provides implementations of binary search algorithms
+# including standard binary search, iterative binary search,
+# binary search for sparse arrays, and a variant of binary search.
+
 def binary_search(data, target):
     left, right = 0, len(data) - 1
     while left <= right:
