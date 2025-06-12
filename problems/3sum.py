@@ -1,3 +1,6 @@
+# This code implements the 3Sum problem, which is to find all unique triplets
+# in an array that sum to zero.
+# Brute Force: Check all combinations of triplets.
 def three_sum_bf(nums):
     nums.sort()
     triplets = set()
