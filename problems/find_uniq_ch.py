@@ -1,3 +1,5 @@
+# This code finds the index of the first unique character in a string.
+# If no unique character exists, it returns -1.
 def find_uniq_ch(s):
     m = {}
     for i, ch in enumerate(s):
