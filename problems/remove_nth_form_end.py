@@ -3,6 +3,25 @@ class ListNode:
         self.val = val
         self.next = next
 
+def remove_nth_from_end(head, n):
+    length = 0
+    current = head
+    while current:
+        current = current.next
+        length += 1
+
+    if length == n:
+        return head.next
+
+    node_before_removed_index = length - n - 1
+    current = head
+    for _ in range(node_before_removed_index):
+        current = current.next
+
+    current.next = current.next.next
+
+    return head
+
 def removeNthFromEnd(head, n):
     fast = head
     for _ in range(n):
