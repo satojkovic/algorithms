@@ -3,6 +3,18 @@ class ListNode:
         self.val = val
         self.next = next
 
+def remove_nth_from_end_onepass(head, n):
+    dummy = ListNode(0)
+    dummy.next = head
+    slow = fast = dummy
+    for _ in range(n + 1):
+        fast = fast.next
+    while fast:
+        fast = fast.next
+        slow = slow.next
+    slow.next = slow.next.next
+    return dummy.next
+
 def remove_nth_from_end(head, n):
     length = 0
     current = head
@@ -70,6 +82,6 @@ def test_remove_nth_from_end():
 
     for i, (lst, n, expected) in enumerate(test_cases):
         head = create_linked_list(lst)
-        new_head = removeNthFromEnd(head, n)
+        new_head = remove_nth_from_end_onepass(head, n)
         result = linked_list_to_list(new_head)
         assert result == expected, f"Test case {i + 1} failed: {result} != {expected}"
