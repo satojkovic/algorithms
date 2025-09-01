@@ -19,7 +19,6 @@ def add_two_numbers(l1, l2):
         l2 = l2.next if l2 else l2
     if carry:
         head.next = ListNode(carry)
-        head = head.next
     return dummy.next
 
 
