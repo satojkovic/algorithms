@@ -8,7 +8,7 @@ def add_two_numbers(l1, l2):
     dummy = ListNode(None)
     head = dummy
     carry = 0
-    while l1 or l2:
+    while l1 or l2 or carry != 0:
         l1_val = l1.val if l1 else 0
         l2_val = l2.val if l2 else 0
         total = l1_val + l2_val + carry
@@ -17,8 +17,6 @@ def add_two_numbers(l1, l2):
         head = head.next
         l1 = l1.next if l1 else l1
         l2 = l2.next if l2 else l2
-    if carry:
-        head.next = ListNode(carry)
     return dummy.next
 
 
