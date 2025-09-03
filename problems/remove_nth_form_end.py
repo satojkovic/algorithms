@@ -3,7 +3,7 @@ class ListNode:
         self.val = val
         self.next = next
 
-def remove_nth_from_end_onepass(head, n):
+def remove_nth_from_end_onepass(head: ListNode|None, n: int) -> ListNode|None:
     dummy = ListNode(0)
     dummy.next = head
     slow = fast = dummy
@@ -15,7 +15,7 @@ def remove_nth_from_end_onepass(head, n):
     slow.next = slow.next.next
     return dummy.next
 
-def remove_nth_from_end(head, n):
+def remove_nth_from_end(head: ListNode|None, n: int) -> ListNode|None:
     length = 0
     current = head
     while current:
@@ -34,7 +34,7 @@ def remove_nth_from_end(head, n):
 
     return head
 
-def removeNthFromEnd(head, n):
+def removeNthFromEnd(head: ListNode|None, n: int) -> ListNode|None:
     fast = head
     for _ in range(n):
         fast = fast.next
