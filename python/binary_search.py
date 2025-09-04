@@ -7,16 +7,19 @@
 # binary search for sparse arrays, and a variant of binary search.
 
 def binary_search(data, target):
-    left, right = 0, len(data) - 1
-    while left <= right:
+    def search(data, target, left, right):
+        if left > right:
+            return -1
+
         mid = left + (right - left) // 2
         if data[mid] == target:
             return mid
         elif target < data[mid]:
-            right = mid - 1
+            return search(data, target, left, mid - 1)
         else:
-            left = mid + 1
-    return -1
+            return search(data, target, mid + 1, right)
+
+    return search(data, target, 0, len(data) - 1)
 
 def binary_search_iter(data, target):
     left, right = 0, len(data) - 1
