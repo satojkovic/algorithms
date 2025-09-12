@@ -21,6 +21,22 @@ class Solution:
         return self.max_diameter
 
 
+def diameterOfBinaryTree(root: TreeNode) -> int:
+    max_diameter = 0
+
+    def get_depth(root):
+        nonlocal max_diameter
+        if not root:
+            return 0
+        left_depth = get_depth(root.left)
+        right_depth = get_depth(root.right)
+        max_diameter = max(left_depth + right_depth, max_diameter)
+        return max(left_depth, right_depth) + 1
+
+    get_depth(root)
+    return max_diameter
+
+
 def test_max_diameter_of_tree():
     root = TreeNode(1)
     root.left = TreeNode(2)
@@ -38,3 +54,20 @@ def test_max_diameter_of_tree():
 
     root3 = None
     assert solution.diameterOfBinaryTree(root3) == 0
+
+
+def test_max_diameter_of_tree_function():
+    root = TreeNode(1)
+    root.left = TreeNode(2)
+    root.right = TreeNode(3)
+    root.left.left = TreeNode(4)
+    root.left.right = TreeNode(5)
+
+    assert diameterOfBinaryTree(root) == 3
+
+    root2 = TreeNode(1)
+    root2.left = TreeNode(2)
+    assert diameterOfBinaryTree(root2) == 1
+
+    root3 = None
+    assert diameterOfBinaryTree(root3) == 0
