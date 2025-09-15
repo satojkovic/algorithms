@@ -50,3 +50,33 @@ def find_dups3(nums):
         else:
             high = mid
     return low
+
+
+def find_dups4(nums):
+    slow, fast = nums[0], nums[nums[0]]
+    while slow != fast:
+        slow = nums[slow]
+        fast = nums[nums[fast]]
+    slow = 0
+    while slow != fast:
+        slow = nums[slow]
+        fast = nums[fast]
+    return slow
+
+
+def test_find_dups():
+    assert find_dups1([1, 2, 3, 1]) is True
+    assert find_dups1([1, 2, 3, 4]) is False
+    assert find_dups1([1]) is False
+
+    assert find_dups2([1, 2, 3, 1]) is True
+    assert find_dups2([1, 2, 3, 4]) is False
+    assert find_dups2([1]) is False
+
+    assert find_dups3([1, 3, 4, 2, 2]) == 2
+    assert find_dups3([1, 1]) == 1
+    assert find_dups3([3, 2, 1, 3]) == 3
+
+    assert find_dups4([1, 3, 4, 2, 2]) == 2
+    assert find_dups4([1, 1]) == 1
+    assert find_dups4([3, 2, 1, 3]) == 3
