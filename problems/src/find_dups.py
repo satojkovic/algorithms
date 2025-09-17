@@ -52,6 +52,16 @@ def find_dups3(nums):
     return low
 
 
+# Time complexity: O(n)
+#  Floyd's Tortoise and Hare (Cycle Detection) algorithm
+#  The algorithm uses two pointers that move at different speeds to detect a cycle in a linked list.
+#  In this case, the array is treated as a linked list where each index points to the value at that index.
+#  The slow pointer moves one step at a time, while the fast pointer moves two steps at a time.
+#  If there is a cycle, the two pointers will eventually meet.
+#  Once a cycle is detected, a new pointer is initialized at the start of the array, and both pointers move one step at a time until they meet again.
+#  The meeting point is the duplicate number.
+# Space complexity: O(1)
+#  only a constant amount of extra space is used for the pointers.
 def find_dups4(nums):
     slow, fast = nums[0], nums[nums[0]]
     while slow != fast:
