@@ -5,6 +5,11 @@ class TreeNode:
         self.right = right
 
 
+# Time complexity: O(n)
+#  we visit each node once, where n is the number of nodes in the tree.
+# Space complexity: O(h)
+#  the space complexity is O(h), where h is the height of the tree.
+#  This space is used by the recursion stack during the depth-first search (DFS).
 class Solution:
     def diameterOfBinaryTree(self, root: TreeNode) -> int:
         self.max_diameter = 0
