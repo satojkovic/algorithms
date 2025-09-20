@@ -7,9 +7,8 @@ def find_dups1(nums):
     seen = set()
     for num in nums:
         if num in seen:
-            return True
+            return num
         seen.add(num)
-    return False
 
 
 def find_dups1a(nums):
@@ -75,9 +74,9 @@ def find_dups4(nums):
 
 
 def test_find_dups():
-    assert find_dups1([1, 2, 3, 1]) is True
-    assert find_dups1([1, 2, 3, 4]) is False
-    assert find_dups1([1]) is False
+    assert find_dups1([1, 3, 4, 2, 2]) == 2
+    assert find_dups1([1, 1]) == 1
+    assert find_dups1([3, 2, 1, 3]) == 3
 
     assert find_dups2([1, 2, 3, 1]) is True
     assert find_dups2([1, 2, 3, 4]) is False
