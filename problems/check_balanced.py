@@ -34,6 +34,18 @@ def is_balanced(root):
     return cond
 
 
+def is_balanced2(root):
+    def check(root):
+        if not root:
+            return 0
+        left_h = check(root.left)
+        right_h = check(root.right)
+        if left_h == -1 or right_h == -1 or abs(left_h - right_h) > 1:
+            return -1
+        return max(left_h, right_h) + 1
+    return check(root) >= 0
+
+
 def test_is_balanced():
     root = TreeNode(10)
     root.left = TreeNode(3)
