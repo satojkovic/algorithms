@@ -20,7 +20,7 @@ def is_same_tree(T1, T2):
         return False
     return is_same_tree(T1.left, T2.left) and is_same_tree(T1.right, T2.right)
 
-if __name__ == "__main__":
+def test_check_subtree():
     root = TreeNode(11)
     root.left = TreeNode(4)
     root.right = TreeNode(8)
