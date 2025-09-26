@@ -8,17 +8,17 @@ def check_subtree(T1, T2):
     if T1 is None or T2 is None:
         return False
 
-    if T1.val == T2.val and check(T1, T2):
+    if T1.val == T2.val and is_same_tree(T1, T2):
         return True
 
     return check_subtree(T1.left, T2) or check_subtree(T1.right, T2)
 
-def check(T1, T2):
+def is_same_tree(T1, T2):
     if T1 is None and T2 is None:
         return True
     if T1 is None or T2 is None or T1.val != T2.val:
         return False
-    return check(T1.left, T2.left) and check(T1.right, T2.right)
+    return is_same_tree(T1.left, T2.left) and is_same_tree(T1.right, T2.right)
 
 if __name__ == "__main__":
     root = TreeNode(11)
