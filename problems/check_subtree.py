@@ -33,3 +33,15 @@ def test_check_subtree():
 
     root3 = TreeNode(4)
     root3.left = TreeNode(20)
+
+    root4 = TreeNode(11)
+    root4.left = TreeNode(4)
+    root4.right = TreeNode(8)
+    root4.right.right = TreeNode(6)
+    root4.right.right.left = TreeNode(7)
+    root4.right.right.left.left = TreeNode(1)
+
+    assert check_subtree(root, root2) == True
+    assert check_subtree(root, root3) == False
+    assert check_subtree(root, root4) == False
+    assert check_subtree(root4, root2) == False
