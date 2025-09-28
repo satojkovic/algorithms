@@ -33,6 +33,3 @@ def test_check_subtree():
 
     root3 = TreeNode(4)
     root3.left = TreeNode(20)
-
-    print(check_subtree(root, root2))
-    print(check_subtree(root, root3))
