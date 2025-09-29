@@ -41,7 +41,7 @@ def test_check_subtree():
     root4.right.right.left = TreeNode(7)
     root4.right.right.left.left = TreeNode(1)
 
-    assert check_subtree(root, root2) == True
-    assert check_subtree(root, root3) == False
-    assert check_subtree(root, root4) == False
-    assert check_subtree(root4, root2) == False
+    assert check_subtree(root, root2) is True
+    assert check_subtree(root, root3) is False
+    assert check_subtree(root, root4) is False
+    assert check_subtree(root4, root2) is False
