@@ -78,58 +78,51 @@ class MaxHeap:
 
 class MinHeap:
     def __init__(self):
-        self.data = []
+        self.heap = []
 
-    def heapify(self, data, p, size):
-        left_idx = 2 * p + 1
-        right_idx = 2 * p + 2
-        smallest = p
-        if left_idx < size and data[left_idx] < data[smallest]:
-            smallest = left_idx
-        if right_idx < size and data[right_idx] < data[smallest]:
-            smallest = right_idx
-        if smallest != p:
-            data[smallest], data[p] = data[p], data[smallest]
-            data = self.heapify(data, smallest, size)
-        return data
+    def _shift_up(self, idx):
+        while idx > 0:
+            parent = (idx - 1) // 2
+            if self.heap[parent] > self.heap[idx]:
+                self.heap[parent], self.heap[idx] = self.heap[idx], self.heap[parent]
+                idx = parent
+            else:
+                break
 
-    def build(self, data):
-        tail = len(data) - 1
-        parent = (tail - 1) // 2
-        for p in range(parent, -1, -1):
-            data = self.heapify(data, p, size=len(data))
-        self.data = data
+    def _shift_down(self, idx):
+        data_size = len(self.heap)
+        while idx < data_size:
+            left_idx = 2 * idx + 1
+            right_idx = 2 * idx + 2
+            smallest = idx
+            if left_idx < data_size and self.heap[smallest] > self.heap[left_idx]:
+                smallest = left_idx
+            if right_idx < data_size and self.heap[smallest] > self.heap[right_idx]:
+                smallest = right_idx
+            if smallest == idx:
+                break
+            self.heap[smallest], self.heap[idx] = self.heap[idx], self.heap[smallest]
+            idx = smallest
 
     def push(self, val):
-        self.data.append(val)
-        curr = len(self.data) - 1
-        while curr > 0:
-            parent = (curr - 1) // 2
-            if self.data[parent] <= self.data[curr]:
-                break
-            self.data[parent], self.data[curr] = self.data[curr], self.data[parent]
-            curr = parent
+        self.heap.append(val)
+        self._shift_up(len(self.heap) - 1)
 
     def pop(self):
-        if len(self.data) == 0:
+        if len(self.heap) == 0:
             return None
-        self.data[0], self.data[-1] = self.data[-1], self.data[0]
-        ret = self.data.pop()
-        curr = 0
-        data_size = len(self.data)
-        while curr < data_size:
-            left_idx = 2 * curr + 1
-            right_idx = 2 * curr + 2
-            smallest = curr
-            if left_idx < data_size and self.data[smallest] > self.data[left_idx]:
-                smallest = left_idx
-            if right_idx < data_size and self.data[smallest] > self.data[right_idx]:
-                smallest = right_idx
-            if smallest == curr:
-                break
-            self.data[smallest], self.data[curr] = self.data[curr], self.data[smallest]
-            curr = smallest
+        self.heap[0], self.heap[-1] = self.heap[-1], self.heap[0]
+        ret = self.heap.pop()
+        self._shift_down(0)
         return ret
+
+    def peek(self):
+        if len(self.heap) == 0:
+            return None
+        return self.heap[0]
+
+    def __len__(self):
+        return len(self.heap)
 
 
 # data from Algorithm Introduction 3rd edition
@@ -141,5 +134,7 @@ def test_max_heap():
 
 def test_min_heap():
     min_heap = MinHeap()
-    min_heap.build([4, 1, 3, 2, 16, 9, 10, 14, 8, 7])
-    assert min_heap.data == [1, 2, 3, 4, 7, 9, 10, 14, 8, 16]
+    values = [4, 1, 3, 2, 16, 9, 10, 14, 8, 7]
+    for val in values:
+        min_heap.push(val)
+    assert min_heap.heap == [1, 2, 3, 4, 7, 9, 10, 14, 8, 16]
