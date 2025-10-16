@@ -23,6 +23,13 @@ def test_k_closest():
     import deepdiff
 
     assert not deepdiff.DeepDiff(
+        kClosest_sort([[1, 3], [-2, 2]], 1), [[-2, 2]], ignore_order=True
+    )
+    assert not deepdiff.DeepDiff(
+        kClosest_sort([[1, 3], [-2, 2]], 2), [[-2, 2], [1, 3]], ignore_order=True
+    )
+
+    assert not deepdiff.DeepDiff(
         kClosest([[1, 3], [-2, 2]], 1), [[-2, 2]], ignore_order=True
     )
     assert not deepdiff.DeepDiff(
