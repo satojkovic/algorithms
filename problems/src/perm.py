@@ -11,23 +11,22 @@ def permutations(nums):
 
 
 def perm_backtrack(nums):
-    def backtrack(curr, seen):
+    def backtrack(curr):
         if len(curr) == len(nums):
             res.append(curr[:])  # curr[:] means copy values
             return
-        for n in nums:
-            if n not in seen:
-                curr.append(n)
-                seen.add(n)
+        for i in range(len(nums)):
+            if not seen[i]:
+                curr.append(nums[i])
+                seen[i] = True
                 backtrack(curr)
+                seen[i] = False
                 curr.pop()
-                seen.remove(n)
 
     res = []
-    seen = set()
-    backtrack([], seen)
+    seen = [False] * len(nums)
+    backtrack([])
     return res
-
 
 def perm1(nums):
     if len(nums) < 2:
