@@ -95,6 +95,7 @@ def test_num_islands():
     ]
     assert numIslands([row[:] for row in grid1]) == 3
     assert num_islands_union_find([row[:] for row in grid1]) == 3
+    assert num_islands_bfs([row[:] for row in grid1]) == 3
 
     grid2 = [
         ["1", "1", "0", "0", "0"],
@@ -105,7 +106,9 @@ def test_num_islands():
     ]
     assert numIslands([row[:] for row in grid2]) == 6
     assert num_islands_union_find([row[:] for row in grid2]) == 6
+    assert num_islands_bfs([row[:] for row in grid2]) == 6
 
     grid3 = [["1","1","1"],["0","1","0"],["1","1","1"]]
     assert numIslands([row[:] for row in grid3]) == 1
     assert num_islands_union_find([row[:] for row in grid3]) == 1
+    assert num_islands_bfs([row[:] for row in grid3]) == 1
