@@ -19,18 +19,29 @@ def numIslands(grid):
 
 
 from collections import deque
-def bfs(grid, row, col):
-    q = deque([(row, col)])
-    grid[row][col] = '0'
-    rows = len(grid)
-    cols = len(grid[0])
-    while q:
-        r, c = q.popleft()
-        for delta_r, delta_c in [(-1, 0), (0, -1), (1, 0), (0, 1)]:
-            if 0 <= r + delta_r < rows and 0 <= c + delta_c < cols and grid[r + delta_r][c + delta_c] == '1':
-                q.append((r + delta_r, c + delta_c))
-                grid[r + delta_r][c + delta_c] = '0'
+def num_islands_bfs(grid):
+    def bfs(row, col):
+        q = deque([(row, col)])
+        grid[row][col] = '0'
+        rows = len(grid)
+        cols = len(grid[0])
+        while q:
+            row, col = q.popleft()
+            directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+            for dr, dc in directions:
+                new_row, new_col = row + dr, col + dc
+                if 0 <= new_row < rows and 0 <= new_col < cols and grid[new_row][new_col] == '1':
+                    q.append((new_row, new_col))
+                    grid[new_row][new_col] = '0'
 
+    num_islands = 0
+    for row in range(len(grid)):
+        for col in range(len(grid[0])):
+            if grid[row][col] == '1':
+                num_islands += 1
+                bfs(row, col)
+
+    return num_islands
 
 def num_islands_union_find(grid):
     def union(p, q):
