@@ -1,21 +1,22 @@
 def numIslands(grid):
+    def dfs(row, col):
+        if not (0 <= row < len(grid) and 0 <= col < len(grid[0])) or grid[row][col] != '1':
+            return
+        grid[row][col] = '0'
+        dfs(row + 1, col)
+        dfs(row, col + 1)
+        dfs(row - 1, col)
+        dfs(row, col - 1)
+
     num_islands = 0
     for row in range(len(grid)):
         for col in range(len(grid[0])):
             if grid[row][col] == '1':
                 num_islands += 1
-                dfs(grid, row, col)
+                dfs(row, col)
 
     return num_islands
 
-def dfs(grid, row, col):
-    if not (0 <= row < len(grid) and 0 <= col < len(grid[0])) or grid[row][col] != '1':
-        return
-    grid[row][col] = '0'
-    dfs(grid, row + 1, col)
-    dfs(grid, row, col + 1)
-    dfs(grid, row - 1, col)
-    dfs(grid, row, col - 1)
 
 from collections import deque
 def bfs(grid, row, col):
