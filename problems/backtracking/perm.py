@@ -1,15 +1,3 @@
-def permutations(nums):
-    if len(nums) == 1:
-        return [nums]
-    res = []
-    for i, n in enumerate(nums):
-        former, latter = nums[:i], nums[i + 1 :]
-        perms = permutations(former + latter)
-        for p in perms:
-            res.append(p + [n])
-    return res
-
-
 def perm_backtrack(nums):
     def backtrack(curr):
         if len(curr) == len(nums):
@@ -27,3 +15,23 @@ def perm_backtrack(nums):
     seen = [False] * len(nums)
     backtrack([])
     return res
+
+
+def test_perm_backtrack():
+    assert perm_backtrack([1, 2, 3]) == [
+        [1, 2, 3],
+        [1, 3, 2],
+        [2, 1, 3],
+        [2, 3, 1],
+        [3, 1, 2],
+        [3, 2, 1],
+    ]
+
+    assert perm_backtrack([1, 2, 3]) == [[1, 2, 3],
+                                        [1, 3, 2],
+                                        [2, 1, 3],
+                                        [2, 3, 1],
+                                        [3, 1, 2],
+                                        [3, 2, 1]]
+    assert perm_backtrack([0, 1]) == [[0, 1], [1, 0]]
+    assert perm_backtrack([1]) == [[1]]
