@@ -68,10 +68,10 @@ def max_subarray_divide_and_conquer(data):
     return maxsum(data, 0, n - 1)
 
 def max_subarray_linear(data):
-    maxsofar, maxendinghere = 0, 0
+    maxsofar, maxendinghere = data[0], data[0]
     n = len(data)
-    for i in range(n):
-        maxendinghere = max(maxendinghere + data[i], 0)
+    for i in range(1, n):
+        maxendinghere = max(maxendinghere + data[i], data[i])
         maxsofar = max(maxsofar, maxendinghere)
     return maxsofar
 
