@@ -36,9 +36,16 @@ def canJump_greedy(nums: List[int]) -> bool:
 
 def test_canJump_backtrack():
     assert canJump_backtrack(None, [2, 3, 1, 1, 4]) is True
+    assert canJump_backtrack(None, [2, 0, 0]) is True
+    assert canJump_backtrack(None, [1, 1, 0]) is True
     assert canJump_backtrack(None, [3, 2, 1, 0, 4]) is False
-
+    assert canJump_backtrack(None, [0, 1]) is False
+    assert canJump_backtrack(None, [0]) is True
 
 def test_canJump_greedy():
     assert canJump_greedy([2, 3, 1, 1, 4]) is True
+    assert canJump_greedy([2, 0, 0]) is True
+    assert canJump_greedy([1, 1, 0]) is True
     assert canJump_greedy([3, 2, 1, 0, 4]) is False
+    assert canJump_backtrack(None, [0, 1]) is False
+    assert canJump_greedy([0]) is True
