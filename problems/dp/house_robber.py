@@ -23,3 +23,5 @@ def test_rob():
     assert rob([1, 2]) == 2
     assert rob([2, 1]) == 2
     assert rob([10, 1, 1, 10]) == 20
+    assert rob([0, 0, 0, 0]) == 0
+    assert rob([5, 5, 5, 5, 5]) == 15
