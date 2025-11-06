@@ -20,6 +20,6 @@ def subsets(nums):
 
 def test_subsets():
     assert subsets([1, 2, 3]) == [[], [1], [1, 2], [1, 2, 3], [1, 3], [2], [2, 3], [3]]
+    assert subsets([5, 4]) == [[], [5], [5, 4], [4]]
     assert subsets([1]) == [[], [1]]
     assert subsets([]) == [[]]
-    assert subsets([5, 4]) == [[], [5], [5, 4], [4]]
