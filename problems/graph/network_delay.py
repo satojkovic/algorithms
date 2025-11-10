@@ -2,7 +2,7 @@ from collections import defaultdict
 import heapq
 from typing import List
 
-def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
+def networkDelayTime(times: List[List[int]], n: int, k: int) -> int:
     adj = defaultdict(list)
     for u, v, w in times:
         adj[u].append((v, w))
@@ -30,19 +30,16 @@ def test_networkDelayTime():
     times = [[2, 1, 1], [2, 3, 1], [3, 4, 1]]
     n = 4
     k = 2
-    assert networkDelayTime(None, times, n, k) == 2
-
+    assert networkDelayTime(times, n, k) == 2
     times = [[1, 2, 1]]
     n = 2
     k = 1
-    assert networkDelayTime(None, times, n, k) == 1
-
+    assert networkDelayTime(times, n, k) == 1
     times = [[1, 2, 1]]
     n = 2
     k = 2
-    assert networkDelayTime(None, times, n, k) == -1
-
+    assert networkDelayTime(times, n, k) == -1
     times = [[1, 2, 1], [2, 3, 2], [1, 3, 2]]
     n = 3
     k = 1
-    assert networkDelayTime(None, times, n, k) == 2
+    assert networkDelayTime(times, n, k) == 2
