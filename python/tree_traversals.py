@@ -133,24 +133,23 @@ def levelorder_r(root):
 
 
 def levelorder(root):
-    res = []
-    if root is None:
-        return res
-    q = [root]  # deque([root])
-    level = 0
+    from collections import deque
+    if not root:
+        return []
+    result = []
+    q = deque([root])
     while q:
-        res.append([])
         num_nodes_at_level = len(q)
+        current_level_nodes = []
         for _ in range(num_nodes_at_level):
-            node = q.pop(0)  # q.popleft()
-            res[level].append(node.data)
+            node = q.popleft()
+            current_level_nodes.append(node.val)
             if node.left:
                 q.append(node.left)
             if node.right:
                 q.append(node.right)
-        level += 1
-    return res
-
+        result.append(current_level_nodes)
+    return result
 # Level order traversal and output flattened lists
 
 
