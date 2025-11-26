@@ -111,8 +111,6 @@ def postorder_iter(root):
             stack.append(node.right)
     return list(visited)
 
-# Level order traversal and output nested lists
-
 
 def levelorder_r(root):
     res = []
@@ -150,31 +148,22 @@ def levelorder(root):
                 q.append(node.right)
         result.append(current_level_nodes)
     return result
-# Level order traversal and output flattened lists
 
 
-def levelorder2(root):
-    res = []
-    if root is None:
-        return res
-    q = [root]
-    while q:
-        node = q.pop(0)
-        res.append(node.data)
-        if node.left:
-            q.append(node.left)
-        if node.right:
-            q.append(node.right)
-    return res
-
-
-if __name__ == "__main__":
+def test_tree_traversals():
     root = TreeNode(1)
     root.left = TreeNode(10)
     root.left.right = TreeNode(3)
     root.right = TreeNode(20)
     root.right.left = TreeNode(9)
     root.right.right = TreeNode(11)
-    print(levelorder_r(root))
-    print(levelorder(root))
-    print(levelorder2(root))
+
+    assert inorder(root) == [10, 3, 1, 9, 20, 11]
+    assert inorder_iter(root) == [10, 3, 1, 9, 20, 11]
+    assert preorder(root) == [1, 10, 3, 20, 9, 11]
+    assert preorder_iter(root) == [1, 10, 3, 20, 9, 11]
+    assert postorder(root) == [3, 10, 9, 11, 20, 1]
+
+    assert levelorder(root) == [[1], [10, 20], [3, 9, 11]]
+    assert levelorder_r(root) == [[1], [10, 20], [3, 9, 11]]
+
