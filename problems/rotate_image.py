@@ -1,25 +1,12 @@
 def rotate(matrix):
-    def rot(matrix, i, j):
-        def swap(matrix, a, b):
-            matrix[a[0]][a[1]], matrix[b[0]][b[1]] = (
-                matrix[b[0]][b[1]],
-                matrix[a[0]][a[1]],
-            )
-
-        curr_pos = (i, j)
-        next_pos = (j, n - i - 1)
-        prev_pos = (n - j - 1, i)
-        mid_pos = (n - i - 1, n - j - 1)
-        # swap
-        swap(matrix, curr_pos, prev_pos)
-        swap(matrix, prev_pos, mid_pos)
-        swap(matrix, mid_pos, next_pos)
-
     n = len(matrix)
-    for i in range(n // 2):
-        for j in range(i, n - i - 1):
-            rot(matrix, i, j)
-
+    for layer in range(n // 2):
+        for i in range(layer, n - 1 -layer):
+            top = matrix[layer][i]
+            matrix[layer][i] = matrix[n - 1 - i][layer]
+            matrix[n - 1 - i][layer] = matrix[n - 1 -layer][n - 1 - i]
+            matrix[n - 1 - layer][n - 1 - i] = matrix[i][n - 1 - layer]
+            matrix[i][n - 1 - layer] = top
 
 def test_rotate_image():
     matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
