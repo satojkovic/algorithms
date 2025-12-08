@@ -1,24 +1,18 @@
 import re
 
 def gen_parens_backtrack(n):
-    stack = []
-    res = []
-
-    def backtrack(open_n, close_n):
-        if open_n == close_n == n:
-            res.append(''.join(stack))
+    def backtrack(curr_str, open_count, close_count):
+        if len(curr_str) == n * 2:
+            res.append(curr_str)
             return
 
-        if open_n < n:
-            stack.append('(')
-            backtrack(open_n + 1, close_n)
-            stack.pop()
-        if open_n > close_n:
-            stack.append(')')
-            backtrack(open_n, close_n + 1)
-            stack.pop()
+        if open_count < n:
+            backtrack(curr_str + '(', open_count + 1, close_count)
+        if open_count > close_count:
+            backtrack(curr_str + ')', open_count, close_count + 1)
 
-    backtrack(0, 0)
+    res = []
+    backtrack('', 0, 0)
     return res
 
 
