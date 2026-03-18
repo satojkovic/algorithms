@@ -1,8 +1,9 @@
 def min_cost_climb_stairs(cost):
-    dp = (len(cost) + 1) * [0]
-    for i in range(2, len(cost) + 1):
-        dp[i] = min(dp[i-2] + cost[i-2], dp[i-1] + cost[i-1])
-    return dp[len(cost)]
+    num_costs = len(cost)
+    min_cost = (num_costs + 1) * [0]
+    for i in range(2, num_costs + 1):
+        min_cost[i] = min(min_cost[i-2] + cost[i-2], min_cost[i-1] + cost[i-1])
+    return min_cost[num_costs]
 
 
 def test_min_cost_climb_stairs():
