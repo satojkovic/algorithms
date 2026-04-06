@@ -1,3 +1,10 @@
+"""
+tags: array, dp
+difficulty: medium
+source: leetcode 416
+"""
+
+
 def canPartition(nums):
     total_sum = sum(nums)
     if total_sum % 2 != 0:
