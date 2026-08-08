@@ -1,38 +1,6 @@
 from typing import List, Optional
 from collections import deque
-
-class TreeNode:
-    def __init__(self, val):
-        self.val = val
-        self.left = None
-        self.right = None
-
-def build_tree(lst: List[Optional[int]]) -> Optional[TreeNode]:
-    if not lst or lst[0] is None:
-        return None
-
-    root = TreeNode(lst[0])
-    queue = deque([root])
-    i = 1
-
-    while queue and i < len(lst):
-        node = queue.popleft()
-
-        # 左の子ノード
-        if i < len(lst):
-            if lst[i] is not None:
-                node.left = TreeNode(lst[i])
-                queue.append(node.left)
-            i += 1
-
-        # 右の子ノード
-        if i < len(lst):
-            if lst[i] is not None:
-                node.right = TreeNode(lst[i])
-                queue.append(node.right)
-            i += 1
-
-    return root
+from tree_common import TreeNode, build_tree
 
 
 def validate_bst(root):

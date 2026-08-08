@@ -1,8 +1,4 @@
-class TreeNode:
-    def __init__(self, x):
-        self.val = x
-        self.left = None
-        self.right = None
+from tree_common import TreeNode, build_tree
 
 def kth_smallest1(root, k):
     tree_nodes = []
@@ -25,6 +21,18 @@ def kth_smallest3(root, k):
     traverse(root, tree_nodes)
     heapq.heapify(tree_nodes)
     return heapq.nsmallest(k, tree_nodes)[-1]
+
+def kth_smallest4(root, k):
+    def search(root, node_vals):
+        if root.left:
+            search(root.left, node_vals)
+        node_vals.append(root.val)
+        if root.right:
+            search(root.right, node_vals)
+
+    node_vals = []
+    search(root, node_vals)
+    return node_vals[k - 1]
 
 def traverse(root, tree_nodes):
     if root is None:
@@ -52,3 +60,10 @@ def heapify(data, p):
         data[smallest], data[p] = data[p], data[smallest]
         data = heapify(data, smallest)
     return data
+
+def test_kth_smallest():
+    root = build_tree([3,1,4,None,2])
+    assert kth_smallest4(root, 1) == 1
+
+    root = build_tree([5,3,6,2,4,None,None,1])
+    assert kth_smallest4(root, 3) == 3
