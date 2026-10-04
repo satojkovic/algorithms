@@ -1,31 +1,32 @@
-class WordSearch:
-    def exist(self, board, word):
-        self.nrows, self.ncols = len(board), len(board[0])
-        self.board = board
-        for row in range(self.nrows):
-            for col in range(self.ncols):
-                if self.backtrack(row, col, word, 0):
-                    return True
-        return False
+def exist(board: list[list[str]], word: str) -> bool:
+    m, n = len(board), len(board[0])
 
-    def backtrack(self, row, col, word, idx):
-        if row < 0 or row == self.nrows or col < 0 or col == self.ncols or word[idx] != self.board[row][col]:
-            return False
-        if idx == len(word) - 1 and word[idx] == self.board[row][col]:
+    def search(row, col, depth):
+        if depth == len(word):
             return True
-        self.board[row][col] = '*'
-        for row_delta, col_delta in [(0, 1), (1, 0), (-1, 0), (0, -1)]:
-            ret = self.backtrack(row + row_delta, col +
-                                 col_delta, word, idx + 1)
-            if ret:
-                break
-        self.board[row][col] = word[idx]
-        return ret
+        if row < 0 or row >= m or col < 0 or col >= n or board[row][col] != word[depth]:
+            return False
 
+        temp = board[row][col]
+        board[row][col] = '#' # visited
+
+        found = (search(row - 1, col, depth + 1) or
+                 search(row + 1, col, depth + 1) or
+                 search(row, col - 1, depth + 1) or
+                 search(row, col + 1, depth + 1)
+        )
+
+        board[row][col] = temp
+        return found
+
+    for r in range(m):
+        for c in range(n):
+            if search(r, c, 0):
+                return True
+    return False
 
 def test_wordsearch():
-    ws = WordSearch()
     board = [["A", "B", "C", "E"], ["S", "F", "C", "S"], ["A", "D", "E", "E"]]
-    assert ws.exist(board, "ABCCED") == True
-    assert ws.exist(board, "SEE") == True
-    assert ws.exist(board, "BES") == False
+    assert exist(board, "ABCCED") == True
+    assert exist(board, "SEE") == True
+    assert exist(board, "BES") == False
