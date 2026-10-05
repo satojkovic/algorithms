@@ -9,14 +9,23 @@ def letter_combinations(digits):
         '8': ['t', 'u', 'v'],
         '9': ['w', 'x', 'y', 'z']
     }
-    
-    def combinations(digits, head):
-        if len(digits[head:]) == 1:
-            return letters[digits[head]]
-        res = []
-        for c in combinations(digits, head + 1):
-            for l in letters[digits[head]]:
-                res.append(''.join([l, c]))
-        return res
-    
-    return combinations(digits, 0) if len(digits) != 0 else []
+
+    def backtrack(bucket, candidates):
+        if bucket == len(digits):
+            res.append(''.join(candidates))
+            return
+
+        num = digits[bucket]
+        for letter in letters[num]:
+            candidates.append(letter)
+            backtrack(bucket + 1, candidates)
+            candidates.pop()
+
+    res = []
+    backtrack(0, [])
+    return res
+
+def test_letter_combinations():
+    assert letter_combinations("23") == ["ad","ae","af","bd","be","bf","cd","ce","cf"]
+    assert letter_combinations("2") == ["a", "b", "c"]
+    assert letter_combinations("234") == ["adg","adh","adi","aeg","aeh","aei","afg","afh","afi","bdg","bdh","bdi","beg","beh","bei","bfg","bfh","bfi","cdg","cdh","cdi","ceg","ceh","cei","cfg","cfh","cfi"]
